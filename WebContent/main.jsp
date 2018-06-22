@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="include/top.jsp"%>
+
+
 <div class="jumbotron" style="background-color: #b548d0">
 	<div class="container">
 
-		<video src="./video/MeetNow.mp4" autoplay="autoplay" loop="loop" width="100%"
-			height="100%">
+		<video src="./video/MeetNow.mp4" autoplay="autoplay" loop="loop"
+			width="100%" height="100%">
 			<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
 			<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
 			<p>
@@ -16,17 +18,51 @@
 	</div>
 </div>
 
-<div class="container" style="display: inline;">
-	<!-- Example row of columns -->
-	<div class=row>
-		<div class="col-md-4"">
-			<h2>Heading1 HEE</h2>
-		</div>
-		<div class="col-md-4">
-			<h2>Heading2</h2>
-		</div>
-		<div class="col-md-4">
-			<h2>Heading3</h2>
+<div class="container">
+	<c:forEach var="items" items="${result}">
+			<div class="col">
+				<div class="col-xs-12 col-sm-4">
+					<div class="card">
+						<a class="img-card" href="http://www.fostrap.com/"> <img
+							src="./image/Tulips.jpg" />
+						</a> <br />
+						<div class="card-content">
+							<div class="">${items.attend_date}</div>
+							<h2 class="card-title">
+							<a href="http://www.fostrap.com/"> 
+								${items.board_title}
+							</a>
+							</h4>
+							<p class="img-member"><img class="" src="./image/Tulips.jpg" alt="card image"></p>
+							<div class="">주최자 : ${items.group_leader}</div>
+							<div class="">주최그룹 : ${items.group_name}</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</c:forEach>
+	
+	<div class="col">
+		<div class="col-xs-12 col-sm-4">
+			<div class="card">
+				<a class="img-card" href="http://www.fostrap.com/"> <img
+					src="./image/Tulips.jpg" />
+				</a> <br />
+				<div class="card-content">
+					<h4 class="card-title">
+						<a href="http://www.fostrap.com/"> Your title card </a>
+					</h4>
+					<div class="">Your description card!!</div>
+				</div>
+				<div class="card-read-more">
+					<a class="btn btn-link btn-block" href="http://www.fostrap.com/">
+						Read More </a>
+				</div>
+			</div>
 		</div>
 	</div>
-	<%@ include file="include/bottom.jsp"%>
+</div>
+
+
+<%@ include file="include/bottom.jsp"%>

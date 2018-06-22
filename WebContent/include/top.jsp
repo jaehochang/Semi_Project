@@ -13,20 +13,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="./resources/docs/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <title>meet now</title>
 
   
     <link href="./resources/docs/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
     <link href="./resources/docs/examples/jumbotron/jumbotron.css" rel="stylesheet">
-
-
     <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
-
+	
   </head>
   <script>
+  		
+  
   		$(document).ready(function(){
   			
   			$("#login").click(function(){
