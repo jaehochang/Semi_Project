@@ -1,25 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<hr>
- 	<footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-    </div> <!-- /container -->
+
+       
+        <div>
+                <p style="padding-left:40px;"><a href="#" class=cool-link>
+            새 그룹 시작하기</a></p>
+            
+        </div>
+
+        <div style="padding-left:40px;padding-right: 40px;">
+            <hr class=style-six>
+        </div>
+        <ul>
+            <li><a href="#" class=cool-link> 도움말</a></li>
+            <li><a href="#" class=cool-link> 소개</a></li>
+            <li><a href="#" class=cool-link> Meetup Pro</a></li>
+            <li><a href="#" class=cool-link> 일자리</a></li>
+            <li><a href="#" class=cool-link> Apps(앱스)</a></li>
+            <li><a href="#" class=cool-link> API</a></li>
+            <li><a href="#" class=cool-link> 주제</a></li>
+            <li><a href="#" class=cool-link> 도시 탐색</a></li>
+            <li><a href="#" class=cool-link> 블로그</a></li>
+        </ul>
+
+        <p style="padding-left: 40px;color:#fef8fc;">© 2018 Meetnow Meetnow는 KH 자바 웹&앱 응용SW 개발자 양성과정을 진행 중인 7명의 세미 프로젝트 결과물 입니다.</p>
+
+        <ul>
+            <li><a href="#" class=cool-link>개인 정보 보호</a></li>
+            <li><a href="#" class=cool-link>서비스 약관</a></li>
+        </ul>
+
+      
     
       
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="./resources/docs/dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
-
-</body>
-</html>
