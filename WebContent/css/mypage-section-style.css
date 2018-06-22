@@ -1,0 +1,27 @@
+snsBts * {
+	display: inline-block;
+}
+
+#profilebox {
+	width: 100%;
+	border:1px solid violet;
+}
+
+
+
+#profilebody, #profileaside{
+	display:inline-block;
+	float:left;
+	width:40%;
+	padding:10px;
+	
+	border:1px solid #b831d9;
+	
+	
+	position:relative;
+	left:10%;
+
+}
+
+
+
