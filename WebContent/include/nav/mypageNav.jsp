@@ -6,9 +6,9 @@
 
 
 
-<c:choose>
-
 	<!-- session에서 id값이 있는 경우 : 로그인이 되어있는 경우 -->
+
+<c:choose>
 	<c:when test="${sessionScope.loginId != null}">
 
 
@@ -26,7 +26,6 @@
 	</c:when>
 
 
-<!-- session에서 받아온 값이 아무것도 없는 경우 : 로그인이 되어있지 않은 경우 -->
 	<c:when test="${sessionScope.loginId == null }">
 
 
