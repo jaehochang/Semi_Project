@@ -4,24 +4,23 @@ snsBts * {
 
 #profilebox {
 	width: 100%;
-	border:1px solid violet;
+	height: 600px;
 }
 
-
-
-#profilebody, #profileaside{
-	display:inline-block;
-	float:left;
-	width:40%;
-	padding:10px;
-	
-	border:1px solid #b831d9;
-	
-	
-	position:relative;
-	left:10%;
-
+#profilebody, #profileaside {
+	display: inline-block;
+	float: left;
+	width: 40%;
+	padding: 10px;
+	position: relative;
+	left: 10%;
+	border-radius:5px;
+	box-shadow:1px 1px 3px grey;
+	margin:5px;
+	margin-top:30px;
 }
 
-
-
+h2 {
+	border-bottom: 0.5px solid black;
+	padding-bottom:10px;
+}
