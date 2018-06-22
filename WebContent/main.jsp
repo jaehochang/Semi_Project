@@ -20,7 +20,7 @@
 	<!-- Example row of columns -->
 	<div class=row>
 		<div class="col-md-4"">
-			<h2>Heading1</h2>
+			<h2>Heading1 HEE</h2>
 		</div>
 		<div class="col-md-4">
 			<h2>Heading2</h2>
