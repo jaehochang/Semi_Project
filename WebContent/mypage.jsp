@@ -36,7 +36,7 @@
 	<!-- 이 줄 밑으로 my page 구현하기 -->
 
 
-	<section id="profilebox">
+	<div id="profilebox">
 
 		<div class="panel panel-default" id=profilebody>
 			<div class=container id=boxheader>
@@ -62,7 +62,7 @@
 			</div>
 
 			<div class="container" id="meetnow">
-				<h1>2 Meetup의 멤버</h1>
+				<h2>2 Meetup의 멤버</h1>
 				<a href="#">가입한 그룹 숨기기</a>
 			</div>
 
@@ -86,12 +86,24 @@
 		<!-- aside 시작 -->
 		<div class="panel panel-default" id=profileaside>
 			<img src="xbox.png"
-				style="height: 100px; width: 100px; display: inline-block;"> <span>change
+				style="height: 100px; width: 100px; display:block; margin:0 auto;"> 
+				<span>change
 				your photo</span>
+				
+				<div id=interestbox>
+				<h2>관심사</h2>
+				<a href="#">프로필에서 관심사 숨기기</a>
+				<a href="#">편집</a>
+				</div>
+				
+				<div id=interests>
+				라이프 트렌스포밍 예측분석 개발자 빅데이터 자바 운동 스포츠 농구 걷기 
+				</div>
+				
 		</div>
 
 
-	</section>
+	</div>
 
 
 	<!-- 	footer -->
