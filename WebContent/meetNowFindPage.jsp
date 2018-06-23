@@ -42,6 +42,10 @@ section {
 	width: 60%;
 }
 
+section ul li {
+	border: solid 1px grey;
+}
+
 aside {
 	height: 400px;
 	width: 40%;
@@ -52,6 +56,7 @@ aside {
 
 section, aside {
 	display: inline-block;
+	left: 10%;
 }
 </style>
 
@@ -75,49 +80,20 @@ section, aside {
 	<section class=well>
 		<label>2018년 6월 23일 토요일</label>
 		<ul>
-			<li><div class="container meetnowlist">
-					<div class=container id=when>
-						<span> 7:00</span>
+			<li><span> 7:00</span>
 
-					</div>
-					<div class=container id=meetnowinfo>
-						<h4>축구</h4>
-						<h2>서울 한강변에서 빔 켜고 축구보기</h2>
-						<span>722 명 참석 예정</span>
-					</div>
-				</div></li>
+				<h4>축구</h4>
+				<h2>서울 한강변에서 빔 켜고 축구보기</h2> <span>722 명 참석 예정</span></li>
 
 
-			<li>
+			<li><span> 7:00</span>
 
-				<div class="container meetnowlist">
-					<div class=container id=when>
-						<span> 12:00</span>
+				<h4>축구</h4>
+				<h2>서울 한강변에서 빔 켜고 축구보기</h2> <span>722 명 참석 예정</span></li>
+			<li><span> 7:00</span>
 
-					</div>
-					<div class=container id=meetnowinfo>
-						<h4>축구</h4>
-						<h2>서울 한강변에서 빔 켜고 축구보기</h2>
-						<span>722 명 참석 예정</span>
-					</div>
-			</li>
-
-
-			<li>
-
-
-				<div class="container meetnowlist">
-					<div class=container id=when>
-						<span> 14:00</span>
-
-					</div>
-					<div class=container id=meetnowinfo>
-						<h4>축구</h4>
-						<h2>서울 한강변에서 빔 켜고 축구보기</h2>
-						<span>722 명 참석 예정</span>
-					</div>
-			</li>
-
+				<h4>축구</h4>
+				<h2>서울 한강변에서 빔 켜고 축구보기</h2> <span>722 명 참석 예정</span></li>
 
 		</ul>
 
