@@ -34,7 +34,7 @@
 		<ul id=nav-ul>
 
 			<li><a href="#">새 그룹 시작하기</a>
-			<li><a href="#">로그인</a>
+			<li><a href="login.jsp">로그인</a>
 			<li><button type="button" class="btn btn-primary"
 					data-toggle="modal" data-target="#idTypeQuestions">가입하기</button> <!-- Modal -->
 				<div class="modal fade" id="idTypeQuestions" tabindex="-1"
