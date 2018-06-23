@@ -55,19 +55,19 @@
 				<form action="signUpApply.co" method="post">
 					<div class="form-group">
 						<label for="name"> 이름</label> <input id=name name=name type=text
-							class=form-control>
+							class=form-control max=50 required>
 					</div>
 
 
 					<div class="form-group">
 						<label for="email"> 이메일</label> <input id=email name=email
-							type=email class=form-control>
+							type=email class=form-control required>
 					</div>
 
 
 					<div class="form-group">
 						<label for="pw"> 비밀번호</label> <input id=pw name=pw type=password
-							class=form-control>
+							class=form-control max=13 required>
 					</div>
 
 

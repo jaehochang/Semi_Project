@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
 
-
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,6 +54,29 @@ public class MemberController extends HttpServlet {
 
 				}
 
+			} else if (command.equals("/login.co")){
+				
+				String email = (String) request.getParameter("email");
+				String pw = (String) request.getParameter("pw");
+				
+				MemberDAO mDAO = new MemberDAO();
+				MemberDTO mDTO = new MemberDTO();
+			
+				mDTO.setEmail(email);
+				mDTO.setPw(pw);
+				
+				boolean result = mDAO.login(mDTO);
+				
+				if(result) {
+					isRedirect=false;
+					request.getSession().setAttribute("loginId", email);
+					dst="meetNowFindPage.jsp";
+				}else {
+					isRedirect=true;
+					dst="login.jsp";
+				}
+				
+
 			} else if (command.equals("/signUpPage.co")) {
 
 				isRedirect = true;
@@ -67,9 +89,8 @@ public class MemberController extends HttpServlet {
 				String email = (String) request.getParameter("email");
 				String pw = (String) request.getParameter("pw");
 
-				
-				System.out.println( name + email + pw );
-				
+				System.out.println(name + email + pw);
+
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO dto = new MemberDTO();
 

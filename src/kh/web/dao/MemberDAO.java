@@ -45,19 +45,46 @@ public class MemberDAO {
 		con.commit();
 		con.close();
 		ps.close();
-		
-		
+
 		if (rs > 0) {
-			
+
 			return true;
-	
+
 		} else {
-		
+
 			return false;
-		
+
 		}
 
-	
+	}
+
+	public boolean login(MemberDTO mDTO) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+
+		String sql = "select * from member where email=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, mDTO.getEmail());
+
+		ResultSet rs = ps.executeQuery();
+		
+		rs.next();
+
+		String dbPw = rs.getString(3);
+
+		System.out.println(dbPw + " / " + mDTO.getPw());
+		
+		con.close();
+		rs.close();
+		ps.close();
+		
+		
+		if (dbPw.equals(mDTO.getPw())) {
+			return true;
+
+		} else {
+			return false;
+		}
 	}
 
 }
