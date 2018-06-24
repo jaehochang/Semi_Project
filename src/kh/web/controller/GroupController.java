@@ -10,20 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.web.dao.MemberDAO;
+import kh.web.dao.GroupDAO;
+import kh.web.dto.GTableDTO;
+import kh.web.dto.GtablePictureDTO;
 
-@WebServlet("*.co")
-public class MemberController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-    public MemberController() {
-        super();
-
-    }
-
+@WebServlet("*.group")
+public class GroupController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		try {
 			String requestURI = request.getRequestURI();
 			String contextPath = request.getContextPath();
@@ -31,39 +26,22 @@ public class MemberController extends HttpServlet {
 		
 			System.out.println(command); 
 
-			MemberDAO dao = new MemberDAO();
+			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
 			
-			if (command.equals("/LoginController.co")) {
-				String email = request.getParameter("email");
-				String pw = request.getParameter("pw");
-				boolean result = dao.isIdPw(email, pw);
-				if(result){
-					
-					request.getSession().setAttribute("loginId", email);
-					
-					request.setAttribute("result", result);
-					request.setAttribute("id", email);
-					request.setAttribute("pw", pw);
-					
-					isRedirect = false;
-					dst = "list.group";
-					
-				}else {
-					
-					
-					
-				}
-
+			if (command.equals("/list.group")) {
 				
+				List<GTableDTO> groupList = dao.allgroups();
+				List<GtablePictureDTO> groupPicList = dao.allgroupsPictures();
 				
-			}else if(command.equals("/LogoutController.co")) {
-					request.getSession().removeAttribute("loginId");
-					
-					isRedirect = true;
-					dst = "main.jsp";
+				request.setAttribute("groupList", groupList);
+				request.setAttribute("groupPicList", groupPicList);
+				
+				dst="loginview.jsp";
 			}
+			
+			//------------------
 
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
@@ -71,18 +49,13 @@ public class MemberController extends HttpServlet {
 			} else {
 				response.sendRedirect(dst);
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.sendRedirect("error.html");
+		}catch(Exception e) {
+			
 		}
-
 	}
 
-	
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

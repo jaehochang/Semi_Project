@@ -9,8 +9,8 @@
 	}
 
 	img{
-		width:230px;
-		height:180;
+		width:200px;
+		height:180px;
 	}
 	
 	.groupTitle{
@@ -77,4 +77,5 @@
     grid-template-columns: 250px 250px 250px;
     grid-template-rows: 200px 200px;
 }
+
 
