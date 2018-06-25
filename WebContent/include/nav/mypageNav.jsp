@@ -23,7 +23,7 @@
 			<li class="dropdown active"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown"><i class="fas fa-user"></i></a>
 
-				<ul class="dropdown-menu" style="width:100px;">
+				<ul class="dropdown-menu dropdown-menu-right" style="width:100px;">
 					<li><a href="LogoutController.co">로그아웃 </a></li>
 					<li><a href="mypage.co">마이페이지 </a></li>
 				</ul>
