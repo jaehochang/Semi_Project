@@ -87,12 +87,32 @@ public class MemberDAO {
 		}
 	}
 
-	public void getAccountInfo(String ssnId) throws Exception{
+	public MemberDTO getAccountInfo(String loginId) throws Exception{
 	
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from where member_email=?";
+		String sql = "select * from member where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, ssnId);
+		ps.setString(1, loginId);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		MemberDTO mDTO = new MemberDTO();
+		
+		if(rs.next()) {
+		
+		mDTO.setMember_name(rs.getString("member_name"));
+		mDTO.setMember_interests(rs.getString("member_interests"));
+		mDTO.setMember_picture(rs.getString("member_picture"));
+		mDTO.setJoin_date(rs.getString("join_date"));
+		mDTO.setMember_location(rs.getString("member_location"));
+		
+		}
+		
+		rs.close();
+		ps.close();
+		con.close();
+		
+		return mDTO;
 		
 	}
 
