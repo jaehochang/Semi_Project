@@ -72,18 +72,10 @@ public class MemberController extends HttpServlet {
 				}
 
 			} else if (command.equals("/mypage.co")) {
-				HttpSession ssn = request.getSession();
-				if (ssn != null) {
-					String ssnId = ssn.getId();
-
-					System.out.println("session Id : " + ssnId);
-					MemberDAO mDAO = new MemberDAO();
-					mDAO.getAccountInfo(ssnId);
 
 					isRedirect = false;
 					dst = "mypage.jsp";
 
-				}
 
 			} else if (command.equals("/signUpPage.co")) {
 
