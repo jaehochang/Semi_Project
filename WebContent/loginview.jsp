@@ -1,125 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="include/top.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <div class="jumbotron" style="background-color: #d07de8">
-	<div class="container">
-		<h1 style="text-align: center; color: white;">MeetNow 찾기</h1>
-		<p>MeetNow로 한 걸음 더 나아가기</p>
-		<p>
-			<a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
-		</p>
-	</div>
+   <div class="container">
+      <h1 style="text-align: center; color: white;">MeetNow 찾기</h1>
+      <p>MeetNow로 한 걸음 더 나아가기</p>
+      <p>
+         <a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
+      </p>
+   </div>
 </div>
 
+   <div id="search">
+      <div class="col-xs-4">
+       <input type="text" class="form-control" id="search-input" placeholder="전체 MeetUp 이벤트">
+       <button type="button" class="btn btn-default" aria-label="Left Align" id="search-bt">
+        <span class="glyphicon glyphicon-search" aria-hidden="true" ></span>
+      </button>
+       </div>
+       <h5 id="location-text">내 </h5> 
+       <div class="btn-group" id="location-km">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="location-default">
+       5km <span class="caret"></span>
+        </button>
+     <ul class="dropdown-menu" role="menu">
+       <li><a href="#">5km</a></li>
+       <li><a href="#">10km</a></li>
+       <li><a href="#">15km</a></li>
+       <li><a href="#">모든거리</a></li>
+     </ul>
+      </div>
+      
+      
+      <div class="btn-group" style="position:absolute; bottom:15px; left:450px;">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="location-default">
+       서울,KR <span class="caret"></span>
+        </button>
+     <ul class="dropdown-menu" role="menu" id="dropdown-location">
+       <li>
+       <input type=text>
+       </li>
+     </ul>
+      </div>
+      
+      <script>
+      $('#dropdown-location').click(function(e) {
+          e.stopPropagation();
+      });
+      </script>
+      
+      <h5 id="location-text2">의 </h5>
+      
+      <div class="btn-group" role="group" id="search-check" style="position:absolute; bottom:15px; left:750px;">
+        <button type="button" class="btn btn-default">그룹들</button>
+        <button type="button" class="btn btn-default">달력</button>
+      </div>
+      
+
+      
+    </div>
+
 <div class="myMeetNow">
-	<p>내 MeetNow</p>
-	<div class="container" style="width:2000px; text-align:center;" >
-		<div class="col-md-8">
-			<div>
-				<div id="myCarousel" class="carousel slide">
-
-					<!-- Carousel items -->
-					<div class="carousel-inner">
-						<div class="item active">
-							<div class="row">
-								<div class="col-md-3">
-									<a href="#x"> <img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive">
-									</a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-
-								</div>
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								
-							</div>
-							<!--/row-->
-						</div>
-						<!--/item-->
-						<div class="item">
-							<div class="row">
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								
-							</div>
-							<!--/row-->
-						</div>
-						<!--/item-->
-						<div class="item">
-							<div class="row">
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								<div class="col-md-3">
-									<a href="#x"><img src="http://placehold.it/250x250"
-										alt="Image" style="max-width: 100%;" class="img-responsive"></a>
-									<h3 class="groupTitle">그룹이름</h3>
-									<h4 class="groupMemberCount">인원수</h4>
-								</div>
-								
-							</div>
-							<!--/row-->
-						</div>
-						<!--/item-->
-					</div>
-					<a href="#myCarousel" data-slide="prev" id="left">‹</a> <a
-						href="#myCarousel" data-slide="next" id="right">›</a>
-
-				</div>
-				<!--/myCarousel-->
-			</div>
-			<!--/well-->
-		</div>
-	</div>
+   <p>내 MeetNow</p>
+   <div class="row">
+   <c:forEach var="item" items="${myGroupList }">
+      <div class="col-md-3">
+      <img src="files/${item.system_name }" class="img-rounded">
+      <h2>${item.group_name }</h2>
+      </div>
+   </c:forEach>
+   </div>
 </div>
 
 <div id="recoMeetnow">
 <p>추천 MeetNow</p>
-	<div class="wrapper">
-		<div class="test"><img src="img/1.jpg"></div>
-		<div class="test"><img src="img/2.jpg"></div>
-		<div class="test"><img src="img/3.jpg"></div>
-		<div class="test"><img src="img/4.jpg"></div>
-		<div class="test"><img src="img/5.jpg"></div>
-		<div class="test"><img src="img/6.jpg"></div>
-	</div>
+   <div class="row">
+        <div class="col-md-4" style="width:300px;"><img src="files/1.jpg" width="100%"></div>
+        <div class="col-md-4" style="width:300px;"><img src="img/1.jpg" width="100%"></div>
+        <div class="col-md-4" style="width:300px;"><img src="img/1.jpg" width="100%"></div>
+   </div>
 </div>
 </body>
 </html>

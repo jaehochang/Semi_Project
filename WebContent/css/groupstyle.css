@@ -1,80 +1,89 @@
-	
-	div{
-		box-sizing: border-box;
-	}
-	
-	.myMeetNow{
-		margin: 0 auto;
-		width: 1000px;
-	}
+   
+   div{
+      box-sizing: border-box;
+   }
+   
+   .myMeetNow{
+      margin: 0 auto;
+      padding:20px 0px 20px;
+      width: 900px;
+   }
 
-	img{
-		width:230px;
-		height:180;
-	}
-	
-	.groupTitle{
-		color:black;
-		position: relative;
-		top:-80px;
-		right:80px;
-	}
-	
-	.groupMemberCount{
-		color:gray;
-		position: relative;
-		top:-80px;
-		right:100px;
-	}
-	
-	.myMeetGroup{
-		float: left;
-		width:250px;
-		height:200px;
-	}
-	
-	.carousel {
-	margin-bottom: 0;
-	padding: 0 40px 30px 40px;
-}
+   img{
+      width:200px;
+      height:180px;
+   }
+   
+   .groupTitle{
+      color:black;
+      position: relative;
+      top:-80px;
+      right:80px;
+   }
+   
+   .groupMemberCount{
+      color:gray;
+      position: relative;
+      top:-80px;
+      right:100px;
+   }
+   
+   .myMeetGroup{
+      
+      float: left;
+      width:250px;
+      height:200px;
+   }
+   
 
-.carousel-control {
-	left: -12px;
-}
-.carousel-control.right {
-	right: -12px;
-}
+   #recoMeetnow{
+      margin: 0 auto;
+      width: 900px;
+   }
+   
+   #search{
+      margin: 0 auto;
+      position:absolute;
+      top:320px;
+      left:500px;
+      background-color: black;
+      width:900px;
+      height:60px;
+   }
 
-.carousel-indicators {
-	right: 50%;
-	top: auto;
-	bottom: 0px;
-	margin-right: -19px;
-}
-
-#left{
-	position:relative;
-	bottom:200px;
-	right:630px;
-}
-
-#right{
-	position:relative;
-	bottom:200px;
-	left:280px;
-}
-
-
-
-#recoMeetnow{
-	margin: 0 auto;
-	width: 1000px;
-}
-
-
-.wrapper {
-    display: grid;
-    grid-template-columns: 250px 250px 250px;
-    grid-template-rows: 200px 200px;
-}
-
+   #search-input{
+      margin:11px 5px;
+   }
+   
+   #search-bt{
+      position:absolute;
+      bottom:11px;
+      left:280px;
+   }
+   
+   #location-text{
+      position:absolute;
+      bottom:15px;
+      left:340px;
+      color:white;
+   }
+   
+   #location-text2{
+      position:absolute;
+      bottom:15px;
+      left:430px;
+      color:white;
+   }
+   
+   #location-km{
+      position:absolute;
+      bottom:15px;
+      left:360px;
+   }
+   
+   #search-check{
+      position:absolute;
+      bottom:15px;
+      left:700px;
+   }
+   
