@@ -17,13 +17,7 @@
 </div>
 <div class="carousel-reviews broun-block">
 
-
 <div class="container">
-        <div class="row">
-            <div id="carousel-reviews" class="carousel slide" data-ride="carousel">
-            
-                <div class="carousel-inner">
-                    <div class="item active">
 	<c:forEach var="items" items="${result}">
 			<div class="col">
 				<div class="col-xs-12 col-sm-4">
@@ -73,11 +67,6 @@
 	</div>
 </div>
 
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
 
 
 
