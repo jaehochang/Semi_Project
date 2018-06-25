@@ -34,11 +34,11 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into member values(?,?,?)";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, dto.getName());
-		ps.setString(2, dto.getEmail());
-		ps.setString(3, dto.getPw());
+		String sql = "insert into member values(member_seq.nextval,?,?,?,'null','null','null')";
+		PreparedStatement  ps = con.prepareStatement(sql);
+		ps.setString(1, dto.getMember_name());
+		ps.setString(2, dto.getMember_email());
+		ps.setString(3, dto.getPwd());
 
 		int rs = ps.executeUpdate();
 
@@ -62,24 +62,24 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "select * from member where email=?";
+		String sql = "select * from member where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, mDTO.getEmail());
-
+		ps.setString(1, mDTO.getMember_email());
+		System.out.println(mDTO.getMember_email());
 		ResultSet rs = ps.executeQuery();
 		
 		rs.next();
 
-		String dbPw = rs.getString(3);
+		String dbPw = rs.getString("pwd");
 
-		System.out.println(dbPw + " / " + mDTO.getPw());
+		System.out.println("dbPw " +  ":" +  dbPw + " / mDTO.getPwd : " + mDTO.getPwd());
 		
 		con.close();
 		rs.close();
 		ps.close();
 		
 		
-		if (dbPw.equals(mDTO.getPw())) {
+		if (dbPw.equals(mDTO.getPwd())) {
 			return true;
 
 		} else {

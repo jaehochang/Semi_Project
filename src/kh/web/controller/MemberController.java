@@ -14,12 +14,6 @@ import kh.web.dto.MemberDTO;
 
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	public MemberController() {
-		super();
-
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,8 +30,8 @@ public class MemberController extends HttpServlet {
 			String dst = null;
 
 			if (command.equals("/LoginController.co")) {
-				String email = request.getParameter("email");
-				String pw = request.getParameter("pw");
+				String email = request.getParameter("member_email");
+				String pw = request.getParameter("pwd");
 				boolean result = dao.isIdPw(email, pw);
 				if (result) {
 
@@ -56,20 +50,20 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/login.co")){
 				
-				String email = (String) request.getParameter("email");
-				String pw = (String) request.getParameter("pw");
+				String memberEmail = (String) request.getParameter("member_email");
+				String pwd = (String) request.getParameter("pwd");
 				
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO mDTO = new MemberDTO();
 			
-				mDTO.setEmail(email);
-				mDTO.setPw(pw);
+				mDTO.setMember_email(memberEmail);
+				mDTO.setPwd(pwd);
 				
 				boolean result = mDAO.login(mDTO);
 				
 				if(result) {
 					isRedirect=false;
-					request.getSession().setAttribute("loginId", email);
+					request.getSession().setAttribute("loginId", memberEmail);
 					dst="meetNowFindPage.jsp";
 				}else {
 					isRedirect=true;
@@ -85,25 +79,25 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/signUpApply.co")) {
 
-				String name = (String) request.getParameter("name");
-				String email = (String) request.getParameter("email");
-				String pw = (String) request.getParameter("pw");
+				String memberName = (String) request.getParameter("member_name");
+				String memberEmail = (String) request.getParameter("member_email");
+				String pwd = (String) request.getParameter("pwd");
 
-				System.out.println(name + email + pw);
+				System.out.println(memberName + memberEmail + pwd);
 
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO dto = new MemberDTO();
 
-				dto.setName(name);
-				dto.setEmail(email);
-				dto.setPw(pw);
+				dto.setMember_name(memberName);
+				dto.setMember_email(memberEmail);
+				dto.setPwd(pwd);
 
 				boolean result = mDAO.signUpApply(dto);
 
 				if (result) {
 					isRedirect = false;
 
-					request.setAttribute("id", email);
+					request.setAttribute("id", memberEmail);
 
 					dst = "signUpPage.jsp";
 

@@ -57,14 +57,14 @@
 				<form action="login.co" method=post>
 
 					<div class=form-group>
-						<label for=email>이메일 주소</label> <input class=form-control
-							type=text id=email name=email>
+						<label for=member_email>이메일 주소</label> <input class=form-control
+							type=text id=member_email name=member_email>
 					</div>
 					<div class=form-group>
-						<label for=pw>비밀번호</label> <span><a href="#">비밀번호를
-								잊으셨나요?</a></span> <input id=pw type=password max=13 name=pw
+						<label for=pwd>비밀번호</label> <span><a href="#">비밀번호를
+								잊으셨나요?</a></span> <input id=pwd type=password max=13 name=pwd
 							class=form-control> <input type=checkbox>로그인 상태 유지 
-						<button class="btn btn-primary">로그인</button>
+						<button class="btn btn-default">로그인</button>
 				</div>
 				</form>
 			</div>
