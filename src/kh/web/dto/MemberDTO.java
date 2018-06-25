@@ -10,8 +10,19 @@ public class MemberDTO {
 	String member_location;
 	String member_interests;
 	String member_picture;
+	String join_date;
 	
 	
+	public String getJoin_date() {
+		return join_date;
+	}
+
+
+	public void setJoin_date(String join_date) {
+		this.join_date = join_date;
+	}
+
+
 	public MemberDTO() {
 		
 	}

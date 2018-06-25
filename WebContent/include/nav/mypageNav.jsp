@@ -20,7 +20,7 @@
 			<li id=snd-list><a href="#">탐색</a>
 			<li><a href="#">메시지</a>
 			<li><a href="#">알림</a>
-			<li class="dropdown"><a href="#" class="dropdown-toggle"
+			<li class="dropdown active"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown"><i class="fas fa-user"></i></a>
 
 				<ul class="dropdown-menu">
