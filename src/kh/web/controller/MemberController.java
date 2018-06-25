@@ -1,6 +1,7 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,11 +25,9 @@ public class MemberController extends HttpServlet {
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length());
 
-
 			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
-			
-			
+
 			System.out.println(command);
 
 			MemberDAO dao = new MemberDAO();
@@ -67,34 +66,33 @@ public class MemberController extends HttpServlet {
 
 				boolean result = mDAO.login(mDTO);
 
+				isRedirect = false;
+				
 				if (result) {
-					isRedirect = false;
 					request.getSession().setAttribute("loginId", memberEmail);
 					dst = "meetNowFindPage.jsp";
+			
 				} else {
-					isRedirect = true;
+					request.setAttribute("loginResult", result);
 					dst = "login.jsp";
 				}
 
 			} else if (command.equals("/mypage.co")) {
 
-				
-					
-					String loginId = (String)request.getSession().getAttribute("loginId");
-					MemberDAO mDAO = new MemberDAO();
-					
-					MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
-					
-					request.setAttribute("userName", accntInfo.getMember_name());
-					request.setAttribute("userEmail", accntInfo.getMember_email());
-					request.setAttribute("userLocation", accntInfo.getMember_location());
-					request.setAttribute("userPicture", accntInfo.getMember_picture());
-					request.setAttribute("userInterests", accntInfo.getMember_interests());
-					request.setAttribute("userJoinDate", accntInfo.getJoin_date());
-					
-					isRedirect = false;
-					dst = "mypage.jsp";
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				MemberDAO mDAO = new MemberDAO();
 
+				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+
+				request.setAttribute("userName", accntInfo.getMember_name());
+				request.setAttribute("userEmail", accntInfo.getMember_email());
+				request.setAttribute("userLocation", accntInfo.getMember_location());
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userJoinDate", accntInfo.getJoin_date());
+
+				isRedirect = false;
+				dst = "mypage.jsp";
 
 			} else if (command.equals("/signUpPage.co")) {
 

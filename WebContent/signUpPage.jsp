@@ -4,8 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<% request.setCharacterEncoding("utf8");%>
-<% response.setCharacterEncoding("utf8"); %>
+<%
+	request.setCharacterEncoding("utf8");
+%>
+<%
+	response.setCharacterEncoding("utf8");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -14,8 +18,8 @@
 <title>회원 가입</title>
 
 <!-- Jquery CDN -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <!-- BootStrap CDN -->
 <link rel="stylesheet"
@@ -51,31 +55,33 @@
 
 		<c:when test="${requestScope.id == null}">
 
-			<div class="well">
-				<form action="signUpApply.co" method="post">
-					<div class="form-group">
-						<label for="name"> 이름</label> <input id=name name=member_name type=text
-							class=form-control max=20 required>
-					</div>
+			<div class="panel panel-default" style="width:50%; margin:0 auto; position:relative; top:25%;">
+				<div class="well panel-body">
+					<form action="signUpApply.co" method="post">
+						<div class="form-group">
+							<label for="name"> 이름</label> <input id=name pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+" title="한글만 입력 가능, 영어도 가능하게 해야하나?" placeholder="한글만 입력 가능" name=member_name
+								type=text class=form-control max=20 required>
+						</div>
 
 
-					<div class="form-group">
-						<label for="email"> 이메일</label> <input id=email name=member_email
-							type=email class=form-control required max=50>
-					</div>
+						<div class="form-group">
+							<label for="email"> 이메일</label> <input id=email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name=member_email placeholder="example@gmail.com"
+								type=email class=form-control required max=50>
+						</div>
 
 
-					<div class="form-group">
-						<label for="pwd"> 비밀번호</label> <input id=pwd name=pwd type=password
-							class=form-control max=20 required>
-					</div>
+						<div class="form-group">
+							<label for="pwd"> 비밀번호</label> <input id=pwd name=pwd
+								type=password class=form-control pattern="{2,}" max=20 placeholder="최소 2-20자" required>
+<!-- 								(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,} 최소 소문자 1, 대문자 1, 8자 이상 -->
+						</div>
 
 
-					<button class="btn-success">계속</button>
+						<button class="btn btn-default" style="background-color: #b831d9;">계속</button>
 
-				</form>
+					</form>
+				</div>
 			</div>
-
 		</c:when>
 
 
