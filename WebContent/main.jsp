@@ -19,6 +19,7 @@
 <div class="container" style="display: inline;">
 	<!-- Example row of columns -->
 	<div class=row>
+	
 		<div class="col-md-4"">
 			<h2>Heading1</h2>
 		</div>
