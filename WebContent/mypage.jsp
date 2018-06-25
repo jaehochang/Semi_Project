@@ -10,12 +10,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Page</title>
 
-
-
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 <link rel="stylesheet" type="text/css"
 	href="css/mypage-section-style.css">
+
 
 
 <!--  Jquery CDN  -->
@@ -25,7 +24,24 @@
 
 
 <!-- fontawesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	crossorigin="anonymous">
+
+<!-- BootStrap CDN -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
 
 </head>
 <body>
@@ -40,7 +56,7 @@
 
 		<div class="panel panel-default" id=profilebody>
 			<div class=container id=boxheader>
-				<h2>Youn SeungJin</h2>
+				<h1>Youn SeungJin</h1>
 			</div>
 
 			<div class=container>위치 : 서울</div>
@@ -62,7 +78,7 @@
 			</div>
 
 			<div class="container" id="meetnow">
-				<h2>2 Meetup의 멤버</h1>
+				<h1>2 Meetup의 멤버</h1>
 				<a href="#">가입한 그룹 숨기기</a>
 			</div>
 
@@ -85,21 +101,17 @@
 
 		<!-- aside 시작 -->
 		<div class="panel panel-default" id=profileaside>
-			<img src="xbox.png"
-				style="height: 100px; width: 100px; display:block; margin:0 auto;"> 
-				<span>change
-				your photo</span>
-				
-				<div id=interestbox>
+			<img src="https://media.giphy.com/media/bcrPgNgUPRc6G2EbZf/giphy.gif"
+				style="height: 150px; width: 200px; display: block; margin: 0 auto;">
+			<span>change your photo</span>
+
+			<div id=interestbox>
 				<h2>관심사</h2>
-				<a href="#">프로필에서 관심사 숨기기</a>
-				<a href="#">편집</a>
-				</div>
-				
-				<div id=interests>
-				라이프 트렌스포밍 예측분석 개발자 빅데이터 자바 운동 스포츠 농구 걷기 
-				</div>
-				
+				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a>
+			</div>
+
+			<div id=interests>라이프 트렌스포밍 예측분석 개발자 빅데이터 자바 운동 스포츠 농구 걷기</div>
+
 		</div>
 
 

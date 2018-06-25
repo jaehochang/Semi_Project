@@ -30,13 +30,6 @@
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 
-<!-- Jquery CDN -->
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-
-
 <!-- BootStrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
@@ -52,9 +45,6 @@
 	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
 	</nav>
-
-
-
 
 	<div class="jumbotron" style="background-color: #b548d0">
 		<div class="container">
@@ -73,7 +63,7 @@
 	<div class="container" style="display: inline;">
 		<!-- Example row of columns -->
 		<div class=row>
-			<div class="col-md-4"">
+			<div class="col-md-4">
 				<h2>Heading1</h2>
 			</div>
 			<div class="col-md-4">
@@ -89,6 +79,7 @@
 <!-- footer -->
 
 		<footer>
+
 			<%@ include file="include/bottom.jsp"%>
 
 		</footer>

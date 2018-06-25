@@ -1,10 +1,10 @@
-
-
 .cool-link {
 	display: inline-block;
 	color: white;
 	text-decoration: none;
 }
+
+
 
 .cool-link::after {
 	content: '';
@@ -40,6 +40,7 @@ footer {
 	width: 100%;
 	box-sizing: border-box;
 }
+
 
 hr.style-six {
 	border: 0;
