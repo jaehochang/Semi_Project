@@ -34,7 +34,7 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,'null','null','null',sysdate)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,'null','null',sysdate)";
 		PreparedStatement  ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
