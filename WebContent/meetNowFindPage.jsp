@@ -1,21 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Page</title>
-
-
+<title>MeetNow 찾기</title>
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-<link rel="stylesheet" type="text/css"
-	href="css/mypage-section-style.css">
 
 
 <!--  Jquery CDN  -->
@@ -33,56 +28,89 @@
 <!-- BootStrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
+
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
+<style>
+.meetnowlist {
+	border: 1px solid black;
+}
+
+section {
+	width: 60%;
+}
+
+section ul li {
+	border: solid 1px grey;
+}
+
+aside {
+	height: 400px;
+	width: 40%;
+	border: 1px solid black;
+	width: 35%;
+	top: 0px;
+}
+
+section, aside {
+	display: inline-block;
+	left: 10%;
+}
+</style>
+
+
 </head>
+
 <body>
 
 	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
 	</nav>
 
-	<div class="jumbotron" style="background-color: #b548d0">
-		<div class="container">
+	<header style="background-color: #b831d9; text-align: center;">
 
-			<video src="./video/MeetNow.mp4" autoplay="autoplay" loop="loop"
-				width="100%" height="100%">
-				<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
-				<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
-				<p>
-					<a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
-				</p>
-			</video>
-		</div>
-	</div>
+		<h2>Meetnow 찾기</h2>
+		<h3>%%% 개의 모임이 근처에 있습니다!</h3>
 
-	<div class="container" style="display: inline;">
-		<!-- Example row of columns -->
-		<div class=row>
-			<div class="col-md-4">
-				<h2>Heading1</h2>
-			</div>
-			<div class="col-md-4">
-				<h2>Heading2</h2>
-			</div>
-			<div class="col-md-4">
-				<h2>Heading3</h2>
-			</div>
-		</div>
-		</div>
+	</header>
 
 
-<!-- footer -->
+	<section class=well>
+		<label>2018년 6월 23일 토요일</label>
+		<ul>
+			<li><span> 7:00</span>
 
-		<footer>
+				<h4>축구</h4>
+				<h2>서울 한강변에서 빔 켜고 축구보기</h2> <span>722 명 참석 예정</span></li>
 
-			<%@ include file="include/bottom.jsp"%>
 
-		</footer>
+			<li><span> 7:00</span>
+
+				<h4>축구</h4>
+				<h2>서울 한강변에서 빔 켜고 축구보기</h2> <span>722 명 참석 예정</span></li>
+			<li><span> 7:00</span>
+
+				<h4>축구</h4>
+				<h2>서울 한강변에서 빔 켜고 축구보기</h2> <span>722 명 참석 예정</span></li>
+
+		</ul>
+
+
+
+
+	</section>
+
+	<aside class=well></aside>
+
+	<footer>
+		<%@ include file="include/bottom.jsp"%>
+	</footer>
+
 
 </body>
 </html>
