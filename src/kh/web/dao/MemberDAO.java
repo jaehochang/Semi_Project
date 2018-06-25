@@ -87,4 +87,13 @@ public class MemberDAO {
 		}
 	}
 
+	public void getAccountInfo(String ssnId) throws Exception{
+	
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from where member_email=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, ssnId);
+		
+	}
+
 }

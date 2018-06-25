@@ -25,7 +25,7 @@
 
 				<ul class="dropdown-menu">
 					<li><a href="LogoutController.co">로그아웃 </a></li>
-					<li><a href="mypage.jsp">마이페이지 </a></li>
+					<li><a href="mypage.co">마이페이지 </a></li>
 				</ul>
 		</ul>
 

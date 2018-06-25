@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
@@ -48,28 +49,41 @@ public class MemberController extends HttpServlet {
 
 				}
 
-			} else if (command.equals("/login.co")){
-				
+			} else if (command.equals("/login.co")) {
+
 				String memberEmail = (String) request.getParameter("member_email");
 				String pwd = (String) request.getParameter("pwd");
-				
+
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO mDTO = new MemberDTO();
-			
+
 				mDTO.setMember_email(memberEmail);
 				mDTO.setPwd(pwd);
-				
+
 				boolean result = mDAO.login(mDTO);
-				
-				if(result) {
-					isRedirect=false;
+
+				if (result) {
+					isRedirect = false;
 					request.getSession().setAttribute("loginId", memberEmail);
-					dst="meetNowFindPage.jsp";
-				}else {
-					isRedirect=true;
-					dst="login.jsp";
+					dst = "meetNowFindPage.jsp";
+				} else {
+					isRedirect = true;
+					dst = "login.jsp";
 				}
-				
+
+			} else if (command.equals("/mypage.co")) {
+				HttpSession ssn = request.getSession();
+				if (ssn != null) {
+					String ssnId = ssn.getId();
+
+					System.out.println("session Id : " + ssnId);
+					MemberDAO mDAO = new MemberDAO();
+					mDAO.getAccountInfo(ssnId);
+
+					isRedirect = false;
+					dst = "mypage.jsp";
+
+				}
 
 			} else if (command.equals("/signUpPage.co")) {
 
