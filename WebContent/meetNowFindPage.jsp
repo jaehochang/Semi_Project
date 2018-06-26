@@ -11,7 +11,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
 <!--  Jquery CDN  -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"
@@ -34,6 +34,9 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- 달력 제이쿼리 라이브러리  -->
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 <style>
@@ -62,6 +65,34 @@ section, aside {
 	left: 10%;
 }
 </style>
+
+<script>
+	$(document).ready(function() {
+		$( "#datepicker" ).datepicker({
+			dateFormat:"yy-mm-dd",
+			onSelect: findEvents
+		});
+		
+		function findEvents (date) {  
+			$.ajax({
+				url:"calenSearch.bo",
+				type:"get",
+				data:{val:date},	 
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					$("#response").text(response);
+				},
+				error:function(){
+					console.log("에러");
+				},
+				complte:function(){
+					console.log("ajax complte");
+				}
+			});
+		}
+		
+	});
+</script>
 
 
 </head>
@@ -102,10 +133,11 @@ section, aside {
 
 
 
-
 	</section>
 
-	<aside class=well></aside>
+	<aside class=well>
+		<div id="datepicker"></div>	
+	</aside>
 
 	<footer>
 		<%@ include file="include/bottom.jsp"%>

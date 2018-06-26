@@ -1,6 +1,8 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -25,7 +27,10 @@ public class BoardController extends HttpServlet {
 			String command = requestURI.substring(contextPath.length()); 
 			
 			System.out.println(command); 
-			
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+					"yyyyMMdd");
+			SimpleDateFormat showDateFormat = new SimpleDateFormat(
+					"yyyy년MM월dd일");
 			BoardDAO dao = new BoardDAO();
 			boolean isRedirect = true;
 			String dst = null;
@@ -35,6 +40,14 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("result", result);
 				isRedirect = false;
 				dst = "main.jsp";
+			}else if(command.equals("/calenSearch.bo")) {
+				String value = request.getParameter("val");
+				Date tempDate = simpleDateFormat.parse(value);
+				System.out.println(tempDate);
+				System.out.println(showDateFormat.format(tempDate));
+				
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
 			}
 			
 			if(isRedirect) {
