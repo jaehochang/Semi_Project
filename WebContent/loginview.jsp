@@ -79,7 +79,7 @@
 		</div>
 	</div>
 
-	<div id="search" class="sticky-top" style="top:120px;">
+	<div id="search">
 		<div class="col-xs-4">
 			<input type="text" class="form-control" id="search-input"
 				placeholder="전체 MeetUp 이벤트">
@@ -127,9 +127,6 @@
 			<button type="button" class="btn btn-default">그룹들</button>
 			<button type="button" class="btn btn-default">달력</button>
 		</div>
-
-
-
 	</div>
 
 	<div class="myMeetNow">
@@ -140,21 +137,22 @@
 
 		<div class="row" id="myMeet_row">
 			<c:forEach var="item" items="${myGroupList }">
-
+				
 				<div class="col-md-3" style="padding: 10px;">
+					<a href="#">
 					<div class="over-img">
 						<img src="files/${item.system_name }" class="img_size">
 					</div>
 					<h4 class="group_title">${item.group_name }</h4>
-
+					
 					<c:forEach var="item2" items="${memberCount }">
 						<c:if test="${item.group_seq eq item2.group_seq }">
 							<h5 class="group_count">${item2.count}명의회원</h5>
 						</c:if>
 					</c:forEach>
-
+					</a>
 				</div>
-
+				
 			</c:forEach>
 		</div>
 
