@@ -12,7 +12,7 @@ public class MemberDAO {
 	public boolean isIdPw(String email, String pw) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "select id, pw from members where id=? and pw =?";
+		String sql = "select id, pw from gmembers where id=? and pw =?";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, email);
 		pstat.setString(2, pw);
@@ -34,7 +34,7 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,'null','null','null',sysdate)";
+		String sql = "insert into gmember values(member_seq.nextval,?,?,?,'null','null',sysdate)";
 		PreparedStatement  ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
@@ -62,7 +62,7 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "select * from member where member_email=?";
+		String sql = "select * from gmember where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, mDTO.getMember_email());
 		System.out.println(mDTO.getMember_email());
@@ -90,7 +90,7 @@ public class MemberDAO {
 	public MemberDTO getAccountInfo(String loginId) throws Exception{
 	
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from member where member_email=?";
+		String sql = "select * from gmember where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, loginId);
 		

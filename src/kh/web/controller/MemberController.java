@@ -71,7 +71,7 @@ public class MemberController extends HttpServlet {
 				if (result) {
 					isRedirect = false;
 					request.getSession().setAttribute("loginId", memberEmail);
-					dst = "meetNowFindPage.jsp";
+					dst = "list.group";
 				} else {
 					isRedirect = true;
 					dst = "login.jsp";
