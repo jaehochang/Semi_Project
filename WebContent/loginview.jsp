@@ -139,7 +139,7 @@
 			<c:forEach var="item" items="${myGroupList }">
 				
 				<div class="col-md-3" style="padding: 10px;">
-					<a href="#">
+					<a href="groupMain.group?group_seq=${item.group_seq}">
 					<div class="over-img">
 						<img src="files/${item.system_name }" class="img_size">
 					</div>

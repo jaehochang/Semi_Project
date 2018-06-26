@@ -64,6 +64,15 @@ public class GroupController extends HttpServlet {
 //				System.out.println("컨트롤러 : "+memberCount.size());
 				isRedirect = false;
 				dst="loginview.jsp";
+			}else if(command.equals("/groupMain.group")) {
+				String group_seq = request.getParameter("group_seq");
+				
+				List<GTableDTO> result = dao.groupInfo(group_seq);
+				
+				request.setAttribute("result", result);
+				
+				isRedirect = false;
+				dst="groupMain.jsp";
 			}
 			
 			//------------------

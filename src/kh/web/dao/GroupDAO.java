@@ -122,4 +122,48 @@ public class GroupDAO {
 		
 	}
 	
+	public List<GTableDTO> groupInfo(String seq) throws Exception{
+		int group_seq = Integer.parseInt(seq);
+		
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from gtable where GROUP_SEQ=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		ResultSet rs = pstat.executeQuery();
+		
+		List<GTableDTO> result = new ArrayList<>();
+		
+		if(rs.next()) {
+			GTableDTO dto = new GTableDTO();
+			
+			dto.setGroup_seq(rs.getInt("group_seq"));
+			dto.setGroup_leader(rs.getString("group_leader"));
+			dto.setGroup_name(rs.getString("group_name"));
+			dto.setGroup_location(rs.getString("group_location"));
+			dto.setGroup_interests(rs.getString("group_interests"));
+			dto.setGroup_info(rs.getString("group_info"));
+			dto.setOriginal_name(rs.getString("original_name"));
+			dto.setSystem_name(rs.getString("system_name"));
+			
+			result.add(dto);
+		}
+		
+		con.close();
+		pstat.close();
+		rs.close();
+		
+		return result;
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
