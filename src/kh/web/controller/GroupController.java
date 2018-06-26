@@ -1,6 +1,7 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import kh.web.dao.GroupDAO;
 import kh.web.dto.GTableDTO;
 import kh.web.dto.GtablePictureDTO;
+import kh.web.dto.MemberCountDTO;
+import kh.web.dto.MygroupDTO;
 
 
 @WebServlet("*.group")
@@ -34,10 +37,32 @@ public class GroupController extends HttpServlet {
 				
 				List<GTableDTO> groupList = dao.allgroups();
 				List<GtablePictureDTO> groupPicList = dao.allgroupsPictures();
+				List<MygroupDTO> myGroupList = dao.myGroupList();
+				List<MemberCountDTO> memberCount =  new ArrayList<>();
+				
+				if(myGroupList.size()>4) {
+					
+				}
+			
+				
+				if(myGroupList.size() != 0) {
+					for(int i=0 ; i<myGroupList.size() ; i++) {
+						MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
+						
+						memberCount.add(dto);
+					}
+				}
+				
+				System.out.println("MemberCount"  + memberCount.size());
 				
 				request.setAttribute("groupList", groupList);
 				request.setAttribute("groupPicList", groupPicList);
+				request.setAttribute("myGroupList", myGroupList);
+				request.setAttribute("memberCount", memberCount);
 				
+				
+//				System.out.println("컨트롤러 : "+memberCount.size());
+				isRedirect = false;
 				dst="loginview.jsp";
 			}
 			
@@ -50,7 +75,7 @@ public class GroupController extends HttpServlet {
 				response.sendRedirect(dst);
 			}
 		}catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 
