@@ -62,10 +62,21 @@
 		<div id="top-contents-info">
 			<div id="info-title">
 				<h2>${item.group_name }</h2>
+				<ul>
+					<li>${item.group_location }
+					<li>${count}명 회원
+					<li>
+				</ul>
+				${item.group_location }, <span class="" aria-hidden="true" style="width:10px;"></span> ${count}명 회원 
 			</div>
 			<div id="info-leader">
-				<img src="img/10.jpg" class="leader-img">
-				<h4>${item.group_leader }</h4>
+				<div id="leader-pic">
+					<img src="img/10.jpg" class="leader-img">
+				</div>
+				<div id="leader-name">
+					주최자 : <br>
+					<h4 class="leaderName">${item.group_leader }</h4>
+				</div>
 			</div>
 			<div id="info-sns">
 			

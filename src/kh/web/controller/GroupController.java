@@ -66,10 +66,18 @@ public class GroupController extends HttpServlet {
 				dst="loginview.jsp";
 			}else if(command.equals("/groupMain.group")) {
 				String group_seq = request.getParameter("group_seq");
+				int groupSeq = Integer.parseInt(group_seq);
 				
 				List<GTableDTO> result = dao.groupInfo(group_seq);
 				
+				
+				MemberCountDTO dto = dao.MemberCount(groupSeq);
+				int count = dto.getCount();
+				
+				System.out.println("인원수"+count);
+				
 				request.setAttribute("result", result);
+				request.setAttribute("count", count);
 				
 				isRedirect = false;
 				dst="groupMain.jsp";
