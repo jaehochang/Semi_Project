@@ -15,15 +15,15 @@
     <meta name="author" content="">
     <link rel="icon" href="./resources/docs/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/groupstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/calenderStyle.css">
+    
+
     <title>meet now</title>
 
   
     <link href="./resources/docs/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
     <link href="./resources/docs/examples/jumbotron/jumbotron.css" rel="stylesheet">
-
-
     <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
     
  <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -39,6 +39,8 @@
 
   </head>
   <script>
+  		
+  
   		$(document).ready(function(){
   			
   			$("#login").click(function(){
