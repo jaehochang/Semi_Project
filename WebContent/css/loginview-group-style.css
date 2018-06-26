@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
    
    div{
       box-sizing: border-box;
@@ -36,7 +38,7 @@
    #search{
       margin: 0 auto;
       position:absolute;
-      top:320px;
+      top:420px;
       left:500px;
       background-color: black;
       width:900px;
