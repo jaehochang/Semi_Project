@@ -62,12 +62,12 @@
 		<div id="top-contents-info">
 			<div id="info-title">
 				<h2>${item.group_name }</h2>
-				<ul>
-					<li>${item.group_location }
-					<li>${count}명 회원
-					<li>
+				<ul style="padding:0px;">
+					<li style="list-style: none; margin:0;">${item.group_location }
+					<li style="margin: 0 0 0 30px;">${count}명 회원
+					<li style="margin: 0 0 0 30px;">공개그룹
 				</ul>
-				${item.group_location }, <span class="" aria-hidden="true" style="width:10px;"></span> ${count}명 회원 
+				 
 			</div>
 			<div id="info-leader">
 				<div id="leader-pic">

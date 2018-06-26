@@ -64,7 +64,9 @@ public class GroupController extends HttpServlet {
 //				System.out.println("컨트롤러 : "+memberCount.size());
 				isRedirect = false;
 				dst="loginview.jsp";
+				
 			}else if(command.equals("/groupMain.group")) {
+				
 				String group_seq = request.getParameter("group_seq");
 				int groupSeq = Integer.parseInt(group_seq);
 				
@@ -81,6 +83,7 @@ public class GroupController extends HttpServlet {
 				
 				isRedirect = false;
 				dst="groupMain.jsp";
+				
 			}
 			
 			//------------------
