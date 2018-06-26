@@ -24,12 +24,14 @@ public class GroupDAO {
 		
 		while(rs.next()) {
 			GTableDTO dto = new GTableDTO();
-			dto.setGroup_seq(rs.getInt(1));
-			dto.setGroup_leader(rs.getString(2));
-			dto.setGroup_name(rs.getString(3));
-			dto.setGroup_location(rs.getString(4));
-			dto.setGroup_interests(rs.getString(5));
-			dto.setGroup_info(rs.getString(6));
+			dto.setGroup_seq(rs.getInt("group_seq"));
+			dto.setGroup_leader(rs.getString("group_leader"));
+			dto.setGroup_name(rs.getString("group_name"));
+			dto.setGroup_location(rs.getString("group_location"));
+			dto.setGroup_interests(rs.getString("group_interests"));
+			dto.setGroup_info(rs.getString("group_info"));
+			dto.setOriginal_name(rs.getString("original_name"));
+			dto.setSystem_name(rs.getString("system_name"));
 			
 			result.add(dto);
 		}

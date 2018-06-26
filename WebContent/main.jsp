@@ -13,7 +13,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 
@@ -79,7 +78,6 @@
 <body>
 	<header>
 		<%@ include file="include/nav/mypageNav.jsp"%>
-		<link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 	</header>
 
 	<div class="jumbotron" style="background-color: #b548d0">
