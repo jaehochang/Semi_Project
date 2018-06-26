@@ -78,7 +78,7 @@
 		
 			<div class="col-md-3" style="padding:10px;">
 				<div class="over-img">
-					<img src="files/${item.system_name }">
+					<img src="files/${item.system_name }" class="img_size">
 				</div>
 				<h3 class="group_title">${item.group_name }</h3>
 
