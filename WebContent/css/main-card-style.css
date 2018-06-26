@@ -62,5 +62,8 @@
   float: right !important;
 }
 
-
+.interest-title {
+	margin-left : 100px;
+	padding-left : 100px;
+}
 

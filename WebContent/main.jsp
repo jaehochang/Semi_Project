@@ -99,8 +99,7 @@
 <div class="container">
 		<h2 style="color:#5f4c70;"><b>주변의 인기 Meet Up</b></h2></br>
 		<c:forEach var="items" items="${result}">
-			<d
-			iv class="col">
+			<div class="col">
 				<div class="col-md-4">
 					<div class="card">
 						<time datetime="2014-09-20" class="icon">
@@ -125,9 +124,7 @@
 		</c:forEach>
 
 
-
-
-		<div class="col">
+<div class="col">
 			<div class="col-xs-12 col-sm-4">
 				<div class="card">
 					<a class="img-card" href="http://www.fostrap.com/"> <img
@@ -148,10 +145,13 @@
 		</div>
 	</div>
 
+		<h2 class="interest-title">분류별 탐색</h2></br>
+		
 
 
 
-		<h2><b>분류별 탐색</b></h2></br>
+
+		
 
 
 
