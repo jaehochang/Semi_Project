@@ -1,0 +1,45 @@
+body, html {
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+}
+
+#wrapper {
+	padding: 0;
+	margin: 50px auto;
+}
+
+.cards {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.card {
+	padding: 20px auto;
+	margin: 0 auto;
+	display: inline-block;
+	width: 30rem;
+	height: 17rem;
+	display: inline-block;
+	margin: 0 auto;
+}
+.cha{
+	text-decoration: none;
+	color:purple;
+}
+.cha:hover{
+	text-decoration: none;
+}
+
+.card-header {
+	margin-top:40px;
+	font-size: 40px;
+	color:purple;
+}
+.card-title{
+	margin-top:15px;
+	font-size:20px;
+	color:purple;
+}
