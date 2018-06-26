@@ -21,6 +21,7 @@
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-carousel-style.css">
 
+
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
@@ -56,6 +57,10 @@
 </head>
 <script>
 	$(document).ready(function() {
+		 $('#media').carousel({
+		   pause: true,
+		   interval: false,
+		 });
 
 		$("#login").click(function() {
 			$(location).attr("href", "LoginController.co");
@@ -65,11 +70,6 @@
 
 			$(location).attr("href", "LogoutController.co");
 		});
-		
-		$('#media').carousel({
-		    pause: true,
-		    interval: false,
-		  });
 
 	});
 </script>
@@ -96,9 +96,61 @@
 	</div>
 
             
+<div class="container">
+  <h2 style="color:#5e5568;"><b>주변의 인기 Meet Up</b></h2></br>
+    <div class='row'>
+    <div class='col-md-12'>
+      <div class="carousel slide media-carousel" id="media">
+        <div class="carousel-inner">
+          <div class="item  active">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="./image/manse.jpeg"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="./image/manse.jpeg"></a>
+              </div>       
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>        
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>        
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>      
+            </div>
+          </div>
+        </div>
+        <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" class="right carousel-control">›</a>
+      </div>                          
+    </div>
+  </div>
+
 
 <div class="container">
-		<h2 style="color:#5f4c70;"><b>주변의 인기 Meet Up</b></h2></br>
+		<h2 style="color:#5e5568;"><b>주변의 인기 Meet Up</b></h2></br>
 		<c:forEach var="items" items="${result}">
 			<div class="col">
 				<div class="col-md-4">
@@ -106,7 +158,7 @@
 						<time datetime="2014-09-20" class="icon">
 							<strong>6월</strong> <span>20</span>
 						</time>
-						<a class="img-card" href=""><img src="files/1.jpg"> </a>
+						<a class="img-card" href="meeting.bo?seq=${items.board_seq}"><img src="files/1.jpg"> </a>
 						<div class="card-content">
 							<br />
 							<div class="">${items.attend_date}</div>
@@ -146,9 +198,92 @@
 		</div>
 	</div>
 
-		<h2 class="interest-title">분류별 탐색</h2></br>
+	<div class="container">
+		<h2 class="interest-title" style="color:#5e5568;"><b>분류별 탐색</b></h2></br>
+		<div class="col">
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/outside activities.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/tech.jpg"></a> <br />
+					<p class="interest-name">기술</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">이 구림을 어찌할까..</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="interest-card">
+		  			<a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+					<p class="interest-name">야외활동</p>
+				</div>
+			</div>
+		</div>
+		
+			
+		
 		
 
+	</div> 
 
 
 
