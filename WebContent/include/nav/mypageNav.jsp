@@ -3,6 +3,7 @@
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 
 
 
@@ -23,7 +24,7 @@
 			<li class="dropdown active"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown"><i class="fas fa-user"></i></a>
 
-				<ul class="dropdown-menu">
+				<ul class="dropdown-menu" style="width:100px;">
 					<li><a href="LogoutController.co">로그아웃 </a></li>
 					<li><a href="mypage.co">마이페이지 </a></li>
 				</ul>

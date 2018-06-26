@@ -24,6 +24,11 @@ public class MemberController extends HttpServlet {
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length());
 
+
+			request.setCharacterEncoding("utf8");
+			response.setCharacterEncoding("utf8");
+			
+			
 			System.out.println(command);
 
 			MemberDAO dao = new MemberDAO();
@@ -43,6 +48,7 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("pw", pw);
 
 					isRedirect = false;
+					
 					dst = "loginview.jsp";
 
 				} else {
@@ -65,7 +71,7 @@ public class MemberController extends HttpServlet {
 				if (result) {
 					isRedirect = false;
 					request.getSession().setAttribute("loginId", memberEmail);
-					dst = "meetNowFindPage.jsp";
+					dst = "list.group";
 				} else {
 					isRedirect = true;
 					dst = "login.jsp";
@@ -73,6 +79,20 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/mypage.co")) {
 
+				
+					
+					String loginId = (String)request.getSession().getAttribute("loginId");
+					MemberDAO mDAO = new MemberDAO();
+					
+					MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+					
+					request.setAttribute("userName", accntInfo.getMember_name());
+					request.setAttribute("userEmail", accntInfo.getMember_email());
+					request.setAttribute("userLocation", accntInfo.getMember_location());
+					request.setAttribute("userPicture", accntInfo.getMember_picture());
+					request.setAttribute("userInterests", accntInfo.getMember_interests());
+					request.setAttribute("userJoinDate", accntInfo.getJoin_date());
+					
 					isRedirect = false;
 					dst = "mypage.jsp";
 
