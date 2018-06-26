@@ -83,6 +83,7 @@
    
    .group_title{
       position:absolute;
+      width:200px;
       bottom:25px;
       left:20px;
       color:white;
@@ -109,14 +110,16 @@
       width: 100%;
       height: 100%;
       text-align: center;
+      padding:10px 0px;
    }
    
    .img_size{
-      
       width: 100%;
       vertical-align: middle;
    }
    
-   .row{
-      
+    #moreGroup{
+      margin: 0 auto;
+      width: 900px;
+      padding: 20px 0px;
    }
