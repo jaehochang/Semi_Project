@@ -52,12 +52,12 @@
 
 		<div class="panel panel-default" id=profilebody>
 			<div class=container id=boxheader>
-				<h1>${sessionScope.loginId}</h1>
+				<h1>${requestScope.userName}</h1>
 	
 			</div>
 
-			<div class=container>위치 : 서울</div>
-			<div class=container>가입 날짜 : 2018년 6월 21일(목)</div>
+			<div class=container>위치 : ${requestScope.userLocation}</div>
+			<div class=container>가입 날짜 : ${requestScope.userJoinDate}</div>
 			<div class=container id=snsBts>
 				SNS :
 				<div class="fa-2x">
@@ -107,7 +107,7 @@
 				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a>
 			</div>
 
-			<div id=interests>라이프 트렌스포밍 예측분석 개발자 빅데이터 자바 운동 스포츠 농구 걷기</div>
+			<div id=interests>${requestScope.getUserInterests }</div>
 
 		</div>
 
