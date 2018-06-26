@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="include/top.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <div class="jumbotron" style="background-color: #d07de8">
 	<div class="container">
 		<h1 style="text-align: center; color: white;">MeetNow 찾기</h1>
@@ -100,17 +99,17 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div class="img_div">
-				<img src="files/1.jpg" class="img_size">
+				<img src="img/1.jpg" class="img_size">
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="img_div">
-				<img src="files/1.jpg" class="img_size">
+				<img src="img/1.jpg" class="img_size">
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="img_div">
-				<img src="files/1.jpg" class="img_size">
+				<img src="img/1.jpg" class="img_size">
 			</div>
 		</div>
 	</div>
@@ -119,17 +118,17 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div class="img_div">
-				<img src="files/1.jpg" class="img_size">
+				<img src="img/1.jpg" class="img_size">
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="img_div">
-				<img src="files/1.jpg" class="img_size">
+				<img src="img/1.jpg" class="img_size">
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="img_div">
-				<img src="files/1.jpg" class="img_size">
+				<img src="img/1.jpg" class="img_size">
 			</div>
 		</div>
 	</div>
