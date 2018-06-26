@@ -35,6 +35,12 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("result", result);
 				isRedirect = false;
 				dst = "main.jsp";
+			} else if (command.equals("/meeting.bo")) {
+				int board_seq = Integer.parseInt(request.getParameter("seq"));
+				BoardDTO result = dao.getEachMeetingData(board_seq);
+				request.setAttribute("result", result);
+				isRedirect = false;
+				dst = "meeting.jsp";
 			}
 			
 			if(isRedirect) {

@@ -57,6 +57,10 @@
 </head>
 <script>
 	$(document).ready(function() {
+		 $('#media').carousel({
+		   pause: true,
+		   interval: false,
+		 });
 
 		$("#login").click(function() {
 			$(location).attr("href", "LoginController.co");
@@ -66,11 +70,6 @@
 
 			$(location).attr("href", "LogoutController.co");
 		});
-		
-		$('#media').carousel({
-		    pause: true,
-		    interval: false,
-		  });
 
 	});
 </script>
@@ -97,6 +96,58 @@
 	</div>
 
             
+<div class="container">
+  <h2 style="color:#5e5568;"><b>주변의 인기 Meet Up</b></h2></br>
+    <div class='row'>
+    <div class='col-md-12'>
+      <div class="carousel slide media-carousel" id="media">
+        <div class="carousel-inner">
+          <div class="item  active">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="./image/manse.jpeg"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="./image/manse.jpeg"></a>
+              </div>       
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>        
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>        
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>      
+            </div>
+          </div>
+        </div>
+        <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" class="right carousel-control">›</a>
+      </div>                          
+    </div>
+  </div>
+
 
 <div class="container">
 		<h2 style="color:#5e5568;"><b>주변의 인기 Meet Up</b></h2></br>
@@ -107,7 +158,7 @@
 						<time datetime="2014-09-20" class="icon">
 							<strong>6월</strong> <span>20</span>
 						</time>
-						<a class="img-card" href=""><img src="files/1.jpg"> </a>
+						<a class="img-card" href="meeting.bo?seq=${items.board_seq}"><img src="files/1.jpg"> </a>
 						<div class="card-content">
 							<br />
 							<div class="">${items.attend_date}</div>
