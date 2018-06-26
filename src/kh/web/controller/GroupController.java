@@ -64,6 +64,9 @@ public class GroupController extends HttpServlet {
 //				System.out.println("컨트롤러 : "+memberCount.size());
 				isRedirect = false;
 				dst="loginview.jsp";
+			}else if(command.equals("/five_km.group")) {
+				
+				
 			}
 			
 			
