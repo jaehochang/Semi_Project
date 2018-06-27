@@ -8,6 +8,7 @@ public class GroupDTO {
 	private String group_interests;
 	private String group_info;
 	
+	
 	public GroupDTO() {}
 	
 	public GroupDTO(int group_seq, String group_leader, String group_name, String group_location,

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -22,7 +22,8 @@
 
 
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/loginview-group-style.css">
+<link rel="stylesheet" type="text/css"
+	href="css/loginview-group-style.css">
 
 
 <!-- SJ 꺼 -->
@@ -63,34 +64,41 @@
 
 </head>
 <script>
-	$(document).ready(function(){
+	$(document).ready(function() {
 		
-		$("#search-bt").click(function(){
-			
+		navigator.geolocation.getCurrentPosition(function(position) {
+			 pos = {
+				lat : position.coords.latitude,
+				lng : position.coords.longitude
+
+			};
+			alert("나의 위도 : " + pos.lat + " 나의 경도 : " + pos.lng);
+		});
+
+		$("#search-bt").click(function() {
+
 			alert("검색");
 		})
-		$("#five_km").click(function(){
+		$("#five_km").click(function() {
+
 			alert("5km 입니다.");
 			$("#distance-default").html("5km <span class=caret></span>");
-			
+			var val = pos.lat + ":" +pos.lng;
+			var dist = 5;
 			$.ajax({
 				url : "five_km.group",
 				type : "get",
 				data : {
-					value : val
+					value : val,
+					distance : dist
 				},
 				success : function(result) {
-					console.log(result);
-					alert(result=="true");
-					if (result == "true") {
-						$("#duple").text("중복");
-
-					} else {
-						$("#duple").text("사용가능");
-
-					}
+					console.log(result.result);
+					alert(result.result);
+					
 				},
 				error : function() {
+					
 					console.log("에러 발생!");
 				},
 				complete : function() {
@@ -99,15 +107,15 @@
 
 			});
 		})
-		$("#ten_km").click(function(){
+		$("#ten_km").click(function() {
 			alert("10km 입니다.");
 			$("#distance-default").html("10km <span class=caret></span>");
 		})
-		$("#fifteen_km").click(function(){
+		$("#fifteen_km").click(function() {
 			alert("15km 입니다.");
 			$("#distance-default").html("15km <span class=caret></span>");
 		})
-		$("#all_km").click(function(){
+		$("#all_km").click(function() {
 			alert("모든거리 입니다.");
 			$("#distance-default").html("모든거리 <span class=caret></span>");
 		})

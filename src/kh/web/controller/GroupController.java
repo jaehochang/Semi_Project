@@ -1,6 +1,7 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import kh.web.dao.GroupDAO;
 import kh.web.dto.GTableDTO;
@@ -26,7 +29,7 @@ public class GroupController extends HttpServlet {
 			String requestURI = request.getRequestURI();
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length()); 
-		
+			PrintWriter out = response.getWriter();
 			System.out.println(command); 
 
 			GroupDAO dao = new GroupDAO();
@@ -66,7 +69,27 @@ public class GroupController extends HttpServlet {
 				dst="loginview.jsp";
 			}else if(command.equals("/five_km.group")) {
 				
+				String fiveKm = request.getParameter("value");
+				String dist = request.getParameter("distance");
+				System.out.println(dist);
+				String lat = fiveKm.split(":")[0];
+				String lng = fiveKm.split(":")[1]; 
+				System.out.println(lat);
+				System.out.println(lng);
+				List<String> result = dao.DistanceSearch(lat, lng, dist);
 				
+				for(int i=0; i<result.size(); i++) {
+					System.out.println(result.get(i));
+					
+				}
+				JSONObject json = new JSONObject();
+				json.put("result", result);
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				
+				out.println(json);
+				out.flush();
+				out.close();
 			}
 			
 			
