@@ -7,11 +7,14 @@ public class GroupDTO {
 	private String group_location;
 	private String group_interests;
 	private String group_info;
+	private String group_picture;
 	
-	public GroupDTO() {}
-	
+	public GroupDTO() {
+		super();
+	}
+
 	public GroupDTO(int group_seq, String group_leader, String group_name, String group_location,
-			String group_interests, String group_info) {
+			String group_interests, String group_info, String group_picture) {
 		super();
 		this.group_seq = group_seq;
 		this.group_leader = group_leader;
@@ -19,6 +22,7 @@ public class GroupDTO {
 		this.group_location = group_location;
 		this.group_interests = group_interests;
 		this.group_info = group_info;
+		this.group_picture = group_picture;
 	}
 
 
@@ -70,6 +74,17 @@ public class GroupDTO {
 	public void setGroup_info(String group_info) {
 		this.group_info = group_info;
 	}
+
+	public String getGroup_picture() {
+		return group_picture;
+	}
+
+	public void setGroup_picture(String group_picture) {
+		this.group_picture = group_picture;
+	}
+	
+	
+	
 	
 	
 	

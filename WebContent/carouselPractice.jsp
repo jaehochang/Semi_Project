@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
 $(document).ready(function() {
 	  $('#media').carousel({
@@ -68,8 +67,8 @@ $(document).ready(function() {
 }
 .media-carousel img
 {
-  width: 250px;
-  height: 100px
+  width: 100%;
+  height: 100%;
 }
 /* End carousel */
 </style>
@@ -80,17 +79,31 @@ $(document).ready(function() {
     <h2>Media Slider Carousel BS3</h2>
   </div>
   <div class='row'>
-    <div class='col-md-8'>
+    <div class='col-md-10'>
       <div class="carousel slide media-carousel" id="media">
         <div class="carousel-inner">
           <div class="item  active">
             <div class="row">
               <div class="col-md-4">
-                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+                <a class="thumbnail" href="#"><img alt="" src="./image/manse.jpeg"></a>
               </div>          
               <div class="col-md-4">
-                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
-              </div>
+              <div class="card">
+					<a class="img-card" href="http://www.fostrap.com/"> <img
+						src="./image/Tulips.jpg" />
+					</a> <br />
+					<div class="card-content">
+						<h4 class="card-title">
+							<a href="http://www.fostrap.com/"> Your title card </a>
+						</h4>
+						<div class="">Your description card!!</div>
+					</div>
+					<div class="card-read-more">
+						<a class="btn btn-link btn-block" href="http://www.fostrap.com/">
+							Read More </a>
+					</div>
+				</div>
+              </div>          
               <div class="col-md-4">
                 <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
               </div>        
