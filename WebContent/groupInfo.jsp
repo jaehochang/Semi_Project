@@ -28,7 +28,13 @@
 						<span id="all-member"><a href="" >모두 보기</a></span>
 					</div>
 					<div id="groupleader-info">
-						<img src="img/10.jpg">
+						<div id="groupleader-info-img"><img src="img/10.jpg"></div>
+						<div id="groupleader-info-name">
+							<h6>주최자 :</h6>
+							<h4>${item2.group_leader }</h4>
+						</div>
+						
+						
 					</div>
 				</div>
 				<div id="group-pic"></div>
