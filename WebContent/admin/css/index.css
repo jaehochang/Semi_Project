@@ -9,19 +9,21 @@ body {
 #wrapper {
 	padding: 0;
 	margin: 50px auto;
+	margin-bottom: 100px;
 }
 
 .cards {
 	margin: 0 auto;
 	text-align: center;
+	
 }
 
 .card {
 	padding: 20px auto;
 	margin: 0 auto;
 	display: inline-block;
-	width: 30rem;
-	height: 17rem;
+	width: 20rem;
+	height: 10rem;
 	display: inline-block;
 	margin: 0 auto;
 }
@@ -35,11 +37,9 @@ body {
 
 .card-header {
 	margin-top:40px;
-	font-size: 40px;
 	color:purple;
 }
 .card-title{
 	margin-top:15px;
-	font-size:20px;
 	color:purple;
 }

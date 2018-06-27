@@ -35,17 +35,23 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">${adminId }님의 로그인을 환영합니다.</a>
+				<a class="navbar-brand" href="main.ao">홈</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Overview<span
-							class="sr-only">(current)</span></a></li>
-					<li><a href="#"></a></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+					<li><a href="member.ao">member</a></li>
+					<li><a href="group.ao">group</a></li>
+					<li><a href="meetup.ao">meet up</a></li>
+					<li><a href="report.ao">report</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a class="navbar-brand" href="#">${adminId }님의 로그인을
+							환영합니다.</a></li>
+				</ul>
+				<!-- 	<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
 							<span class="caret"></span>
 					</a>
@@ -58,14 +64,14 @@
 							<li class="divider"></li>
 							<li><a href="#">One more separated link</a></li>
 						</ul></li>
-				</ul>
-				<form class="navbar-form navbar-right" role="search">
+				</ul> -->
+				<!--<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search">
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
-				<ul class="nav navbar-nav navbar-right">
+			 	<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Link</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
@@ -77,8 +83,8 @@
 							<li><a href="#">Something else here</a></li>
 							<li class="divider"></li>
 							<li><a href="#">Separated link</a></li>
-						</ul></li>
-				</ul>
+						</ul></li>-->
+
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>

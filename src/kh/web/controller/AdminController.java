@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+
 import kh.web.dao.AdminDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
@@ -46,18 +48,21 @@ public class AdminController extends HttpServlet {
 				dst = "index.jsp";
 
 			} else if (command.equals("/admin/member.ao")) {
-				String member_email = request.getParameter("member_email");
-				System.out.println(member_email);
+				String text = request.getParameter("text");
+				String subject = request.getParameter("subject");
+
+				System.out.println("controller-text: " + text);
+				System.out.println("controller-subject: "+subject);
 				int currentPage = 0;
 				String currentPageString = request.getParameter("currentPage");
 				if (currentPageString == null) {
 					currentPage = 1;
 				} else {
-					currentPage = Integer.parseInt(currentPageString);
+					currentPage = Integer.parseInt(currentPageString);  
 				}
-				List<MemberDTO> list = mdao.memberList(currentPage * 10 - 9, currentPage * 10, "member_email", member_email);
+				List<MemberDTO> list = mdao.memberList(currentPage * 10 - 9, currentPage * 10, text);
 
-				String page = mdao.getPageNavi(currentPage, member_email);
+				String page = mdao.getPageNavi(currentPage, text);
 
 				request.setAttribute("list", list);
 				request.setAttribute("page", page);
@@ -77,6 +82,16 @@ public class AdminController extends HttpServlet {
 				isRedirect = false;
 				dst = "report/report.jsp";
 
+			} else if (command.equals("/admin/memberpage.ao")) {
+				String member_email = request.getParameter("member_email");
+				System.out.println("memberpage:" + member_email);
+
+				MemberDTO mdto = mdao.getMember(member_email);
+				request.setAttribute("mdto", mdto);
+
+				isRedirect = false;
+				dst = "member/memberpage.jsp";
+
 			} else if (command.equals("/admin/warning.ao")) {
 				String member_email = request.getParameter("value");
 
@@ -86,13 +101,13 @@ public class AdminController extends HttpServlet {
 				String warning_date = mdto.getMember_warningdate();
 				String expire_date = mdto.getMember_expiredate();
 				int number = mdto.getMember_warningnumber();
-				int bdate = mdto.getMember_betweendate();
+				int betweendate = mdto.getMember_betweendate();
 
 				JSONObject json = new JSONObject();
 
 				if (result > 0) {
+					json.put("betweendate", betweendate);
 					json.put("number", number);
-					json.put("bdate", bdate);
 					json.put("warning_date", warning_date);
 					json.put("expire_date", expire_date);
 				}
@@ -105,38 +120,46 @@ public class AdminController extends HttpServlet {
 				response.getWriter().close();
 
 			} else if (command.equals("/admin/search.ao")) {
-				String value = request.getParameter("value");
-				System.out.println(value);
-				
-				String member_email = request.getParameter("member_email");
-				System.out.println(member_email);
+				String text = request.getParameter("text");
+				String subject = request.getParameter("subject");
+
+				System.out.println("subject : " + subject);
+				System.out.println("text : " + text);
+
 				int currentPage = 0;
 				String currentPageString = request.getParameter("currentPage");
+
 				if (currentPageString == null) {
 					currentPage = 1;
 				} else {
 					currentPage = Integer.parseInt(currentPageString);
 				}
-				List<MemberDTO> list = mdao.memberList(currentPage * 10 - 9, currentPage * 10, "member_email", value);
 
-				String page = mdao.getPageNavi(currentPage, member_email);
+				List<MemberDTO> list = mdao.memberList(currentPage * 10 - 9, currentPage * 10, text);
+				System.out.println("list.size(): " + list.size());
+				System.out.println("list.toString: " + list.toString());
+				String page = mdao.getPageNavi(currentPage, text);
 
-				JSONObject json = new JSONObject();
-
-				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				
+				for (int i = 0; i < list.size(); i++) {
+					System.out.println("반복하랏:" + list.get(i).getMember_email());
+				}
 
-				response.getWriter().print(json);
-				response.getWriter().flush();
-				response.getWriter().close();
+				new Gson().toJson(list, response.getWriter());
 				
+				// JSONObject json = new JSONObject();
+				// response.getWriter().print(json);
+				// response.getWriter().flush();
+				// response.getWriter().close();
 			}
-				
+
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 			} else {
-//				response.sendRedirect(dst);
+				// response.sendRedirect(dst);
 			}
 
 		} catch (Exception e) {
@@ -186,7 +209,7 @@ public class AdminController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 			} else {
-//				response.sendRedirect(dst);
+				// response.sendRedirect(dst);
 			}
 
 		} catch (Exception e) {
