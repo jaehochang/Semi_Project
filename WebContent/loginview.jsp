@@ -186,9 +186,6 @@
 			<button type="button" class="btn btn-default">그룹들</button>
 			<button type="button" class="btn btn-default">달력</button>
 		</div>
-
-
-
 	</div>
 
 	<div class="myMeetNow">
@@ -199,67 +196,52 @@
 
 		<div class="row" id="myMeet_row">
 			<c:forEach var="item" items="${myGroupList }">
-
+				
 				<div class="col-md-3" style="padding: 10px;">
+					<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 					<div class="over-img">
 						<img src="files/${item.system_name }" class="img_size">
 					</div>
-					<h3 class="group_title">${item.group_name }</h3>
-
+					<h4 class="group_title">${item.group_name }</h4>
+					
 					<c:forEach var="item2" items="${memberCount }">
 						<c:if test="${item.group_seq eq item2.group_seq }">
 							<h5 class="group_count">${item2.count}명의회원</h5>
 						</c:if>
 					</c:forEach>
-
+					</a>
 				</div>
-
+				
 			</c:forEach>
 		</div>
 
 	</div>
 
+
 	<div id="recoMeetnow">
 		<p>추천 MeetNow</p>
 		<div class="row">
+		
+		<c:forEach var="item" items="${groupList }">
+		
 			<div class="col-md-4">
 				<div class="img_div">
-					<img src="img/1.jpg" class="img_size">
+				<div class="over-img">
+					<img src="files/${item.group_picture }" class="img_size">
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="img_div">
-					<img src="img/1.jpg" class="img_size">
 				</div>
+				<h4 class="group_title">${item.group_name }</h4>
 			</div>
-			<div class="col-md-4">
-				<div class="img_div">
-					<img src="img/1.jpg" class="img_size">
-				</div>
-			</div>
+			
+		</c:forEach>
 		</div>
-
-
-		<div class="row">
-			<div class="col-md-4">
-				<div class="img_div">
-					<img src="img/1.jpg" class="img_size">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="img_div">
-					<img src="img/1.jpg" class="img_size">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="img_div">
-					<img src="img/1.jpg" class="img_size">
-				</div>
-			</div>
-		</div>
-
 
 	</div>
+	
+	<div id="moreGroup">
+		<button type="button" class="btn btn-default btn-lg btn-block" style="height:30px; padding:0px;">더보기</button>
+	</div>
+
 
 	<footer>
 

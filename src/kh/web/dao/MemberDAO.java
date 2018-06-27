@@ -34,12 +34,11 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into member values"
-				+ "(member_seq.nextval,?,?,?,'null','null','null',sysdate)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,'null','null',sysdate)";
 		PreparedStatement  ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
-		ps.setString(3, dto.getPwd());
+		ps.setString(3, dto.getMember_pwd());
 
 		int rs = ps.executeUpdate();
 
@@ -73,14 +72,14 @@ public class MemberDAO {
 
 		String dbPw = rs.getString("member_pwd");
 
-		System.out.println("dbPw " +  ":" +  dbPw + " / mDTO.getPwd : " + mDTO.getPwd());
+		System.out.println("dbPw " +  ":" +  dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
 		
 		con.close();
 		rs.close();
 		ps.close();
 		
 		
-		if (dbPw.equals(mDTO.getPwd())) {
+		if (dbPw.equals(mDTO.getMember_pwd())) {
 			return true;
 
 		} else {
@@ -104,7 +103,7 @@ public class MemberDAO {
 		mDTO.setMember_name(rs.getString("member_name"));
 		mDTO.setMember_interests(rs.getString("member_interests"));
 		mDTO.setMember_picture(rs.getString("member_picture"));
-		mDTO.setJoin_date(rs.getString("join_date"));
+		mDTO.setMember_joindate(rs.getString("join_date"));
 		mDTO.setMember_location(rs.getString("member_location"));
 		
 		}

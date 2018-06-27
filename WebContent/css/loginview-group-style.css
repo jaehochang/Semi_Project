@@ -23,7 +23,6 @@
    }
    
    .myMeetGroup{
-      
       float: left;
       width:250px;
       height:200px;
@@ -37,8 +36,7 @@
    
    #search{
       margin: 0 auto;
-      position:absolute;
-      top:420px;
+      position: sticky;
       left:500px;
       background-color: black;
       width:900px;
@@ -83,6 +81,7 @@
    
    .group_title{
       position:absolute;
+      width:200px;
       bottom:25px;
       left:20px;
       color:white;
@@ -93,6 +92,7 @@
       height: 100%;
       text-align: center;
       background-color: black;
+      overflow: hidden;
    }
    
    
@@ -109,14 +109,17 @@
       width: 100%;
       height: 100%;
       text-align: center;
+      padding:10px 0px;
    }
    
    .img_size{
-      
       width: 100%;
       vertical-align: middle;
+      transform:scale(1.3);
    }
    
-   .row{
-      
+    #moreGroup{
+      margin: 0 auto;
+      width: 900px;
+      padding: 20px 0px;
    }
