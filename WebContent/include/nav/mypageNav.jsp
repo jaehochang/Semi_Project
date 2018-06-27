@@ -23,7 +23,7 @@
 			<li class="dropdown active"><a href="#" class="dropdown-toggle"
 				data-toggle="dropdown"><i class="fas fa-user"></i></a>
 
-				<ul class="dropdown-menu dropdown-menu-right" style="width:100px;">
+				<ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
 					<li><a href="LogoutController.co">로그아웃 </a></li>
 					<li><a href="mypage.co">마이페이지 </a></li>
 				</ul>
@@ -43,11 +43,50 @@
 			<li><a href="#">새 그룹 시작하기</a>
 			<li><a href="login.jsp">로그인</a>
 			<li><button type="button" class="btn btn-default"
-					data-toggle="modal" data-target="#idTypeQuestions" onclick="window.open('signUpPage.jsp')">가입하기</button>
+					data-toggle="modal" data-target="#idTypeQuestions">가입하기</button>
 		</ul>
 
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="idTypeQuestions" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title" id="exampleModalLabel">회원가입</h2>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					
+					<!-- 카카오톡으로 회원가입 버튼 -->
+						<div>
+							<a id="kakao-login-btn"></a>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div>
+			<%@ include file="../../signUpWithKakao.jsp"%>
+		</div>
 
 	</c:when>
 
 </c:choose>
+
+
 

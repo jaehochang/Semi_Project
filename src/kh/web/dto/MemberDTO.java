@@ -11,8 +11,18 @@ public class MemberDTO {
 	String member_interests;
 	String member_picture;
 	String join_date;
+	String kakaoId;
 	
-	
+	public String getKakaoId() {
+		return kakaoId;
+	}
+
+
+	public void setKakaoId(String kakaoId) {
+		this.kakaoId = kakaoId;
+	}
+
+
 	public String getJoin_date() {
 		return join_date;
 	}

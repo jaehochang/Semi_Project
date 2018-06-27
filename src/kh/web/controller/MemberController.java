@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
+import kh.web.dto.SnsDTO;
 
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
@@ -53,6 +54,92 @@ public class MemberController extends HttpServlet {
 
 				}
 
+			} else if (command.equals("/signUpWithSnsEmail.co")) {
+
+				String email = request.getParameter("email");
+				String name = request.getParameter("name");
+
+				MemberDAO mDAO = new MemberDAO();
+				MemberDTO mDTO = new MemberDTO();
+
+				mDTO.setMember_email(email);
+				mDTO.setMember_name(name);
+
+				boolean result = mDAO.InptEmailtoAccnt(mDTO);
+
+				System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " + result);
+				
+				if (result) {
+
+					isRedirect = false;
+					request.setAttribute("result", result);
+					dst = "kakaoSignUpPage.jsp";
+				} else {
+					dst = "error.html";
+				}
+
+			} else if (command.equals("/kakaoIdDplCheck.co")) {
+
+				
+				String kakaoId = request.getParameter("kakaoId");
+				String kakaoNickName = request.getParameter("kakaoNickName");
+
+				System.out.println("/kakaoId - from ajax: " + kakaoId);
+				System.out.println("/kakaoNickName - from ajax: " + kakaoNickName);
+
+				MemberDAO mDAO = new MemberDAO();
+				SnsDTO sDTO = new SnsDTO();
+
+				sDTO.setKakao_id(kakaoId);
+				sDTO.setKakao_nickName(kakaoNickName);
+
+				boolean dplChck = mDAO.kakaoDplChck(sDTO);
+
+				System.out.println("카카오톡 중복 아이디 유무 (false = 무 / true = 유) : " + dplChck);
+				PrintWriter out = response.getWriter();
+				
+				out.print(dplChck);
+				out.flush();
+				out.close();
+				
+				System.out.println("/ dplChck을 ajax로 보냄");
+				
+			} else if (command.equals("/signUpWithKakao.co")) {
+
+				String kakaoId = request.getParameter("kakaoId");
+				String kakaoNickName = request.getParameter("kakaoNickName");
+
+				System.out.println("/kakaoId - from ajax: " + kakaoId);
+				System.out.println("/kakaoNickName - from ajax: " + kakaoNickName);
+
+				MemberDAO mDAO = new MemberDAO();
+				SnsDTO sDTO = new SnsDTO();
+
+				sDTO.setKakao_id(kakaoId);
+				sDTO.setKakao_nickName(kakaoNickName);
+
+				// boolean dplChck = mDAO.kakaoDplChck(kakaoId);
+				// if (dplChck) {
+				// isRedirect = false;
+				// request.setAttribute("kakaoIdDplCheck", dplChck);
+				// dst = "kakaoSignUpPage.jsp";
+
+				boolean result = mDAO.signUpWithKakao(sDTO);
+				System.out.println(result);
+
+				isRedirect = false;
+
+				PrintWriter out = response.getWriter();
+
+				out.print(result);
+				out.flush();
+				out.close();
+
+				request.setAttribute("result", result);
+				dst = "signUpWithKakao.co";
+
+				// 일단, select 로 체크를 했는데 문제가 없다면, signup 가능하게 만들도록 하자.
+
 			} else if (command.equals("/login.co")) {
 
 				String memberEmail = (String) request.getParameter("member_email");
@@ -67,11 +154,11 @@ public class MemberController extends HttpServlet {
 				boolean result = mDAO.login(mDTO);
 
 				isRedirect = false;
-				
+
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
 					dst = "meetNowFindPage.jsp";
-			
+
 				} else {
 					request.setAttribute("loginResult", result);
 					dst = "login.jsp";
