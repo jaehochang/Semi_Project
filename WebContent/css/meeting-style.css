@@ -48,16 +48,22 @@ time.icon span
 }
 
 .jumbotron {
-	height : 300px;
-	background-color: #f7f2fc;
+   height : 250px;
+   background-color: #f7f2fc;
 }
 
 .meeting-info {
-	margin-left: 500px;
-	margin-right : 800px;
+   margin-left: 500px;
+   width : 700px;
+   float : left;
+   
 }
 
 .meeting-contents {
-	margin-left : 500px;
-	margin-right : 800px;
+   margin-left : 500px;
+   width : 600px;
+}
+
+.btn btn-outline-primary {
+   color:pink;
 }

@@ -183,9 +183,6 @@
 		<button type="button" class="btn btn-default btn-lg btn-block" style="height:30px; padding:0px;">더보기</button>
 	</div>
 
-	<div id="moreGroup">
-		<button class="btn btn-default btn-lg btn-block" style="height:30px; padding:0px;">더보기</button>
-	</div>
 
 	<footer>
 
