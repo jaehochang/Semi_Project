@@ -12,7 +12,7 @@ public class MemberDAO {
 	public boolean isIdPw(String email, String pw) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "select id, pw from members where id=? and pw =?";
+		String sql = "select id, pw from member where id=? and pw =?";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, email);
 		pstat.setString(2, pw);
@@ -71,7 +71,7 @@ public class MemberDAO {
 
 		rs.next();
 
-		String dbPw = rs.getString("pwd");
+		String dbPw = rs.getString("member_pwd");
 
 		System.out.println("dbPw " + ":" + dbPw + " / mDTO.getPwd : " + mDTO.getPwd());
 
@@ -89,7 +89,7 @@ public class MemberDAO {
 	public MemberDTO getAccountInfo(String loginId) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from member where member_email=?";
+		String sql = "select * from gmember where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, loginId);
 

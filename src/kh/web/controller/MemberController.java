@@ -47,6 +47,7 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("pw", pw);
 
 					isRedirect = false;
+					
 					dst = "loginview.jsp";
 
 				} else {
@@ -70,8 +71,7 @@ public class MemberController extends HttpServlet {
 				
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
-					dst = "meetNowFindPage.jsp";
-			
+					dst = "list.group";
 				} else {
 					request.setAttribute("loginResult", result);
 					dst = "login.jsp";
