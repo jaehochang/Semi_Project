@@ -63,7 +63,7 @@ public class MemberController extends HttpServlet {
 				MemberDTO mDTO = new MemberDTO();
 
 				mDTO.setMember_email(memberEmail);
-				mDTO.setPwd(pwd);
+				mDTO.setMember_pwd(pwd);
 
 				boolean result = mDAO.login(mDTO);
 
@@ -113,7 +113,7 @@ public class MemberController extends HttpServlet {
 
 				dto.setMember_name(memberName);
 				dto.setMember_email(memberEmail);
-				dto.setPwd(pwd);
+				dto.setMember_pwd(pwd);
 
 				boolean result = mDAO.signUpApply(dto);
 
