@@ -50,6 +50,6 @@
 }
 .media-carousel img
 {
-  width: 250px;
-  height: 100px
+  width: 100%;
+  height: 100%;
 }
