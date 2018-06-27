@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-	location.href="main.bo";
+	location.href="main.meet";
 </script>
 </body>
 </html>

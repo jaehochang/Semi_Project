@@ -1,11 +1,9 @@
 
 div{
 	box-sizing: border-box;
-	border: 1px solid black;
 }
 
 #group-top{
-	border: 1px solid black;
 	width:1000px;
 	height:300px;
 	margin: 0 auto;
@@ -70,5 +68,14 @@ li{
 	float:left;
 }
 
+#navi-div{
+	width:1000px;
+	margin: 0 auto;
+}
 
+#sns{
+	position:absolute;
+	top:400px;
+	right:830px;
+}
 
