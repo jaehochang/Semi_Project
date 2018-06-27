@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.web.dao.GroupDAO;
-import kh.web.dto.GTableDTO;
-import kh.web.dto.GtablePictureDTO;
+import kh.web.dto.GroupDTO;
+import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MemberCountDTO;
 import kh.web.dto.MygroupDTO;
 
@@ -35,15 +35,11 @@ public class GroupController extends HttpServlet {
 			
 			if (command.equals("/list.group")) {
 				
-				List<GTableDTO> groupList = dao.allgroups();
-				List<GtablePictureDTO> groupPicList = dao.allgroupsPictures();
+				List<GroupDTO> groupList = dao.allgroups();
+				List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
 				List<MygroupDTO> myGroupList = dao.myGroupList();
 				List<MemberCountDTO> memberCount =  new ArrayList<>();
 				
-				if(myGroupList.size()>4) {
-					
-				}
-			
 				
 				if(myGroupList.size() != 0) {
 					for(int i=0 ; i<myGroupList.size() ; i++) {
@@ -64,6 +60,42 @@ public class GroupController extends HttpServlet {
 //				System.out.println("컨트롤러 : "+memberCount.size());
 				isRedirect = false;
 				dst="loginview.jsp";
+				
+			}else if(command.equals("/groupMain.group")) {
+				
+				
+				
+				String page = request.getParameter("page");
+				String group_seq = request.getParameter("group_seq");
+				
+				int groupSeq = Integer.parseInt(group_seq);
+				
+				List<GroupDTO> result = dao.groupInfo(group_seq);
+				
+				
+				MemberCountDTO dto = dao.MemberCount(groupSeq);
+				int count = dto.getCount();
+				
+				System.out.println("인원수"+count);
+				System.out.println("그룹시퀀스 : "+result.get(0).getGroup_seq());
+				
+				request.setAttribute("result", result);
+				request.setAttribute("count", count);
+				
+				if(page.equals("info")) {
+					System.out.println("info");
+					
+					isRedirect = false;
+					dst="groupInfo.jsp";
+				}else if(page.equals("meetup")) {
+					System.out.println("meetup");
+					
+					isRedirect = false;
+					dst="groupMeetup.jsp";
+				}
+				
+				
+				
 			}
 			
 			
