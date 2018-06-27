@@ -23,7 +23,13 @@
 					${item2.group_info }
 				</div>
 				<div id="group-member">
-					
+					<div id="group-member-count">
+						<span>회원(${count }명)</span>
+						<span id="all-member"><a href="">모두 보기</a></span>
+					</div>
+					<div id="groupleader-info">
+						
+					</div>
 				</div>
 				<div id="group-pic"></div>
 			</div>

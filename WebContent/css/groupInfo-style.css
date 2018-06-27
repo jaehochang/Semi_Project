@@ -7,40 +7,55 @@ div{
 }
 
 #wrapper{
-	border: 1px solid black;
 	margin: 0 auto;
 	width:1000px;
-	height:1800px;
+	height:1000px;
 }
 
 #group-contents{
-	border: 1px solid black;
 	float:left;
-	width:70%;
+	width:60%;
 	height:100%;
 }
 
 #group-plan{
-	border: 1px solid black;
 	width:100%;
 	height:60%;
 }
 
 #group-member{
-	border: 1px solid black;
 	width:100%;
 	height:10%;
 }
 
+#group-member-count{
+	padding:3px 10px;
+	width:100%;
+	height:30%;
+}
+
+#groupleader-info{
+	width:100%;
+	height:70%;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#groupleader-info:hover{
+	box-shadow: 1px 1px 10px #ddd;
+}
+
+#all-member{
+	text-align: right;
+}
+
 #group-pic{
-	border: 1px solid black;
 	width:100%;
 	height:30%;
 }
 
 #last-meetup{
-	border: 1px solid black;
 	float:left;
-	width:30%;
+	width:40%;
 	height:100%;
 }
