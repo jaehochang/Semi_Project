@@ -16,7 +16,7 @@
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
