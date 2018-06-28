@@ -51,11 +51,11 @@
 }
 
 .img-member img{
-	width: 60px;
+   width: 60px;
     height: 60px;
     border-radius: 50%;
-	outline: none;
-	margin : 0 10px 20px 0;
+   outline: none;
+   margin : 0 10px 20px 0;
 }
 
 .pull-left {
@@ -88,5 +88,9 @@
 }
 
 .interest-name {
-	font-size : 20px;
+   font-size : 20px;
+}
+
+.time {
+   color : pink;
 }

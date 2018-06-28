@@ -1,22 +1,23 @@
 package kh.web.dto;
 
-public class GtablePictureDTO {
+public class GroupPicDTO {
 	private int group_picture_seq;
 	private int group_seq;
 	private String original_name;
 	private String system_name;
 	
-	public GtablePictureDTO() {
+	public GroupPicDTO() {
 		super();
 	}
 	
-	public GtablePictureDTO(int group_picture_seq, int group_seq, String original_name, String system_name) {
+	public GroupPicDTO(int group_picture_seq, int group_seq, String original_name, String system_name) {
 		super();
 		this.group_picture_seq = group_picture_seq;
 		this.group_seq = group_seq;
 		this.original_name = original_name;
 		this.system_name = system_name;
 	}
+	
 	public int getGroup_picture_seq() {
 		return group_picture_seq;
 	}
