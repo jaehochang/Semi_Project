@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.web.dao.GroupDAO;
 import kh.web.dto.GTableDTO;
+import kh.web.dto.GroupDTO;
 import kh.web.dto.GtablePictureDTO;
 import kh.web.dto.MemberCountDTO;
 import kh.web.dto.MygroupDTO;
@@ -30,6 +31,7 @@ public class GroupController extends HttpServlet {
 			System.out.println(command); 
 
 			GroupDAO dao = new GroupDAO();
+			
 			boolean isRedirect = true;
 			String dst = null;
 			
@@ -84,7 +86,40 @@ public class GroupController extends HttpServlet {
 				isRedirect = false;
 				dst="groupMain.jsp";
 				
+			}else if(command.equals("/createRequest.group")) {
+				isRedirect = true;
+				dst="create.jsp";
+			}else if(command.equals("/create.group")) {
+				
+				request.setCharacterEncoding("UTF-8");
+				String loginId = "plmn8550@naver.com";
+						/*(String)request.getSession().getAttribute("loginId");*/
+				String location = (String) request.getParameter("location");
+                String tags=(String) request.getParameter("tags");
+                String groupTitle=(String) request.getParameter("eventName");
+                String groupContents=(String) request.getParameter("eventContents");
+				
+                System.out.println("loginId : "+loginId+"/"+"location : "+location+"/"+"tags : "+tags+"/"+"groupTitle : "+groupTitle+"/"+"groupContents : "+groupContents);
+                 
+                GroupDTO dto = new GroupDTO();
+                dto.setGroup_leader(loginId);
+                dto.setGroup_location(location);
+                dto.setGroup_interests(tags);
+                dto.setGroup_name(groupTitle);
+                dto.setGroup_info(groupContents);
+                int result=dao.insertGroup(dto);
+                
+                if(result>0) {
+                isRedirect = false;
+				dst="groupCreateConfirm.jsp";
+                }else {
+                	isRedirect = false;
+                	dst="create.jsp";
+                }
+                
 			}
+				
+				
 			
 			//------------------
 

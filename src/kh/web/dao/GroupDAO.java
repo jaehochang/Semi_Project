@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kh.web.dto.GTableDTO;
+import kh.web.dto.GroupDTO;
 import kh.web.dto.GtablePictureDTO;
 import kh.web.dto.MemberCountDTO;
 import kh.web.dto.MygroupDTO;
@@ -155,7 +156,27 @@ public class GroupDAO {
 		return result;
 	}
 	
-	
+	public int insertGroup(GroupDTO dto) throws Exception{
+		Connection con = DBUtils.getConnection();
+		
+		String sql = "insert into create_group values(group_seq.nextval,?,?,?,?,?,'default.jpg')";
+		PreparedStatement  psat = con.prepareStatement(sql);
+		psat.setString(1,dto.getGroup_leader());
+		psat.setString(2, dto.getGroup_name());
+		psat.setString(3, dto.getGroup_location());
+		psat.setString(4, dto.getGroup_interests());
+		psat.setString(5, dto.getGroup_info());
+		int result = psat.executeUpdate();
+
+		con.commit();
+		con.close();
+		psat.close();
+		
+		
+		return result;
+		
+		
+	}
 	
 }
 
