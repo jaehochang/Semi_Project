@@ -11,7 +11,7 @@
 	</div>
 </div>
 
-<form method="post" id="create" action="Validate.aspx">
+<form method="post" id="create" action="create.group">
 <div class="container">
 	<div class="row">
 		<div class="col-md-4.col-md-offset4">
@@ -140,4 +140,4 @@
 </div>
 <!--container-->
 </form>
-<%@ include file="include/bottom.jsp"%>
+<footer><%@ include file="include/bottom.jsp"%></footer>

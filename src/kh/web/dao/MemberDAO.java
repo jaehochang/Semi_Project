@@ -34,7 +34,7 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into gmember values(member_seq.nextval,?,?,?,'null','null',sysdate)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,'당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)";
 		PreparedStatement  ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
@@ -62,7 +62,7 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "select * from gmember where member_email=?";
+		String sql = "select * from member where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, mDTO.getMember_email());
 		System.out.println(mDTO.getMember_email());
@@ -70,7 +70,7 @@ public class MemberDAO {
 		
 		rs.next();
 
-		String dbPw = rs.getString("pwd");
+		String dbPw = rs.getString("member_pwd");
 
 		System.out.println("dbPw " +  ":" +  dbPw + " / mDTO.getPwd : " + mDTO.getPwd());
 		

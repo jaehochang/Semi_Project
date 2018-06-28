@@ -177,6 +177,24 @@ public class GroupDAO {
 		
 		
 	}
+	public String printNameGroup(String groupTitle) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select group_name from create_group where group_name=?";
+		PreparedStatement psat = con.prepareStatement(sql);
+		psat.setString(1, groupTitle);
+		
+		ResultSet rs = psat.executeQuery();
+		rs.next();
+		String groupName=rs.getString("group_name");
+		System.out.println("그룹이름:"+groupName);
+		rs.close();
+		psat.close();
+		con.close();
+		
+		return (String) groupName;
+		
+		
+	}
 	
 }
 

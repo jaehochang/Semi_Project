@@ -79,6 +79,7 @@ public class GroupDTO {
 		this.group_picture = group_picture;
 	}
 
+	
 
 
 	
