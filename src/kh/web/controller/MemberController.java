@@ -48,6 +48,7 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("pw", pw);
 
 					isRedirect = false;
+					
 					dst = "loginview.jsp";
 
 				} else {
@@ -149,7 +150,7 @@ public class MemberController extends HttpServlet {
 				MemberDTO mDTO = new MemberDTO();
 
 				mDTO.setMember_email(memberEmail);
-				mDTO.setPwd(pwd);
+				mDTO.setMember_pwd(pwd);
 
 				boolean result = mDAO.login(mDTO);
 
@@ -157,8 +158,7 @@ public class MemberController extends HttpServlet {
 
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
-					dst = "meetNowFindPage.jsp";
-
+					dst = "list.group";
 				} else {
 					request.setAttribute("loginResult", result);
 					dst = "login.jsp";
@@ -176,7 +176,7 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("userLocation", accntInfo.getMember_location());
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userInterests", accntInfo.getMember_interests());
-				request.setAttribute("userJoinDate", accntInfo.getJoin_date());
+				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 
 				isRedirect = false;
 				dst = "mypage.jsp";
@@ -200,7 +200,7 @@ public class MemberController extends HttpServlet {
 
 				dto.setMember_name(memberName);
 				dto.setMember_email(memberEmail);
-				dto.setPwd(pwd);
+				dto.setMember_pwd(pwd);
 
 				boolean result = mDAO.signUpApply(dto);
 
