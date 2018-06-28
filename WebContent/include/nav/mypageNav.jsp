@@ -6,7 +6,7 @@
 
 
 
-<!-- session에서 id값이 있는 경우 : 로그인이 되어있는 경우 -->
+<!-- Controller에서  sessionScope.loginId 받으면 오는 페이지 : 로그인이 되어있는 경우 -->
 
 <c:choose>
 	<c:when test="${sessionScope.loginId != null}">
@@ -61,10 +61,11 @@
 						</button>
 					</div>
 					<div class="modal-body">
-					
-					<!-- 카카오톡으로 회원가입 버튼 -->
+
+						<!-- 카카오톡으로 회원가입 버튼 -->
 						<div>
-							<a id="kakao-login-btn"></a>
+							<a id="kakao-signUp-btn"><img src="img/kakao.png" width=35px
+								height=35px>카카오톡으로 회원가입</a>
 						</div>
 
 					</div>
@@ -82,7 +83,9 @@
 
 		<div>
 			<%@ include file="../../signUpWithKakao.jsp"%>
+			<script>console.log("/signUpWithKakao.jsp")</script>
 		</div>
+		
 
 	</c:when>
 

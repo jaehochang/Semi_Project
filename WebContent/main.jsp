@@ -48,12 +48,6 @@
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
    crossorigin="anonymous">
 
-
-
-
-
-
-
 </head>
 <script>
    $(document).ready(function() {
@@ -289,24 +283,10 @@
             </div>
          </div>
       </div>
-      
-         
-      
-      
-
    </div> 
-
-
-
-      
-
-
 
    <footer>
       <%@ include file="include/bottom.jsp"%>
-
-
-
    </footer>
 </body>
 

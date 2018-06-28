@@ -52,7 +52,8 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <!-- 페이스북 -->
-<script language="javascript" src="http://connect.facebook.net/ko_KR/all.js"></script>
+<script language="javascript"
+	src="http://connect.facebook.net/ko_KR/all.js"></script>
 
 
 <script type="text/javascript">
@@ -66,9 +67,6 @@
 <body>
 
 	<c:if test="${requestScope.loginResult==false}">
-
-
-
 
 		<!-- Login Failure Modal -->
 		<div id="loginFailModal" class="modal fade">
@@ -93,14 +91,9 @@
 
 	</c:if>
 
-
 	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
 	</nav>
-
-
-
-
 	<div class="panel panel-default" style="width: 100%; margin: 0;">
 		<div class="panel-body" style="width: 50%; margin: 0 auto;">
 			<div id=loginheader style="margin-bottom: 15px;">
@@ -136,15 +129,8 @@
 							<button id=loginCheck class="btn btn-default" style=>로그인</button>
 						</div>
 
-						<br> 또는
-
-						<div>
-							<a id="kakao-login-btn" href="javascript:loginWithKakao()">
-							</a>
-
-
-						</div>
-
+						<br> 또는 <a id="kakaoLoginBtn"><img
+							src="img/kakao.png" height=35px width=35px>카카오톡으로 로그인하기</a>
 
 					</div>
 				</form>
@@ -155,13 +141,10 @@
 		<!-- 카카오톡 로그인 API  -->
 
 		<div>
-			<%@ include file="signUpWithKakao.jsp"%>
+			<%@ include file="logInWithKakao.jsp"%>
 		</div>
 
 	</div>
-
-
-
 
 	<footer>
 		<%@ include file="include/bottom.jsp"%>

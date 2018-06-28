@@ -48,7 +48,7 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("pw", pw);
 
 					isRedirect = false;
-					
+
 					dst = "loginview.jsp";
 
 				} else {
@@ -57,54 +57,71 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/signUpWithSnsEmail.co")) {
 
+				String kakao_id = request.getParameter("kakao_id");
+				String kakao_nickname = request.getParameter("kakao_nickname");
 				String email = request.getParameter("email");
 				String name = request.getParameter("name");
 
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO mDTO = new MemberDTO();
-
+				
+				SnsDTO sDTO = new SnsDTO();
+				
+				sDTO.setKakao_id(kakao_id);
+				sDTO.setKakao_nickName(kakao_nickname);
+				
 				mDTO.setMember_email(email);
 				mDTO.setMember_name(name);
 
-				boolean result = mDAO.InptEmailtoAccnt(mDTO);
+				boolean result = mDAO.InptEmailtoAccnt(mDTO, sDTO);
 
 				System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " + result);
+
+				
+				System.out.println("signUpWithSnsEmail.co - kakao_id" +  kakao_id);
 				
 				if (result) {
-
 					isRedirect = false;
 					request.setAttribute("result", result);
+					System.out.println("result : " + result);
+					request.setAttribute("kakaoSecretNumId", kakao_id);
+					System.out.println(kakao_id);
 					dst = "kakaoSignUpPage.jsp";
+					
 				} else {
+					System.out.println("/signUpWithSnsEmail : failed ");
 					dst = "error.html";
 				}
 
 			} else if (command.equals("/kakaoIdDplCheck.co")) {
 
-				
-				String kakaoId = request.getParameter("kakaoId");
-				String kakaoNickName = request.getParameter("kakaoNickName");
+				String kakao_id = request.getParameter("kakao_id");
+				String kakao_nickname = request.getParameter("kakao_nickname");
 
-				System.out.println("/kakaoId - from ajax: " + kakaoId);
-				System.out.println("/kakaoNickName - from ajax: " + kakaoNickName);
+				System.out.println("/kakaoId - from ajax: " + kakao_id);
+				System.out.println("/kakaoNickName - from ajax: " + kakao_nickname);
 
 				MemberDAO mDAO = new MemberDAO();
 				SnsDTO sDTO = new SnsDTO();
 
-				sDTO.setKakao_id(kakaoId);
-				sDTO.setKakao_nickName(kakaoNickName);
+				sDTO.setKakao_id(kakao_id);
+				sDTO.setKakao_nickName(kakao_nickname);
 
 				boolean dplChck = mDAO.kakaoDplChck(sDTO);
 
-				System.out.println("카카오톡 중복 아이디 유무 (false = 무 / true = 유) : " + dplChck);
-				PrintWriter out = response.getWriter();
+				System.out.println("/kakaoIdDplCheck.co : 카카오톡 중복 아이디 유무 (false = 무 / true = 유) : " + dplChck);
+
+				isRedirect=false;
 				
-				out.print(dplChck);
-				out.flush();
-				out.close();
-				
-				System.out.println("/ dplChck을 ajax로 보냄");
-				
+				if (dplChck) {
+					request.getSession().setAttribute("loginId", kakao_id); // 세션 담기
+					dst = "main.jsp";
+					
+				} else {
+					request.setAttribute("kakaoSecretNumId", kakao_id);
+					dst = "kakaoSignUpPage.jsp";
+				}
+
 			} else if (command.equals("/signUpWithKakao.co")) {
 
 				String kakaoId = request.getParameter("kakaoId");
@@ -128,16 +145,20 @@ public class MemberController extends HttpServlet {
 				boolean result = mDAO.signUpWithKakao(sDTO);
 				System.out.println(result);
 
-				isRedirect = false;
+				if (result) {
 
-				PrintWriter out = response.getWriter();
+					isRedirect = false;
 
-				out.print(result);
-				out.flush();
-				out.close();
+					PrintWriter out = response.getWriter();
 
-				request.setAttribute("result", result);
-				dst = "signUpWithKakao.co";
+					out.print(result);
+					out.flush();
+					out.close();
+					request.setAttribute("result", result);
+
+				} else {
+					dst = "error.html";
+				}
 
 				// 일단, select 로 체크를 했는데 문제가 없다면, signup 가능하게 만들도록 하자.
 
@@ -167,6 +188,8 @@ public class MemberController extends HttpServlet {
 			} else if (command.equals("/mypage.co")) {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
+				
+				System.out.println("/mypage.co loginId : " + loginId);
 				MemberDAO mDAO = new MemberDAO();
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
@@ -221,6 +244,19 @@ public class MemberController extends HttpServlet {
 
 				isRedirect = true;
 				dst = "main.jsp";
+			} else if (command.equals("/isThisKakaoIdExist.co")) {
+				String loginKakaoId = request.getParameter("kakaoId");
+
+				MemberDAO mDAO = new MemberDAO();
+
+				boolean result = mDAO.isKakaoIdExist(loginKakaoId);
+				if (result) { // 통과
+					// 세션 제공
+					request.getSession().setAttribute("loginId", loginKakaoId);
+					response.getWriter().print(result);
+
+				}
+
 			}
 
 			if (isRedirect == false) {

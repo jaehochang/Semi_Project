@@ -7,74 +7,58 @@
 
 
 <script type='text/javascript'>
+	window.onload = function() {
+		document.getElementById("kakao-signUp-btn").onclick = function() {
 
-	Kakao.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
+			Kakao.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
 
-	Kakao.Auth.createLoginButton({
-		container : '#kakao-login-btn',
-		success : function(authObj) {
+			Kakao.Auth
+					.loginForm({
+						success : function(authObj) {
+							Kakao.API
+									.request({
+										url : '/v1/user/me',
+										success : function(res) {
+											console.log(1);
+											console.log(res.kaccount_email);
+											console.log(res.id);
+											console
+													.log(res.properties['nickname']);
+											var kakaoId = res.id;
+											var kakaoNickName = res.properties['nickname'];
 
-			Kakao.Auth.loginForm({
+											document
+													.getElementById("hiddenKakaoId").value = kakaoId;
 
-				success : function(authObj) {
+											document.getElementById("hiddenKakaoNickName").value = kakaoNickName;
+											
+											
+											var valCheck = document
+													.getElementById("hiddenKakaoId").value;
+											console.log("valCheck : "
+													+ valCheck);
 
-					Kakao.API.request({
-						url : '/v1/user/me',
-						success : function(res) {
-							console.log(res.kaccount_email);
-							console.log(res.id);
-							console.log(res.properties['nickname']);
-							console.log(res.properties['age_range']);
-							console.log(res.properties['birthday']);
-							console.log(res.properties['age_range']);
+											document.forms["sendkakaoIdToController"]
+													.submit();
 
-							var kakaoId = res.id;
-							var kakaoNickName = res.properties['nickname'];
-							
-							console.log("kakaoid, nickname > kakaoIdDplCheck.co")
-
-							
-							// 카톡 아이디 로그인 > 중복 체크 중복체크
-										$.ajax({
-											url:"kakaoIdDplCheck.co",
-											data : {
-												"kakaoId" : kakaoId,
-												"kakaoNickName" : kakaoNickName
-											},	
-											complete : function(response) {
-												
-												console.log(response.dplChck + response);
-												if(response.dplChck){
-													alert("이미 존재하는 카카오톡 아이디 입니다. 아이디를 확인해주세요.");
-													location.href="main.jsp";
-												}else{
-													alert("아이디가 사용 가능합니다!");
-													location.href="kakaoSignUpPage.jsp";
-												}
-											}
-											});
+										}
+									});
 						},
-						fail : function(error) {
-							alert(JSON.stringify(error));
-
-						}
+						fail : function(errorObj) {
+							console.log(authObj)
+						},
+						persistAccessToken : true,
+						persistRefreshToken : false
 					});
-
-				},
-				fail : function(errorObj) {
-					console.log(authObj)
-				},
-				persistAccessToken : true,
-				persistRefreshToken : false
-
-			});
-		},
-
-		fail : function(error) {
-			alert(JSON.stringify(error));
 		}
-
-	});
-
+	}
 	//]]>
 </script>
+
+<form action="kakaoIdDplCheck.co" name=sendkakaoIdToController
+	method=post>
+	<input id=hiddenKakaoId type=hidden name=kakao_id> <input
+		id=hiddenKakaoNickName type=hidden name=kakao_nickname> <input
+		id="hiddenKakaoIdSend" type="hidden" type=submit>
+</form>
+

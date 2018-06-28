@@ -27,28 +27,19 @@
 		<c:otherwise>
 
 			<form action="signUpWithSnsEmail.co" method="post">
+				<input class="form-control" type=text name=kakao_id value="${requestScope.kakaoSecretNumId}">
 				<input class="form-control" placeholder="프로필 저장용 이메일" type="email"
 					name=email> <input class="form-control" placeholder="이름"
 					name=name>
+					
 				<button>계속</button>
 			</form>
-
+ 
 		</c:otherwise>
 
 	</c:choose>
 
 
-<%-- 		<c:when test="${requestScope.kakaoIdDplCheck}"> --%>
-
-<!-- 			<div class="well">이미 존재하는 카카오톡 아이디 입니다. 메인으로 이동합니다.</div> -->
-<!-- 			<script> -->
-<!-- // 				setInterval(function() { -->
-<!-- // 					location.href = "main.jsp"; -->
-<!-- // 				}, 3000) -->
-<!-- 			</script> -->
-
-
-<%-- 		</c:when> --%>
 
 
 </body>

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.connector.Request;
+
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
 import kh.web.utils.DBUtils;
@@ -37,14 +39,17 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert all into member values(member_seq.nextval,?,null,null,null,null,null,sysdate) "
-				+ "into sns_id values(?,member_seq.nextval,?) " + "select * from dual";
+		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
+				+ "into sns_id values(member_seq.nextval,?,?) " + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, dto.getKakao_nickName());
-		ps.setString(2, dto.getKakao_id());
-		ps.setString(3, dto.getKakao_nickName());
+		ps.setString(1, dto.getKakao_nickName()); // 첫번째 물음표 : 이름
+		ps.setString(2, dto.getKakao_id()); // 두번째 물음표 : 카톡 로그인 이메일
+
+		// sns_id 테이블에 들어갈 값
+		ps.setString(3, dto.getKakao_id());// kakaoId
+		ps.setString(4, dto.getKakao_nickName());// 카카오 닉네임
 
 		int result = ps.executeUpdate();
 
@@ -151,31 +156,24 @@ public class MemberDAO {
 
 	}
 
-	public boolean InptEmailtoAccnt(MemberDTO mDTO) throws Exception {
+	public boolean InptEmailtoAccnt(MemberDTO mDTO, SnsDTO sDTO) throws Exception {
 
 		Connection con = DBUtils.getConnection();
 
-		// String getMemberCurrSeq = "select member_seq.nextval, member_seq.currval from
-		// dual";
-		// PreparedStatement ps = con.prepareStatement(getMemberCurrSeq);
-		// ResultSet rs = ps.executeQuery();
-		//
-		// rs.next();
-		// int currSeq = rs.getInt(2);
-
-		// System.out.println("/currSeq " + currSeq);
-
-		String sql = "insert all into member values(member_seq.nextval,?,?,null,null,null,null,sysdate) into sns_id values(?,?,member_seq.nextval) select * from dual";
+		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
+				+ "into sns_id values(member_seq.nextval,?,?) " + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, mDTO.getMember_name());
-		ps.setString(2, mDTO.getMember_email());
-		ps.setString(3, mDTO.getMember_email());
-		ps.setString(4, mDTO.getMember_name());
+		ps.setString(1, mDTO.getMember_name()); // 첫번째 물음표 : 이름
+		ps.setString(2, mDTO.getMember_email()); // 두번째 물음표 : 카톡 로그인 이메일
+
+		// sns_id 테이블에 들어갈 값
+		ps.setString(3, sDTO.getKakao_id());// kakaoId
+		ps.setString(4, sDTO.getKakao_nickName());// 카카오 닉네임
 
 		int result = ps.executeUpdate();
-		System.out.println(result);
+		System.out.println("/InptEmailtoAccnt 성공? = 1 이상은 성공 : " + result);
 
 		con.commit();
 		con.close();
@@ -192,16 +190,15 @@ public class MemberDAO {
 	public boolean kakaoDplChck(SnsDTO dto) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from sns_id where kakao_id = ? and kakao_nickname=?";
+		String sql = "select * from sns_id where kakao_id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getKakao_id());
-		ps.setString(2, dto.getKakao_nickName());
 
 		ResultSet rs = ps.executeQuery();
 
-		System.out.println("MemberDAO.kakaodplchck : 카카오 아이디 중복 체크");
+		boolean isThisKakaoIdExist = rs.next();
 
-		if (rs.next()) {
+		if (isThisKakaoIdExist) {
 			String inputKakaoId = dto.getKakao_id();
 			String dbKakaoId = rs.getString("kakao_id");
 
@@ -209,15 +206,15 @@ public class MemberDAO {
 			ps.close();
 			rs.close();
 
-			if (inputKakaoId.equals(dbKakaoId)) {
-				return true;
+			System.out.println("inputKakaoId : " + inputKakaoId + " / dbKakaoId : " + dbKakaoId);
 
-			} else {
-				return false;
-			}
-
+			System.out.println("MemberDAO.kakaoDplChck : 해당 카톡 아이디 있음");
+			
+			return true; // 해당 카톡 아이디 있음. 이미 중복 됨
+			
 		} else {
-			return false;
+			System.out.println("해당 카톡 아이디 없음");
+			return false; // 해당 카톡 아이디가 없음 만들 여지 줘야함
 		}
 
 	}
@@ -460,6 +457,37 @@ public class MemberDAO {
 		con.close();
 
 		return sb.toString();
+	}
+
+	public boolean isKakaoIdExist(String loginKakaoId) throws Exception {
+
+		// loginKakaoId = 유저의 암호화된 카카오 로그인 아이디
+		// dbKakaoId = 회원 가입을 통해 저장된 암호화된 카카오 로그인 아이디
+		Connection con = DBUtils.getConnection();
+
+		String sql = "select * from sns_id where kakao_id=?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, loginKakaoId);
+
+		ResultSet rs = ps.executeQuery();
+
+		rs.next();
+
+		String dbKakaoId = rs.getString("kakao_id");
+
+		System.out.println(dbKakaoId + "/" + loginKakaoId);
+
+		con.close();
+		ps.close();
+		rs.close();
+
+		if (dbKakaoId.equals(loginKakaoId)) {
+			return true; // 아이디 db 내에 존재 : 통과 시킬 true 값 보내기
+		} else {
+			return false;
+		}
+
 	}
 
 }
