@@ -71,7 +71,7 @@ public class GroupDAO {
 
 	public List<MygroupDTO> myGroupList() throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select mygroup_seq, system_name, group_name ,group_picture.group_seq from group_picture join mygroup on group_picture.group_seq = mygroup.group_seq where mygroup.member_seq=1 order by mygroup_seq";
+		String sql = "select mygroup_seq, system_name, group_name ,group_picture.group_seq from group_picture join mygroup on group_picture.group_seq = mygroup.group_seq where mygroup.member_email=ronaldo@ronaldo.com order by mygroup_seq";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		ResultSet rs = pstat.executeQuery();
 

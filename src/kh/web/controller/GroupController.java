@@ -37,14 +37,17 @@ public class GroupController extends HttpServlet {
 			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
+			String ajax_all = null;
 			String ajax_dist = null;
 			List<String> distResult = null;
+			List<GroupDTO> allGroupList = null;
 			
 			if (command.equals("/list.group")) {
 				
-				List<GroupDTO> groupList = dao.allgroups();
-				List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
+				String isMyGroup = request.getParameter("isMyGroup");
+				System.out.println(isMyGroup);
 				List<MygroupDTO> myGroupList = dao.myGroupList();
+				allGroupList = dao.allgroups();
 				List<MemberCountDTO> memberCount =  new ArrayList<>();
 				
 				
@@ -57,14 +60,11 @@ public class GroupController extends HttpServlet {
 				}
 				
 				System.out.println("MemberCount"  + memberCount.size());
-				
-				request.setAttribute("groupList", groupList);
-				request.setAttribute("groupPicList", groupPicList);
+				request.setAttribute("isMyGroup", isMyGroup);
 				request.setAttribute("myGroupList", myGroupList);
 				request.setAttribute("memberCount", memberCount);
 				
-				
-//				System.out.println("컨트롤러 : "+memberCount.size());
+				ajax_all = ajax_all;
 				isRedirect = false;
 				dst="loginview.jsp";
 			}else if(command.equals("/distanceKm.group")) {
@@ -125,6 +125,18 @@ public class GroupController extends HttpServlet {
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
+				
+				if(ajax_all.equals("ajax_all")) {
+					
+					JSONObject json = new JSONObject();
+					json.put("allGroupList", allGroupList);
+					
+					response.setCharacterEncoding("utf8");
+					response.setContentType("application/json");
+					System.out.println(json);
+					new Gson().toJson(allGroupList, response.getWriter());
+					
+				}
 			}else if(ajax_dist.equals("ajax_dist")) {
 				JSONObject json = new JSONObject();
 				json.put("distResult", distResult);

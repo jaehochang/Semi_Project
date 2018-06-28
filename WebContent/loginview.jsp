@@ -277,7 +277,7 @@
 		<p>추천 MeetNow</p>
 		<div class="row">
 		
-		<c:forEach var="item" items="${groupList}">
+		
 		
 			<div class="col-md-4">
 				<div class="img_div">
@@ -288,7 +288,7 @@
 				<h4 class="group_title">${item.group_name}</h4>
 			</div>
 			
-		</c:forEach>
+		
 		</div>
 
 	</div>
