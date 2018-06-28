@@ -89,7 +89,7 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("userLocation", accntInfo.getMember_location());
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userInterests", accntInfo.getMember_interests());
-				request.setAttribute("userJoinDate", accntInfo.getJoin_date());
+				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 
 				isRedirect = false;
 				dst = "mypage.jsp";

@@ -36,7 +36,7 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into gmember values(member_seq.nextval,?,?,?,'null','null',sysdate)";
+		String sql = "insert into member values(member_seq.nextval,?,?,?,'당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
@@ -63,33 +63,32 @@ public class MemberDAO {
 	public boolean login(MemberDTO mDTO) {
 
 		try {
-		Connection con = DBUtils.getConnection();
+			Connection con = DBUtils.getConnection();
 
-		String sql = "select * from member where member_email=?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, mDTO.getMember_email());
-		System.out.println(mDTO.getMember_email());
-		ResultSet rs = ps.executeQuery();
+			String sql = "select * from member where member_email=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, mDTO.getMember_email());
+			System.out.println(mDTO.getMember_email());
+			ResultSet rs = ps.executeQuery();
 
-		rs.next();
+			rs.next();
 
-		String dbPw = rs.getString("member_pwd");
+			String dbPw = rs.getString("member_pwd");
 
-		System.out.println("dbPw " + ":" + dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
+			System.out.println("dbPw " + ":" + dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
 
-		con.close();
-		rs.close();
-		ps.close();
+			con.close();
+			rs.close();
+			ps.close();
 
-		if (dbPw.equals(mDTO.getMember_pwd())) {
-			return true;
+			if (dbPw.equals(mDTO.getMember_pwd())) {
 
-			if (dbPw.equals(mDTO.getPwd())) {
 				return true;
+
 			} else {
 				return false;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -98,7 +97,7 @@ public class MemberDAO {
 	public MemberDTO getAccountInfo(String loginId) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from gmember where member_email=?";
+		String sql = "select * from member where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, loginId);
 
@@ -233,19 +232,20 @@ public class MemberDAO {
 	public List<MemberDTO> memberList(int startNum, int endNum, String text) throws Exception {
 		System.out.println("startNum : " + startNum);
 		System.out.println("endNum: " + endNum);
-//		System.out.println("subject: " + subject);
+		// System.out.println("subject: " + subject);
 		System.out.println("text: " + text);
 		Connection con = DBUtils.getConnection();
 		String sql = null;
-//		if (subject.equals("member_email")) {
-			sql = "select * from "
-					+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
-					+ "where num between ? and ? and member_email like '%' || ? || '%'";
-//		} else if (subject.equals("member_name")) {
-//			sql = "select * from "
-//					+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
-//					+ "where num between ? and ? and member_name like '%' || ? || '%'";
-//		}
+		// if (subject.equals("member_email")) {
+		sql = "select * from "
+				+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
+				+ "where num between ? and ? and member_email like '%' || ? || '%'";
+		// } else if (subject.equals("member_name")) {
+		// sql = "select * from "
+		// + "(select member.*, floor(sysdate - member_expiredate) as bdate ,
+		// row_number() over(order by member_joindate) as num from member) "
+		// + "where num between ? and ? and member_name like '%' || ? || '%'";
+		// }
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setInt(1, startNum);
 		pstat.setInt(2, endNum);
