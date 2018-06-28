@@ -9,18 +9,61 @@ div{
 #wrapper{
 	margin: 0 auto;
 	width:1000px;
-	height:1000px;
+	height:1800px;
+}
+
+
+#meetup-plan{
+  	width:100%;
+  	height:300px;
+  	padding-top: 5px;
+}
+
+#meetup-plan-top{
+  	width:100%;
+  	height:20%;
+}
+
+#meetup-plan-top{
+	padding-top: 20px;
+	padding-left: 10px;
+	
+}
+
+#meetup-plan-all{
+	width:600px;
+	padding-left: 840px;
+}
+
+#meetup-plan-contents{
+  	width:100%;
+  	height:80%;
+  	background-color: white;
+  	border-radius: 10px;
+  	
+}
+
+#meetup-plan-contents:hover{
+	box-shadow: 1px 1px 10px #ddd;
+	transition: transform .35s;
+}
+
+
+#meetup-leader{
+	width:300px;
+	height:60px;
 }
 
 #group-contents{
 	float:left;
 	width:60%;
 	height:100%;
+	padding-top: 20px;
 }
 
 #group-plan{
 	width:100%;
-	height:60%;
+	height:30%;
 }
 
 #group-member{
@@ -34,36 +77,51 @@ div{
 	padding: 0 0 30px 10px;
 }
 
-#group-member-count>a{
-	
-}
 
 #groupleader-info{
 	width:100%;
-	height:80%;
+	height:100px;;
 	background-color: white;
 	border-radius: 10px;
 }
 
 #groupleader-info:hover{
 	box-shadow: 1px 1px 10px #ddd;
+	transition: transform .35s;
 }
 
-#groupleader-info>img{
+#groupleader-info-img>img{
 	width: 55px;
   	height:55px;
   	border-radius: 150px;
-  	margin: 10px 30px;
 }
+
+#groupleader-info-img{
+	float:left;
+	width:15%;
+	height:100%;
+  	padding-left: 30px;
+  	padding-top: 20px;
+}
+
+#groupleader-info-name{
+	float:left;
+	width:85%;
+	height:100%;
+	padding-left: 20px;
+	padding-top: 15px;
+}
+
 
 #all-member{
 	width:600px;
-	text-align: right;
+	padding-left: 450px;
 }
 
 #group-pic{
 	width:100%;
-	height:30%;
+	height:40%;
+	padding-top: 40px;
 }
 
 #last-meetup{
@@ -71,3 +129,112 @@ div{
 	width:40%;
 	height:100%;
 }
+
+#last-meetup-top{
+	width:100%;
+	height:100px;
+	padding-top:50px;
+	padding-left:20px;
+}
+
+#last-meetup-all{
+	width:300px;
+}
+
+#last-meetup-div{
+	width:100%;
+	padding-left:8px;
+}
+
+#lastmeetup{
+	background-color: white;
+	border-radius: 10px;
+	width:100%;
+	height:200px;
+}
+
+#photo{
+      margin: 0 auto;
+      width:600px;
+      height:400px;
+      background-color: white;
+      border-radius: 10px;
+   }
+   
+   #photo-top{
+      float:left;
+      width:100%;
+      height:10%;
+      padding-top: 20px;
+   }
+   
+   #photo-pics{
+      float:left;
+      width:100%;
+      height:90%;
+      padding-top: 5px;
+   }
+   
+   #all-pics{
+      width:600px;
+      padding-left: 450px;
+   }
+   
+   
+   .group-photo{
+      width:180px;
+      height:150px;
+      border-radius: 20px;
+      padding: 5px 0;
+   }
+   
+   .group-photo:hover{
+      transform:scale(1.01);
+   }
+   
+ #meetup-btn{
+ 	width:100%;
+ 	text-align: center;
+ 	height:50px;
+ 	margin-top: 40px;
+ }
+ 
+ #meetup-location{
+ 	width:100%;
+ 	height:50px;
+ 	margin-top: 30px;
+ }
+
+#lastmeetup-title{
+	padding-top:30px;
+	padding-left:120px;
+	width:350px;
+}
+   
+ 
+ 	#lastmeetup-attend{
+ 		width:250px;
+ 		height:30px;
+ 		background-color: #f4f6f7;
+ 		border-radius: 100px;
+ 		margin-top: 50px;
+ 		margin-left: 50px;
+ 	}
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
