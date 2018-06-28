@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+
 import kh.web.dao.GroupDAO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupPicDTO;
@@ -35,6 +37,8 @@ public class GroupController extends HttpServlet {
 			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
+			String ajax_dist = null;
+			List<String> distResult = null;
 			
 			if (command.equals("/list.group")) {
 				
@@ -63,8 +67,9 @@ public class GroupController extends HttpServlet {
 //				System.out.println("컨트롤러 : "+memberCount.size());
 				isRedirect = false;
 				dst="loginview.jsp";
-			}else if(command.equals("/five_km.group")) {
+			}else if(command.equals("/distanceKm.group")) {
 				
+				ajax_dist = "ajax_dist";
 				String fiveKm = request.getParameter("value");
 				String dist = request.getParameter("distance");
 				System.out.println(dist);
@@ -72,20 +77,10 @@ public class GroupController extends HttpServlet {
 				String lng = fiveKm.split(":")[1]; 
 				System.out.println(lat);
 				System.out.println(lng);
-				List<String> result = dao.DistanceSearch(lat, lng, dist);
+				distResult = dao.DistanceSearch(lat, lng, dist);
 				
-				for(int i=0; i<result.size(); i++) {
-					System.out.println(result.get(i));
-					
-				}
-				JSONObject json = new JSONObject();
-				json.put("result", result);
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
 				
-				out.println(json);
-				out.flush();
-				out.close();
+				
 				
 			}else if(command.equals("/groupMain.group")) {
 				
@@ -130,7 +125,16 @@ public class GroupController extends HttpServlet {
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
-			} else {
+			}else if(ajax_dist.equals("ajax_dist")) {
+				JSONObject json = new JSONObject();
+				json.put("distResult", distResult);
+				
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				System.out.println(json);
+				new Gson().toJson(distResult, response.getWriter());
+			}
+			else {
 				response.sendRedirect(dst);
 			}
 		}catch(Exception e) {

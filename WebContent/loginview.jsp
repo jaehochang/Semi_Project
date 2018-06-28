@@ -86,15 +86,15 @@
 			var val = pos.lat + ":" +pos.lng;
 			var dist = 5;
 			$.ajax({
-				url : "five_km.group",
+				url : "distanceKm.group",
 				type : "get",
 				data : {
 					value : val,
 					distance : dist
 				},
-				success : function(result) {
-					console.log(result.result);
-					alert(result.result);
+				success : function(response) {
+					console.log(response.distResult);
+					alert(response.distResult);
 					
 				},
 				error : function() {
@@ -110,10 +110,65 @@
 		$("#ten_km").click(function() {
 			alert("10km 입니다.");
 			$("#distance-default").html("10km <span class=caret></span>");
+			var val = pos.lat + ":" +pos.lng;
+			var dist = 10;
+			$.ajax({
+				url : "distanceKm.group",
+				type : "get",
+				data : {
+					value : val,
+					distance : dist
+				},
+				success : function(response) {
+					
+					for(var b=0; b<response.length; b++){
+						console.log(response);
+						$("#search").html("<img src=./image/${response.distResult[0].split(":")[2]} class=img_size>");
+					}
+					
+				},
+				error : function() {
+					
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			});
 		})
 		$("#fifteen_km").click(function() {
 			alert("15km 입니다.");
 			$("#distance-default").html("15km <span class=caret></span>");
+			var val = pos.lat + ":" +pos.lng;
+			var dist = 15;
+			$.ajax({
+				url : "distanceKm.group",
+				type : "get",
+				data : {
+					value : val,
+					distance : dist
+				},
+				success : function(response) {
+					
+					for(var b=0; b<response.length; b++){
+						
+						$("#search").html("<img src=./image/${response.distResult[0].split(":")[2]} class=img_size>");
+						
+						
+					}
+					
+					
+				},
+				error : function() {
+					
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			});
 		})
 		$("#all_km").click(function() {
 			alert("모든거리 입니다.");
@@ -199,7 +254,7 @@
 				
 				<div class="col-md-3" style="padding: 10px;">
 					<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
-					<div class="over-img">
+					<div class="over-img" id="search">
 						<img src="files/${item.system_name }" class="img_size">
 					</div>
 					<h4 class="group_title">${item.group_name }</h4>
@@ -222,15 +277,15 @@
 		<p>추천 MeetNow</p>
 		<div class="row">
 		
-		<c:forEach var="item" items="${groupList }">
+		<c:forEach var="item" items="${groupList}">
 		
 			<div class="col-md-4">
 				<div class="img_div">
-				<div class="over-img">
-					<img src="files/${item.group_picture }" class="img_size">
+				<div class="over-img" id="search">
+					<img src="files/${item.group_picture}" class="img_size">
 				</div>
 				</div>
-				<h4 class="group_title">${item.group_name }</h4>
+				<h4 class="group_title">${item.group_name}</h4>
 			</div>
 			
 		</c:forEach>

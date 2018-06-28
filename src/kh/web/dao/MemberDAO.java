@@ -115,5 +115,19 @@ public class MemberDAO {
 		return mDTO;
 		
 	}
+	public boolean isMyGroup(String email) throws Exception{
+		
+		Connection con = DBUtils.getConnection();
+		String sql = "select member_email from mygroup";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		
+		if(rs.next()) {
+			return true;
+		}else {
+			return false;
+			
+		}
+	}
 
 }

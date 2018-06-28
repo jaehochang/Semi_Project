@@ -65,13 +65,18 @@ public class MemberController extends HttpServlet {
 
 				mDTO.setMember_email(memberEmail);
 				mDTO.setMember_pwd(pwd);
-
+				
 				boolean result = mDAO.login(mDTO);
 
 				if (result) {
 					isRedirect = false;
 					request.getSession().setAttribute("loginId", memberEmail);
-					dst = "list.group";
+					boolean isMyGroup = mDAO.isMyGroup(memberEmail);
+					request.setAttribute("isMyGroup", isMyGroup);
+					
+						dst = "list.group";
+					
+					
 				} else {
 					isRedirect = true;
 					dst = "login.jsp";

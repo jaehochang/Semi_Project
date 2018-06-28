@@ -128,7 +128,12 @@ public class GroupDAO {
 		
 		double longitude =Double.parseDouble(lng);
 		
-		String sql = "select group_name, group_lat, group_lng from create_group";
+		String sql = 
+		"select a.GROUP_NAME,a.GROUP_LAT,a.GROUP_LNG,count(*) as member_count,a.GROUP_PICTURE "
+		+ "from create_group a, group_member b "
+		+ "where a.GROUP_SEQ=b.GROUP_SEQ "
+		+ "group by b.GROUP_SEQ, a.GROUP_NAME,a.GROUP_PICTURE,a.GROUP_LAT,a.GROUP_LNG";
+		
 		PreparedStatement pstat = con.prepareStatement(sql);
 		
 		ResultSet rs = pstat.executeQuery();
@@ -136,13 +141,15 @@ public class GroupDAO {
 		List<String> tenList = new ArrayList<>();
 		List<String> fifteenList = new ArrayList<>();
 		List<String> allList = new ArrayList<>();
-		System.out.println(1);
+
 		while(rs.next()) {
 
 			String dbGroupName = rs.getString("group_name");
 			double dbGroupLat = Double.parseDouble(rs.getString("group_lat"));
 			double dbGroupLng = Double.parseDouble(rs.getString("group_lng"));
-			System.out.println(11);
+			String dbGroupMemberCount = rs.getString("member_count");
+			String dbGroupPicture = rs.getString("group_picture");
+			
 			double theta = longitude - dbGroupLng;
 			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbGroupLat)) + Math.cos(deg2rad(latitude))
 			*Math.cos(deg2rad(dbGroupLat)) * Math.cos(deg2rad(theta));
@@ -152,15 +159,19 @@ public class GroupDAO {
 			dist = dist * 60 * 1.1515;
 			dist = dist * 1.609344; //km일때
 			//		 	 dist = dist * 1609.344; meter 일때
+			System.out.println("계산된 거리 : " + dist);
 			
 			if(dist <= 5) {
-				fiveList.add(dbGroupName);
+				fiveList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+				
 			}
 			if(dist <= 10) {
-				tenList.add(dbGroupName);
+				tenList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+				
 			}
 			if(dist <= 15) {
-				fifteenList.add(dbGroupName);
+				fifteenList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+			
 			}
 			if(dist != 0) {
 				allList.add(dbGroupName);
@@ -169,17 +180,23 @@ public class GroupDAO {
 		}
 		
 		if(distance.equals("5")) {
-			
+			System.out.println("거리가 5km 인 그룹 : " + fiveList);
+			con.close();
+			pstat.close();
 			return fiveList;
 		}else if(distance.equals("10")) {
-			
-			
+			System.out.println("거리가 10km 인 그룹 : " + tenList);
+			con.close();
+			pstat.close();
 			return tenList;
 		}else if(distance.equals("15")) {
-			
+			con.close();
+			pstat.close();
 			return fifteenList;
 		}
 		else {
+			con.close();
+			pstat.close();
 			return allList;
 		}
 		
