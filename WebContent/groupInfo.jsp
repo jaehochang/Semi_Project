@@ -35,8 +35,8 @@
 				<div
 					style="width: 70%; hegith: 100%; float: left">
 					<time class="icon">
-						<strong><fmt:formatDate pattern="M" />6월</strong> <span><fmt:formatDate
-								pattern="dd" />28</span>
+						<strong><fmt:formatDate pattern="M" />6월</strong> 
+						<span><fmt:formatDate pattern="dd" />28</span>
 					</time>
 					<div class="meeting-info"
 						style="padding-left: 150px; padding-top: 30px;">
