@@ -47,6 +47,9 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+
 
 	<!-- 
 <div id="piechart"></div>

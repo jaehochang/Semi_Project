@@ -15,7 +15,6 @@ body {
 .cards {
 	margin: 0 auto;
 	text-align: center;
-	
 }
 
 .card {
@@ -27,19 +26,32 @@ body {
 	display: inline-block;
 	margin: 0 auto;
 }
-.cha{
+
+.cha {
 	text-decoration: none;
-	color:purple;
+	color: purple;
 }
-.cha:hover{
+
+.cha:hover {
 	text-decoration: none;
 }
 
 .card-header {
-	margin-top:40px;
-	color:purple;
+	margin-top: 40px;
+	color: purple;
 }
-.card-title{
-	margin-top:15px;
-	color:purple;
+
+.card-title {
+	margin-top: 15px;
+	color: purple;
+}
+
+.subject {
+	height: 30px;
+	font-size: 20px;
+}
+
+.search {
+	width: 300px;
+	height: 30px;
 }

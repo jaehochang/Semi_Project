@@ -35,7 +35,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="main.ao">홈</a>
+				<a class="navbar-brand" href="main.ao">Meet Now</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,8 +48,8 @@
 					<li><a href="report.ao">report</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a class="navbar-brand" href="#">${adminId }님의 로그인을
-							환영합니다.</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true">&nbsp;</span>${adminId }님의 로그인을  환영합니다.</a></li>
+					<li><a href="logout.ao">Logout</a></li>
 				</ul>
 				<!-- 	<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
@@ -90,3 +90,5 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
+	
+	
