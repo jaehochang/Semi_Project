@@ -17,6 +17,13 @@ public class MemberDTO {
 	private int member_alarm;
 	private int member_isblocked;
 	private int member_betweendate;
+	String kakaoId;
+	public String getKakaoId() {
+		return kakaoId;
+	}
+	public void setKakaoId(String kakaoId) {
+		this.kakaoId = kakaoId;
+	}
 
 	public MemberDTO() {
 		super();

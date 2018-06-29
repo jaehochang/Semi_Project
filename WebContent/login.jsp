@@ -11,17 +11,23 @@
 
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/login-failure-modal.css">
+<link rel="stylesheet" type="text/css"
+	href="css/login-failure-modal.css">
+
 
 <!-- Modal Icon -->
-<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
-<!-- Jquery CDN -->s
+<!-- Jquery CDN -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
+
+
 
 <!-- BootStrap CDN -->
 <link rel="stylesheet"
@@ -41,18 +47,26 @@
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 
+
+<!-- 카카오톡 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<!-- 페이스북 -->
+<script language="javascript"
+	src="http://connect.facebook.net/ko_KR/all.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#loginFailModal").modal('show');
+
+	})
+</script>
+
 </head>
 <body>
 
 	<c:if test="${requestScope.loginResult==false}">
-
-		<script>
-			window.onload = function() {
-				$("#loginFailModal").modal("show");
-			}
-		</script>
-
-
 
 		<!-- Login Failure Modal -->
 		<div id="loginFailModal" class="modal fade">
@@ -77,14 +91,9 @@
 
 	</c:if>
 
-
 	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
 	</nav>
-
-
-
-
 	<div class="panel panel-default" style="width: 100%; margin: 0;">
 		<div class="panel-body" style="width: 50%; margin: 0 auto;">
 			<div id=loginheader style="margin-bottom: 15px;">
@@ -116,19 +125,28 @@
 							<input type=checkbox>로그인 상태 유지
 						</div>
 
-						<button id=loginCheck class="btn btn-default"
-							style="margin-top: 10px;">로그인</button>
+						<div id=btns style="margin-top: 10px;">
+							<button id=loginCheck class="btn btn-default" style=>로그인</button>
+						</div>
+
+						<br> 또는 <a id="kakaoLoginBtn"><img
+							src="img/kakao.png" height=35px width=35px>카카오톡으로 로그인하기</a>
+						<a id=fbLoginBtn href="javascript:signIn()"><img src="img/facebook.png" height=35px width=35px>페이스북으로 로그인하기</a>
+
 					</div>
 				</form>
 			</div>
 		</div>
 
 
+		<!-- SNS 로그인 API  -->
+
+		<div>
+			<%@ include file="logInWithKakao.jsp"%>
+			<%@ include file="signUpWithFaceBook.jsp"%>
+		</div>
 
 	</div>
-
-
-
 
 	<footer>
 		<%@ include file="include/bottom.jsp"%>
