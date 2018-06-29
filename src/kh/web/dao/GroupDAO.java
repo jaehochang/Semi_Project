@@ -69,10 +69,14 @@ public class GroupDAO {
 		return result;
 	}
 
-	public List<MygroupDTO> myGroupList() throws Exception{
+	public List<MygroupDTO> myGroupList(String email) throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select mygroup_seq, system_name, group_name ,group_picture.group_seq from group_picture join mygroup on group_picture.group_seq = mygroup.group_seq where mygroup.member_email=ronaldo@ronaldo.com order by mygroup_seq";
+		String sql = "select a.GROUP_SEQ,a.GROUP_NAME, b.SYSTEM_NAME "
+				+ "from mygroup a, group_picture b, group_member c "
+				+ "where a.GROUP_SEQ = b.GROUP_SEQ and a.GROUP_SEQ = c.GROUP_SEQ and a.MEMBER_EMAIL = ? "
+				+ "group by a.GROUP_SEQ, a.GROUP_NAME, b.SYSTEM_NAME";
 		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, email);
 		ResultSet rs = pstat.executeQuery();
 
 		List<MygroupDTO> result = new ArrayList<>();

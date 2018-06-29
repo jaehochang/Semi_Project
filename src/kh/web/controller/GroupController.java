@@ -41,17 +41,21 @@ public class GroupController extends HttpServlet {
 			String ajax_dist = null;
 			List<String> distResult = null;
 			List<GroupDTO> allGroupList = null;
+			String email = request.getSession().getAttribute("loginId").toString();
 			
 			if (command.equals("/list.group")) {
 				
-				String isMyGroup = request.getParameter("isMyGroup");
+				String isMyGroup = request.getAttribute("isMyGroup").toString();
+				
 				System.out.println(isMyGroup);
-				List<MygroupDTO> myGroupList = dao.myGroupList();
+				
+				
 				allGroupList = dao.allgroups();
 				List<MemberCountDTO> memberCount =  new ArrayList<>();
 				
-				
-				if(myGroupList.size() != 0) {
+				if(isMyGroup.equals("true")) {
+					List<MygroupDTO> myGroupList = dao.myGroupList(email);
+				    if(myGroupList.size() != 0) {
 					for(int i=0 ; i<myGroupList.size() ; i++) {
 						MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
 						
@@ -63,10 +67,18 @@ public class GroupController extends HttpServlet {
 				request.setAttribute("isMyGroup", isMyGroup);
 				request.setAttribute("myGroupList", myGroupList);
 				request.setAttribute("memberCount", memberCount);
+				request.setAttribute("allGroupList", allGroupList);
 				
-				ajax_all = ajax_all;
 				isRedirect = false;
 				dst="loginview.jsp";
+				}else {
+					
+					request.setAttribute("isMyGroup", isMyGroup);
+		
+					isRedirect = false;
+					dst="loginview.jsp";
+					
+				}
 			}else if(command.equals("/distanceKm.group")) {
 				
 				ajax_dist = "ajax_dist";
@@ -126,17 +138,17 @@ public class GroupController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 				
-				if(ajax_all.equals("ajax_all")) {
-					
-					JSONObject json = new JSONObject();
-					json.put("allGroupList", allGroupList);
-					
-					response.setCharacterEncoding("utf8");
-					response.setContentType("application/json");
-					System.out.println(json);
-					new Gson().toJson(allGroupList, response.getWriter());
-					
-				}
+//				if(ajax_all.equals("ajax_all")) {
+//					
+//					JSONObject json = new JSONObject();
+//					json.put("allGroupList", allGroupList);
+//					
+//					response.setCharacterEncoding("utf8");
+//					response.setContentType("application/json");
+//					System.out.println(json);
+//					new Gson().toJson(allGroupList, response.getWriter());
+//					
+//				}
 			}else if(ajax_dist.equals("ajax_dist")) {
 				JSONObject json = new JSONObject();
 				json.put("distResult", distResult);
@@ -144,7 +156,7 @@ public class GroupController extends HttpServlet {
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
 				System.out.println(json);
-				new Gson().toJson(distResult, response.getWriter());
+				new Gson().toJson(json, response.getWriter());
 			}
 			else {
 				response.sendRedirect(dst);
