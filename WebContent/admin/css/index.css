@@ -1,0 +1,57 @@
+body, html {
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+}
+
+#wrapper {
+	padding: 0;
+	margin: 50px auto;
+	margin-bottom: 100px;
+}
+
+.cards {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.card {
+	padding: 20px auto;
+	margin: 0 auto;
+	display: inline-block;
+	width: 20rem;
+	height: 10rem;
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.cha {
+	text-decoration: none;
+	color: purple;
+}
+
+.cha:hover {
+	text-decoration: none;
+}
+
+.card-header {
+	margin-top: 40px;
+	color: purple;
+}
+
+.card-title {
+	margin-top: 15px;
+	color: purple;
+}
+
+.subject {
+	height: 30px;
+	font-size: 20px;
+}
+
+.search {
+	width: 300px;
+	height: 30px;
+}

@@ -3,10 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<% request.setCharacterEncoding("utf8");%>
-<% response.setCharacterEncoding("utf8"); %>
-
 <!DOCTYPE html>
 <html>
 <head>

@@ -3,6 +3,8 @@ package kh.web.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import kh.web.dto.MemberDTO;
 import kh.web.utils.DBUtils;
@@ -34,8 +36,8 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,'null','null',sysdate)";
-		PreparedStatement  ps = con.prepareStatement(sql);
+		String sql = "insert into gmember values(member_seq.nextval,?,?,?,'null','null',sysdate)";
+		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
 		ps.setString(3, dto.getMember_pwd());
@@ -67,18 +69,17 @@ public class MemberDAO {
 		ps.setString(1, mDTO.getMember_email());
 		System.out.println(mDTO.getMember_email());
 		ResultSet rs = ps.executeQuery();
-		
+
 		rs.next();
 
 		String dbPw = rs.getString("member_pwd");
 
-		System.out.println("dbPw " +  ":" +  dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
-		
+		System.out.println("dbPw " + ":" + dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
+
 		con.close();
 		rs.close();
 		ps.close();
-		
-		
+
 		if (dbPw.equals(mDTO.getMember_pwd())) {
 			return true;
 
@@ -87,33 +88,33 @@ public class MemberDAO {
 		}
 	}
 
-	public MemberDTO getAccountInfo(String loginId) throws Exception{
-	
+	public MemberDTO getAccountInfo(String loginId) throws Exception {
+
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from gmember where member_email=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, loginId);
-		
+
 		ResultSet rs = ps.executeQuery();
-		
+
 		MemberDTO mDTO = new MemberDTO();
-		
-		if(rs.next()) {
-		
-		mDTO.setMember_name(rs.getString("member_name"));
-		mDTO.setMember_interests(rs.getString("member_interests"));
-		mDTO.setMember_picture(rs.getString("member_picture"));
-		mDTO.setMember_joindate(rs.getString("join_date"));
-		mDTO.setMember_location(rs.getString("member_location"));
-		
+
+		if (rs.next()) {
+
+			mDTO.setMember_name(rs.getString("member_name"));
+			mDTO.setMember_interests(rs.getString("member_interests"));
+			mDTO.setMember_picture(rs.getString("member_picture"));
+			mDTO.setMember_joindate(rs.getString("member_joindate"));
+			mDTO.setMember_location(rs.getString("member_location"));
+
 		}
-		
+
 		rs.close();
 		ps.close();
 		con.close();
-		
+
 		return mDTO;
-		
+
 	}
 
 }
