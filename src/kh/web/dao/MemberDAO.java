@@ -139,7 +139,7 @@ public class MemberDAO {
 		MemberDTO mDTO = new MemberDTO();
 
 		boolean isThereLoginId = rs.next();
-		
+
 		if (isThereLoginId) {
 
 			mDTO.setMember_name(rs.getString("member_name"));
@@ -148,28 +148,42 @@ public class MemberDAO {
 			mDTO.setMember_joindate(rs.getString("member_joindate"));
 			mDTO.setMember_location(rs.getString("member_location"));
 
-		}else if(!isThereLoginId) {
+		} else if (!isThereLoginId) {
 
-			String searchKakaoId = "select * from member,sns_id where kakao_id=?";
+			String searchKakaoId = "select * from member m,sns_id s where (m.member_seq = s.member_seq) and ( kakao_id= ?)";
 			PreparedStatement psKakao = con.prepareStatement(searchKakaoId);
 			psKakao.setString(1, loginId);
 			rs = psKakao.executeQuery();
-			
-			
-			if(rs.next()) {
-				
+
+			if (rs.next()) {
+
 				mDTO.setMember_name(rs.getString("member_name"));
 				mDTO.setMember_interests(rs.getString("member_interests"));
 				mDTO.setMember_picture(rs.getString("member_picture"));
 				mDTO.setMember_joindate(rs.getString("member_joindate"));
-				mDTO.setMember_location(rs.getString("member_location"));			
-				
-			}else {
-				Exception e = null;
-				e.printStackTrace();
-				
+				mDTO.setMember_location(rs.getString("member_location"));
+
+			} else { // 이메일로도, 카톡 아이디로도 없으면, 페북 uid로 검색해보기
+
+				String searchFbId = "select * from member m,sns_id s where (m.member_seq = s.member_seq) and (fb_uid=?)";
+				PreparedStatement psFb = con.prepareStatement(searchFbId);
+				psFb.setString(1, loginId);
+				rs = psFb.executeQuery();
+
+				if (rs.next()) { // 있으면 담기
+
+					mDTO.setMember_name(rs.getString("member_name"));
+					mDTO.setMember_interests(rs.getString("member_interests"));
+					mDTO.setMember_picture(rs.getString("member_picture"));
+					mDTO.setMember_joindate(rs.getString("member_joindate"));
+					mDTO.setMember_location(rs.getString("member_location"));
+
+				} else {
+					System.out.println("/MemberDAO.getAccountInfo [해당하는 로그인 아이디 없음]");
+					Exception e = null;
+					e.printStackTrace();
+				}
 			}
-			
 		}
 
 		rs.close();
@@ -233,9 +247,9 @@ public class MemberDAO {
 			System.out.println("inputKakaoId : " + inputKakaoId + " / dbKakaoId : " + dbKakaoId);
 
 			System.out.println("MemberDAO.kakaoDplChck : 해당 카톡 아이디 있음");
-			
+
 			return true; // 해당 카톡 아이디 있음. 이미 중복 됨
-			
+
 		} else {
 			System.out.println("해당 카톡 아이디 없음");
 			return false; // 해당 카톡 아이디가 없음 만들 여지 줘야함
@@ -514,4 +528,77 @@ public class MemberDAO {
 
 	}
 
+	public boolean isThisFbIdExist(String fbId) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from sns_id where fb_id=?";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, fbId);
+		ResultSet rs = ps.executeQuery();
+
+		boolean result = false;
+
+		if (rs.next()) {
+			result = true;
+
+		} else {
+			result = false;
+		}
+
+		con.close();
+		ps.close();
+		rs.close();
+
+		return result;
+
+	}
+
+	public boolean signUpWithFb(SnsDTO sDTO) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
+				+ "into sns_id values(member_seq.nextval,'null','null',?,?,?,?) " + "select * from dual";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, sDTO.getFb_name()); // 이름
+		ps.setString(2, sDTO.getFb_email());
+
+		ps.setString(3, sDTO.getFb_uid());
+		ps.setString(4, sDTO.getFb_name());
+		ps.setString(5, sDTO.getFb_email());
+		ps.setString(6, sDTO.getFb_photoURL());
+
+		int result = ps.executeUpdate();
+
+		con.commit();
+		con.close();
+		ps.close();
+
+		if (result > 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean isFbUidExist(SnsDTO sDTO) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from sns_id where fb_uid = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, sDTO.getFb_uid());
+		ResultSet rs = ps.executeQuery();
+
+		boolean result = rs.next();
+
+		con.close();
+		ps.close();
+		rs.close();
+
+		if (result) {
+			return true; // 해당 페북 uid 로 아이디 존재함 > signUpWithFaceBook.co 로 결과값 보내기
+		} else {
+			return false;
+		}
+	}
 }

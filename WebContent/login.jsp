@@ -131,6 +131,7 @@
 
 						<br> 또는 <a id="kakaoLoginBtn"><img
 							src="img/kakao.png" height=35px width=35px>카카오톡으로 로그인하기</a>
+						<a id=fbLoginBtn href="javascript:signIn()"><img src="img/facebook.png" height=35px width=35px>페이스북으로 로그인하기</a>
 
 					</div>
 				</form>
@@ -138,10 +139,11 @@
 		</div>
 
 
-		<!-- 카카오톡 로그인 API  -->
+		<!-- SNS 로그인 API  -->
 
 		<div>
 			<%@ include file="logInWithKakao.jsp"%>
+			<%@ include file="signUpWithFaceBook.jsp"%>
 		</div>
 
 	</div>

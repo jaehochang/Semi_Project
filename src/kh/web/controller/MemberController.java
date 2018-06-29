@@ -55,7 +55,27 @@ public class MemberController extends HttpServlet {
 
 				}
 
-			} else if (command.equals("/signUpWithSnsEmail.co")) {
+			} else if (command.equals("/isThisFbIdRegistered.co")) {
+
+				String fbId = request.getParameter("facebookUserId");
+
+				MemberDAO mDAO = new MemberDAO();
+				boolean result = mDAO.isThisFbIdExist(fbId);
+
+				isRedirect = false;
+				if (result) {
+					System.out.println("해당 페이스북 아이디 이미 존재");
+					request.getSession().setAttribute("loginId", fbId);
+					dst = "main.jsp"; // 그냥 해당 아이디로 로그인 시켜버리기
+				} else {
+					// result가 false 면 ajax로 false 값 보내주기 > ajax에서 confirm 묻기 ( 회원가입 하시겠습니까? ) 회원가입
+					// 페이지로 보내주기.
+					response.getWriter().print(result);
+				}
+
+			}
+
+			else if (command.equals("/signUpWithSnsEmail.co")) {
 
 				String kakao_id = request.getParameter("kakao_id");
 				String kakao_nickname = request.getParameter("kakao_nickname");
@@ -64,12 +84,12 @@ public class MemberController extends HttpServlet {
 
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO mDTO = new MemberDTO();
-				
+
 				SnsDTO sDTO = new SnsDTO();
-				
+
 				sDTO.setKakao_id(kakao_id);
 				sDTO.setKakao_nickName(kakao_nickname);
-				
+
 				mDTO.setMember_email(email);
 				mDTO.setMember_name(name);
 
@@ -77,9 +97,8 @@ public class MemberController extends HttpServlet {
 
 				System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " + result);
 
-				
-				System.out.println("signUpWithSnsEmail.co - kakao_id" +  kakao_id);
-				
+				System.out.println("signUpWithSnsEmail.co - kakao_id" + kakao_id);
+
 				if (result) {
 					isRedirect = false;
 					request.setAttribute("result", result);
@@ -87,7 +106,7 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("kakaoSecretNumId", kakao_id);
 					System.out.println(kakao_id);
 					dst = "kakaoSignUpPage.jsp";
-					
+
 				} else {
 					System.out.println("/signUpWithSnsEmail : failed ");
 					dst = "error.html";
@@ -111,12 +130,12 @@ public class MemberController extends HttpServlet {
 
 				System.out.println("/kakaoIdDplCheck.co : 카카오톡 중복 아이디 유무 (false = 무 / true = 유) : " + dplChck);
 
-				isRedirect=false;
-				
+				isRedirect = false;
+
 				if (dplChck) {
 					request.getSession().setAttribute("loginId", kakao_id); // 세션 담기
 					dst = "main.jsp";
-					
+
 				} else {
 					request.setAttribute("kakaoSecretNumId", kakao_id);
 					dst = "kakaoSignUpPage.jsp";
@@ -188,7 +207,7 @@ public class MemberController extends HttpServlet {
 			} else if (command.equals("/mypage.co")) {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
-				
+
 				System.out.println("/mypage.co 의 session Login Id : " + loginId);
 				MemberDAO mDAO = new MemberDAO();
 
@@ -254,6 +273,49 @@ public class MemberController extends HttpServlet {
 					// 세션 제공
 					request.getSession().setAttribute("loginId", loginKakaoId);
 					response.getWriter().print(result);
+
+				}
+
+			} else if (command.equals("/signUpWithFaceBook.co")) {
+
+				String fb_email = request.getParameter("fb_email");
+				String fb_name = request.getParameter("fb_name");
+				String fb_uid = request.getParameter("fb_uid");
+				String fb_photoURL = request.getParameter("fb_photoURL");
+
+				MemberDAO mDAO = new MemberDAO();
+				SnsDTO sDTO = new SnsDTO();
+				sDTO.setFb_uid(fb_uid);
+				sDTO.setFb_name(fb_name);
+				sDTO.setFb_email(fb_email);
+				sDTO.setFb_photoURL(fb_photoURL);
+
+				// 먼저 해당 facebook_uid가 db에 있는지 중복 확인
+				boolean isFbUidExist = mDAO.isFbUidExist(sDTO);
+
+				isRedirect = false;
+
+				if (isFbUidExist) { // 점검해봤더니 아이디가 이미 있음
+					// 이미 아이디가 존재
+
+					request.getSession().setAttribute("loginId", fb_uid);
+					request.setAttribute("isFbUidExist", isFbUidExist);
+					dst = "main.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
+					System.out.println(1);
+				} else {
+					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
+					request.setAttribute("fbSignUpResult", fbSignUpResult);
+					System.out.println(2);
+					if (fbSignUpResult) {
+						isRedirect = false;
+						request.getSession().setAttribute("loginId", fb_uid);
+						dst = "main.jsp";
+						System.out.println(3);
+					} else {
+						System.out.println(4);
+						dst = "error.jsp";
+
+					}
 
 				}
 
