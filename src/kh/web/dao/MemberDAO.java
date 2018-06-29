@@ -138,7 +138,9 @@ public class MemberDAO {
 
 		MemberDTO mDTO = new MemberDTO();
 
-		if (rs.next()) {
+		boolean isThereLoginId = rs.next();
+		
+		if (isThereLoginId) {
 
 			mDTO.setMember_name(rs.getString("member_name"));
 			mDTO.setMember_interests(rs.getString("member_interests"));
@@ -146,6 +148,28 @@ public class MemberDAO {
 			mDTO.setMember_joindate(rs.getString("member_joindate"));
 			mDTO.setMember_location(rs.getString("member_location"));
 
+		}else if(!isThereLoginId) {
+
+			String searchKakaoId = "select * from member,sns_id where kakao_id=?";
+			PreparedStatement psKakao = con.prepareStatement(searchKakaoId);
+			psKakao.setString(1, loginId);
+			rs = psKakao.executeQuery();
+			
+			
+			if(rs.next()) {
+				
+				mDTO.setMember_name(rs.getString("member_name"));
+				mDTO.setMember_interests(rs.getString("member_interests"));
+				mDTO.setMember_picture(rs.getString("member_picture"));
+				mDTO.setMember_joindate(rs.getString("member_joindate"));
+				mDTO.setMember_location(rs.getString("member_location"));			
+				
+			}else {
+				Exception e = null;
+				e.printStackTrace();
+				
+			}
+			
 		}
 
 		rs.close();

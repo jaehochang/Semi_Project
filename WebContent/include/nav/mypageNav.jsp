@@ -44,6 +44,7 @@
 			<li><a href="login.jsp">로그인</a>
 			<li><button type="button" class="btn btn-default"
 					data-toggle="modal" data-target="#idTypeQuestions">가입하기</button>
+<!-- 					클릭시 idTypeQuestion 라는 모달 띄움 -->
 		</ul>
 
 
@@ -63,7 +64,7 @@
 					<div class="modal-body">
 
 						<!-- 카카오톡으로 회원가입 버튼 -->
-						<div>
+						<div class=sns-login-btn>
 							<a id="kakao-signUp-btn"><img src="img/kakao.png" width=35px
 								height=35px>카카오톡으로 회원가입</a>
 						</div>

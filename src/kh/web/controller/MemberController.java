@@ -189,7 +189,7 @@ public class MemberController extends HttpServlet {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
 				
-				System.out.println("/mypage.co loginId : " + loginId);
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
 				MemberDAO mDAO = new MemberDAO();
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
