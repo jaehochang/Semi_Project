@@ -159,7 +159,8 @@
                   </time>
                   <a class="img-card" href="meeting.meet?seq=${items.meeting_seq}"><img src="files/1.jpg"> </a>
                   <div class="card-content">
-                     <div class="" style="color:#8b96a8;" ><fmt:formatDate value="${time}" pattern="M"/>월 
+                     <div class="" style="color:#8b96a8;" >
+                     		<fmt:formatDate value="${time}" pattern="M"/>월 
                               <fmt:formatDate value="${time}" pattern="dd"/>일     
                               <fmt:formatDate value="${time}" pattern="E"/>요일 
                               <fmt:formatDate value="${time}" pattern="a"/>
