@@ -41,7 +41,7 @@
             <h5><a href="">${result.group_name}</a>에서 주최</h5>
          </div>
          <div class="ask-attend">
-            <p>참석하시겠습니까? </p>
+            <p>참석하시겠습니까? 참석참석 </p>
             <br>
             <button type="button" class="btn btn-primary">Primary</button>
             <button type="button" class="btn btn-primary">X</button>
