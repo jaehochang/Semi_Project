@@ -89,14 +89,18 @@
 							</h5>
 						</div>
 					</div>
-					<div style="width: 30%; hegith: 100%; float: left">
+					<div style="width: 30%; hegith: 100%; float: left;">
+						<div id="meetup-img">
+							<img src="files/${nextMeeting.meeting_picture }">
+						</div>
+						
 						<div id="meetup-btn">
 							<button type="button" class="btn btn-secondary"
 								style="width: 200px; background-color: #b831d9; color: white;">참석</button>
 						</div>
 						<div id="meetup-location">
 							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"
-								style="color: gray;"></span> 당산역
+								style="color: gray;"></span> 당산역<br>
 						</div>
 
 					</div>
@@ -258,8 +262,7 @@
 				<c:if test="${fn:length(nextMeeting)<=0}">
 					<script>
 						$("#meetup-plan").remove();
-						$("#pre-meetup-top").remove();
-						$("#pre-meetup-div").remove();
+						
 					</script>
 				</c:if>
 
@@ -270,6 +273,12 @@
 					</script>
 				</c:if>
 
+				<c:if test="${fn:length(preMeeting)<=0}">
+					<script>
+					$("#pre-meetup-top").remove();
+					$("#pre-meetup-div").remove();
+					</script>
+				</c:if>
 
 			</div>
 		</c:forEach>

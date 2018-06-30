@@ -34,7 +34,15 @@ public class MeetingController extends HttpServlet {
             List<MeetingDTO> result = dao.getMeetingData();
             request.setAttribute("result", result);
             isRedirect = false;
-            dst = "main.jsp";
+            
+            
+            
+            if(request.getSession().getAttribute("loginId") != null) {
+            	dst = "list.group";
+            }else {
+            	dst = "main.jsp";
+            }
+            
          } else if (command.equals("/meeting.meet")) {
             int meeting_seq = Integer.parseInt(request.getParameter("seq"));
             MeetingDTO result = dao.getEachMeetingData(meeting_seq);

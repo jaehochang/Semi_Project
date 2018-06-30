@@ -36,9 +36,11 @@ public class GroupController extends HttpServlet {
 			
 			if (command.equals("/list.group")) {
 				
+				String member_email = request.getSession().getAttribute("loginId").toString();
+				
 				List<GroupDTO> groupList = dao.allgroups();
 				List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
-				List<MygroupDTO> myGroupList = dao.myGroupList();
+				List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
 				List<MemberCountDTO> memberCount =  new ArrayList<>();
 				
 				

@@ -281,18 +281,48 @@ div{
       transform:scale(1.01);
    }
    
+   #meetup-img{
+   	width:250px;
+   	height:150px;
+   	margin: 0 auto;
+   	margin-top: 20px;
+   }
+   
+   #meetup-img img{
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+   }
+   
  #meetup-btn{
  	width:100%;
  	text-align: center;
  	height:50px;
- 	margin-top: 40px;
+ 	margin-top: 15px;
  }
  
  #meetup-location{
- 	width:100%;
- 	height:50px;
- 	margin-top: 30px;
+ 	
+ 	margin-left: 25px;
+ 	
+ 	display: inline-block;
+	width: 250px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	
+	white-space: normal;
+	line-height: 1.2;
+	height: 3.6em;
+	text-align:left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
  }
+ 
+
 
 #lastmeetup-title{
 	padding-top:30px;
