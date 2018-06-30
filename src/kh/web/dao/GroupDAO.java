@@ -180,8 +180,8 @@ public class GroupDAO {
 			dto.setGroup_leader(rs.getString("group_leader"));
 			dto.setMeeting_title(rs.getString("meeting_title"));
 			dto.setMeeting_contents(rs.getString("meeting_contents"));
-			dto.setMeeting_start_time(rs.getString("meeting_start_time"));
-			dto.setMeeting_end_time(rs.getString("meeting_end_time"));
+			dto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
 			
@@ -213,8 +213,8 @@ public class GroupDAO {
 			dto.setGroup_leader(rs.getString("group_leader"));
 			dto.setMeeting_title(rs.getString("meeting_title"));
 			dto.setMeeting_contents(rs.getString("meeting_contents"));
-			dto.setMeeting_start_time(rs.getString("meeting_start_time"));
-			dto.setMeeting_end_time(rs.getString("meeting_end_time"));
+			dto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
 			
