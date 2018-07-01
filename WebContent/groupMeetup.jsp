@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="include/group/top.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<link rel="stylesheet" type="text/css" href="css/groupMeetup-style.css?ver=1">
+<link rel="stylesheet" type="text/css"
+	href="css/groupInfo-style.css?ver=1">
+<link rel="stylesheet" type="text/css"
+	href="css/main-calender-style.css">
+		
 <div id="navi-div">
 		<ul class="nav nav-tabs">
 		<c:forEach var="item" items="${result }">
@@ -12,8 +20,84 @@
 		</c:forEach>	
 		</ul>
 	</div>
+	<div id="contents">
+	<div id="wrapper">
+		<div id="tab"></div>
+		
+		<div id="no-meeting">
+			<h4>예정된 Meetup 없음</h4>
+		</div>
+		
+		<div id="preMeetingList">
+			<div id="meetup-plan-contents">
+				<c:forEach var="nextAllMeeting" items="${nextAllMeeting}">
+					<div style="width: 70%; hegith: 100%; float: left">
+						<fmt:parseDate value="${nextAllMeeting.meeting_start_time}"
+							var="time" pattern="yyyy-MM-dd HH:mm:ss" />
+						<time class="icon">
+							<strong><fmt:formatDate value="${time}" pattern="M" />월</strong>
+							<span><fmt:formatDate value="${time}" pattern="dd" /></span>
+						</time>
+						<div class="meeting-info"
+							style="padding-left: 150px; padding-top: 30px;">
+							<div class="" style="color: #8b96a8;">
+								<fmt:formatDate value="${time}" pattern="M" />
+								월
+								<fmt:formatDate value="${time}" pattern="dd" />
+								일
+								<fmt:formatDate value="${time}" pattern="E" />
+								요일
+								<fmt:formatDate value="${time}" pattern="a" />
+								<fmt:formatDate value="${time}" pattern="hh" />
+								시
+								<fmt:formatDate value="${time}" pattern="mm" />
+								분
+							</div>
+							<h2>
+								<p id="btag">
+									<b>${nextAllMeeting.meeting_title }</b>
+								</p>
+							</h2>
+							<div id="meetup-leader">
+								<div style="width: 20%; hegiht: 60px; float: left;">
+									<img src="img/10.jpg"
+										style="width: 50px; height: 50px; border-radius: 150px;">
+								</div>
+								<div style="width: 80%; hegiht: 60px; float: left;">
+									<h5 style="padding-top: 20px;">
+										주최자 : <a href="">${nextAllMeeting.group_leader }</a>
+									</h5>
+								</div>
+							</div>
 
-밋업
+							<h5>
+								<p id="nextMeeting-contents">${nextAllMeeting.meeting_contents }</p>
+							</h5>
+						</div>
+					</div>
+					<div style="width: 30%; hegith: 100%; float: left;">
+						<div id="meetup-img">
+							<img src="files/${nextAllMeeting.meeting_picture }">
+						</div>
+
+						<div id="meetup-btn">
+							<button type="button" class="btn btn-secondary"
+								style="width: 200px; background-color: #b831d9; color: white;">참석</button>
+						</div>
+						<div id="meetup-location">
+							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"
+								style="color: gray;"></span> 당산역<br>
+						</div>
+
+					</div>
+
+				</c:forEach>
+			</div>
+		</div>
+		</div>
+	</div>
+		
+		
 	<footer> <%@ include file="include/bottom.jsp"%>
 	</footer>
 </body>

@@ -1,6 +1,7 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class GroupController extends HttpServlet {
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length()); 
 		
+			response.setCharacterEncoding("utf8");
+			PrintWriter out = response.getWriter();
+			
 			System.out.println(command); 
 
 			GroupDAO dao = new GroupDAO();
@@ -65,6 +69,7 @@ public class GroupController extends HttpServlet {
 				dst="loginview.jsp";
 				
 			}else if(command.equals("/groupMain.group")) {
+				String member_email = request.getSession().getAttribute("loginId").toString();
 				
 				String page = request.getParameter("page");
 				String group_seq = request.getParameter("group_seq");
@@ -73,6 +78,7 @@ public class GroupController extends HttpServlet {
 				
 				List<GroupDTO> result = dao.groupInfo(group_seq);
 				MemberCountDTO dto = dao.MemberCount(groupSeq);
+				boolean isGroupMember = dao.isGroupMember(groupSeq, member_email);
 				
 				int count = 0;
 				
@@ -89,8 +95,9 @@ public class GroupController extends HttpServlet {
 				
 				//meeting 내용
 				
-				List<MeetingDTO> nextMeeting = dao.nextMeetup(groupSeq,0);
+				List<MeetingDTO> nextMeeting = dao.nextMeetup(groupSeq,0,"one");
 				List<MeetingDTO> lastMeeting = dao.lastMeeting(groupSeq);
+				List<MeetingDTO> nextAllMeeting = dao.nextMeetup(groupSeq,0,"all");
 				
 				int meeting_seq = 0;
 				
@@ -98,7 +105,7 @@ public class GroupController extends HttpServlet {
 					meeting_seq = nextMeeting.get(0).getMeeting_seq();
 				}
 				
-				List<MeetingDTO> preMeeting = dao.nextMeetup(0, meeting_seq);
+				List<MeetingDTO> preMeeting = dao.nextMeetup(0, meeting_seq,"pre");
 				
 				System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
 				System.out.println("지난 미팅"+lastMeeting.size());
@@ -108,6 +115,8 @@ public class GroupController extends HttpServlet {
 				request.setAttribute("nextMeeting", nextMeeting);
 				request.setAttribute("lastMeeting", lastMeeting);
 				request.setAttribute("preMeeting", preMeeting);
+				request.setAttribute("isGroupMember", isGroupMember);
+				request.setAttribute("nextAllMeeting", nextAllMeeting);
 				
 				if(page.equals("info")) {
 					System.out.println("info");
@@ -122,6 +131,17 @@ public class GroupController extends HttpServlet {
 				}
 				
 				
+				
+			}else if(command.equals("/join.group")) {
+				
+				String member_email = request.getSession().getAttribute("loginId").toString();
+				String groupSeq = request.getParameter("group_seq");
+				int group_seq = Integer.parseInt(groupSeq);
+				String group_name = request.getParameter("group_name");
+				
+				//int result = dao.joinGroup(new MygroupDTO(0,member_email,group_seq,group_name));
+				
+				System.out.println("seq : " +groupSeq+"/ group_name :" + group_name);
 				
 			}
 			

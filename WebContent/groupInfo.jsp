@@ -4,11 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" type="text/css"
-	href="css/groupInfo-style.css?ver=3">
+	href="css/groupInfo-style.css?ver=1">
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
 
 <div id="navi-div">
+	
 	<ul class="nav nav-tabs">
 		<c:forEach var="item" items="${result }">
 			<li role="presentation" class="active"><a
@@ -18,18 +19,69 @@
 			<li role="presentation"><a href="#">회원</a></li>
 			<li role="presentation"><a href="#">사진</a></li>
 		</c:forEach>
-		<button type="button" class="btn" style="position: absolute; right: 750px; top: 475px; border:1px solid #c4c4c4;">이 그룹에 가입하기</button>
-		<!-- Single button -->
-		<div class="btn-group" style="position: absolute; right: 690px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span> 
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">그룹 신고</a></li>
-			</ul>
-		</div>
+		
 	</ul>
+			
+			
+			
+		
+			<c:if test="${isGroupMember eq true }">
+			<button type="button" class="btn" style="position: absolute; right: 450px; top: 475px; border: 1px solid #c4c4c4;">
+				회원입니다.
+			</button>
+			</c:if>
+			<c:if test="${isGroupMember eq false }">
+			<button id="joinGroupBT" type="button" class="btn" style="position: absolute; right: 450px; top: 475px; border: 1px solid #c4c4c4;">
+				이 그룹에 가입하기
+			</button>
+			</c:if>
+			
+			<c:forEach var="result" items="${result }">
+				<input type="hidden" id="group_seq" value="${result.group_seq }">
+				<input type="hidden" id="group_name" value="${result.group_name }">
+			</c:forEach>
+			
+			<p id="response"></p>
+			
+			<script>
+			$(document).ready(function(){
+				$("#joinGroupBT").click(function(){
+					
+					var group_seq = $("#group_seq").val();
+					var group_name = $("#group_name").val();
+					
+					$.ajax({
+						url:"join.group",
+						type:"get",
+						data:{group_seq:group_seq,group_name:group_name},
+						success:function(){
+							console.log("전송성공!")
+						},
+						error : function(request,status,error) {
+							console.log("에러발생 !" + request.status + " : " + status + " : " + error);
+						}
+					});
+					
+					
+				})
+			})
+			
+			
+			</script>
+			
+			
+			
+			<!-- Single button -->
+			<div class="btn-group" style="position: absolute; right: 400px; top: 475px;">
+				<button type="button" class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown" aria-expanded="false">
+					<span class="glyphicon glyphicon-option-horizontal"
+						aria-hidden="true"></span> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">그룹 신고</a></li>
+				</ul>
+			</div>
 </div>
 
 <div id="contents">
@@ -93,7 +145,7 @@
 						<div id="meetup-img">
 							<img src="files/${nextMeeting.meeting_picture }">
 						</div>
-						
+
 						<div id="meetup-btn">
 							<button type="button" class="btn btn-secondary"
 								style="width: 200px; background-color: #b831d9; color: white;">참석</button>
@@ -109,19 +161,20 @@
 			</div>
 		</div>
 
-		
-		
+
+
 		<c:forEach var="item2" items="${result }">
 			<div id="group-contents">
 				<div id="group-plan">
 					<h4 style="padding-top: 30px;">활동 계획</h4>
 					<br> ${item2.group_info }
 				</div>
-				
-				
+
+
 				<div id="group-member">
 					<div id="group-member-count">
-						<span>회원(${count }명)</span> <span id="all-member"><a href="">모두 보기</a></span>
+						<span>회원(${count }명)</span> <span id="all-member"><a
+							href="">모두 보기</a></span>
 					</div>
 					<div id="groupleader-info">
 						<div id="groupleader-info-img">
@@ -133,15 +186,15 @@
 						</div>
 
 					</div>
-					
+
 					<div id="group-member-list">
 						<div id="member-card">
 							<img src="img/member-default.png" id="member-img">
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 				<div id="group-pic">
 					<div id="photo-top">
 						<div id="group-member-count">
@@ -178,8 +231,8 @@
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 			<div id="last-meetup">
 				<div id="pre-meetup-top">
 					<span style="padding-top: 80px;">예정된 Meetup</span> <span
@@ -262,7 +315,6 @@
 				<c:if test="${fn:length(nextMeeting)<=0}">
 					<script>
 						$("#meetup-plan").remove();
-						
 					</script>
 				</c:if>
 
@@ -275,8 +327,8 @@
 
 				<c:if test="${fn:length(preMeeting)<=0}">
 					<script>
-					$("#pre-meetup-top").remove();
-					$("#pre-meetup-div").remove();
+						$("#pre-meetup-top").remove();
+						$("#pre-meetup-div").remove();
 					</script>
 				</c:if>
 

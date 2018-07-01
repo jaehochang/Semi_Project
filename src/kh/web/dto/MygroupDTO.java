@@ -2,24 +2,27 @@ package kh.web.dto;
 
 public class MygroupDTO {
 	private int seq;
-	private int member_seq;
+	private String member_email;
 	private int group_seq;
 	private String group_name;
+	//그룹메인 이미지
 	private String system_name;
 	
+	
+
+
 	public MygroupDTO() {
 		super();
 	}
 	
 	
 
-	public MygroupDTO(int seq, int member_seq, int group_seq, String group_name, String system_name) {
+	public MygroupDTO(int seq, String member_email, int group_seq, String group_name) {
 		super();
 		this.seq = seq;
-		this.member_seq = member_seq;
+		this.member_email = member_email;
 		this.group_seq = group_seq;
 		this.group_name = group_name;
-		this.system_name = system_name;
 	}
 
 
@@ -32,12 +35,12 @@ public class MygroupDTO {
 		this.seq = seq;
 	}
 
-	public int getMember_seq() {
-		return member_seq;
+	public String getMember_email() {
+		return member_email;
 	}
 
-	public void setMember_seq(int member_seq) {
-		this.member_seq = member_seq;
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
 	}
 
 	public int getGroup_seq() {
@@ -55,16 +58,16 @@ public class MygroupDTO {
 	public void setGroup_name(String group_name) {
 		this.group_name = group_name;
 	}
-
+	
 	public String getSystem_name() {
 		return system_name;
 	}
 
+
+
 	public void setSystem_name(String system_name) {
 		this.system_name = system_name;
 	}
-	
-	
-	
+
 	
 }

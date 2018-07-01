@@ -158,18 +158,22 @@ public class GroupDAO {
 		return result;
 	}
 	
-	public List<MeetingDTO> nextMeetup(int groupSeq,int meeting_seq) throws Exception{
+	public List<MeetingDTO> nextMeetup(int groupSeq,int meeting_seq,String msg) throws Exception{
 		Connection con = DBUtils.getConnection();
 		PreparedStatement pstat = null;
-		if(meeting_seq == 0) {
+		if(meeting_seq == 0 && msg.equals("one")) {
 			String sql = "select *from (select meeting.*, row_number()over(partition by group_seq order by meeting_start_time asc) rn "
 					+ "from meeting where group_seq=? and meeting_start_time > sysdate) where rn = 1";
 			pstat = con.prepareStatement(sql);
 			pstat.setInt(1, groupSeq);
-		}else if(groupSeq == 0) {
+		}else if(groupSeq == 0 && msg.equals("pre")) {
 			String sql = "select * from meeting where group_seq=3 and meeting_start_time > sysdate and meeting_seq != ?";
 			pstat = con.prepareStatement(sql);
 			pstat.setInt(1, meeting_seq);
+		}else if(msg.equals("all")){
+			String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate";
+			pstat = con.prepareStatement(sql);
+			pstat.setInt(1, groupSeq);
 		}
 		
 		ResultSet rs = pstat.executeQuery();
@@ -228,6 +232,39 @@ public class GroupDAO {
 		con.close();
 		pstat.close();
 		rs.close();
+		
+		return result;
+	}
+	
+	public boolean isGroupMember(int group_seq, String member_email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from mygroup where member_email=? and group_seq=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, member_email);
+		pstat.setInt(2, group_seq);
+		
+		ResultSet rs = pstat.executeQuery();
+		
+		if(rs.next()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public int joinGroup(MygroupDTO dto) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "insert into mygroup values(mygroup_seq.nextval,?,?,?)";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		pstat.setString(1, dto.getMember_email());
+		pstat.setInt(2, dto.getGroup_seq());
+		pstat.setString(3, dto.getGroup_name());
+		
+		int result = pstat.executeUpdate();
+		
+		con.close();
+		pstat.close();
 		
 		return result;
 	}
