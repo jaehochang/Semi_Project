@@ -80,7 +80,7 @@
 				$("#five_km").click(function() {
 
 						alert("5km 입니다.");
-			$("#distance-default").html("5km <span class=caret></span>");
+			      $("#distance-default").html("5km <span class=caret></span>");
 					var val = pos.lat + ":" + pos.lng;
 			        var dist = 5;
 			        $.ajax({
@@ -95,6 +95,7 @@
 							for (var b = 0; b < response.distResult.length; b++) {
 
 								var a = response.distResult.toString().split(":");
+								$("#recoMeetnow").html("<p>내 MeetNow</p>");
 								$("#recoMeetnow").html("<div class=row id=distrow>");
 								$("#recoMeetnow").html("<div class=col-md-4 id=distTitle>");
 								$("#recoMeetnow").html("<div class=img_div>");
@@ -117,37 +118,25 @@
 
 						});
 					})
-						$("#ten_km")
-								.click(
-										function() {
-											alert("10km 입니다.");
-											$("#distance-default")
-													.html(
-															"10km <span class=caret></span>");
+						$("#ten_km").click(function() {
+								alert("10km 입니다.");
+								$("#distance-default").html("10km <span class=caret></span>");
 											var val = pos.lat + ":" + pos.lng;
 											var dist = 10;
-											$
-													.ajax({
-														url : "distanceKm.group",
-														type : "get",
-														data : {
+											$.ajax({
+													url : "distanceKm.group",
+													type : "get",
+													data : {
 															value : val,
 															distance : dist
 														},
-														success : function(
-																response) {
+														success : function(response) {
 
 															for (var b = 0; b < response.distResult.length; b++) {
 
-																var a = response.distResult
-																		.toString()
-																		.split(
-																				":");
+																var a = response.distResult.toString().split(":");
 
-																$(
-																		"#distSearch2")
-																		.html(
-																				"<img src=files/"+a[2]+" class=img_size>");
+																$("#distSearch2").html("<img src=files/"+a[2]+" class=img_size>");
 															}
 
 														},
@@ -172,30 +161,32 @@
 															"15km <span class=caret></span>");
 											var val = pos.lat + ":" + pos.lng;
 											var dist = 15;
-											$
-													.ajax({
+											$.ajax({
 														url : "distanceKm.group",
 														type : "get",
 														data : {
 															value : val,
 															distance : dist
 														},
-														success : function(
-																response) {
-
+														success : function(response) {
+															alert(response.distResult);
+															var a = response.distResult.toString().split(",")
 															for (var b = 0; b < response.distResult.length; b++) {
-
-																var a = response.distResult
-																		.toString()
-																		.split(
-																				":");
-
-																$(
-																		"#distSearch2")
-																		.html(
-																				"<img src=files/"+a[2]+" class=img_size>");
+																
+																
+																alert(a[b].split(":")[2]);
+																$(".row").html("<div class=col-md4 id=distTitle>");
+																$(".col-md4").html("<div class=img_div id=imgSearch>");
+																$(".img_div").html("<div class=over-img id=distSearch2>");
+																$(".over-img").html("<img src=files/"+a[b].split(":")[2]+" class=img_size>");
+																$(".over-img").html("</div>");
+																$(".img_div").html("</div>");
+																$(".col-md4").html("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
+																$(".col-md4").html("</div>");
+																
+																
 															}
-
+															
 														},
 														error : function() {
 
@@ -216,6 +207,7 @@
 											"모든거리 <span class=caret></span>");
 								})
 					})
+	
 </script>
 
 <body>
@@ -317,7 +309,7 @@
 				<div class="row" id="distrow">
 					<c:forEach var="item" items="${allGroupList }">
 						<div class="col-md-4" id="distTitle">
-							<div class="img_div">
+							<div class="img_div"  id="imgSearch">
 								<div class="over-img" id="distSearch2">
 									<img src="files/${item.group_picture}" class="img_size">
 								</div>
@@ -339,7 +331,7 @@
 
 					<c:forEach var="item" items="${allGroupList }">
 						<div class="col-md-4" id="distTitle">
-							<div class="img_div">
+							<div class="img_div" id="imgSearch">
 								<div class="over-img" id="distSearch2">
 									<img src="files/${item.group_picture}" class="img_size">
 								</div>

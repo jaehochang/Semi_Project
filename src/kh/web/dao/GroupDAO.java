@@ -133,10 +133,10 @@ public class GroupDAO {
 		double longitude =Double.parseDouble(lng);
 		
 		String sql = 
-		"select a.GROUP_NAME,a.GROUP_LAT,a.GROUP_LNG,count(*) as member_count,a.GROUP_PICTURE "
-		+ "from create_group a, group_member b "
-		+ "where a.GROUP_SEQ=b.GROUP_SEQ "
-		+ "group by b.GROUP_SEQ, a.GROUP_NAME,a.GROUP_PICTURE,a.GROUP_LAT,a.GROUP_LNG";
+		"select a.GROUP_NAME,a.GROUP_LAT,a.GROUP_LNG,count(*) as member_count,c.system_name "
+		+ "from create_group a, group_member b, group_picture c "
+		+ "where a.GROUP_SEQ=b.GROUP_SEQ and a.group_seq = c.GROUP_SEQ "
+		+ "group by b.GROUP_SEQ, a.GROUP_NAME,c.system_name,a.GROUP_LAT,a.GROUP_LNG";
 		
 		PreparedStatement pstat = con.prepareStatement(sql);
 		
@@ -152,7 +152,7 @@ public class GroupDAO {
 			double dbGroupLat = Double.parseDouble(rs.getString("group_lat"));
 			double dbGroupLng = Double.parseDouble(rs.getString("group_lng"));
 			String dbGroupMemberCount = rs.getString("member_count");
-			String dbGroupPicture = rs.getString("group_picture");
+			String dbGroupPicture = rs.getString("system_name");
 			
 			double theta = longitude - dbGroupLng;
 			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbGroupLat)) + Math.cos(deg2rad(latitude))
