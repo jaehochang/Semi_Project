@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/top.jsp"%>
-
 <div id="member_wrapper">
 	<div style="margin: 150px auto; width: 1000px;">
 		<div>
@@ -94,6 +93,6 @@
 				})
 			})   
 </script>
-
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>

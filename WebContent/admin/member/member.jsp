@@ -17,7 +17,6 @@
 					<th scope="col">이름</th>
 					<th scope="col">성별</th>
 					<th scope="col">위치</th>
-					<th scope="col">알림</th>
 				</tr>
 			</thead>
 
@@ -38,9 +37,6 @@
 								<td>${mdto.member_location }</td>
 								<c:if test="${mdto.member_alarm > 0 }">
 									<td class="badge" style="background-color: red;">${mdto.member_alarm }</td>
-								</c:if>
-								<c:if test="${mdto.member_alarm == 0 }">
-									<td></td>
 								</c:if>
 							</tr>
 						</c:forEach>
@@ -123,6 +119,7 @@
 				})
 			})
 </script>
+<%@include file="../include/footer.jsp"%>
 
 </body>
 </html>

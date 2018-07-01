@@ -6,7 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +27,6 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 
 import kh.web.dao.AdminDAO;
-import kh.web.dao.GroupDAO;
-import kh.web.dao.MemberDAO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MemberDTO;
@@ -61,7 +67,7 @@ public class AdminController extends HttpServlet {
 					dst = "login.ao";
 				} else if (command.equals("/admin/main.ao")) {
 					isRedirect = false;
-					dst = "index.jsp";
+					dst = "mainpage.jsp";
 
 				} else if (command.equals("/admin/member.ao")) {
 					String text = request.getParameter("text");
@@ -115,39 +121,35 @@ public class AdminController extends HttpServlet {
 
 				} else if (command.equals("/admin/memberpage.ao")) {
 					String member_email = request.getParameter("member_email");
-					int state = Integer.parseInt(request.getParameter("state"));
-					System.out.println("state:"+state);
-					if (state == 0) {
-						adao.modifyReportState(0, member_email, 0);
-					}
-					
-					System.out.println("memberpage:" + member_email);
-
+					System.out.println(member_email);
+					// 알림때문에 신고상태와 멤버페이지상태에서 나눠야하는데..
+					adao.modifyMemberReportState(member_email);
 					MemberDTO mdto = adao.getMember(member_email);
 
 					Map<String, Object> map = adao.memGroupMemJoin(mdto.getMember_name());
+
 					List mlist = (List) map.get("mlist");
 					List gmlist = (List) map.get("gmlist");
 
-					System.out.println("map 출력: " + mlist.get(0));
-					System.out.println("map 출력: " + gmlist.get(0));
-
-					MemberDTO mlistdto = (MemberDTO) mlist.get(0);
-					GroupMemberDTO gmlistdto = (GroupMemberDTO) gmlist.get(0);
-
-					System.out.println("mlistdto:" + mlistdto.getMember_interests());
-					System.out.println("gmlistdto:" + gmlistdto.getGroup_name());
-
+					if (mlist.size() != 0) {
+						MemberDTO mlistdto = (MemberDTO) mlist.get(0);
+						System.out.println("map 출력: " + mlist.get(0));
+						request.setAttribute("mlistdto", mlistdto);
+						System.out.println("mlistdto:" + mlistdto.getMember_interests());
+					}
+					if (gmlist.size() != 0) {
+						// System.out.println("map 출력: " + gmlist.get(0));
+						GroupMemberDTO gmlistdto = (GroupMemberDTO) gmlist.get(0);
+						System.out.println("gmlistdto:" + gmlistdto.getGroup_name());
+						request.setAttribute("gmlistdto", gmlistdto);
+					}
 					request.setAttribute("mdto", mdto);
-					request.setAttribute("mlistdto", mlistdto);
-					request.setAttribute("gmlistdto", gmlistdto);
 
 					isRedirect = false;
 					dst = "member/memberpage.jsp";
 
 				} else if (command.equals("/admin/grouppage.ao")) {
 					int group_seq = Integer.parseInt(request.getParameter("group_seq"));
-					int state = Integer.parseInt(request.getParameter("state"));
 
 					GroupDTO gdto = new GroupDTO();
 					gdto = adao.getGroupData(group_seq);
@@ -156,9 +158,7 @@ public class AdminController extends HttpServlet {
 					int size = list.size();
 					System.out.println("groupmember_size: " + list.size());
 
-					if (state == 1) {
-						adao.modifyReportState(1, "", group_seq);
-					}
+					adao.modifyGroupReportState(gdto.getGroup_name());
 
 					request.setAttribute("size", size);
 					request.setAttribute("gdto", gdto);
@@ -320,11 +320,58 @@ public class AdminController extends HttpServlet {
 
 						new Gson().toJson(map, response.getWriter());
 					}
+
+				} else if (command.equals("/admin/email.ao")) {
+
+					System.out.println("뭐야");
+					String host = "smtp.naver.com";
+					final String user = "sksksrff@naver.com";
+					final String password = "rmancis1990!";
+
+					String to = "sksksrff@gmail.com";
+
+					// Get the session object
+					Properties props = new Properties();
+					props.put("mail.smtp.host", host);
+					props.put("mail.smtp.auth", "true");
+
+					Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(user, password);
+						}
+					});
+
+					// Compose the message
+					try {
+						MimeMessage message = new MimeMessage(session);
+						message.setFrom(new InternetAddress(user));
+						message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+						// Subject
+						message.setSubject("meetnow입니다.");
+
+						// Text
+						message.setText("다른 회원님에게서 신고를 당해 일주일간 블락입니다.");
+
+						// send the message
+						Transport.send(message);
+						System.out.println("message sent successfully...");
+
+					} catch (MessagingException e) {
+						e.printStackTrace();
+					}
+
+				} else if (command.equals("/admin/stats.ao")) {
+					//성비(파이), 연령(파이), 동호회카테고리별(파이), 신고타입별(파이), 신고내용별(막대) 방문자수(막대)
+					isRedirect = false;
+					dst = "stats/stats.jsp";
 				}
 
 			}
 
-			if (isRedirect == false) {
+			if (isRedirect == false)
+
+			{
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 			} else {
@@ -367,7 +414,7 @@ public class AdminController extends HttpServlet {
 				if (result) {
 					request.getSession().setAttribute("adminId", id);
 					isRedirect = false;
-					dst = "index.jsp";
+					dst = "mainpage.jsp";
 				} else {
 					isRedirect = true;
 					dst = "loginForm.jsp";

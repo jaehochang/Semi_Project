@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/top.jsp"%>
-
+<style>
+tr {
+	font-size: 20px;
+}
+</style>
 <div>
 	<div class="admin_memberpage"
 		style="width: 700px; margin: 0 auto; margin-top: 100px;">
@@ -12,8 +16,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td style="width:50%;">이메일:</td>
+				<tr style="font-size: 18px;">
+					<td style="width: 50%;">이메일:</td>
 					<td id="member_email">${mdto.member_email }</td>
 				</tr>
 				<tr>
@@ -61,7 +65,7 @@
 		</table>
 	</div>
 
-	<div class="admin_member_gi"style="margin: 50px auto; width: 700px;">
+	<div class="admin_member_gi" style="margin: 50px auto; width: 700px;">
 		<table class="table table-condensed">
 			<thead>
 				<tr>
@@ -70,16 +74,12 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td style="width:50%;">관심사</td>
-					<td>
-						${mlistdto.member_interests }
-					</td>
+					<td style="width: 50%;">관심사</td>
+					<td>${mlistdto.member_interests }</td>
 				</tr>
 				<tr>
 					<td>가입된 그룹</td>
-					<td>
-						${gmlistdto.group_name }
-					</td>
+					<td>${gmlistdto.group_name }</td>
 				</tr>
 			</tbody>
 		</table>
@@ -95,7 +95,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td style="width:50%;">신고일시</td>
+					<td style="width: 50%;">신고일시</td>
 					<td>report_date</td>
 				</tr>
 				<tr>
@@ -133,6 +133,18 @@
 </div>
 <script>
 	$(document).ready(function() {
+		$("#member_email").click(function() {
+			$.ajax({
+				url:"email.ao",
+				type:"get",
+				data:{
+					${mdto.member_email}
+				},
+				success:function(resp){
+					alert(${mdto.member_email}+" 님께 email을 성공적으로 보냈습니다.");
+				}
+			})
+		})
 
 		$("#block").click(function(e) {
 			var distinction = "member";
@@ -180,37 +192,6 @@
 				}
 			})
 		})
-
-		/* $('#permanentblock').click(function(e) {
-			var member_email = $("#member_email").text();
-			console.log(member_email);
-
-			$.ajax({
-				url : "warning.ao",
-				type : "get",
-				data : {
-					value : member_email
-				},
-				success : function(resp) {
-					console.log(resp.number);
-					console.log(resp.bdate);
-					$("#blocknum").text(resp.number + "회");
-					$("#warningdate").text(resp.warning_date);
-					$("#expiredate").text(resp.expire_date);
-
-					if (resp.number == 2) {
-						$("#permanentblock").addClass("btn-danger");
-						$("#permanentblock").removeClass("btn-warning")
-						$("#permanentblock").text("삭제중");
-						$("#permanentblock").addClass("disabled");
-					}
-				},
-
-				error : function(error) {
-					console.log(error);
-				}
-			})
-		}) */
 	})
 </script>
 </body>

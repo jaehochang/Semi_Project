@@ -738,21 +738,12 @@ public class AdminDAO {
 		return list;
 	}
 
-	public int modifyReportState(int col, String member_email,int group_seq) throws Exception {
+	public int modifyMemberReportState(String member_email) throws Exception {
 		Connection con = DBUtils.getConnection();
-		String sql = null;
-		if (col == 0) {
-			sql = "update report set report_state = 0 where REPORT_CALLEEMEMBER = ?";
-		} else if (col == 1) {
-			sql = "update report set report_state = 0 where REPORT_CALLEEGROUP = ?";
-		}
+		String sql = "update report set report_state = 0 where REPORT_CALLEEMEMBER = ? and report_state=1";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		if(col == 0) {
-			pstat.setString(1, member_email);
-		}else if(col == 1) {
-			pstat.setInt(1, group_seq);
-		}
-		
+		pstat.setString(1, member_email);
+
 		int result = pstat.executeUpdate();
 
 		con.commit();
@@ -762,6 +753,19 @@ public class AdminDAO {
 		return result;
 	}
 
+	public int modifyGroupReportState(String group_name) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "update report set report_state = 0 where REPORT_CALLEEGROUP = ? and report_state=1";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, group_name);
+		int result = pstat.executeUpdate();
+
+		con.commit();
+		pstat.close();
+		con.close();
+
+		return result;
+	}
 	// Report관련 DAO끝
 
 }
