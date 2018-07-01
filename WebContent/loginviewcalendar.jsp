@@ -242,16 +242,16 @@
 						  	
 						  	   if(response[i].date == response[i-1].date){
 						  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+group+"</div>"+"<div>"+title+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }else{
 						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>"+"<div>"+group+"</div>"+"<div>"+title+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }
 						  	   }else{
 						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>"+"<div>"+group+"</div>"+"<div>"+title+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }
 						 
@@ -295,16 +295,16 @@
 				  	
 					  	   if(response[i].date == response[i-1].date){
 					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+group+"</div>"+"<div>"+title+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
 					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+group+"</div>"+"<div>"+title+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
 				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+group+"</div>"+"<div>"+title+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
 				  	
