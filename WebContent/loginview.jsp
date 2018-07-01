@@ -92,20 +92,19 @@
 										},
 										success : function(response) {
 								alert(response.distResult.length);
-							for (var b = 0; b < response.distResult.length; b++) {
-
-								var a = response.distResult.toString().split(":");
-								$("#recoMeetnow").html("<p>내 MeetNow</p>");
-								$("#recoMeetnow").html("<div class=row id=distrow>");
-								$("#recoMeetnow").html("<div class=col-md-4 id=distTitle>");
-								$("#recoMeetnow").html("<div class=img_div>");
-								$("#recoMeetnow").html("<div class=over-img id=distSearch2>");
-								$("#recoMeetnow").html("<img src=files/"+a[2]+" class=img_size>");
-								$("#recoMeetnow").html("</div>");
-								$("#recoMeetnow").html("</div>");
-								$("#recoMeetnow").html("<h4 class=group_title>"+a[0]+"</h4>");
-								$("#recoMeetnow").html("</div>");
-								$("#recoMeetnow").html("</div>");
+								var a = response.distResult.toString().split(",")
+								for (var b = 0; b < response.distResult.length; b++) {
+									
+									
+									alert(a[b].split(":")[2]);
+									
+									$(".col-md4").html("<div class=img_div id=imgSearch>");
+									$(".img_div").html("<div class=over-img id=distSearch2>");
+									$(".over-img").html("<img src=files/"+a[b].split(":")[2]+" class=img_size>");
+									$(".col-md4").html("</div>");
+									$(".col-md4").html("</div>");
+									$(".col-md4").html("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
+								
 								
 							}
 							},
@@ -130,14 +129,31 @@
 															value : val,
 															distance : dist
 														},
+														
 														success : function(response) {
+															$(".col-md4").html("");
+															$(".img_div").html("");
+															$(".distSearch").html("");													
+															$(".col-md4").html("");
+															$(".col-md4").html("");
+															$(".col-md4").html("");
 
+															var a = response.distResult.toString().split(",")
+															
+															
 															for (var b = 0; b < response.distResult.length; b++) {
-
-																var a = response.distResult.toString().split(":");
-
-																$("#distSearch2").html("<img src=files/"+a[2]+" class=img_size>");
+																
+																
+																alert(a[b].split(":")[2]);
+															 	  $(".col-md4").append("<div class=img_div id=imgSearch>");
+																	$(".img_div").append("<div class=over-img id=distSearch2>");
+																	$("#distSearch2").append("<img src=files/"+a[b].split(":")[2]+" class=img_size>");													
+																	$(".col-md4").append("</div>");
+																	$(".col-md4").append("</div>");
+																	$(".col-md4").append("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
+															
 															}
+														
 
 														},
 														error : function() {
@@ -156,9 +172,7 @@
 								.click(
 										function() {
 											alert("15km 입니다.");
-											$("#distance-default")
-													.html(
-															"15km <span class=caret></span>");
+											$("#distance-default").html("15km <span class=caret></span>");
 											var val = pos.lat + ":" + pos.lng;
 											var dist = 15;
 											$.ajax({
@@ -171,21 +185,29 @@
 														success : function(response) {
 															alert(response.distResult);
 															var a = response.distResult.toString().split(",")
+															$(".col-md4").html("");
+															$(".img_div").html("");
+															$(".distSearch").html("");													
+															$(".col-md4").html("");
+															$(".col-md4").html("");
+															$(".col-md4").html("");
 															for (var b = 0; b < response.distResult.length; b++) {
 																
 																
-																alert(a[b].split(":")[2]);
-																$(".row").html("<div class=col-md4 id=distTitle>");
-																$(".col-md4").html("<div class=img_div id=imgSearch>");
-																$(".img_div").html("<div class=over-img id=distSearch2>");
-																$(".over-img").html("<img src=files/"+a[b].split(":")[2]+" class=img_size>");
-																$(".over-img").html("</div>");
-																$(".img_div").html("</div>");
-																$(".col-md4").html("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
-																$(".col-md4").html("</div>");
 																
 																
+															    $(".col-md4").append("<div class=img_div id=imgSearch>");
+																$(".img_div").append("<div class=over-img id=distSearch2>");
+																$("#distSearch2").append("<img src=files/"+a[b].split(":")[2]+" class=img_size>");													
+																$(".col-md4").append("</div>");
+																$(".col-md4").append("</div>");
+																$(".col-md4").append("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>"); 
+															
+															   
+															
+															
 															}
+														
 															
 														},
 														error : function() {
