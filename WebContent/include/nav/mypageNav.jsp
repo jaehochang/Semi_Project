@@ -71,44 +71,12 @@
 
 								<!-- 페이스북 -->
 								<div id="signIn">
-									<button onclick="signIn()">Sign In With
-										Facebook(Popup)</button>
-										
-<!-- 									<button onclick="signInWithRedirect()">Sign In With -->
-<!-- 										Facebook(Redirect)</button> -->
+									<button onclick="signIn()">페이스북으로 회원가입</button>
+
+									<!-- Google Login API -->
+									<button type=button onclick="google_login_in()">구글로 회원가입</button>
+
 								</div>
-<!-- 								<div id="authorized"> -->
-<!-- 									<div> -->
-<!-- 										Hello, <img id="photo" src="" /><span id="displayName"></span> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										Email: <span id="email"></span><br /> RefreshToken: <span -->
-<!-- 											id="refreshToken"></span><br /> uid: <span id="uid"></span> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										<button onclick="signOut()">Sign Out</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div id="error"> -->
-<!-- 									An error occurred: <span id="errmsg"></span><br /> -->
-<!-- 									<button onclick="back();">Back</button> -->
-<!-- 								</div> -->
-
-
-<!-- 								<button id="fb-logout">페북 로그아웃</button> -->
-
-
-								<!-- ] -->
-<!-- 								<script> -->
-<!-- // 									document.getElementById("fb-logout").onclick = function() { -->
-
-<!-- // 										FB.logout(function(response) { -->
-<!-- // 											// user is now logged out -->
-<!-- // 										}); -->
-<!-- // 									} -->
-<!-- 								</script> -->
-
-
 
 
 							</div>
@@ -134,9 +102,6 @@
 
 				<!-- 페이스북 -->
 				<div>
-
-
-
 					<%@ include file="../../signUpWithFaceBook.jsp"%>
 					<script>
 						console.log("/signUpWithFaceBook.jsp");
@@ -144,6 +109,9 @@
 
 
 				</div>
+
+				<!-- 구글 API  -->
+				<%@ include file="../../googleSignIn.jsp"%>
 
 
 

@@ -9,10 +9,13 @@ public class SnsDTO {
 	String fb_name;
 	String fb_uid;
 	String fb_photoURL;
+	String ggid;
+	String ggname;
+	String ggimgUrl;
+	String ggEmail;
+
 	String naver_id;
 
-	
-	
 	public String getFb_email() {
 		return fb_email;
 	}
@@ -37,6 +40,37 @@ public class SnsDTO {
 		this.fb_uid = fb_uid;
 	}
 
+	public String getGgid() {
+		return ggid;
+	}
+
+	public void setGgid(String ggid) {
+		this.ggid = ggid;
+	}
+
+	public String getGgname() {
+		return ggname;
+	}
+
+	public void setGgname(String ggname) {
+		this.ggname = ggname;
+	}
+
+	public String getGgimgUrl() {
+		return ggimgUrl;
+	}
+
+	public void setGgimgUrl(String ggimgUrl) {
+		this.ggimgUrl = ggimgUrl;
+	}
+
+	public String getGgEmail() {
+		return ggEmail;
+	}
+
+	public void setGgEmail(String ggEmail) {
+		this.ggEmail = ggEmail;
+	}
 
 	public String getKakao_nickName() {
 		return kakao_nickName;
@@ -76,9 +110,9 @@ public class SnsDTO {
 	public void setFb_photoURL(String fb_photoURL) {
 		this.fb_photoURL = fb_photoURL;
 	}
+
 	public String getFb_photoURL() {
 		return fb_photoURL;
 	}
-	
-	
+
 }

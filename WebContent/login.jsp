@@ -6,6 +6,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- google api -->
+<meta name="google-signin-scope" content="profile email">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<meta name="google-signin-client_id"
+	content="29772503024-a0vbpecnn40g77lm6r1coi2sg7c1rmr5.apps.googleusercontent.com">
+<!-- google api -->
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MeetNow 로그인</title>
 
@@ -27,8 +36,6 @@
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	crossorigin="anonymous"></script>
 
-
-
 <!-- BootStrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -47,14 +54,12 @@
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 
-
 <!-- 카카오톡 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <!-- 페이스북 -->
 <script language="javascript"
 	src="http://connect.facebook.net/ko_KR/all.js"></script>
-
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -63,6 +68,18 @@
 	})
 </script>
 
+
+<style>
+#snsLoginBtns {
+	display: block;
+}
+
+#snsLoginBtns a {
+	border: 1px solid black;
+	text-decoration: none;
+	color: black;
+}
+</style>
 </head>
 <body>
 
@@ -84,6 +101,7 @@
 						<p>아이디 혹은 비밀번호가 올바르지 않습니다. 확인해주세요!</p>
 						<button class="btn btn-success" data-dismiss="modal"
 							onclick="window.close()">다시 로그인</button>
+
 					</div>
 				</div>
 			</div>
@@ -101,8 +119,8 @@
 				<p>아직 등록하지 않으셨나요?</p>
 
 
-				<button onclick="window.open('signUpPage.jsp')"
-					class="btn btn-default">가입하기</button>
+				<button type="button" class="btn btn-default" data-toggle="modal"
+					data-target='#idTypeQuestions'>가입하기</button>
 			</div>
 			<div id=loginbody style="border-bottom: 1px solid #ddd;">
 				<form action="login.co" method=post>
@@ -129,14 +147,88 @@
 							<button id=loginCheck class="btn btn-default" style=>로그인</button>
 						</div>
 
-						<br> 또는 <a id="kakaoLoginBtn"><img
-							src="img/kakao.png" height=35px width=35px>카카오톡으로 로그인하기</a>
-						<a id=fbLoginBtn href="javascript:signIn()"><img src="img/facebook.png" height=35px width=35px>페이스북으로 로그인하기</a>
+						<br> 또는
 
-					</div>
+						<div id=snsLoginBtns>
+							<a id="kakaoLoginBtn"><img src="img/kakao.png" height=35px
+								width=35px>카카오톡으로 로그인하기</a><br> <a id=fbLoginBtn
+								href="javascript:signIn()"><img src="img/facebook.png"
+								height=35px width=35px>페이스북으로 로그인하기</a>
+
+
+								<%@ include file="googleSignIn.jsp" %>
+
+							<div>
+								<button type=button onclick="google_login_in()">구글로 로그인하기</button>
+								<a href="#" onclick="javascript:signOut();">Sign out</a>
+
+
+
+								<!-- 								<script> -->
+								<!-- // 									var googleSignIn = function onSignIn( -->
+								<!-- // 											googleUser) { -->
+
+								<!-- // 										var profile = googleUser -->
+								<!-- // 												.getBasicProfile(); -->
+
+								<!-- // 										var ggId = profile.getId(); -->
+								<!-- // 										var ggName = profile.getName(); -->
+								<!-- // 										var ggImgUrl = profile.getImageUrl(); -->
+								<!-- // 										var ggEmail = profile.getEmail(); -->
+
+								<!-- // 										console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead. -->
+								<!-- // 										console.log('Name: ' -->
+								<!-- // 												+ profile.getName()); -->
+								<!-- // 										console.log('Image URL: ' -->
+								<!-- // 												+ profile.getImageUrl()); -->
+								<!-- // 										console.log('Email: ' -->
+								<!-- // 												+ profile.getEmail()); // This is null if the 'email' scope is not present. -->
+
+								<!-- // 										$.ajax({ -->
+								<!-- // 											url : "ggAccntProc.co", -->
+								<!-- // 											method : "post", -->
+								<!-- // 											data : { -->
+								<!-- // 												"ggId" : ggId, -->
+								<!-- // 												"ggName" : ggName, -->
+								<!-- // 												"ggImgUrl" : ggImgUrl, -->
+								<!-- // 												"ggEmail" : ggEmail -->
+								<!-- // 											}, -->
+								<!-- // 											complete : function(result) { -->
+								<!-- // 												console.log(result); -->
+
+								<!-- // 												if (result) { -->
+								<!-- // 													alert("GG reg succeeded"); -->
+								<!-- // 													location.href = "main.jsp"; -->
+
+								<!-- // 												} else { -->
+								<!-- // 													alert("GG reg Failed"); -->
+								<!-- // 													location.href = "join.jsp"; -->
+								<!-- // 												} -->
+								<!-- // 											} -->
+
+								<!-- // 										}) -->
+
+								<!-- // 									} -->
+
+								<!-- // 									var googleSignOut = function signOut() { -->
+								<!-- // 										var auth2 = gapi.auth2 -->
+								<!-- // 												.getAuthInstance(); -->
+								<!-- // 										auth2.signOut().then(function() { -->
+								<!-- // 											console.log('User signed out.'); -->
+								<!-- // 										}); -->
+								<!-- // 									} -->
+								<!-- 								</script> -->
+
+
+							</div>
+
+
+						</div>
 				</form>
 			</div>
 		</div>
+
+
 
 
 		<!-- SNS 로그인 API  -->
@@ -144,6 +236,7 @@
 		<div>
 			<%@ include file="logInWithKakao.jsp"%>
 			<%@ include file="signUpWithFaceBook.jsp"%>
+
 		</div>
 
 	</div>
