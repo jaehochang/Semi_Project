@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 import kh.web.dao.AdminDAO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
+import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.ReportDTO;
 
@@ -66,6 +67,24 @@ public class AdminController extends HttpServlet {
 					isRedirect = false;
 					dst = "login.ao";
 				} else if (command.equals("/admin/main.ao")) {
+					int reportAll = adao.getReportCount("all");
+					int reportToday = adao.getReportCount("today");
+					int memberAll = adao.getMemberCount("all");
+					int memberToday = adao.getMemberCount("today");
+					int groupAll = adao.getGroupCount("all");
+					int groupToday = adao.getGroupCount("today");
+					int meetingAll = adao.getMeetingCount("all");
+					int meetingToday = adao.getMeetingCount("today");
+
+					request.setAttribute("reportAll", reportAll);
+					request.setAttribute("reportToday", reportToday);
+					request.setAttribute("memberAll", memberAll);
+					request.setAttribute("memberToday", memberToday);
+					request.setAttribute("groupAll", groupAll);
+					request.setAttribute("groupToday", groupToday);
+					request.setAttribute("meetingAll", meetingAll);
+					request.setAttribute("meetingToday", meetingToday);
+
 					isRedirect = false;
 					dst = "mainpage.jsp";
 
@@ -92,9 +111,28 @@ public class AdminController extends HttpServlet {
 					isRedirect = false;
 					dst = "member/member.jsp";
 
-				} else if (command.equals("/admin/meetup.ao")) {
+				} else if (command.equals("/admin/meeting.ao")) {
+					String text = request.getParameter("text");
+					String subject = request.getParameter("subject");
+
+					System.out.println("controller-text: " + text);
+					System.out.println("controller-subject: " + subject);
+					int currentPage = 0;
+					String currentPageString = request.getParameter("currentPage");
+					if (currentPageString == null) {
+						currentPage = 1;
+					} else {
+						currentPage = Integer.parseInt(currentPageString);
+					}
+
+					List<MeetingDTO> list = adao.allMeetingList(currentPage * 10 - 9, currentPage * 10, subject, text);
+					String page = adao.getMeetingPageNavi(currentPage, subject, text);
+
+					request.setAttribute("list", list);
+					request.setAttribute("page", page);
+
 					isRedirect = false;
-					dst = "meetup/meetup.jsp";
+					dst = "meeting/meeting.jsp";
 
 				} else if (command.equals("/admin/group.ao")) {
 					String text = request.getParameter("text");
@@ -251,6 +289,7 @@ public class AdminController extends HttpServlet {
 					System.out.println("text : " + text);
 					List<MemberDTO> mlist = new ArrayList<>();
 					List<GroupDTO> glist = new ArrayList<>();
+					List<MeetingDTO> meetlist = new ArrayList<>();
 
 					if (request.getParameter("distinction").equals("member")) {
 						int currentPage = 0;
@@ -319,6 +358,40 @@ public class AdminController extends HttpServlet {
 						map.put("page", page);
 
 						new Gson().toJson(map, response.getWriter());
+						
+					} else if (request.getParameter("distinction").equals("meeting")) {
+						int currentPage = 0;
+						String currentPageString = request.getParameter("currentPage");
+
+						if (currentPageString == null) {
+							currentPage = 1;
+						} else {
+							currentPage = Integer.parseInt(currentPageString);
+						}
+						System.out.println("currentpage: " + currentPage);
+						System.out.println("currentpageString: " + currentPageString);
+
+						if (text.equals("")) {
+							meetlist = adao.allMeetingList(currentPage * 10 - 9, currentPage * 10, subject, text);
+						} else {
+							meetlist = adao.searchMeetingList(currentPage * 10 - 9, currentPage * 10, subject, text);
+						}
+
+						System.out.println("list.size(): " + mlist.size());
+						String page = adao.getGroupPageNavi(currentPage, subject, text);
+
+						for (int i = 0; i < meetlist.size(); i++) {
+							System.out.println("controller-search.ao:" + meetlist.get(i).getMeeting_title());
+						}
+						System.out.println("controller-page:" + page);
+						response.setContentType("application/json");
+						response.setCharacterEncoding("UTF-8");
+
+						Map<String, Object> map = new HashMap<>();
+						map.put("mlist", meetlist);
+						map.put("page", page);
+
+						new Gson().toJson(map, response.getWriter());
 					}
 
 				} else if (command.equals("/admin/email.ao")) {
@@ -362,7 +435,7 @@ public class AdminController extends HttpServlet {
 					}
 
 				} else if (command.equals("/admin/stats.ao")) {
-					//성비(파이), 연령(파이), 동호회카테고리별(파이), 신고타입별(파이), 신고내용별(막대) 방문자수(막대)
+					// 연령(파이), 동호회카테고리별(파이), 신고내용별(막대) 방문자수(막대)
 					isRedirect = false;
 					dst = "stats/stats.jsp";
 				}
@@ -413,6 +486,25 @@ public class AdminController extends HttpServlet {
 
 				if (result) {
 					request.getSession().setAttribute("adminId", id);
+
+					int reportAll = adao.getReportCount("all");
+					int reportToday = adao.getReportCount("today");
+					int memberAll = adao.getMemberCount("all");
+					int memberToday = adao.getMemberCount("today");
+					int groupAll = adao.getGroupCount("all");
+					int groupToday = adao.getGroupCount("today");
+					int meetingAll = adao.getMeetingCount("all");
+					int meetingToday = adao.getMeetingCount("today");
+
+					request.setAttribute("reportAll", reportAll);
+					request.setAttribute("reportToday", reportToday);
+					request.setAttribute("memberAll", memberAll);
+					request.setAttribute("memberToday", memberToday);
+					request.setAttribute("groupAll", groupAll);
+					request.setAttribute("groupToday", groupToday);
+					request.setAttribute("meetingAll", meetingAll);
+					request.setAttribute("meetingToday", meetingToday);
+
 					isRedirect = false;
 					dst = "mainpage.jsp";
 				} else {

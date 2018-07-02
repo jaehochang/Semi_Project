@@ -8,8 +8,11 @@
 <meta charset="utf-8">
 
 <link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/dashboard.css">
+
+<script type="text/javascript" src="js/fusioncharts.js"></script>
+<script type="text/javascript"
+	src="js/themes/fusioncharts.theme.fint.js"></script>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,6 +24,13 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 		<div class="container-fluid">
@@ -41,7 +51,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="member.ao">회원</a></li>
 					<li><a href="group.ao">그룹</a></li>
-					<li><a href="meetup.ao">meet up</a></li>
+					<li><a href="meeting.ao">meet up</a></li>
 					<li><a href="report.ao">신고</a></li>
 					<li><a href="stats.ao">통계</a></li>
 				</ul>

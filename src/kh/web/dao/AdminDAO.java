@@ -10,6 +10,7 @@ import java.util.Map;
 
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
+import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.ReportDTO;
 import kh.web.utils.DBUtils;
@@ -38,6 +39,27 @@ public class AdminDAO {
 	}
 
 	// member관련 DAO 시작-------------------------------------
+	public int getMemberCount(String distinc) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = null;
+		if (distinc.equals("all")) {
+			sql = "select count(*) as count from member";
+		} else if (distinc.equals("today")) {
+			sql = "select count(*) as count from member where member_joindate=sysdate";
+		}
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		int result = 0;
+		if (rs.next()) {
+			result = rs.getInt("count");
+		}
+
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return result;
+	}
 
 	public MemberDTO memberLogin(String email, String pwd) throws Exception {
 		Connection con = DBUtils.getConnection();
@@ -257,16 +279,9 @@ public class AdminDAO {
 
 	public List<MemberDTO> searchMemberList(int startNum, int endNum, String subject, String text) throws Exception {
 		Connection con = DBUtils.getConnection();
-		String sql = null;
-		if (subject.equals("member_email")) {
-			sql = "select * from "
-					+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
-					+ "where member_email like '%' || ? || '%'";
-		} else if (subject.equals("member_name")) {
-			sql = "select * from "
-					+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
-					+ "where member_name like '%' || ? || '%'";
-		}
+		String sql = "select * from "
+				+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
+				+ "where " + subject + " like '%' || ? || '%'";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, text);
 		ResultSet rs = pstat.executeQuery();
@@ -397,24 +412,27 @@ public class AdminDAO {
 
 	// Group관련 DAO 시작-------------------------------------
 
-	// public int groupMemberCount(int group_seq) throws Exception{
-	// Connection con = DBUtils.getConnection();
-	// String sql = "select count(*) as gmcount from group_member where
-	// group_seq=?";
-	// PreparedStatement pstat = con.prepareStatement(sql);
-	// pstat.setInt(1, group_seq);
-	// ResultSet rs = pstat.executeQuery();
-	// int count = 0;
-	// if(rs.next()) {
-	// count = rs.getInt("gmcount");
-	// }
-	// rs.close();
-	// pstat.close();
-	// con.close();
-	//
-	// return count;
-	//
-	// }
+	public int getGroupCount(String distinc) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = null;
+		if (distinc.equals("all")) {
+			sql = "select count(*) as count from create_group";
+		} else if (distinc.equals("today")) {
+			sql = "select count(*) as count from create_group where group_createdate=sysdate";
+		}
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		int result = 0;
+		if (rs.next()) {
+			result = rs.getInt("count");
+		}
+
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return result;
+	}
 
 	public int groupMemberCount(int group_seq) throws Exception {
 		Connection con = DBUtils.getConnection();
@@ -682,7 +700,215 @@ public class AdminDAO {
 	}
 	// Group관련 DAO 끝-------------------------------------
 
+	// Meeting관련 DAO 시작
+	public int getMeetingCount(String distinc) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = null;
+		if (distinc.equals("all")) {
+			sql = "select count(*) as count from meeting";
+		} else if (distinc.equals("today")) {
+			sql = "select count(*) as count from meeting where meeting_start_time=sysdate";
+		}
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		int result = 0;
+		if (rs.next()) {
+			result = rs.getInt("count");
+		}
+
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return result;
+	}
+
+	public List<MeetingDTO> allMeetingList(int startNum, int endNum, String subject, String text) throws Exception {
+		System.out.println("startNum : " + startNum);
+		System.out.println("endNum: " + endNum);
+		System.out.println("subject:" + subject);
+		System.out.println("text: " + text);
+		Connection con = DBUtils.getConnection();
+		String sql = null;
+		sql = "select * from " + "(select meeting.*, row_number() over(order by meeting_seq) as num from meeting) "
+				+ "where num between ? and ? and meeting_title like '%' || ? || '%'";
+
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, startNum);
+		pstat.setInt(2, endNum);
+		pstat.setString(3, text);
+		ResultSet rs = pstat.executeQuery();
+		List<MeetingDTO> list = new ArrayList();
+
+		while (rs.next()) {
+			MeetingDTO mdto = new MeetingDTO();
+			mdto.setMeeting_seq(rs.getInt("meeting_seq"));
+			mdto.setGroup_seq(rs.getInt("group_seq"));
+			mdto.setGroup_name(rs.getString("group_name"));
+			mdto.setGroup_leader(rs.getString("group_leader"));
+			mdto.setMeeting_title(rs.getString("meeting_title"));
+			mdto.setMeeting_contents(rs.getString("meeting_contents"));
+			mdto.setMeeting_start_time(rs.getString("meeting_start_time"));
+			mdto.setMeeting_end_time(rs.getString("meeting_end_time"));
+			mdto.setMeeting_location(rs.getString("meeting_location"));
+			mdto.setMeeting_picture(rs.getString("meeting_picture"));
+			mdto.setMeeting_lat(rs.getString("meeting_lat"));
+			mdto.setMeeting_lng(rs.getString("meeting_lng"));
+			list.add(mdto);
+		}
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return list;
+	}
+
+	// -----------------------Paging--------------------------
+	public String getMeetingPageNavi(int currentPageNo, String subject, String text) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+		if (subject == null) {
+			subject = "group_name";
+		}
+		String sql = "select count(*) as totalCount from meeting where " + subject + " like '%' || ? || '%'";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, text);
+		ResultSet rs = pstat.executeQuery();
+		rs.next();
+
+		int recordTotalCount = rs.getInt("totalCount");// rs.getInt("totalCount");
+														// // 전체 글(레코드)의 개수를
+														// 저장하는 변수
+		int recordCountPerPage = 10; // 한 페이지에 게시글이 몇개 보일건지
+		int naviCountPerPage = 10; // 한 페이지에서 네비게이터가 몇개씩 보일건지
+		int pageTotalCount = 0; // 전체가 몇 페이지로 구성 될것인지
+
+		if (recordTotalCount % recordCountPerPage > 0) {// 정확히 10으로 나누어 떨어지지 않는
+														// 경우
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		}
+
+		// --------------------------------------------------------
+		int currentPage = currentPageNo;
+
+		if (currentPage < 1) { // 페이지 네비를 클릭해서 들어오는게 아니라 url에 페이지 번호를 입력해서 들어오는
+								// 경우
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		// 현재 페이지가 비정상인지 검증하는 코드
+		// --------------------------------------------------------
+
+		// 네비게이터 스타트번호와 끝번호 나타내기
+		int startNavi = (currentPage - 1) / naviCountPerPage * naviCountPerPage + 1;
+		// 네비게이터가 시작 값; 딱 떨어지는 값의 시작페이지가 이상하기 때문에 1을 빼줘야한다.
+		// currentPage / naviCountPerPage * naviCountPerPage + 1;
+		int endNavi = startNavi + (naviCountPerPage - 1); // 네비게이터 끝 값
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false;
+		}
+
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) {
+			sb.append("<li><a href='meet.ao?currentPage=" + (startNavi - 1)
+					+ "'aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
+		}
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (currentPage == i) {
+				sb.append("<li><a href='group.ao?currentPage=" + i + "' > <b>" + i + "</b></a></li>");
+			} else {
+				sb.append("<li><a href='group.ao?currentPage=" + i + "'>" + i + "</a></li>");
+			}
+
+		}
+
+		if (needNext) {
+			sb.append("<a href='group.ao?currentPage=" + (endNavi + 1)
+					+ "'aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>");
+		}
+
+		pstat.close();
+		con.close();
+
+		return sb.toString();
+	}
+
+	public List<MeetingDTO> searchMeetingList(int startNum, int endNum, String subject, String text) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from "
+				+ "(select meeting.*, row_number() over(order by meeting_start_time) as num from meeting) "
+				+ "where " + subject + " like '%' || ? || '%'";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, text);
+		ResultSet rs = pstat.executeQuery();
+		List<MeetingDTO> result = new ArrayList();
+
+		while (rs.next()) {
+			MeetingDTO mdto = new MeetingDTO();
+			mdto.setMeeting_seq(rs.getInt("meeting_seq"));
+			mdto.setGroup_seq(rs.getInt("group_seq"));
+			mdto.setGroup_name(rs.getString("group_name"));
+			mdto.setGroup_leader(rs.getString("group_leader"));
+			mdto.setMeeting_title(rs.getString("meeting_title"));
+			mdto.setMeeting_contents(rs.getString("meeting_contents"));
+			mdto.setMeeting_start_time(rs.getString("meeting_start_time"));
+			mdto.setMeeting_end_time(rs.getString("meeting_end_time"));
+			mdto.setMeeting_location(rs.getString("meeting_location"));
+			mdto.setMeeting_picture(rs.getString("meeting_picture"));
+			mdto.setMeeting_lat(rs.getString("meeting_lat"));
+			mdto.setMeeting_lng(rs.getString("meeting_lng"));
+			result.add(mdto);
+		}
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return result;
+	}
+
+	// Meeting관련 DAO 끝
+
 	// Report관련 DAO시작
+
+	public int getReportCount(String distinc) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = null;
+		if (distinc.equals("all")) {
+			sql = "select count(*) as count from report where report_state=0";
+		} else if (distinc.equals("today")) {
+			sql = "select count(*) as count from report where report_date=sysdate";
+		}
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		int result = 0;
+		if (rs.next()) {
+			result = rs.getInt("count");
+		}
+
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return result;
+	}
+
 	public List<ReportDTO> getAllReport(int type) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from report where report_type = ?";
