@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kh.web.dto.GroupDTO;
+import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberCountDTO;
@@ -252,14 +253,15 @@ public class GroupDAO {
 		return false;
 	}
 	
-	public int joinGroup(MygroupDTO dto) throws Exception{
+	public int joinGroup(String member_email, int group_seq, String group_name) throws Exception{
 		Connection con = DBUtils.getConnection();
 		String sql = "insert into mygroup values(mygroup_seq.nextval,?,?,?)";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		
-		pstat.setString(1, dto.getMember_email());
-		pstat.setInt(2, dto.getGroup_seq());
-		pstat.setString(3, dto.getGroup_name());
+		
+		pstat.setInt(1, group_seq);
+		pstat.setString(2, group_name);
+		pstat.setString(3, member_email);
 		
 		int result = pstat.executeUpdate();
 		
@@ -267,6 +269,39 @@ public class GroupDAO {
 		pstat.close();
 		
 		return result;
+	}
+	
+	public List<GroupMemberDTO> memberList(int group_seq) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select gm.*, m.member_picture, g.group_leader from group_member gm, member m, create_group g "
+				+ "where gm.member_name=m.member_name and gm.group_seq = g.group_seq and gm.group_seq=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		
+		ResultSet rs = pstat.executeQuery();
+		
+		List<GroupMemberDTO> result = new ArrayList<>();
+		
+		while(rs.next()) {
+			GroupMemberDTO dto = new GroupMemberDTO();
+			
+			dto.setGroup_member_seq(rs.getInt("group_member_seq"));
+			dto.setMember_name(rs.getString("member_name"));
+			dto.setGroup_seq(rs.getInt("group_seq"));
+			dto.setJoin_date(rs.getString("join_date"));
+			dto.setGroup_name(rs.getString("group_name"));
+			dto.setMember_picture(rs.getString("member_picture"));
+			dto.setGroup_leader(rs.getString("group_leader"));
+			
+			result.add(dto);
+		}
+		
+		con.close();
+		pstat.close();
+		rs.close();
+		
+		return result;
+		
 	}
 	
 }

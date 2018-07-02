@@ -106,20 +106,19 @@ div{
 }
 
 #group-member{
-	border: 1px solid black;
 	width:100%;
 }
 
 #group-member-list{
-	border: 1px solid black;
 	width:100%;
+	margin-top: 10px;
 }
 
 #member-card{
 	background-color: white;
 	border-radius: 10px;
-	width:150px;
-	height:200px;
+	width:120px;
+	height:160px;
 	margin-top: 20px;
 	margin-right: 20px;
 }
@@ -129,10 +128,13 @@ div{
 	transition: transform .35s;
 }
 
-#member-img{
-	width: 55px;
-  	height:55px;
+#member-card>img{
+	border:1px solid black;
+	width: 65px;
+  	height:65px;
   	border-radius: 150px;
+  	margin-top: 25px;
+  	margin-left: 25px;
 }
 
 
@@ -235,12 +237,22 @@ div{
 	margin-bottom: 30px;
 }
 
+#lastmeetup:hover{
+	cursor: pointer;
+}
+
 #premeetup{
 	background-color: white;
 	border-radius: 10px;
 	width:100%;
 	height:250px;
 	margin-bottom: 30px;
+}
+
+
+
+#premeetup:hover{
+	cursor: pointer;
 }
 
 #photo{
@@ -368,8 +380,37 @@ div{
 	background-color:#b21bd6;
 }
    
+
+   .row {
+   box-sizing: border-box;
+   width : 100%;
+   margin : auto;
+}
+
+.col-md-3 {
+   height : 200px;
+   width : 129px;
+   vertical-align: center;
+   text-align : center;
+   margin : 10px;
+   border-radius : 10px;
+   background-color: white;
+/*    box-shadow:inset 0 2px 20px #aba7bc; */
    
-   
+}
+
+.col-md-3:hover{
+	box-shadow:3px 3px 3px 1px #e2e1e8;
+	transition: transform .35s;
+}
+
+.row .col-md-3 img{
+   width : 80px;
+   height : 80px;
+   border-radius: 50%;
+   display : inline-block;
+   margin : 30px 0 20px 0;
+}
    
    
    

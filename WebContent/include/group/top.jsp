@@ -82,7 +82,7 @@
 					
 
 				</div>
-				<div id="info-leader">
+				<div id="info-leader" style="margin-top: 10px;">
 					<div id="leader-pic">
 						<img src="img/10.jpg" class="leader-img">
 					</div>

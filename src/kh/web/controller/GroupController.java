@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.web.dao.GroupDAO;
 import kh.web.dto.GroupDTO;
+import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberCountDTO;
@@ -110,6 +111,13 @@ public class GroupController extends HttpServlet {
 				System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
 				System.out.println("지난 미팅"+lastMeeting.size());
 				
+				
+				//member 내용
+				
+				List<GroupMemberDTO> memberList = dao.memberList(groupSeq);
+				
+				System.out.println("멤버리스트 사이즈 : "+memberList.size());
+				
 				request.setAttribute("result", result);
 				request.setAttribute("count", count);
 				request.setAttribute("nextMeeting", nextMeeting);
@@ -117,17 +125,29 @@ public class GroupController extends HttpServlet {
 				request.setAttribute("preMeeting", preMeeting);
 				request.setAttribute("isGroupMember", isGroupMember);
 				request.setAttribute("nextAllMeeting", nextAllMeeting);
+				request.setAttribute("memberList", memberList);
 				
 				if(page.equals("info")) {
 					System.out.println("info");
 					
 					isRedirect = false;
 					dst="groupInfo.jsp";
-				}else if(page.equals("meetup")) {
-					System.out.println("meetup");
+				}else if(page.equals("meetupNext")) {
+					System.out.println("meetupNext");
 					
 					isRedirect = false;
-					dst="groupMeetup.jsp";
+					dst="groupMeetupNext.jsp";
+				}else if(page.equals("meetupLast")) {
+					System.out.println("meetupLast");
+					
+					isRedirect = false;
+					dst="groupMeetupLast.jsp";
+				}else if(page.equals("member")) {
+					isRedirect = false;
+					dst="groupMemberList.jsp";
+				}else if(page.equals("leader")) {
+					isRedirect = false;
+					dst="groupLeader.jsp";
 				}
 				
 				
@@ -139,10 +159,15 @@ public class GroupController extends HttpServlet {
 				int group_seq = Integer.parseInt(groupSeq);
 				String group_name = request.getParameter("group_name");
 				
-				//int result = dao.joinGroup(new MygroupDTO(0,member_email,group_seq,group_name));
+				int joinGroup = dao.joinGroup(member_email,group_seq,group_name);
 				
-				System.out.println("seq : " +groupSeq+"/ group_name :" + group_name);
+				System.out.println("email: "+member_email+"seq : " +groupSeq+"/ group_name :" + group_name);
 				
+				
+				out.println("adfasdf");
+				
+				isRedirect = false;
+				dst="groupInfo.jsp";
 			}
 			
 			//------------------
