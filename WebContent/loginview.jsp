@@ -225,6 +225,7 @@
 		<c:forEach var="item" items="${groupList }">
 		
 			<div class="col-md-4">
+				<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 				<div class="img_div">
 				<div class="over-img">
 					<img src="files/${item.group_picture }" class="img_size">

@@ -2,6 +2,7 @@ div{
 	box-sizing: border-box;
 }
 
+
 #contents{
 	background-color: #f4f6f7;
 }
@@ -37,7 +38,7 @@ div{
 
 #meetup-plan-contents{
   	width:100%;
-  	height:80%;
+  	height:310px;
   	background-color: white;
   	border-radius: 10px;
   	
@@ -46,8 +47,44 @@ div{
 #meetup-plan-contents:hover{
 	box-shadow: 1px 1px 10px #ddd;
 	transition: transform .35s;
+	cursor: pointer;
 }
 
+#nextMeeting-contents{
+	display: inline-block;
+	width: 500px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	
+	white-space: normal;
+	line-height: 1.2;
+	height: 3.6em;
+	text-align:left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+#btag{
+  display: inline-block;
+	width: 520px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	
+	white-space: normal;
+	line-height: 1.2;
+	height: 2.5em;
+	text-align:left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
 
 #meetup-leader{
 	width:300px;
@@ -63,13 +100,43 @@ div{
 
 #group-plan{
 	width:100%;
-	height:30%;
+	margin-top: 10px;
+	margin-right:10px;
+	margin-bottom: 50px;
 }
 
 #group-member{
 	width:100%;
-	height:10%;
 }
+
+#group-member-list{
+	width:100%;
+	margin-top: 10px;
+}
+
+#member-card{
+	background-color: white;
+	border-radius: 10px;
+	width:120px;
+	height:160px;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+#member-card:hover{
+	box-shadow: 1px 1px 10px #ddd;
+	transition: transform .35s;
+}
+
+#member-card>img{
+	border:1px solid black;
+	width: 65px;
+  	height:65px;
+  	border-radius: 150px;
+  	margin-top: 25px;
+  	margin-left: 25px;
+}
+
 
 #group-member-count{
 	width:100%;
@@ -128,17 +195,26 @@ div{
 	float:left;
 	width:40%;
 	height:100%;
+	padding-left: 10px;
 }
 
 #last-meetup-top{
 	width:100%;
 	height:100px;
-	padding-top:50px;
+	padding-top:70px;
+	padding-left:20px;
+}
+
+#pre-meetup-top{
+	width:100%;
+	height:100px;
+	padding-top:70px;
 	padding-left:20px;
 }
 
 #last-meetup-all{
 	width:300px;
+	padding-left:200px;
 }
 
 #last-meetup-div{
@@ -146,11 +222,37 @@ div{
 	padding-left:8px;
 }
 
+
+#pre-meetup-div{
+	width:100%;
+	padding-left:8px;
+}
+
+
 #lastmeetup{
 	background-color: white;
 	border-radius: 10px;
 	width:100%;
 	height:200px;
+	margin-bottom: 30px;
+}
+
+#lastmeetup:hover{
+	cursor: pointer;
+}
+
+#premeetup{
+	background-color: white;
+	border-radius: 10px;
+	width:100%;
+	height:250px;
+	margin-bottom: 30px;
+}
+
+
+
+#premeetup:hover{
+	cursor: pointer;
 }
 
 #photo{
@@ -192,18 +294,48 @@ div{
       transform:scale(1.01);
    }
    
+   #meetup-img{
+   	width:250px;
+   	height:150px;
+   	margin: 0 auto;
+   	margin-top: 20px;
+   }
+   
+   #meetup-img img{
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+   }
+   
  #meetup-btn{
  	width:100%;
  	text-align: center;
  	height:50px;
- 	margin-top: 40px;
+ 	margin-top: 15px;
  }
  
  #meetup-location{
- 	width:100%;
- 	height:50px;
- 	margin-top: 30px;
+ 	
+ 	margin-left: 25px;
+ 	
+ 	display: inline-block;
+	width: 250px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	
+	white-space: normal;
+	line-height: 1.2;
+	height: 3.6em;
+	text-align:left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
  }
+ 
+
 
 #lastmeetup-title{
 	padding-top:30px;
@@ -217,19 +349,68 @@ div{
  		height:30px;
  		background-color: #f4f6f7;
  		border-radius: 100px;
- 		margin-top: 50px;
+ 		margin-top: 20px;
  		margin-left: 50px;
  	}
    
    
+   #last-title{
+   	display: inline-block;
+	width: 240px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	
+	white-space: normal;
+	line-height: 1.2;
+	height: 2.5em;
+	text-align:left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+   }
    
+.btn{
+	background-color: white;
+}
    
+#test{
+	background-color:#b21bd6;
+}
    
+
+   .row {
+   box-sizing: border-box;
+   width : 100%;
+   margin : auto;
+}
+
+.col-md-3 {
+   height : 200px;
+   width : 129px;
+   vertical-align: center;
+   text-align : center;
+   margin : 10px;
+   border-radius : 10px;
+   background-color: white;
+/*    box-shadow:inset 0 2px 20px #aba7bc; */
    
-   
-   
-   
-   
+}
+
+.col-md-3:hover{
+	box-shadow:3px 3px 3px 1px #e2e1e8;
+	transition: transform .35s;
+}
+
+.row .col-md-3 img{
+   width : 80px;
+   height : 80px;
+   border-radius: 50%;
+   display : inline-block;
+   margin : 30px 0 20px 0;
+}
    
    
    
