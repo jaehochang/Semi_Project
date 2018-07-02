@@ -123,8 +123,12 @@ public class MemberDAO {
 		ResultSet rs = pstat.executeQuery();
 		
 		if(rs.next()) {
+			con.close();
+			pstat.close();
 			return true;
 		}else {
+			con.close();
+			pstat.close();
 			return false;
 			
 		}

@@ -62,7 +62,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 
-</head>
 <script>
 	$(document).ready(function() {
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -90,23 +89,22 @@
 										value : val,
 										distance : dist
 										},
-										success : function(response) {
-								alert(response.distResult.length);
-								var a = response.distResult.toString().split(",")
-								for (var b = 0; b < response.distResult.length; b++) {
-									
-									
-									alert(a[b].split(":")[2]);
-									
-									$(".col-md4").html("<div class=img_div id=imgSearch>");
-									$(".img_div").html("<div class=over-img id=distSearch2>");
-									$(".over-img").html("<img src=files/"+a[b].split(":")[2]+" class=img_size>");
-									$(".col-md4").html("</div>");
-									$(".col-md4").html("</div>");
-									$(".col-md4").html("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
-								
-								
-							}
+					success : function(response) {
+						var a = response.distResult.toString().split(",");
+						
+						$("#distrow").html("");
+						$(".col-md4").html("");
+						$(".img_div").html("");
+						$("#distSearch2").html("");
+						
+						
+						for (var b = 0; b < response.distResult.length; b++) {
+							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
+							
+					$("#distrow").append("<img src=files/"+a[b].split(":")[2]+" class=img_size>");
+			
+						}
+						
 							},
 							error : function() {
 								console.log("에러 발생!");
@@ -131,28 +129,21 @@
 														},
 														
 														success : function(response) {
+															var a = response.distResult.toString().split(",");
+															
+															$("#distrow").html("");
 															$(".col-md4").html("");
 															$(".img_div").html("");
-															$(".distSearch").html("");													
-															$(".col-md4").html("");
-															$(".col-md4").html("");
-															$(".col-md4").html("");
-
-															var a = response.distResult.toString().split(",")
+															$("#distSearch2").html("");
 															
 															
 															for (var b = 0; b < response.distResult.length; b++) {
+																alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 																
-																
-																alert(a[b].split(":")[2]);
-															 	  $(".col-md4").append("<div class=img_div id=imgSearch>");
-																	$(".img_div").append("<div class=over-img id=distSearch2>");
-																	$("#distSearch2").append("<img src=files/"+a[b].split(":")[2]+" class=img_size>");													
-																	$(".col-md4").append("</div>");
-																	$(".col-md4").append("</div>");
-																	$(".col-md4").append("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
-															
+														$("#distrow").append("<img src=files/"+a[b].split(":")[2]+" class=img_size>");
+												
 															}
+															
 														
 
 														},
@@ -168,8 +159,7 @@
 
 													});
 										})
-						$("#fifteen_km")
-								.click(
+						$("#fifteen_km").click(
 										function() {
 											alert("15km 입니다.");
 											$("#distance-default").html("15km <span class=caret></span>");
@@ -183,31 +173,25 @@
 															distance : dist
 														},
 														success : function(response) {
-															alert(response.distResult);
-															var a = response.distResult.toString().split(",")
+															
+															var a = response.distResult.toString().split(",");
+															
+															
+															$("#distrow").html("");
 															$(".col-md4").html("");
 															$(".img_div").html("");
-															$(".distSearch").html("");													
-															$(".col-md4").html("");
-															$(".col-md4").html("");
-															$(".col-md4").html("");
+															$("#distSearch2").html("");
+															
+															
 															for (var b = 0; b < response.distResult.length; b++) {
+																alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 																
-																
-																
-																
-															    $(".col-md4").append("<div class=img_div id=imgSearch>");
-																$(".img_div").append("<div class=over-img id=distSearch2>");
-																$("#distSearch2").append("<img src=files/"+a[b].split(":")[2]+" class=img_size>");													
-																$(".col-md4").append("</div>");
-																$(".col-md4").append("</div>");
-																$(".col-md4").append("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>"); 
-															
-															   
-															
+													    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" class=img_size style=width:200px; vspace=30 hspace=40>");
+														$("#distrow").append("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
 															
 															}
-														
+															
+															 
 															
 														},
 														error : function() {
@@ -231,6 +215,9 @@
 					})
 	
 </script>
+
+
+</head>
 
 <body>
 
@@ -331,12 +318,12 @@
 				<div class="row" id="distrow">
 					<c:forEach var="item" items="${allGroupList }">
 						<div class="col-md-4" id="distTitle">
-							<div class="img_div"  id="imgSearch">
+							<div class="img_div"  id="imgSearch2">
 								<div class="over-img" id="distSearch2">
 									<img src="files/${item.group_picture}" class="img_size">
 								</div>
 							</div>
-							<h4 class="group_title">${item.group_name}</h4>
+							<h4 class="group_title" id="group_title2">${item.group_name}</h4>
 						</div>
 					</c:forEach>
 
@@ -353,7 +340,7 @@
 
 					<c:forEach var="item" items="${allGroupList }">
 						<div class="col-md-4" id="distTitle">
-							<div class="img_div" id="imgSearch">
+							<div class="img_div" id="imgSearch2">
 								<div class="over-img" id="distSearch2">
 									<img src="files/${item.group_picture}" class="img_size">
 								</div>
