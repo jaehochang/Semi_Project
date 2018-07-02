@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
@@ -319,6 +318,36 @@ public class MemberController extends HttpServlet {
 
 				}
 
+			} else if (command.equals("/ggAccntProc.co")) {
+
+				// https://developers.google.com/identity/sign-in/web/backend-auth
+
+				String ggId = request.getParameter("ggId");
+				String ggName = request.getParameter("ggName");
+				String ggImgUrl = request.getParameter("ggImgUrl");
+				String ggEmail = request.getParameter("ggEmail");
+
+				System.out.println(ggId + "/" + ggName + "/" + ggImgUrl + "/" + ggEmail);
+
+				MemberDAO mDAO = new MemberDAO();
+				SnsDTO sDTO = new SnsDTO();
+				sDTO.setGgid(ggId);
+				sDTO.setGgname(ggName);
+				sDTO.setGgimgUrl(ggImgUrl);
+				sDTO.setGgEmail(ggEmail);
+
+				boolean DupleResult = mDAO.SignUpWithGoogle(sDTO);
+				System.out.println("mDAO.SignUpWithGoogle.regResult : " + DupleResult);
+
+				isRedirect = false;
+
+//				response.reset();
+				response.getWriter().print(DupleResult);
+				request.setAttribute("DupleResult", DupleResult);
+				request.getSession().setAttribute("loginId", ggId);
+
+				return;
+
 			}
 
 			if (isRedirect == false) {
@@ -330,6 +359,7 @@ public class MemberController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("에러 발생");
 			response.sendRedirect("error.html");
 		}
 

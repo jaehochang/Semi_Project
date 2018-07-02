@@ -140,7 +140,7 @@ public class MemberDAO {
 
 		boolean isThereLoginId = rs.next();
 
-		if (isThereLoginId) {
+		if (isThereLoginId) { // 로긴 아이디를 점검해봤더니
 
 			mDTO.setMember_name(rs.getString("member_name"));
 			mDTO.setMember_interests(rs.getString("member_interests"));
@@ -148,15 +148,16 @@ public class MemberDAO {
 			mDTO.setMember_joindate(rs.getString("member_joindate"));
 			mDTO.setMember_location(rs.getString("member_location"));
 
-		} else if (!isThereLoginId) {
+		} else if (!isThereLoginId) { // 없으면 카톡 아이디와 비교
 
 			String searchKakaoId = "select * from member m,sns_id s where (m.member_seq = s.member_seq) and ( kakao_id= ?)";
 			PreparedStatement psKakao = con.prepareStatement(searchKakaoId);
 			psKakao.setString(1, loginId);
 			rs = psKakao.executeQuery();
 
-			if (rs.next()) {
+			if (rs.next()) { // 있으면 mDTO에 담기
 
+				System.out.println("email과 접속한 시도한 loginId 검사");
 				mDTO.setMember_name(rs.getString("member_name"));
 				mDTO.setMember_interests(rs.getString("member_interests"));
 				mDTO.setMember_picture(rs.getString("member_picture"));
@@ -164,6 +165,8 @@ public class MemberDAO {
 				mDTO.setMember_location(rs.getString("member_location"));
 
 			} else { // 이메일로도, 카톡 아이디로도 없으면, 페북 uid로 검색해보기
+
+				System.out.println("페북 uid와 검사");
 
 				String searchFbId = "select * from member m,sns_id s where (m.member_seq = s.member_seq) and (fb_uid=?)";
 				PreparedStatement psFb = con.prepareStatement(searchFbId);
@@ -178,10 +181,30 @@ public class MemberDAO {
 					mDTO.setMember_joindate(rs.getString("member_joindate"));
 					mDTO.setMember_location(rs.getString("member_location"));
 
-				} else {
-					System.out.println("/MemberDAO.getAccountInfo [해당하는 로그인 아이디 없음]");
-					Exception e = null;
-					e.printStackTrace();
+				} else { // 이메일/카톡//페북uid와도 맞지않으면 ggId 테이블과 검색하기
+
+					System.out.println("구글 id와 검사");
+					String searchGgId = "select * from member m,sns_id s where (m.member_seq = s.member_seq) and (ggid=?)";
+					ps = con.prepareStatement(searchGgId);
+					ps.setString(1, loginId);
+					rs = ps.executeQuery();
+
+					if (rs.next()) { // 있으면 담기
+						System.out.println("db에 현 login 정보 존재, mDTO에 담기");
+						mDTO.setMember_name(rs.getString("member_name"));
+						mDTO.setMember_interests(rs.getString("member_interests"));
+						mDTO.setMember_picture(rs.getString("member_picture"));
+						mDTO.setMember_joindate(rs.getString("member_joindate"));
+						mDTO.setMember_location(rs.getString("member_location"));
+
+					} else {
+
+						System.out.println("/MemberDAO.getAccountInfo [해당하는 로그인 아이디 없음]");
+						Exception e = null;
+						e.printStackTrace();
+
+					}
+
 				}
 			}
 		}
@@ -189,6 +212,8 @@ public class MemberDAO {
 		rs.close();
 		ps.close();
 		con.close();
+
+		System.out.println("로그인 검사 후 mDTO 리턴");
 
 		return mDTO;
 
@@ -556,16 +581,18 @@ public class MemberDAO {
 	public boolean signUpWithFb(SnsDTO sDTO) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
-				+ "into sns_id values(member_seq.nextval,'null','null',?,?,?,?) " + "select * from dual";
+		String sql = "insert all into member values(member_seq.nextval,?,?,'null','null','null',?,'남자',0,sysdate,sysdate,sysdate,0,0)"
+				+ "into sns_id values(member_seq.nextval,'null','null',?,?,?,?,'null','null','null','null') "
+				+ "select * from dual";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, sDTO.getFb_name()); // 이름
 		ps.setString(2, sDTO.getFb_email());
+		ps.setString(3, sDTO.getFb_photoURL());
 
-		ps.setString(3, sDTO.getFb_uid());
-		ps.setString(4, sDTO.getFb_name());
-		ps.setString(5, sDTO.getFb_email());
-		ps.setString(6, sDTO.getFb_photoURL());
+		ps.setString(4, sDTO.getFb_uid());
+		ps.setString(5, sDTO.getFb_name());
+		ps.setString(6, sDTO.getFb_email());
+		ps.setString(7, sDTO.getFb_photoURL());
 
 		int result = ps.executeUpdate();
 
@@ -601,4 +628,77 @@ public class MemberDAO {
 			return false;
 		}
 	}
+
+	public boolean SignUpWithGoogle(SnsDTO sDTO) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+
+		boolean result = this.isGgIdExist(sDTO);
+		
+		System.out.println("/isGgIdExist.result :" + result);
+		
+		boolean regSccss = false;
+
+		if (result) { // 중복성 검사 결과 이미 존재하는 경우
+
+			return regSccss; //false 보내기
+			
+		} else {
+
+			String sql = "insert all into member values(member_seq.nextval,?,?,'null','null','null',?,'남자',0,sysdate,sysdate,sysdate,0,0)"
+					+ "into sns_id values(member_seq.nextval,'null','null','null','null','null','null',?,?,?,?) "
+					+ "select * from dual";
+
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, sDTO.getGgname());
+			ps.setString(2, sDTO.getGgEmail());
+			ps.setString(3, sDTO.getGgimgUrl());
+
+			ps.setString(4, sDTO.getGgid());
+			ps.setString(5, sDTO.getGgname());
+			ps.setString(6, sDTO.getGgimgUrl());
+			ps.setString(7, sDTO.getGgEmail());
+			int insertTrial = ps.executeUpdate();
+			System.out.println("/signUpWithGoogle result :" + insertTrial);
+
+			con.commit();
+			ps.close();
+			con.close();
+
+			if (insertTrial > 0) {
+				regSccss = true;
+			} else {
+				regSccss = false;
+			}
+
+		}
+		return regSccss;
+
+	}
+
+	public boolean isGgIdExist(SnsDTO sDTO) throws Exception {
+		Connection con = DBUtils.getConnection();
+
+		String sql = "select * from sns_id where ggid = ? ";
+
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, sDTO.getGgid());
+
+		ResultSet rs = ps.executeQuery();
+
+		boolean result = false;
+		if (rs.next()) {
+			result = true; // 아이디 중복 검사 결과, 이미 회원가입한 페이스북 id가 있음
+		} else {
+			result = false; // 없음
+		}
+
+		con.close();
+		ps.close();
+		rs.close();
+
+		return result;
+
+	}
+
 }

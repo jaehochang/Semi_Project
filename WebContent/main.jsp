@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -7,13 +9,25 @@
 <html>
 <head>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+<!-- google api -->
+<meta name="google-signin-scope" content="profile email">
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id"
+	content="29772503024-a0vbpecnn40g77lm6r1coi2sg7c1rmr5.apps.googleusercontent.com">
+
+<!-- google api -->
+
 <meta name="description" content="">
 <meta name="author" content="">
+
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
@@ -31,14 +45,13 @@
 <link href="./resources/docs/examples/jumbotron/jumbotron.css"
 	rel="stylesheet">
 
-
-
-<!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-
 <title>Meet now</title>
 
-
 <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
+
+
+<!-- 밑에 CDN 순서 맞지 않으면 오류 발생 -->
+
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet"
@@ -47,6 +60,12 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+
+<!-- Jquery CDN -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"></script>
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
@@ -57,6 +76,10 @@
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
+
+<!-- 위에 CDN 순서 맞지 않으면 오류 발생 -->
+
+
 </head>
 
 
@@ -334,7 +357,7 @@
 		</div>
 	</div>
 
-		<%@ include file="include/bottom.jsp"%>
+	<%@ include file="include/bottom.jsp"%>
 </body>
 
 </html>

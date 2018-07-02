@@ -8,15 +8,17 @@
 <script src="../firebase/init.js"></script>
 <script src="js/index.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+
+
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDj3KyNTil0M6pJNVqVwf88zC1-SnOmyL8",
-    authDomain: "meetnow-6fd56.firebaseapp.com",
-    databaseURL: "https://meetnow-6fd56.firebaseio.com",
-    projectId: "meetnow-6fd56",
-    storageBucket: "meetnow-6fd56.appspot.com",
-    messagingSenderId: "808309268030"
+    apiKey: "AIzaSyC_Y0vMwBBQ399jscmeh0GTEJgIxe65Xhs",
+    authDomain: "cobalt-column-208709.firebaseapp.com",
+    databaseURL: "https://cobalt-column-208709.firebaseio.com",
+    projectId: "cobalt-column-208709",
+    storageBucket: "cobalt-column-208709.appspot.com",
+    messagingSenderId: "201245295217"
   };
   firebase.initializeApp(config);
 </script>
@@ -41,8 +43,6 @@
 
 $(document).ready(function() {
 
-
-	
 	$("#authorized").hide();
     $("#error").hide();
      
