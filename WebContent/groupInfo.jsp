@@ -23,56 +23,29 @@
 	</ul>
 			
 			
+			<div class="btn-group" style="position: absolute; right: 500px; top: 475px;">
+				<button type="button" class="btn btn-default dropdown-toggle"
+					data-toggle="dropdown" aria-expanded="false">
+					<c:if test="${isGroupMember eq true }">
+					회원입니다.
+					</c:if>
+					<c:if test="${isGroupMember eq false }">
+					이 그룹에 가입하기
+					</c:if>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">이 그룹 탈퇴</a></li>
+					<li><a href="#">그룹 신고</a></li>
+				</ul>
+			</div>
 			
-		
-			<c:if test="${isGroupMember eq true }">
-			<button type="button" class="btn" style="position: absolute; right: 450px; top: 475px; border: 1px solid #c4c4c4;">
-				회원입니다.
-			</button>
-			</c:if>
+			
+
+			
+			
 			<c:if test="${isGroupMember eq false }">
-			<button id="joinGroupBT" type="button" class="btn" style="position: absolute; right: 450px; top: 475px; border: 1px solid #c4c4c4;">
-				이 그룹에 가입하기
-			</button>
-			</c:if>
-			
-			<c:forEach var="result" items="${result }">
-				<input type="hidden" id="group_seq" value="${result.group_seq }">
-				<input type="hidden" id="group_name" value="${result.group_name }">
-			</c:forEach>
-			
-			<p id="response"></p>
-			
-			<script>
-			$(document).ready(function(){
-				$("#joinGroupBT").click(function(){
-					
-					var group_seq = $("#group_seq").val();
-					var group_name = $("#group_name").val();
-					
-					$.ajax({
-						url:"join.group",
-						type:"get",
-						data:{group_seq:group_seq,group_name:group_name},
-						success:function(){
-							console.log("전송성공!")
-						},
-						error : function(request,status,error) {
-							console.log("에러발생 !" + request.status + " : " + status + " : " + error);
-						}
-					});
-					
-					
-				})
-			})
-			
-			
-			</script>
-			
-			
-			
 			<!-- Single button -->
-			<div class="btn-group" style="position: absolute; right: 400px; top: 475px;">
+			<div class="btn-group" style="position: absolute; right: 430px; top: 475px;">
 				<button type="button" class="btn btn-default dropdown-toggle"
 					data-toggle="dropdown" aria-expanded="false">
 					<span class="glyphicon glyphicon-option-horizontal"
@@ -82,6 +55,8 @@
 					<li><a href="#">그룹 신고</a></li>
 				</ul>
 			</div>
+			
+			</c:if>
 </div>
 
 <div id="contents">
@@ -98,27 +73,20 @@
 			<div id="meetup-plan-contents">
 				<c:forEach var="nextMeeting" items="${nextMeeting}">
 					<div style="width: 70%; hegith: 100%; float: left">
-						<fmt:parseDate value="${nextMeeting.meeting_start_time}"
-							var="time" pattern="yyyy-MM-dd HH:mm:ss" />
 						<time class="icon">
-							<strong><fmt:formatDate value="${time}" pattern="M" />월</strong>
-							<span><fmt:formatDate value="${time}" pattern="dd" /></span>
+							<strong><fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="M"/>월</strong>
+                    		<span><fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="dd"/></span>
 						</time>
 						<div class="meeting-info"
 							style="padding-left: 150px; padding-top: 30px;">
-							<div class="" style="color: #8b96a8;">
-								<fmt:formatDate value="${time}" pattern="M" />
-								월
-								<fmt:formatDate value="${time}" pattern="dd" />
-								일
-								<fmt:formatDate value="${time}" pattern="E" />
-								요일
-								<fmt:formatDate value="${time}" pattern="a" />
-								<fmt:formatDate value="${time}" pattern="hh" />
-								시
-								<fmt:formatDate value="${time}" pattern="mm" />
-								분
-							</div>
+							<div class="" style="color:#8b96a8;" >
+                        <fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="M"/>월
+                        <fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="dd"/>일 
+                        <fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="E"/>요일 
+                        <fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="a"/> 
+                        <fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="hh"/>시
+                        <fmt:formatDate value="${nextMeeting.meeting_start_time}" pattern="mm"/>분 
+                     </div>
 							<h2>
 								<p id="btag">
 									<b>${nextMeeting.meeting_title }</b>
@@ -241,27 +209,21 @@
 				<div id="pre-meetup-div">
 					<c:forEach var="preMeeting" items="${preMeeting }">
 						<div id="premeetup">
-							<fmt:parseDate value="${preMeeting.meeting_start_time}"
-								var="time" pattern="yyyy-MM-dd HH:mm:ss" />
-							<time class="icon">
-								<strong><fmt:formatDate value="${time}" pattern="M" />월</strong>
-								<span><fmt:formatDate value="${time}" pattern="dd" /></span>
-							</time>
+							
+							 <time class="icon">
+                  <strong><fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="M"/>월</strong>
+                    <span><fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="dd"/></span>
+                  </time>
 
 							<div id="lastmeetup-title">
-								<div class="" style="color: #8b96a8;">
-									<fmt:formatDate value="${time}" pattern="M" />
-									월
-									<fmt:formatDate value="${time}" pattern="dd" />
-									일
-									<fmt:formatDate value="${time}" pattern="E" />
-									요일
-									<fmt:formatDate value="${time}" pattern="a" />
-									<fmt:formatDate value="${time}" pattern="hh" />
-									시
-									<fmt:formatDate value="${time}" pattern="mm" />
-									분
-								</div>
+								<div class="" style="color:#8b96a8;" >
+                        <fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="M"/>월
+                        <fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="dd"/>일 
+                        <fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="E"/>요일 
+                        <fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="a"/> 
+                        <fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="hh"/>시
+                        <fmt:formatDate value="${preMeeting.meeting_start_time}" pattern="mm"/>분 
+                     </div>
 								<h4>
 									<b id="last-title">${preMeeting.meeting_title }</b>
 								</h4>
@@ -281,25 +243,23 @@
 				<div id="last-meetup-div">
 					<c:forEach var="lastMeeting" items="${lastMeeting }">
 						<div id="lastmeetup">
-							<fmt:parseDate value="${lastMeeting.meeting_start_time}"
-								var="time" pattern="yyyy-MM-dd HH:mm:ss" />
 							<time class="icon">
-								<strong><fmt:formatDate value="${time}" pattern="M" />월</strong>
-								<span><fmt:formatDate value="${time}" pattern="dd" /></span>
+								<strong><fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="M" />월</strong>
+								<span><fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="dd" /></span>
 							</time>
 
 							<div id="lastmeetup-title">
 								<div class="" style="color: #8b96a8;">
-									<fmt:formatDate value="${time}" pattern="M" />
+									<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="M" />
 									월
-									<fmt:formatDate value="${time}" pattern="dd" />
+									<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="dd" />
 									일
-									<fmt:formatDate value="${time}" pattern="E" />
+									<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="E" />
 									요일
-									<fmt:formatDate value="${time}" pattern="a" />
-									<fmt:formatDate value="${time}" pattern="hh" />
+									<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="a" />
+									<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="hh" />
 									시
-									<fmt:formatDate value="${time}" pattern="mm" />
+									<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="mm" />
 									분
 								</div>
 								<h4>

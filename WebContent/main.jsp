@@ -19,7 +19,7 @@
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 
-<link rel="stylesheet" type="text/css" href="css/main-card-style.css">
+<link rel="stylesheet" type="text/css" href="css/main-card-style.css?ver=2">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-carousel-style.css">
 
@@ -151,26 +151,23 @@
          <div class="col">
             <div class="col-md-4">
                <div class="card">
-                  <fmt:parseDate value="${items.meeting_start_time}" var="time" pattern="yyyy-MM-dd HH:mm:ss"/>
-                  
                   <time class="icon">
-                     <strong><fmt:formatDate value="${time}" pattern="M"/>월</strong> 
-                     <span><fmt:formatDate value="${time}" pattern="dd"/></span>
+                  <strong><fmt:formatDate value="${items.meeting_start_time}" pattern="M"/>월</strong>
+                    <span><fmt:formatDate value="${items.meeting_start_time}" pattern="dd"/></span>
                   </time>
                   <a class="img-card" href="meeting.meet?seq=${items.meeting_seq}"><img src="files/1.jpg"> </a>
                   <div class="card-content">
                      <div class="" style="color:#8b96a8;" >
-                     		<fmt:formatDate value="${time}" pattern="M"/>월 
-                              <fmt:formatDate value="${time}" pattern="dd"/>일     
-                              <fmt:formatDate value="${time}" pattern="E"/>요일 
-                              <fmt:formatDate value="${time}" pattern="a"/>
-                              <fmt:formatDate value="${time}" pattern="hh"/>시 
-                              <fmt:formatDate value="${time}" pattern="mm"/>분 
+                        <fmt:formatDate value="${items.meeting_start_time}" pattern="M"/>월
+                        <fmt:formatDate value="${items.meeting_start_time}" pattern="dd"/>일 
+                        <fmt:formatDate value="${items.meeting_start_time}" pattern="E"/>요일 
+                        <fmt:formatDate value="${items.meeting_start_time}" pattern="a"/> 
+                        <fmt:formatDate value="${items.meeting_start_time}" pattern="hh"/>시
+                        <fmt:formatDate value="${items.meeting_start_time}" pattern="mm"/>분 
                      </div>
                      <br>
                      <h2 class="card-title">
-                        <a href="meeting.meet?seq=${items.meeting_seq}"> ${items.meeting_title} </a>
-                        
+                        <p><a href="meeting.meet?seq=${items.meeting_seq}"> ${items.meeting_title} </a></p>
                      </h2>
                      <p class="img-member">
                         <img class="pull-left" src="./image/manse.jpeg" alt="Focus Lab">
@@ -301,8 +298,6 @@
 
    <footer>
       <%@ include file="include/bottom.jsp"%>
-
-
 
    </footer>
 </body>

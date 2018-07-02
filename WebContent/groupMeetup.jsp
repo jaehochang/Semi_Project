@@ -32,25 +32,23 @@
 			<div id="meetup-plan-contents">
 				<c:forEach var="nextAllMeeting" items="${nextAllMeeting}">
 					<div style="width: 70%; hegith: 100%; float: left">
-						<fmt:parseDate value="${nextAllMeeting.meeting_start_time}"
-							var="time" pattern="yyyy-MM-dd HH:mm:ss" />
 						<time class="icon">
-							<strong><fmt:formatDate value="${time}" pattern="M" />월</strong>
-							<span><fmt:formatDate value="${time}" pattern="dd" /></span>
+							<strong><fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="M" />월</strong>
+							<span><fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="dd" /></span>
 						</time>
 						<div class="meeting-info"
 							style="padding-left: 150px; padding-top: 30px;">
 							<div class="" style="color: #8b96a8;">
-								<fmt:formatDate value="${time}" pattern="M" />
+								<fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="M" />
 								월
-								<fmt:formatDate value="${time}" pattern="dd" />
+								<fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="dd" />
 								일
-								<fmt:formatDate value="${time}" pattern="E" />
+								<fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="E" />
 								요일
-								<fmt:formatDate value="${time}" pattern="a" />
-								<fmt:formatDate value="${time}" pattern="hh" />
+								<fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="a" />
+								<fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="hh" />
 								시
-								<fmt:formatDate value="${time}" pattern="mm" />
+								<fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="mm" />
 								분
 							</div>
 							<h2>
