@@ -45,7 +45,7 @@ public class GroupController extends HttpServlet {
 			String ajax_all = null;
 			String ajax_dist = null;
 			List<String> distResult = null;
-			List<GroupDTO> allGroupList = null;
+			List<MygroupDTO> allGroupList = null;
 			String email = request.getSession().getAttribute("loginId").toString();
 			
 			if (command.equals("/list.group")) {
@@ -55,9 +55,9 @@ public class GroupController extends HttpServlet {
 				
 				List<GroupDTO> groupList = dao.allgroups();
 				List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
-				List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
+//				List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
 				List<MemberCountDTO> memberCount =  new ArrayList<>();
-				
+				allGroupList = dao.myGroupList(member_email);
 				if(isMyGroup.equals("true")) {
 					List<MygroupDTO> myGroupList = dao.myGroupList(email);
 				    if(myGroupList.size() != 0) {
@@ -72,7 +72,7 @@ public class GroupController extends HttpServlet {
 				request.setAttribute("isMyGroup", isMyGroup);
 				request.setAttribute("myGroupList", myGroupList);
 				request.setAttribute("memberCount", memberCount);
-				request.setAttribute("allGroupList", allGroupList);
+				request.setAttribute("allGroupList", groupList);
 				
 				isRedirect = false;
 				dst="loginview.jsp";

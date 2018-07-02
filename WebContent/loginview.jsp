@@ -177,7 +177,8 @@
 															var a = response.distResult.toString().split(",");
 															
 															
-															$("#distrow").html("");
+															$("#distrow").after("");
+															$(".img_size").html("");
 															$(".col-md4").html("");
 															$(".img_div").html("");
 															$("#distSearch2").html("");
@@ -186,8 +187,8 @@
 															for (var b = 0; b < response.distResult.length; b++) {
 																alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 																
-													    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" class=img_size style=width:200px; vspace=30 hspace=40>");
-														$("#distrow").append("<h4 class=group_title>"+a[b].split(":")[0]+"</h4>");
+													    $("#distrow").after("<img src=files/"+a[b].split(":")[2]+" class=img_size style=width:200px; vspace=30 hspace=40> <h4 class=group_title style=float: left;>"+a[b].split(":")[0]+"</h4>");
+														
 															
 															}
 															
