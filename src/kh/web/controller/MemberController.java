@@ -149,7 +149,7 @@ public class MemberController extends HttpServlet {
 				request.getSession().removeAttribute("loginId");
 
 				isRedirect = true;
-				dst = "main.jsp";
+				dst = "index.jsp";
 			}
 
 			if (isRedirect) {
