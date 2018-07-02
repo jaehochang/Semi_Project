@@ -16,7 +16,12 @@
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=2">
+
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<script src="js/modernizr.custom.js"></script>
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
@@ -64,12 +69,17 @@
 			</div>
 			<div id="top-contents-info">
 				<div id="info-title">
-					<h2>${item.group_name }</h2>
+					<div id="info-groupname">
+						<h2 >${item.group_name }</h2>
+					</div>
+					<div id="info-groupinfo">
 					<ul style="padding: 0px;">
 						<li style="list-style: none; margin: 0;">${item.group_location }
 						<li style="margin: 0 0 0 30px;">${count}명회원
 						<li style="margin: 0 0 0 30px;">공개그룹
 					</ul>
+					</div>
+					
 
 				</div>
 				<div id="info-leader">
