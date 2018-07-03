@@ -159,6 +159,45 @@ public class GroupDAO {
 		return result;
 	}
 	
+	public int insertGroup(GroupDTO dto) throws Exception{
+		Connection con = DBUtils.getConnection();
+		
+		String sql = "insert into create_group values(group_seq.nextval,?,?,?,?,?,'default.jpg')";
+		PreparedStatement  psat = con.prepareStatement(sql);
+		psat.setString(1,dto.getGroup_leader());
+		psat.setString(2, dto.getGroup_name());
+		psat.setString(3, dto.getGroup_location());
+		psat.setString(4, dto.getGroup_interests());
+		psat.setString(5, dto.getGroup_info());
+		int result = psat.executeUpdate();
+
+		con.commit();
+		con.close();
+		psat.close();
+		
+		
+		return result;
+		
+		
+	}
+	public String printNameGroup(String groupTitle) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select group_name from create_group where group_name=?";
+		PreparedStatement psat = con.prepareStatement(sql);
+		psat.setString(1, groupTitle);
+		
+		ResultSet rs = psat.executeQuery();
+		rs.next();
+		String groupName=rs.getString("group_name");
+		System.out.println("그룹이름:"+groupName);
+		rs.close();
+		psat.close();
+		con.close();
+		
+		return (String) groupName;
+		
+		
+	}
 	public List<MeetingDTO> nextMeetup(int groupSeq,int meeting_seq,String msg) throws Exception{
 		Connection con = DBUtils.getConnection();
 		PreparedStatement pstat = null;
