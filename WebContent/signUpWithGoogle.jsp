@@ -63,8 +63,10 @@ console.log(ggId+ ggName+ggImgUrl+ggEmail);
 
 if(DupleResult=="true"){
 	var autoLogin = comfirm("존재하지 않는 아이디 입니다. 자동으로 회원가입 하시겠습니까?");
-	if(autoLogin){
+	if(autoLogin == true){
 		location.href="main.jsp";
+	}else{
+		
 	}
 }else{
 	alert("이미 존재하는 아이디 입니다. 자동으로 로그인 됩니다.");

@@ -62,56 +62,70 @@
 						</div>
 						<div class="modal-body">
 
+							<!-- 이메일로 회원가입 -->
+							<div>
+								<button id=signUpWithEmail
+									onclick="window.location.href='signUpWithEmail.jsp'">이메일로
+									회원가입</button>
+							</div>
+
+
+
 							<!-- 카카오톡으로 회원가입 버튼 -->
 							<div class=sns-login-btn>
 
-								<a id="kakao-signUp-btn"><img src="img/kakao.png"
-									style="width: 35px; height: 35px;">카카오톡으로 회원가입</a>
-
+								<div>
+									<a id="kakao-signUp-btn"><img src="img/kakao.png"
+										style="width: 35px; height: 35px;">카카오톡으로 회원가입</a>
+								</div>
 
 								<!-- 페이스북 -->
 								<div id="signIn">
 									<button onclick="signIn()">페이스북으로 회원가입</button>
-
-									<!-- Google Login API -->
-									<button type=button onclick="google_login_in()">구글로 회원가입</button>
-
 								</div>
 
+								<!-- Google Login API -->
 
+								<div>
+									<button type=button onclick="google_login_in()">구글로
+										회원가입</button>
+								</div>
+							
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Save
-									changes</button>
-							</div>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save
+								changes</button>
 						</div>
 					</div>
 				</div>
+			</div>
 
 
-				<!-- 카카오톡 버튼 눌렀을 시  -->
-				<div>
-					<%@ include file="../../signUpWithKakao.jsp"%>
-					<script>
-						console.log("/signUpWithKakao.jsp")
-					</script>
-				</div>
-				<!-- 카카오톡 버튼 눌렀을시 끝 -->
+			<!-- 카카오톡 버튼 눌렀을 시  -->
+			<div>
+				<%@ include file="../../signUpWithKakao.jsp"%>
+				<script>
+					console.log("/signUpWithKakao.jsp")
+				</script>
+			</div>
 
-				<!-- 페이스북 -->
-				<div>
-					<%@ include file="../../signUpWithFaceBook.jsp"%>
-					<script>
-						console.log("/signUpWithFaceBook.jsp");
-					</script>
+			<!-- 페이스북 -->
+			<div>
+				<%@ include file="../../signUpWithFaceBook.jsp"%>
+				<script>
+					console.log("/signUpWithFaceBook.jsp");
+				</script>
 
 
-				</div>
+			</div>
 
-				<!-- 구글 API  -->
-				<%@ include file="../../googleSignIn.jsp"%>
+			<!-- 구글 API  -->
+			<%@ include file="../../signUpWithGoogle.jsp"%>
 
 
 

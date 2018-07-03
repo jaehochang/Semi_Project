@@ -4,11 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>MeetNow : Sign-up Fail</title>
 </head>
 <body>
+
+회원가입에 실패하였습니다.
+3초 후 main 페이지로 이동합니다.
+
 <script>
-	location.href="main.meet";
+setInterval(function(){
+	location.href="main.jsp";
+},3000)
+
 </script>
+
 </body>
 </html>
