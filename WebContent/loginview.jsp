@@ -124,9 +124,7 @@
 
 <body>
 
-	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
-	</nav>
 
 	<div class="jumbotron" style="background-color: #d07de8">
 		<div class="container">
@@ -244,11 +242,9 @@
 	</div>
 
 
-	<footer>
 
 		<%@ include file="include/bottom.jsp"%>
 
-	</footer>
 
 
 

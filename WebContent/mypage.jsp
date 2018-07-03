@@ -7,7 +7,8 @@
 <html>
 <head>
 
-<meta name="google-signin-client_id" content="877251563587-9mm7utso3vmg921b183stb0anidpr2n6.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+	content="877251563587-9mm7utso3vmg921b183stb0anidpr2n6.apps.googleusercontent.com">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Page</title>
 
@@ -17,7 +18,8 @@
 	href="css/mypage-section-style.css">
 
 <!-- google api -->
-<meta name="google-signin-client_id" content="201245295217-c7jm6q8qk7qf81smd0qfkfp3mlnr33cn.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+	content="201245295217-c7jm6q8qk7qf81smd0qfkfp3mlnr33cn.apps.googleusercontent.com">
 <meta name="google-signin-scope" content="profile email">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- google api -->
@@ -37,12 +39,11 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-	
+
 <!-- Jquery CDN -->
-<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"></script>
 
 
 <!-- fontawesome -->
@@ -57,9 +58,7 @@
 </head>
 <body>
 
-	<nav>
-		<%@ include file="include/nav/mypageNav.jsp"%>
-	</nav>
+	<%@ include file="include/nav/mypageNav.jsp"%>
 	<!-- 이 줄 밑으로 my page 구현하기 -->
 
 
@@ -68,7 +67,7 @@
 		<div class="panel panel-default" id=profilebody>
 			<div class=container id=boxheader>
 				<h1>${requestScope.userName}</h1>
-	
+
 			</div>
 
 			<div class=container>위치 : ${requestScope.userLocation}</div>
@@ -90,7 +89,7 @@
 			</div>
 
 			<div class="container" id="meetnow">
-				<h1>2 Meetup의 멤버</h1>
+				<h1>null Meetup의 멤버</h1>
 				<a href="#">가입한 그룹 숨기기</a>
 			</div>
 
@@ -99,7 +98,7 @@
 
 				<img>
 				<div class=container id="flushbottom">
-					<h4>4조 B4A3</h4>
+					<h4>null</h4>
 				</div>
 				<div class=container id="grouproll">회원</div>
 			</div>
@@ -113,27 +112,21 @@
 
 		<!-- aside 시작 -->
 		<div class="panel panel-default" id=profileaside>
-			<img src="https://media.giphy.com/media/bcrPgNgUPRc6G2EbZf/giphy.gif"
-				style="height: 150px; width: 200px; display: block; margin: 0 auto;">
-			<span>change your photo</span>
+			<img src="image/default_member.png"
+				style="height: 150px; width: 150px; display: block; margin: 0 auto;">
+<!-- 			<span>change your photo</span> -->
 
 			<div id=interestbox>
 				<h2>관심사</h2>
-				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a>
+<!-- 				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a> -->
 			</div>
-
 			<div id=interests>${requestScope.getUserInterests }</div>
-
 		</div>
-
-
 	</div>
 
 
 	<!-- 	footer -->
-	<footer>
-		<%@ include file="include/bottom.jsp"%>
-	</footer>
+	<%@ include file="include/bottom.jsp"%>
 
 
 	<script

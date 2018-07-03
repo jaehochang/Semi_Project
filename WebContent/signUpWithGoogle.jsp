@@ -3,13 +3,6 @@
 
 
 
-<!-- <script src="code.jquery.com/jquery-1.12.0.min.js"></script> -->
-<!-- <script src="code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-<!-- <script src="www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> -->
-<!-- <script src="../firebase/init.js"></script> -->
-<!-- <script src="js/index.js"></script> -->
-<!-- <script src="https:www.gstatic.com/firebasejs/5.2.0/firebase.js"></script> -->
-
 <script>
    //Initialize Firebase
    
@@ -59,13 +52,13 @@ console.log(ggId+ ggName+ggImgUrl+ggEmail);
 			"ggEmail" : ggEmail
 		},
 		success : function(DupleResult) {
-		alert("DupleResult : " + DupleResult);
+// 		alert("DupleResult : " + DupleResult);
 
 if(DupleResult=="true"){
-	var autoLogin = comfirm("존재하지 않는 아이디 입니다. 자동으로 회원가입 하시겠습니까?");
-	if(autoLogin == true){
+// 	var autoLogin = comfirm("존재하지 않는 아이디 입니다. 자동으로 회원가입 하시겠습니까?");
+// 	if(autoLogin == true){
 		location.href="main.jsp";
-	}else{
+// 	}else{
 		
 	}
 }else{
@@ -93,52 +86,4 @@ if(DupleResult=="true"){
   </script>
 
 
-
-<!-- <script> -->
-<!--  	 var googleSignIn = function onSignIn(googleUser) { -->
-
-<!--  		var profile = googleUser.getBasicProfile(); -->
-
-<!--  		var ggId = profile.getId(); -->
-<!--  		var ggName = profile.getName(); -->
-<!--  		var ggImgUrl = profile.getImageUrl(); -->
-<!--  		var ggEmail = profile.getEmail(); -->
-
-<!--  		console.log('ID: ' + profile.getId());  Do not send to your backend! Use an ID token instead. -->
-<!--  		console.log('Name: ' + profile.getName()); -->
-<!--  		console.log('Image URL: ' + profile.getImageUrl()); -->
-<!--  		console.log('Email: ' + profile.getEmail());  This is null if the 'email' scope is not present. -->
-
-<!--  		$.ajax({ -->
-<!--  			url : "ggAccntProc.co", -->
-<!--  			method : "post", -->
-<!--  			data : { -->
-<!--  				"ggId" : ggId, -->
-<!--  				"ggName" : ggName, -->
-<!--  				"ggImgUrl" : ggImgUrl, -->
-<!--  				"ggEmail" : ggEmail -->
-<!--  			}, -->
-<!--  			success : function(result) { -->
-<!--  				console.log(result); -->
-<!--  				if (result) { -->
-<!--  					alert("GG reg succeeded"); -->
-<!--  					location.href = "main.jsp"; -->
-
-<!--  				} else { -->
-<!--  					alert("GG reg Failed"); -->
-<!--  					location.href = "join.jsp"; -->
-<!--  				} -->
-<!--  			} -->
-
-<!--  		}) -->
-
-<!--  	} -->
-
-<!--  	function signOut() { -->
-<!--  		var auth2 = gapi.auth2.getAuthInstance(); -->
-<!--  		auth2.signOut().then(function() { -->
-<!--  			console.log('User signed out.'); -->
-<!--  		}); -->
-<!--  	} -->
-<!-- </script> -->
 
