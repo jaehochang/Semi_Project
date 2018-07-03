@@ -19,12 +19,14 @@ public class MemberDAO {
 
 		ResultSet rs = pstat.executeQuery();
 		if (rs.next()) {
-			con.close();
+			rs.close();
 			pstat.close();
+			con.close();
 			return true;
 		} else {
-			con.close();
+			rs.close();
 			pstat.close();
+			con.close();
 			return false;
 		}
 
@@ -43,8 +45,9 @@ public class MemberDAO {
 		int rs = ps.executeUpdate();
 
 		con.commit();
-		con.close();
+		
 		ps.close();
+		con.close();
 
 		if (rs > 0) {
 
@@ -74,9 +77,9 @@ public class MemberDAO {
 
 		System.out.println("dbPw " +  ":" +  dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
 		
-		con.close();
 		rs.close();
 		ps.close();
+		con.close();
 		
 		
 		if (dbPw.equals(mDTO.getMember_pwd())) {
