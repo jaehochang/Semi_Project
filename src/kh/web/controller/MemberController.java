@@ -182,10 +182,11 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/mypage.co")) {
 
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+				
 			
 
 				String loginId = (String)request.getSession().getAttribute("loginId");
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
 				MemberDAO mDAO = new MemberDAO();
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);

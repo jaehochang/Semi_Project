@@ -246,13 +246,7 @@ public class GroupDAO {
 		
 		return result;
 	}
-	
-	 public double deg2rad(double deg){  
-	      return (double)(deg * Math.PI / (double)180d);  
-	   }  
-	   public double rad2deg(double rad) {
-	      return (double)(rad*(double)180d / Math.PI);
-	   }
+
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		
