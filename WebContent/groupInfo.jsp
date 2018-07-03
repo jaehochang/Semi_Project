@@ -38,8 +38,10 @@
 		<button id="t">이얍</button>
 
 		<ul class="dropdown-menu" role="menu">
-			<li><a href="#">이 그룹 탈퇴</a></li>
+		<c:forEach var="result" items="${result }">
+			<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
 			<li><a href="#">그룹 신고</a></li>
+		</c:forEach>
 		</ul>
 
 	</div>
@@ -48,6 +50,7 @@
 				<input type="hidden" id="group_seq" value="${result.group_seq }">
 				<input type="hidden" id="group_name" value="${result.group_name }">
 	</c:forEach>
+	
 			<script>
 				$("#joinGroupBT").click(function(){
 					
@@ -58,8 +61,11 @@
 						url:"join.group",
 						type:"get",
 						data:{group_seq:group_seq,group_name:group_name},
-						success:function(response){
-							$("#t").html(response);
+						success:function(resp){
+							
+							var name = resp.name;
+							
+							$("#t").text(name);
 						},
 						error:function() {
 							console.log("에러발생 !" + request.status + " : " + status + " : " + error);
