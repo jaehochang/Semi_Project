@@ -70,15 +70,15 @@ public class GroupDAO {
 
 		return result;
 	}
-	
-	public List<MygroupDTO> myGroupList(String member_email) throws Exception{
+
+	public List<MygroupDTO> myGroupList(String email) throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select mygroup_seq, system_name, group_name ,group_picture.group_seq "
-				+ "from group_picture join mygroup on group_picture.group_seq = mygroup.group_seq "
-				+ "where mygroup.member_email=? order by mygroup_seq";
+		String sql = "select a.GROUP_SEQ,a.GROUP_NAME, b.SYSTEM_NAME "
+				+ "from mygroup a, group_picture b, group_member c "
+				+ "where a.GROUP_SEQ = b.GROUP_SEQ and a.GROUP_SEQ = c.GROUP_SEQ and a.MEMBER_EMAIL = ? "
+				+ "group by a.GROUP_SEQ, a.GROUP_NAME, b.SYSTEM_NAME";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, member_email);
-		
+		pstat.setString(1, email);
 		ResultSet rs = pstat.executeQuery();
 
 		List<MygroupDTO> result = new ArrayList<>();
@@ -134,7 +134,12 @@ public class GroupDAO {
 		
 		double longitude =Double.parseDouble(lng);
 		
-		String sql = "select group_name, group_lat, group_lng from create_group";
+		String sql = 
+		"select a.GROUP_NAME,a.GROUP_LAT,a.GROUP_LNG,count(*) as member_count,c.system_name "
+		+ "from create_group a, group_member b, group_picture c "
+		+ "where a.GROUP_SEQ=b.GROUP_SEQ and a.group_seq = c.GROUP_SEQ "
+		+ "group by b.GROUP_SEQ, a.GROUP_NAME,c.system_name,a.GROUP_LAT,a.GROUP_LNG";
+		
 		PreparedStatement pstat = con.prepareStatement(sql);
 		
 		ResultSet rs = pstat.executeQuery();
@@ -142,13 +147,15 @@ public class GroupDAO {
 		List<String> tenList = new ArrayList<>();
 		List<String> fifteenList = new ArrayList<>();
 		List<String> allList = new ArrayList<>();
-		System.out.println(1);
+
 		while(rs.next()) {
 
 			String dbGroupName = rs.getString("group_name");
 			double dbGroupLat = Double.parseDouble(rs.getString("group_lat"));
 			double dbGroupLng = Double.parseDouble(rs.getString("group_lng"));
-			System.out.println(11);
+			String dbGroupMemberCount = rs.getString("member_count");
+			String dbGroupPicture = rs.getString("system_name");
+			
 			double theta = longitude - dbGroupLng;
 			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbGroupLat)) + Math.cos(deg2rad(latitude))
 			*Math.cos(deg2rad(dbGroupLat)) * Math.cos(deg2rad(theta));
@@ -158,15 +165,19 @@ public class GroupDAO {
 			dist = dist * 60 * 1.1515;
 			dist = dist * 1.609344; //km일때
 			//		 	 dist = dist * 1609.344; meter 일때
+			System.out.println("계산된 거리 : " + dist);
 			
 			if(dist <= 5) {
-				fiveList.add(dbGroupName);
+				fiveList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+				
 			}
 			if(dist <= 10) {
-				tenList.add(dbGroupName);
+				tenList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+				
 			}
 			if(dist <= 15) {
-				fifteenList.add(dbGroupName);
+				fifteenList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+			
 			}
 			if(dist != 0) {
 				allList.add(dbGroupName);
@@ -175,21 +186,34 @@ public class GroupDAO {
 		}
 		
 		if(distance.equals("5")) {
-			
+			System.out.println("거리가 5km 인 그룹 : " + fiveList);
+			con.close();
+			pstat.close();
 			return fiveList;
 		}else if(distance.equals("10")) {
-			
-			
+			System.out.println("거리가 10km 인 그룹 : " + tenList);
+			con.close();
+			pstat.close();
 			return tenList;
 		}else if(distance.equals("15")) {
-			
+			con.close();
+			pstat.close();
 			return fifteenList;
 		}
 		else {
+			con.close();
+			pstat.close();
 			return allList;
 		}
 		
 	}
+	public double deg2rad(double deg){  
+		return (double)(deg * Math.PI / (double)180d);  
+	}  
+	public double rad2deg(double rad) {
+		return (double)(rad*(double)180d / Math.PI);
+	}
+
 	
 	public List<GroupDTO> groupInfo(String seq) throws Exception{
 		int group_seq = Integer.parseInt(seq);

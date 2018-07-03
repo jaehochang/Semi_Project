@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
+
+import org.json.simple.JSONObject;
+
 import kh.web.dao.GroupDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.GroupDTO;
@@ -37,19 +41,32 @@ public class GroupController extends HttpServlet {
          PrintWriter out = response.getWriter();
          
          System.out.println(command); 
-
-         GroupDAO dao = new GroupDAO();
-         boolean isRedirect = true;
-         String dst = null;
-         
+         	MemberDAO dao1 = new MemberDAO();
+			GroupDAO dao = new GroupDAO();
+			boolean isRedirect = true;
+			String dst = null;
+			String ajax_all = null;
+			String ajax_dist = null;
+			List<String> distResult = null;
+			List<MygroupDTO> allGroupList = null;
+			String member_email = request.getSession().getAttribute("loginId").toString();
+			   
          if (command.equals("/list.group")) {
             
-            String member_email = request.getSession().getAttribute("loginId").toString();
+//            String member_email = request.getSession().getAttribute("loginId").toString();
             
-            List<GroupDTO> groupList = dao.allgroups();
-            List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
-            List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
-            List<MemberCountDTO> memberCount =  new ArrayList<>();
+        
+            
+			List<GroupDTO> groupList = dao.allgroups();
+			List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
+//			List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
+			List<MemberCountDTO> memberCount =  new ArrayList<>();
+			
+			boolean isMyGroup = dao1.isMyGroup(member_email);
+			
+			if(isMyGroup) {
+				List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
+			
             
             
             if(myGroupList.size() != 0) {
@@ -66,14 +83,23 @@ public class GroupController extends HttpServlet {
             request.setAttribute("groupPicList", groupPicList);
             request.setAttribute("myGroupList", myGroupList);
             request.setAttribute("memberCount", memberCount);
-            
-            
-//            System.out.println("컨트롤러 : "+memberCount.size());
+            request.setAttribute("isMyGroup", isMyGroup);
+
             isRedirect = false;
             dst="loginview.jsp";
+			
+			}else {
+				
+				    request.setAttribute("groupList", groupList);		            
+		            request.setAttribute("isMyGroup", isMyGroup);
+
+		            isRedirect = false;
+		            dst="loginview.jsp";
+		            	
+			}
             
          }else if(command.equals("/groupMain.group")) {
-            String member_email = request.getSession().getAttribute("loginId").toString();
+//            String member_email = request.getSession().getAttribute("loginId").toString();
             
             String page = request.getParameter("page");
             String group_seq = request.getParameter("group_seq");
@@ -157,7 +183,7 @@ public class GroupController extends HttpServlet {
             
          }else if(command.equals("/join.group")) {
             
-            String member_email = request.getSession().getAttribute("loginId").toString();
+//            String member_email = request.getSession().getAttribute("loginId").toString();
             String groupSeq = request.getParameter("group_seq");
             int group_seq = Integer.parseInt(groupSeq);
             String group_name = request.getParameter("group_name");
@@ -184,7 +210,7 @@ public class GroupController extends HttpServlet {
             
          }else if(command.equals("/out.group")) {
             
-            String member_email = request.getSession().getAttribute("loginId").toString();
+//            String member_email = request.getSession().getAttribute("loginId").toString();
             String groupSeq = request.getParameter("group_seq");
             int group_seq = Integer.parseInt(groupSeq);
             
@@ -197,6 +223,8 @@ public class GroupController extends HttpServlet {
 				System.out.println("createRequest.group 들어옴");
 				MemberDAO mDAO = new MemberDAO();
 				
+				String isMyGroup = request.getAttribute("isMyGroup").toString();
+//				String member_email = request.getSession().getAttribute("loginId").toString();
 				if (((String) request.getSession().getAttribute("loginId")) != null) {
 					isRedirect = true;
 					dst = "create.jsp";
@@ -216,6 +244,7 @@ public class GroupController extends HttpServlet {
 				String groupContents = (String) request.getParameter("eventContents");
 
 				
+
 				if(tags.length()>15) {
 					System.out.println();
 				}
@@ -244,13 +273,31 @@ public class GroupController extends HttpServlet {
 					dst = "create.jsp";
 				}
 
-			}else if(command.equals("/payEnd.group")) {
+			}
+			else if(command.equals("/payEnd.group")) {
+				
+	
+			
+			}else if(command.equals("/distanceKm.group")) {
+				
+				ajax_dist = "ajax_dist";
+				String fiveKm = request.getParameter("value");
+				String dist = request.getParameter("distance");
+				System.out.println(dist);
+				String lat = fiveKm.split(":")[0];
+				String lng = fiveKm.split(":")[1]; 
+				System.out.println(lat);
+				System.out.println(lng);
+				distResult = dao.DistanceSearch(lat, lng, dist);
 				
 				
+				
+				
+			}else if(command.equals("/groupMain.group")) {
 				
 			}else if(command.equals("/join.group")) {
 				
-				String member_email = request.getSession().getAttribute("loginId").toString();
+//				String member_email = request.getSession().getAttribute("loginId").toString();
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 				String group_name = request.getParameter("group_name");
@@ -277,7 +324,7 @@ public class GroupController extends HttpServlet {
 				
 			}else if(command.equals("/out.group")) {
 				
-				String member_email = request.getSession().getAttribute("loginId").toString();
+//				String member_email = request.getSession().getAttribute("loginId").toString();
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 				
@@ -285,50 +332,34 @@ public class GroupController extends HttpServlet {
 				
 				isRedirect = false;
 				dst="groupInfo.jsp";
-			}else if(command.equals("/five_km.group")) {
-				
-				String fiveKm = request.getParameter("value");
-				String dist = request.getParameter("distance");
-				System.out.println(dist);
-				String lat = fiveKm.split(":")[0];
-				String lng = fiveKm.split(":")[1]; 
-				System.out.println(lat);
-				System.out.println(lng);
-				List<String> result = dao.DistanceSearch(lat, lng, dist);
-				
-				for(int i=0; i<result.size(); i++) {
-					System.out.println(result.get(i));
-					
-				}
-				JSONObject json = new JSONObject();
-				json.put("result", result);
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-				
-				out.println(json);
-				out.flush();
-				out.close();
 			}
 			
 			
 			//------------------
-         
-         
-         
-         
-         
+
          //------------------
 
-         if (isRedirect == false) {
-            RequestDispatcher rd = request.getRequestDispatcher(dst);
-            rd.forward(request, response);
-         } else {
-            response.sendRedirect(dst);
-         }
-      }catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
+			if (isRedirect == false) {
+				RequestDispatcher rd = request.getRequestDispatcher(dst);
+				rd.forward(request, response);
+				
+			}else if(ajax_dist.equals("ajax_dist")) {
+				JSONObject json = new JSONObject();
+				json.put("distResult", distResult);
+				
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				System.out.println(json);
+				new Gson().toJson(json, response.getWriter());
+			}
+			else {
+				response.sendRedirect(dst);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+ 
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // TODO Auto-generated method stub
