@@ -3,10 +3,10 @@
 <%@ include file="include/nav/createNav.jsp"%>
 
 
-
-<div class="container">
-	<div class="jumbotron"
-		style="background-color: transparent !important; height: 1000px">
+<div class="jumbotron"
+		style="background-color: transparent !important; " >
+<div id="bigContainer" class="container" style="">
+	
 		<!--            -->
 		<div class="container" id="photoName">
 			<img src="./image/노이어프로필사진.png" class="img-fluid" alt="반응형 이미지"

@@ -107,6 +107,12 @@ public class GroupController extends HttpServlet {
 				String groupTitle = (String) request.getParameter("eventName");
 				String groupContents = (String) request.getParameter("eventContents");
 
+				
+				if(tags.length()>15) {
+					System.out.println();
+				}
+				
+				
 				System.out.println("loginId : " + loginId + "/" + "location : " + location + "/" + "tags : " + tags
 						+ "/" + "groupTitle : " + groupTitle + "/" + "groupContents : " + groupContents);
 
@@ -124,11 +130,15 @@ public class GroupController extends HttpServlet {
 					request.setAttribute("groupName", printResult);
 					isRedirect = false;
 					dst = "groupCreateConfirm.jsp";
+					dst ="pay.jsp";
 				} else {
 					isRedirect = true;
 					dst = "create.jsp";
 				}
 
+			}else if(command.equals("/payEnd.group")) {
+				
+				
 			}
 
 			// ------------------

@@ -19,9 +19,9 @@ public class TagDAO {
 	public TagDTO printTag(String term) throws Exception {
 		System.out.println("db : " + term);
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from tag where tag_category like ?";
+		String sql = "select * from tag where tag_category =?";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, "%"+term+"%");
+		pstat.setString(1, term);
 		
 
 		ResultSet rs = pstat.executeQuery();

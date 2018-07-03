@@ -54,11 +54,16 @@
 				style="width: 63px; height: 50px"><span style="">2/4단계</span>
 
 			<h1>당신의 MeetNow는 무엇과 관련되어 있나요?</h1>
-			<br> <input id="tagText" type="text" style="width: 500px"
+			<br> <input id="tagText" type="text" style="width: 500px;"
 				class="form-control"  placeholder="주제를 검색하세요"> <br>
+			<input id="tagStore" type="hidden" name="storedtags">
 			<input id="hiddenTag" type="hidden" name="tags">
-			<div class="btn-group" data-toggle="buttons" id="printTerm"
-				style="width: auto; height: 100px"></div>
+			
+			<div class="btn-group" data-toggle="buttons" id="printTerm1"
+				style="width: auto; height: 200px"></div>
+				<div class="btn-group" data-toggle="buttons" id="printTerm2"
+				style="width: auto; height:200px">
+				</div>
 
 			<!--  -->
 			<!-- <button id="secondBt" class="btn btn-button default"
@@ -102,7 +107,7 @@
 
 
 
-			<textArea id="textArea" name="eventContents" class="form-control" maxlength="50000"
+			<textArea id="textArea" name="eventContents" class="form-control" rows="5" maxlength="50000"
 				aria-required="true" aria-invalid="false"
 				style="height: 400px; width: 600px;">
 			
