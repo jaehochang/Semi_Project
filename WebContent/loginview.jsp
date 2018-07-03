@@ -139,7 +139,7 @@
 			<c:forEach var="item" items="${myGroupList }">
 				
 				<div class="col-md-3" style="padding: 10px;">
-					<a href="groupMain.group?group_seq=${item.group_seq}">
+					<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 					<div class="over-img">
 						<img src="files/${item.system_name }" class="img_size">
 					</div>
@@ -166,9 +166,10 @@
 		<c:forEach var="item" items="${groupList }">
 		
 			<div class="col-md-4">
+				<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 				<div class="img_div">
 				<div class="over-img">
-					<img src="files/${item.system_name }" class="img_size">
+					<img src="files/${item.group_picture }" class="img_size">
 				</div>
 				</div>
 				<h4 class="group_title">${item.group_name }</h4>
@@ -182,6 +183,7 @@
 	<div id="moreGroup">
 		<button type="button" class="btn btn-default btn-lg btn-block" style="height:30px; padding:0px;">더보기</button>
 	</div>
+
 
 	<footer>
 

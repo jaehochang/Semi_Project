@@ -1,11 +1,9 @@
 
 div{
 	box-sizing: border-box;
-	border: 1px solid black;
 }
 
 #group-top{
-	border: 1px solid black;
 	width:1000px;
 	height:300px;
 	margin: 0 auto;
@@ -21,14 +19,39 @@ div{
 	float:left;
 	width:50%;
 	height:100%;
+	
 }
 
 #info-title{
 	padding:0 10px;
 	float:left;
 	width:100%;
-	height:30%;
 }
+
+#info-groupname{
+	display: inline-block;
+	width:480px;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	
+	white-space: normal;
+	line-height: 1.2;
+	height: 6.6em;
+	text-align:left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+#info-groupinfo{
+	width:100%;
+	height:20px;
+	padding-bottom: 10px;
+}	
 
 #info-leader{
 	float:left;
@@ -52,7 +75,9 @@ div{
 #info-sns{
 	float:left;
 	width:100%;
-	height:50%;
+	height:40px;
+	margin-top: 80px;
+	margin-left: 10px;
 }
 
 #group-main-img{
@@ -68,6 +93,11 @@ div{
 
 li{
 	float:left;
+}
+
+#navi-div{
+	width:1000px;
+	margin: 0 auto;
 }
 
 
