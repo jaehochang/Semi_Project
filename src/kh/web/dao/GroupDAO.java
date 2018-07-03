@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import kh.web.dto.GTableDTO;
-import kh.web.dto.GroupDTO;
-import kh.web.dto.GtablePictureDTO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
