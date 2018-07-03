@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import kh.web.dao.GroupDAO;
+import kh.web.dao.MemberDAO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
