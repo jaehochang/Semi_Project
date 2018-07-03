@@ -20,17 +20,28 @@
 										url : '/v1/user/me',
 										success : function(res) {
 											console.log(1);
+											alert(res);
 											console.log(res.kaccount_email);
 											console.log(res.id);
 											console
 													.log(res.properties['nickname']);
 											var kakaoId = res.id;
 											var kakaoNickName = res.properties['nickname'];
+											var kakaoPhoto = res.properties['profile_image'];
+											var kakaoEmail = res.kaccount_email;
 
 											document
 													.getElementById("hiddenKakaoId").value = kakaoId;
 
-											document.getElementById("hiddenKakaoNickName").value = kakaoNickName;
+											document
+													.getElementById("hiddenKakaoNickName").value = kakaoNickName;
+
+											document
+													.getElementById("hiddenKakaoEmail").value = kakaoEmail;
+
+											document
+											.getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
+
 											
 											
 											var valCheck = document
@@ -55,10 +66,12 @@
 	//]]>
 </script>
 
-<form action="kakaoIdDplCheck.co" name=sendkakaoIdToController
+<form action="signUpWithKakao.co" name=sendkakaoIdToController
 	method=post>
 	<input id=hiddenKakaoId type=hidden name=kakao_id> <input
+		id=hiddenKakaoEmail type=hidden name=kakao_email> <input
 		id=hiddenKakaoNickName type=hidden name=kakao_nickname> <input
-		id="hiddenKakaoIdSend" type="hidden" type=submit>
+		id=hiddenKakaoPhoto type=hidden name=kakao_photo><input
+		id=hiddenKakaoIdSend type="hidden" type=submit>
 </form>
 

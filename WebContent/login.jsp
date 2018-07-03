@@ -150,80 +150,23 @@
 						<br> 또는
 
 						<div id=snsLoginBtns>
-							<a id="kakaoLoginBtn"><img src="img/kakao.png" height=35px
-								width=35px>카카오톡으로 로그인하기</a><br> <a id=fbLoginBtn
-								href="javascript:signIn()"><img src="img/facebook.png"
-								height=35px width=35px>페이스북으로 로그인하기</a>
-
-
-								<%@ include file="googleSignIn.jsp" %>
-
 							<div>
-								<button type=button onclick="google_login_in()">구글로 로그인하기</button>
-								<a href="#" onclick="javascript:signOut();">Sign out</a>
-
-
-
-								<!-- 								<script> -->
-								<!-- // 									var googleSignIn = function onSignIn( -->
-								<!-- // 											googleUser) { -->
-
-								<!-- // 										var profile = googleUser -->
-								<!-- // 												.getBasicProfile(); -->
-
-								<!-- // 										var ggId = profile.getId(); -->
-								<!-- // 										var ggName = profile.getName(); -->
-								<!-- // 										var ggImgUrl = profile.getImageUrl(); -->
-								<!-- // 										var ggEmail = profile.getEmail(); -->
-
-								<!-- // 										console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead. -->
-								<!-- // 										console.log('Name: ' -->
-								<!-- // 												+ profile.getName()); -->
-								<!-- // 										console.log('Image URL: ' -->
-								<!-- // 												+ profile.getImageUrl()); -->
-								<!-- // 										console.log('Email: ' -->
-								<!-- // 												+ profile.getEmail()); // This is null if the 'email' scope is not present. -->
-
-								<!-- // 										$.ajax({ -->
-								<!-- // 											url : "ggAccntProc.co", -->
-								<!-- // 											method : "post", -->
-								<!-- // 											data : { -->
-								<!-- // 												"ggId" : ggId, -->
-								<!-- // 												"ggName" : ggName, -->
-								<!-- // 												"ggImgUrl" : ggImgUrl, -->
-								<!-- // 												"ggEmail" : ggEmail -->
-								<!-- // 											}, -->
-								<!-- // 											complete : function(result) { -->
-								<!-- // 												console.log(result); -->
-
-								<!-- // 												if (result) { -->
-								<!-- // 													alert("GG reg succeeded"); -->
-								<!-- // 													location.href = "main.jsp"; -->
-
-								<!-- // 												} else { -->
-								<!-- // 													alert("GG reg Failed"); -->
-								<!-- // 													location.href = "join.jsp"; -->
-								<!-- // 												} -->
-								<!-- // 											} -->
-
-								<!-- // 										}) -->
-
-								<!-- // 									} -->
-
-								<!-- // 									var googleSignOut = function signOut() { -->
-								<!-- // 										var auth2 = gapi.auth2 -->
-								<!-- // 												.getAuthInstance(); -->
-								<!-- // 										auth2.signOut().then(function() { -->
-								<!-- // 											console.log('User signed out.'); -->
-								<!-- // 										}); -->
-								<!-- // 									} -->
-								<!-- 								</script> -->
-
+								<a id="kakaoLoginBtn"><img src="img/kakao.png" height=35px
+									width=35px>카카오톡으로 로그인하기</a>
+							</div>
+							<div>
+								<a id=fbLoginBtn href="javascript:signIn()"><img
+									src="img/facebook.png" height=35px width=35px>페이스북으로
+									로그인하기</a>
+							</div>
+							<div>
+								<button type=button onclick="google_login_in()">구글로
+									로그인하기</button>
 
 							</div>
-
-
 						</div>
+
+					</div>
 				</form>
 			</div>
 		</div>
@@ -236,11 +179,13 @@
 		<div>
 			<%@ include file="logInWithKakao.jsp"%>
 			<%@ include file="signUpWithFaceBook.jsp"%>
+			<%@ include file="signUpWithGoogle.jsp"%>
 
 		</div>
 
 	</div>
 
+	<!-- footer -->
 	<footer>
 		<%@ include file="include/bottom.jsp"%>
 

@@ -39,17 +39,45 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
-				+ "into sns_id values(member_seq.nextval,?,?) " + "select * from dual";
+		String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
+				+ "?," // 2: member_name
+				+ "'null'," // 3: member_email
+				+ "'null'," // 4: member_pwd
+				+ "'null'," // 5: member_location
+				+ "'null'," // 6: member_interests
+				+ "?," // 7: member_picture
+				+ "0," // 8: member_age
+				+ "'undefined'," // 9 : member_gender
+				+ "0," // 10:member_warning_number
+				+ "sysdate," // 11:member_warningdate
+				+ "sysdate," // 12: member_expiredate
+				+ "sysdate," // 13: member_joindate
+				+ "0," // 14: member_alarm
+				+ "0)" // 15: member_isblocked
+				+ "into sns_id values(" + "member_seq.nextval," // 1: member_seq
+				+ "?," // 2:kakao_id
+				+ "?,"// 3:kakao_nicname
+				+ "?,"// 4:kakao_email
+				+ "?,"// 5:kakao_photo
+				+ "'null',"// 6:fb_email
+				+ "'null',"// 7:fb_name
+				+ "'null',"// 8:fb_uid
+				+ "'null',"// 9:fb_photoURL
+				+ "'null',"// 10:ggid
+				+ "'null',"// 11:ggname
+				+ "'null',"// 12:ggimgUrl
+				+ "'null')"// 13:ggEmail
+				+ "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, dto.getKakao_nickName()); // 첫번째 물음표 : 이름
-		ps.setString(2, dto.getKakao_id()); // 두번째 물음표 : 카톡 로그인 이메일
+		ps.setString(2, dto.getKakao_photo()); // 두번째 : 사진 url < 카카오프로필
 
-		// sns_id 테이블에 들어갈 값
-		ps.setString(3, dto.getKakao_id());// kakaoId
-		ps.setString(4, dto.getKakao_nickName());// 카카오 닉네임
+		ps.setString(3, dto.getKakao_id());
+		ps.setString(4, dto.getKakao_nickName()); // 4 : 닉네임
+		ps.setString(5, dto.getKakao_email());
+		ps.setString(6, dto.getKakao_photo());
 
 		int result = ps.executeUpdate();
 
@@ -69,7 +97,38 @@ public class MemberDAO {
 
 		Connection con = DBUtils.getConnection();
 
-		String sql = "insert into member values(member_seq.nextval,?,?,?,'당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)";
+		// 아이디 중복 검사 때리기 > 중복 있으면 해당 이메일이 존재한다는 메시지 갖게 하기
+
+		String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
+				+ "?," // 2: member_name
+				+ "?," // 3: member_email
+				+ "?," // 4: member_pwd
+				+ "'null'," // 5: member_location
+				+ "'null'," // 6: member_interests
+				+ "'null'," // 7: member_picture
+				+ "0," // 8: member_age
+				+ "'undefined'," // 9 : member_gender
+				+ "0," // 10:member_warning_number
+				+ "sysdate," // 11:member_warningdate
+				+ "sysdate," // 12: member_expiredate
+				+ "sysdate," // 13: member_joindate
+				+ "0," // 14: member_alarm
+				+ "0)" // 15: member_isblocked
+				+ "into sns_id values(" + "member_seq.nextval," // 1: member_seq
+				+ "'null'," // 2:kakao_id
+				+ "'null',"// 3:kakao_nicname
+				+ "'null',"// 4:kakao_email
+				+ "'null',"// 5:kakao_photo
+				+ "'null',"// 6:fb_email
+				+ "'null',"// 7:fb_name
+				+ "'null',"// 8:fb_uid
+				+ "'null',"// 9:fb_photoURL
+				+ "'null',"// 10:ggid
+				+ "'null',"// 11:ggname
+				+ "'null',"// 12:ggimgUrl
+				+ "'null')"// 13:ggEmail
+				+ "select * from dual";
+
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
@@ -581,17 +640,44 @@ public class MemberDAO {
 	public boolean signUpWithFb(SnsDTO sDTO) throws Exception {
 
 		Connection con = DBUtils.getConnection();
-		String sql = "insert all into member values(member_seq.nextval,?,?,'null','null','null',?,'남자',0,sysdate,sysdate,sysdate,0,0)"
-				+ "into sns_id values(member_seq.nextval,'null','null',?,?,?,?,'null','null','null','null') "
+		String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
+				+ "?," // 2: member_name
+				+ "?," // 3: member_email
+				+ "'null'," // 4: member_pwd
+				+ "'null'," // 5: member_location
+				+ "'null'," // 6: member_interests
+				+ "?," // 7: member_picture
+				+ "0," // 8: member_age
+				+ "'undefined'," // 9 : member_gender
+				+ "0," // 10:member_warning_number
+				+ "sysdate," // 11:member_warningdate
+				+ "sysdate," // 12: member_expiredate
+				+ "sysdate," // 13: member_joindate
+				+ "0," // 14: member_alarm
+				+ "0)" // 15: member_isblocked
+				+ "into sns_id values(" + "member_seq.nextval," // 1: member_seq
+				+ "'null'," // 2:kakao_id
+				+ "'null',"// 3:kakao_nicname
+				+ "'null',"// 4:kakao_email
+				+ "'null',"// 5:kakao_photo
+				+ "?,"// 6:fb_email
+				+ "?,"// 7:fb_name
+				+ "?,"// 8:fb_uid
+				+ "?,"// 9:fb_photoURL
+				+ "'null',"// 10:ggid
+				+ "'null',"// 11:ggname
+				+ "'null',"// 12:ggimgUrl
+				+ "'null')"// 13:ggEmail
 				+ "select * from dual";
+
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, sDTO.getFb_name()); // 이름
 		ps.setString(2, sDTO.getFb_email());
 		ps.setString(3, sDTO.getFb_photoURL());
 
-		ps.setString(4, sDTO.getFb_uid());
+		ps.setString(4, sDTO.getFb_email());
 		ps.setString(5, sDTO.getFb_name());
-		ps.setString(6, sDTO.getFb_email());
+		ps.setString(6, sDTO.getFb_uid());
 		ps.setString(7, sDTO.getFb_photoURL());
 
 		int result = ps.executeUpdate();
@@ -634,19 +720,45 @@ public class MemberDAO {
 		Connection con = DBUtils.getConnection();
 
 		boolean result = this.isGgIdExist(sDTO);
-		
+
 		System.out.println("/isGgIdExist.result :" + result);
-		
+
 		boolean regSccss = false;
 
 		if (result) { // 중복성 검사 결과 이미 존재하는 경우
 
-			return regSccss; //false 보내기
-			
+			return regSccss; // false 보내기
+
 		} else {
 
-			String sql = "insert all into member values(member_seq.nextval,?,?,'null','null','null',?,'남자',0,sysdate,sysdate,sysdate,0,0)"
-					+ "into sns_id values(member_seq.nextval,'null','null','null','null','null','null',?,?,?,?) "
+			String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
+					+ "?," // 2: member_name
+					+ "?," // 3: member_email
+					+ "'null'," // 4: member_pwd
+					+ "'null'," // 5: member_location
+					+ "'null'," // 6: member_interests
+					+ "?," // 7: member_picture
+					+ "0," // 8: member_age
+					+ "'undefined'," // 9 : member_gender
+					+ "0," // 10:member_warning_number
+					+ "sysdate," // 11:member_warningdate
+					+ "sysdate," // 12: member_expiredate
+					+ "sysdate," // 13: member_joindate
+					+ "0," // 14: member_alarm
+					+ "0)" // 15: member_isblocked
+					+ "into sns_id values(" + "member_seq.nextval," // 1: member_seq
+					+ "'null'," // 2:kakao_id
+					+ "'null',"// 3:kakao_nicname
+					+ "'null',"// 4:kakao_email
+					+ "'null',"// 5:kakao_photo
+					+ "'null',"// 6:fb_email
+					+ "'null',"// 7:fb_name
+					+ "'null',"// 8:fb_uid
+					+ "'null',"// 9:fb_photoURL
+					+ "?,"// 10:ggid
+					+ "?,"// 11:ggname
+					+ "?,"// 12:ggimgUrl
+					+ "?)"// 13:ggEmail
 					+ "select * from dual";
 
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -701,4 +813,24 @@ public class MemberDAO {
 
 	}
 
+	public boolean isThisEmailExist(String member_email) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from member where member_email = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, member_email);
+
+		ResultSet rs = ps.executeQuery();
+		boolean result = rs.next();
+		
+		rs.close();
+		ps.close();
+		con.close();
+		
+		if (result) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
 }

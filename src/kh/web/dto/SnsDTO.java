@@ -4,7 +4,9 @@ public class SnsDTO {
 
 	String member_seq;
 	String kakao_id;
-	String kakao_nickName;
+	String kakao_nickname;
+	String kakao_email;
+	String kakao_photo;
 	String fb_email;
 	String fb_name;
 	String fb_uid;
@@ -13,6 +15,18 @@ public class SnsDTO {
 	String ggname;
 	String ggimgUrl;
 	String ggEmail;
+
+	public String getKakao_photo() {
+		return kakao_photo;
+	}
+
+	public String getKakao_email() {
+		return kakao_email;
+	}
+
+	public void setKakao_email(String kakao_email) {
+		this.kakao_email = kakao_email;
+	}
 
 	String naver_id;
 
@@ -73,11 +87,11 @@ public class SnsDTO {
 	}
 
 	public String getKakao_nickName() {
-		return kakao_nickName;
+		return kakao_nickname;
 	}
 
-	public void setKakao_nickName(String kakao_nickName) {
-		this.kakao_nickName = kakao_nickName;
+	public void setKakao_nickName(String kakao_nickname) {
+		this.kakao_nickname = kakao_nickname;
 	}
 
 	public SnsDTO() {
@@ -113,6 +127,11 @@ public class SnsDTO {
 
 	public String getFb_photoURL() {
 		return fb_photoURL;
+	}
+
+	public void setKakao_photo(String kakaoPhoto) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
