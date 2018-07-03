@@ -36,12 +36,13 @@ public class MeetingController extends HttpServlet {
          String command = requestURI.substring(contextPath.length()); 
          
          System.out.println(command); 
-         
+         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+					"yyyyMMdd");
          MeetingDAO mdao = new MeetingDAO();
          AttendDAO adao = new AttendDAO();
          boolean isRedirect = true;
          String dst = null;
-         
+		 boolean isajax = false;
          if(command.equals("/main.meet")) {
             List<MeetingDTO> result = mdao.getMeetingData();
             request.setAttribute("result", result);
@@ -68,52 +69,7 @@ public class MeetingController extends HttpServlet {
             int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
             String member_email = (String) request.getSession().getAttribute("loginId");
             int result = adao.addAttendMember(meeting_seq, member_email);
-         }
-         
-         if(isRedirect) {
-            response.sendRedirect(dst);
-         } else {
-            RequestDispatcher rd = request.getRequestDispatcher(dst);
-            rd.forward(request, response);
-         }
-      
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      
-      
-      response.getWriter().append("Served at: ").append(request.getContextPath());
-   }
-   
-   
-   
-   
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      doGet(request, response);
-   }
-
-			System.out.println(command); 
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyyMMdd");
-			
-			//JSONArray jarray =new JSONArray();
-			MeetingDAO dao = new MeetingDAO();
-			boolean isRedirect = true;
-			boolean isajax = false;
-			String dst = null;
-
-			if(command.equals("/main.meet")) {
-				List<MeetingDTO> result = dao.getMeetingData();
-				request.setAttribute("result", result);
-				isRedirect = false;
-				dst = "main.jsp";
-			} else if (command.equals("/meeting.meet")) {
-				int meeting_seq = Integer.parseInt(request.getParameter("seq"));
-				MeetingDTO result = dao.getEachMeetingData(meeting_seq);
-				request.setAttribute("result", result);
-				isRedirect = false;
-				dst = "meeting.jsp";
-			}else if(command.equals("/calendarchoice.meet")) {
+         }else if(command.equals("/calendarchoice.meet")) {
 				try {
 					JSONArray jarray =new JSONArray();
 					response.setCharacterEncoding("utf8");
@@ -134,7 +90,7 @@ public class MeetingController extends HttpServlet {
 					}
 					Date tempDate = simpleDateFormat.parse(alldata);
 					System.out.println(tempDate);
-					List<ShowMeetingDTO> showlist = dao.selectMeet(tempDate);
+					List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
 					isajax = true;
 					for(int i=0;i<showlist.size();i++) {
 						JSONObject json = new JSONObject();
@@ -175,7 +131,7 @@ public class MeetingController extends HttpServlet {
 				}
 				Date tempDate = simpleDateFormat.parse(alldata);
 				System.out.println(tempDate);
-				List<ShowMeetingDTO> showlist = dao.selectMeet(tempDate);
+				List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
 
 				isajax = true;
 				for(int i=0;i<showlist.size();i++) {
@@ -193,8 +149,8 @@ public class MeetingController extends HttpServlet {
 				System.out.println(jarray);
 				new Gson().toJson(jarray,response.getWriter());
 			}
-
-			if(isajax) {
+         
+         if(isajax) {
 				
 			}else {
 				if(isRedirect) {
@@ -204,20 +160,20 @@ public class MeetingController extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher(dst);
 					rd.forward(request, response);
 				}
-				//response.getWriter().append("Served at: ").append(request.getContextPath());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+//response.getWriter().append("Served at: ").append(request.getContextPath());
 		}
-
-
-	}
-
-
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+      
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      
+      
+      
+   }
+   
+   
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      doGet(request, response);
+   }
 
 }
