@@ -285,7 +285,7 @@
 				<p>내 MeetNow</p>
 
 				<div class="row" id="myMeet_row">
-					<c:forEach var="item" items="${myGroupList }">
+					<c:forEach var="item" items="${myGroupList}">
 
 						<div class="col-md-3" style="padding: 10px;">
 							<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
@@ -310,7 +310,7 @@
 			<div id="recoMeetnow">
 				<p id="pTag">추천 MeetNow</p>
 				<div class="row" id="distrow">
-					<c:forEach var="item" items="${allGroupList }">
+					<c:forEach var="item" items="${groupList }">
 						<div class="col-md-4" id="distTitle">
 						<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 							<div class="img_div"  id="imgSearch2">
@@ -334,7 +334,7 @@
 				<div class="row" id="distrow">
 
 
-					<c:forEach var="item" items="${allGroupList}">
+					<c:forEach var="item" items="${groupList}">
 						<div class="col-md-4" id="distTitle">
 						<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 							<div class="img_div" id="imgSearch2">
