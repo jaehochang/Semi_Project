@@ -188,7 +188,7 @@ public class GroupController extends HttpServlet {
             String groupSeq = request.getParameter("group_seq");
             int group_seq = Integer.parseInt(groupSeq);
             
-            int result = dao.groupMemberOut(group_seq, member_email);
+            /*int result = dao.groupMemberOut(group_seq, member_email);*/
             
             isRedirect = false;
             dst="groupInfo.jsp";
