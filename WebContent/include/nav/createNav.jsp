@@ -95,6 +95,8 @@ li:nth-child(2) {
 .badgebox
 {
     opacity: 0;
+    border-radius: 15px;
+    
 }
 
 .badgebox + .badge
@@ -154,7 +156,7 @@ li:nth-child(2) {
 
 
 .btn btn-success{
-color:#33cc33;
+
 }
 /*  */
 /* ==========================================================================
@@ -413,10 +415,10 @@ color:#33cc33;
 					uncheckedBox : $(this).val()
 				},
 				success : function(response) {
-					alert("체크 삭제 보냄");
+					
 				},
 				fail : function() {
-					alert("NO");
+					
 				}
 			})
 		}
@@ -574,7 +576,7 @@ color:#33cc33;
 
 						$("#fourthBt").click(function() {
 
-							if (!$('#eventText').val()) {
+							/* if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
 								$('#eventText').css("border-color", "red");
@@ -587,16 +589,16 @@ color:#33cc33;
 								$('#printTerm2').css("color", "red");
 								$('#printTerm2').css("border-color", "red");
 								return;
-							}
+							} */
 
-							var regpw = /^[A-Za-z0-9]{50,500}$/;
+							/* var regpw = /^[A-Za-z0-9]{50,500}$/;
 							if (!regpw.test($('#textArea').val())) {
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
 								$('#textArea').css("border-color", "red");
 								$('#eventText').focus();
 								return;
-							}
+							} */
 
 							/* if ($('#textArea').val() == '') {
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");

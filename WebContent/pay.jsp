@@ -6,7 +6,7 @@
 <div class="container">
 	<div class="row">
 		<h1>구독 요금제 선택</h1>
-		<h4>${requestScope.groupName}님에게가장적합한요금제를선택합니다 근처에 있는 회원들에게
+		<h4>${requestScope.groupName} 님에게가장적합한요금제를선택합니다 근처에 있는 회원들에게
 			MEETNOW를 홍보해드리며</h4>
 		<h4>일주일 내내 지원해드립니다.</h4>
 		<br>

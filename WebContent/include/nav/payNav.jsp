@@ -195,6 +195,7 @@ left:340px;
 		IMP.init('imp14365188');
 		IMP.request_pay({
 			pg:'kakaopay',
+			amount:'1000',
 			pay_method:'card',
 			merchant_uid:'merchant_'+new Date().getTime(),
             name:'주문명:결제테스트',	
@@ -203,8 +204,8 @@ left:340px;
             buyer_tel:'010-6402-6090',
             buyer_addr:'서울특별시 영등포구 당산동',
             buyer_postcode:'123-456',
-            /* m_redirect_url:'payEnd.group' */
-			/* amount : 1000, */
+            m_redirect_url:'payEnd.group'
+		
 		}, function(response) {
 			//결제 후 호출되는 callback함수
 			if (response.success) { //결제 성공
