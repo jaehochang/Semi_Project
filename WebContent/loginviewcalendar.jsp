@@ -340,8 +340,8 @@
 		
 		
 	}
-	datawhat = $("#datepicker").val();
-	alert(datawhat);
+	//datawhat = $("#datepicker").val();
+	//alert(datawhat);
 	
 	$("#alllist").click(function() {
 		var nowdata = $("#datepicker").val();
