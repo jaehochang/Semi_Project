@@ -16,7 +16,7 @@
 			style="height: 50px; width: 150px;"></a>
 		<ul id=nav-ul>
 
-			<li><a href="#">새 그룹 시작하기</a>
+			<li><a href="createRequest.group">새 그룹 시작하기</a>
 			<li id=snd-list><a href="#">탐색</a>
 			<li><a href="#">메시지</a>
 			<li><a href="#">알림</a>
@@ -36,11 +36,11 @@
 	<c:when test="${sessionScope.loginId == null }">
 
 
-		<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
+		<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 			style="height: 50px; width: 150px;"></a>
 		<ul id=nav-ul>
 
-			<li><a href="#">새 그룹 시작하기</a>
+			<li><a href="create.jsp">새 그룹 시작하기</a>
 			<li><a href="login.jsp">로그인</a>
 			<li><button type="button" class="btn btn-default"
 					data-toggle="modal" data-target="#idTypeQuestions" onclick="window.open('signUpPage.jsp')">가입하기</button>

@@ -65,4 +65,20 @@ public class MeetingDAO {
       return dto;
    }
    
+   public int countAttendMembers(int meeting_seq) throws Exception {
+      Connection con = DBUtils.getConnection();
+      String sql = "select count(*) count from attend where meeting_seq = ?";
+      PreparedStatement pstat = con.prepareStatement(sql);
+      pstat.setInt(1, meeting_seq);
+      ResultSet rs = pstat.executeQuery();
+      rs.next();
+      
+      int result = rs.getInt("count");
+      rs.close();
+      pstat.close();
+      con.close();
+      return result;
+      
+   }
+   
 }
