@@ -214,6 +214,21 @@ left:340px;
 			msg+='상점 거래ID : '+response.merchant_uid;
 			msg+='결제 금액 : '+response.paid+amount;
 			msg+='카드 승인번호 : '+response.apply_num;
+			
+			// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+	        // jQuery로 HTTP 요청
+	        jQuery.ajax({
+	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+	            method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            data: {
+	                imp_uid: rsp.imp_uid,
+	                merchant_uid: rsp.merchant_uid
+	            }
+	        }).done(function (data) {
+
+	        })
+			
 			} else {
 				var msg='결제에 실패하였습니다.';
 				msg+='에러내용 : '+response.error_msg;

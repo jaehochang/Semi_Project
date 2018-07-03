@@ -92,27 +92,32 @@ li:nth-child(2) {
 	text-decoration: underline;
 }
 
-.badgebox {
-	opacity: 0;
+.badgebox
+{
+    opacity: 0;
 }
 
-.badgebox+.badge {
-	/* Move the check mark away when unchecked */
-	text-indent: -999999px;
-	/* Makes the badge's width stay the same checked and unchecked */
+.badgebox + .badge
+{
+    /* Move the check mark away when unchecked */
+    text-indent: -999999px;
+    /* Makes the badge's width stay the same checked and unchecked */
 	width: 27px;
 }
 
-.badgebox:focus+.badge {
-	/* Set something to make the badge looks focused */
-	/* This really depends on the application, in my case it was: */
-	/* Adding a light border */
-	box-shadow: inset 0px 0px 5px;
-	/* Taking the difference out of the padding */
+.badgebox:focus + .badge
+{
+    /* Set something to make the badge looks focused */
+    /* This really depends on the application, in my case it was: */
+    
+    /* Adding a light border */
+    box-shadow: inset 0px 0px 5px;
+    /* Taking the difference out of the padding */
 }
 
-.badgebox:checked+.badge {
-	/* Move the check mark back when checked */
+.badgebox:checked + .badge
+{
+    /* Move the check mark back when checked */
 	text-indent: 0;
 }
 
@@ -147,14 +152,9 @@ li:nth-child(2) {
 	left: 880px;
 }
 
-.badgebox {
-	font-size: 13px;
-	margin-bottom: 0;
-	padding: 5px 5px;
-	line-height: 1.4258571 text-align:center;
-	white-space: nowrap;
-	cursor: pointer;
-	border: 1px solid transparent;
+
+.btn btn-success{
+color:#33cc33;
 }
 /*  */
 /* ==========================================================================
@@ -432,8 +432,10 @@ li:nth-child(2) {
 						var tmp = [];
 						var checkStr = [];
 						var checkStr2=[];
+						var checkStrArr=[];
 						var uncheckStr = [];
 						var uncheckStr2=[];
+						var uncheckStrArr=[];
 						var filterArr=[];						
 						$('#tagText').keyup(
 										function() {
@@ -443,7 +445,7 @@ li:nth-child(2) {
 											var term = $(this).val();
 
 											$.ajax({
-														type : 'GET',
+												type : 'GET',
 														url : 'tag.autocomplete',
 														data : {
 															term : term
@@ -453,32 +455,25 @@ li:nth-child(2) {
 															uncheckStr= $.unique(response.uncheckedList);
 															checkStr= $.unique(response.checkedList);
 															
-                                                             var index=[]
+															
+                                                            /*  var index=[]
                                                              index=uncheckStr.indexOf(checkStr);
                                                              if(index>-1){
                                                             	 uncheckStr.splice(index)
                                                             	 alert(uncheckStr.splice(index));
-                                                             }
+                                                             } */
                                                             
-													/* for(var a=0;a<checkStr.length;a++){
-														for(var b=0;b<uncheckStr.length;b++){
-															
-															if(checkStr[a]==uncheckStr[b]){
-																uncheckStr.splice();
-															}
-															
-														}
-													}	 */	
+												
 															
 												
 															if (uncheckStr.length > 0|| checkStr.length > 0) {
 
 																for (var j = 0; j < checkStr.length; j++) {
-																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ checkStr[j] + "\"  style=\"width:10;height:5;background-color:white; border: 2px solid #bcbcbc;\" checked>"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-success\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ checkStr[j] + "\"  style=\"width:10;height:5;background-color:white; border: 2px solid #bcbcbc;\" checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
 																}
 
 																for (var i = 0; i < uncheckStr.length; i++) {
-																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ uncheckStr[i] + "\"  style=\"width:10;height:5;background-color:white;border:1px\" >"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-success\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ uncheckStr[i] + "\"  style=\"width:10;height:5;background-color:white;border:1px\" >"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
 
 																}
 

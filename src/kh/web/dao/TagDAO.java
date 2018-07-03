@@ -17,7 +17,6 @@ import kh.web.utils.DBUtils;
 public class TagDAO {
 
 	public TagDTO printTag(String term) throws Exception {
-		System.out.println("db : " + term);
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from tag where tag_category =?";
 		PreparedStatement pstat = con.prepareStatement(sql);
@@ -29,11 +28,9 @@ public class TagDAO {
 		
 		
 		if(rs.next()) {
-			System.out.println(1);
 			tdto.setTag_category_words(rs.getString("tag_category_words"));
 		}
-        System.out.println("db카테고리:"+tdto.getTag_category_words());
-		con.close();
+        con.close();
 		pstat.close();
 		rs.close();
 
