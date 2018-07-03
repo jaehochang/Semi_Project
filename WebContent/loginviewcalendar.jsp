@@ -21,7 +21,6 @@
 
 <title>meet now</title>
 
-
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css"
 	href="css/loginview-group-style.css">
@@ -75,6 +74,8 @@
 		}
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -143,24 +144,31 @@
 		</div>
 	</div>
 
-
+<div class="container">
+	<div class="row">
+		<div class="list-group" id="myList" role="tablist">
+  		<a class="list-group-item list-group-item-action active" data-toggle="list" href="#printlist" role="tab" id="alllist">All</a>
+  		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="recolist">Recommend</a>
+		</div>
+	</div>
+</div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8"></div>
-			<div class="col-md-4 offset-md-4" id="datepicker"></div>
+			<div class="col-md-4 ml-auto" id="datepicker"></div>
 		</div>
 	</div>
-
-	<div class="container" id="printlist">
-		<div class="col-md-4"></div>
+<div class="container">
+	<div class="tab-content">
+		<div class="tab-pane active" id="printlist" role="tabpanel"></div>
+		<div class="tab-pane " id="print" role="tabpanel"></div>
 	</div>
+</div>
 
 
 	<div class="myMeetNow">
 		<p>내 MeetNow</p>
-
-
 
 		<div class="row" id="myMeet_row">
 			<c:forEach var="item" items="${myGroupList }">
@@ -217,11 +225,17 @@
 
 	</footer>
 
-	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript">
      
+	//damn = $(".list-group > a").text();
+	//alert(damn);
+	//damn = $(".list-group > .active").text();
+	//alert(damn);
+	
 	setTimeout(function() {
+		
 		$.ajax({
 			url:"calendarfirst.meet",
 			type:"post",
@@ -255,7 +269,6 @@
 									  	 );
 						  	   }
 						 
-						 
 					}
 			},
 			error:function(request,status,error){
@@ -275,6 +288,9 @@
 	
 	function findEvents (date) { 
 		
+		var showtypes = $(".list-group > .active").text();
+		
+		if(showtypes == "All"){
 		$.ajax({
 			url:"calendarchoice.meet",
 			type:"post",
@@ -317,7 +333,62 @@
 				console.log("성공이건 실패건 어찌되었든 ajax 종료");
 			}
 		});
+		
+		}else{
+			
+		}
+		
+		
 	}
+	datawhat = $("#datepicker").val();
+	alert(datawhat);
+	
+	$("#alllist").click(function() {
+		var nowdata = $("#datepicker").val();
+		$.ajax({
+			url:"calendarchoice.meet",
+			type:"post",
+			data:{val:nowdata},
+			dataType : "json",
+			success:function(response){
+				console.log("AJAX Request 성공 ");
+				console.log(response);
+				$("#printlist").text('');
+					for(var i=0;i<response.length;i++){
+						var day = response[i].date;
+						var hour = response[i].hour;
+						var group = response[i].groupName;
+						var title =  response[i].groupTitle;
+				  	   var location = response[i].location;
+				  	   
+				  	   if(i>0){
+				  	
+					  	   if(response[i].date == response[i-1].date){
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+									  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	 );
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+				  	   }else{
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+							  	 );
+				  	   }
+				  	
+					}
+			},
+			error:function(request,status,error){
+				console.log(request.status+":"+status.responseText+":"+ error);
+			},
+			complete:function(){
+				console.log("성공이건 실패건 어찌되었든 ajax 종료");
+			}
+		});
+	});
+	
 	
 </script>
 
