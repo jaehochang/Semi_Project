@@ -36,10 +36,6 @@
 
 		<nav>
 
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
-				style="height: 50px; width: 150px;"></a>
-			<ul id=nav-ul>
-
 				<li><a href="create.jsp">새 그룹 시작하기</a>
 				<li><a href="login.jsp">로그인</a> 
 				
