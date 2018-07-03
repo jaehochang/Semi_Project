@@ -42,9 +42,6 @@
 	<c:when test="${sessionScope.loginId == null }">
 
 		<nav>
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
-				style="height: 50px; width: 150px;"></a>
-			<ul id=nav-ul>
 
 		<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 			style="height: 50px; width: 150px;"></a>
@@ -69,6 +66,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
+
 						<div class="modal-body">
 
 							<!-- 이메일로 회원가입 -->
@@ -94,12 +92,10 @@
 								</div>
 
 								<!-- Google Login API -->
-
 								<div>
 									<button type=button onclick="google_login_in()">구글로
 										회원가입</button>
 								</div>
-							
 							</div>
 
 
@@ -137,10 +133,6 @@
 			<%@ include file="../../signUpWithGoogle.jsp"%>
 
 
-
-
-
-			</div>
 		</nav>
 	</c:when>
 
