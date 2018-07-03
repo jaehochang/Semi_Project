@@ -66,7 +66,17 @@
 			<div id="top-contents-img">
 				<img src="files/${item.group_picture }" id="group-main-img"
 					class="img-responsive img-rounded">
+					
+					<form action="upload.file" method="post" id="upform" enctype="multipart/form-data">
+					<div class="filebox">
+                          <label for="ex_file" id="up">업로드</label> 
+                          <input type="file" id="ex_file"> 
+                     </div>
+					</form>
 			</div>
+			
+			
+			
 			<div id="top-contents-info">
 				<div id="info-title">
 					<div id="info-groupname">

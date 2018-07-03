@@ -12,7 +12,7 @@
 	<c:when test="${sessionScope.loginId != null}">
 
 
-		<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
+		<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 			style="height: 50px; width: 150px;"></a>
 		<ul id=nav-ul>
 

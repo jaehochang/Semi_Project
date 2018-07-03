@@ -40,6 +40,7 @@ public class GroupController extends HttpServlet {
 			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
+			String ajax = null;
 			
 			if (command.equals("/list.group")) {
 				
@@ -102,13 +103,17 @@ public class GroupController extends HttpServlet {
 				List<MeetingDTO> lastMeeting = dao.lastMeeting(groupSeq);
 				List<MeetingDTO> nextAllMeeting = dao.nextMeetup(groupSeq,0,"all");
 				
+				
+				
 				int meeting_seq = 0;
 				
 				if(nextMeeting.size() !=0) {
 					meeting_seq = nextMeeting.get(0).getMeeting_seq();
 				}
 				
-				List<MeetingDTO> preMeeting = dao.nextMeetup(0, meeting_seq,"pre");
+				List<MeetingDTO> preMeeting = dao.nextMeetup(groupSeq, meeting_seq,"pre");
+				
+				System.out.println("pre미팅 사이즈 : "+preMeeting.size());
 				
 				System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
 				System.out.println("지난 미팅"+lastMeeting.size());
@@ -167,7 +172,9 @@ public class GroupController extends HttpServlet {
 				
 				JSONObject json = new JSONObject();
 				
-				json.put("name", "회원입니다.");
+				String html = "";
+				
+				json.put("html", html);
 				
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
@@ -176,9 +183,8 @@ public class GroupController extends HttpServlet {
 				response.getWriter().flush();
 				response.getWriter().close();
 				
-				
-				isRedirect = false;
-				dst="groupInfo.jsp";
+				isRedirect = true;
+				ajax="ajax";
 				
 				
 			}else if(command.equals("/out.group")) {
@@ -190,17 +196,25 @@ public class GroupController extends HttpServlet {
 				int result = dao.groupMemberOut(group_seq, member_email);
 				
 				isRedirect = false;
-				dst="groupInfo.jsp";
+				dst="groupMain.group?group_seq="+groupSeq+"&page=info";
 			}
 			
 			//------------------
 
+		
+			
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
-			} else {
-				response.sendRedirect(dst);
+			}else if(isRedirect == true) {
+				if(ajax.equals("ajax")) {
+					System.out.println("test");
+				}else {
+					response.sendRedirect(dst);
+				}
 			}
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
