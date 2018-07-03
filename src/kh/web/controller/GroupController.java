@@ -285,6 +285,29 @@ public class GroupController extends HttpServlet {
 				
 				isRedirect = false;
 				dst="groupInfo.jsp";
+			}else if(command.equals("/five_km.group")) {
+				
+				String fiveKm = request.getParameter("value");
+				String dist = request.getParameter("distance");
+				System.out.println(dist);
+				String lat = fiveKm.split(":")[0];
+				String lng = fiveKm.split(":")[1]; 
+				System.out.println(lat);
+				System.out.println(lng);
+				List<String> result = dao.DistanceSearch(lat, lng, dist);
+				
+				for(int i=0; i<result.size(); i++) {
+					System.out.println(result.get(i));
+					
+				}
+				JSONObject json = new JSONObject();
+				json.put("result", result);
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				
+				out.println(json);
+				out.flush();
+				out.close();
 			}
 			
 			

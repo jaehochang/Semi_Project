@@ -20,7 +20,7 @@ public class GroupDAO {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from create_group";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		
+
 		ResultSet rs = pstat.executeQuery();
 		List<GroupDTO> result = new ArrayList<>();
 		
@@ -36,11 +36,11 @@ public class GroupDAO {
 			
 			result.add(dto);
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return result;
 	}
 	
@@ -48,7 +48,7 @@ public class GroupDAO {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from group_picture";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		
+
 		ResultSet rs = pstat.executeQuery();
 		List<GroupPicDTO> result = new ArrayList<>();
 		
@@ -61,13 +61,13 @@ public class GroupDAO {
 			dto.setSystem_name(rs.getString("system_name"));
 			
 			result.add(dto);
-			
+
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return result;
 	}
 	
@@ -80,37 +80,37 @@ public class GroupDAO {
 		pstat.setString(1, member_email);
 		
 		ResultSet rs = pstat.executeQuery();
-		
+
 		List<MygroupDTO> result = new ArrayList<>();
-		
+
 		while(rs.next()) {
 			MygroupDTO dto = new MygroupDTO();
-			
+
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_name(rs.getString("group_name"));
 			dto.setSystem_name(rs.getString("system_name"));
-			
+
 			result.add(dto);
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return result;
 	}
-	
+
 	public MemberCountDTO MemberCount(int groupSeq) throws Exception{
 		Connection con = DBUtils.getConnection();
 		String sql = "select DISTINCT GROUP_SEQ, (select count(*) from group_member where GROUP_SEQ = ?) count from group_member where GROUP_SEQ = ? ";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setInt(1, groupSeq);
 		pstat.setInt(2, groupSeq);
-		
+
 		ResultSet rs = pstat.executeQuery();
 		List<MemberCountDTO> result = new ArrayList<>();
 		MemberCountDTO dto = null;
-		
+
 		if(rs.next()) {
 			dto = new MemberCountDTO();
 			
@@ -118,12 +118,76 @@ public class GroupDAO {
 			dto.setCount(rs.getInt(2));
 
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return dto;
+
+	}
+	public List<String> DistanceSearch(String lat, String lng, String distance) throws Exception{
+
+		Connection con = DBUtils.getConnection();
+		
+		double latitude = Double.parseDouble(lat);
+		
+		double longitude =Double.parseDouble(lng);
+		
+		String sql = "select group_name, group_lat, group_lng from create_group";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		ResultSet rs = pstat.executeQuery();
+		List<String> fiveList = new ArrayList<>();
+		List<String> tenList = new ArrayList<>();
+		List<String> fifteenList = new ArrayList<>();
+		List<String> allList = new ArrayList<>();
+		System.out.println(1);
+		while(rs.next()) {
+
+			String dbGroupName = rs.getString("group_name");
+			double dbGroupLat = Double.parseDouble(rs.getString("group_lat"));
+			double dbGroupLng = Double.parseDouble(rs.getString("group_lng"));
+			System.out.println(11);
+			double theta = longitude - dbGroupLng;
+			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbGroupLat)) + Math.cos(deg2rad(latitude))
+			*Math.cos(deg2rad(dbGroupLat)) * Math.cos(deg2rad(theta));
+
+			dist = Math.acos(dist);
+			dist = rad2deg(dist);
+			dist = dist * 60 * 1.1515;
+			dist = dist * 1.609344; //km일때
+			//		 	 dist = dist * 1609.344; meter 일때
+			
+			if(dist <= 5) {
+				fiveList.add(dbGroupName);
+			}
+			if(dist <= 10) {
+				tenList.add(dbGroupName);
+			}
+			if(dist <= 15) {
+				fifteenList.add(dbGroupName);
+			}
+			if(dist != 0) {
+				allList.add(dbGroupName);
+			}
+			
+		}
+		
+		if(distance.equals("5")) {
+			
+			return fiveList;
+		}else if(distance.equals("10")) {
+			
+			
+			return tenList;
+		}else if(distance.equals("15")) {
+			
+			return fifteenList;
+		}
+		else {
+			return allList;
+		}
 		
 	}
 	
@@ -159,6 +223,12 @@ public class GroupDAO {
 		return result;
 	}
 	
+	 public double deg2rad(double deg){  
+	      return (double)(deg * Math.PI / (double)180d);  
+	   }  
+	   public double rad2deg(double rad) {
+	      return (double)(rad*(double)180d / Math.PI);
+	   }
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		

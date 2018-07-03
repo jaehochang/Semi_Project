@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -22,7 +22,8 @@
 
 
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/loginview-group-style.css">
+<link rel="stylesheet" type="text/css"
+	href="css/loginview-group-style.css">
 
 
 <!-- SJ 꺼 -->
@@ -62,6 +63,64 @@
 
 
 </head>
+<script>
+	$(document).ready(function() {
+		
+		navigator.geolocation.getCurrentPosition(function(position) {
+			 pos = {
+				lat : position.coords.latitude,
+				lng : position.coords.longitude
+
+			};
+			alert("나의 위도 : " + pos.lat + " 나의 경도 : " + pos.lng);
+		});
+
+		$("#search-bt").click(function() {
+
+			alert("검색");
+		})
+		$("#five_km").click(function() {
+
+			alert("5km 입니다.");
+			$("#distance-default").html("5km <span class=caret></span>");
+			var val = pos.lat + ":" +pos.lng;
+			var dist = 5;
+			$.ajax({
+				url : "five_km.group",
+				type : "get",
+				data : {
+					value : val,
+					distance : dist
+				},
+				success : function(result) {
+					console.log(result.result);
+					alert(result.result);
+					
+				},
+				error : function() {
+					
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			});
+		})
+		$("#ten_km").click(function() {
+			alert("10km 입니다.");
+			$("#distance-default").html("10km <span class=caret></span>");
+		})
+		$("#fifteen_km").click(function() {
+			alert("15km 입니다.");
+			$("#distance-default").html("15km <span class=caret></span>");
+		})
+		$("#all_km").click(function() {
+			alert("모든거리 입니다.");
+			$("#distance-default").html("모든거리 <span class=caret></span>");
+		})
+	})
+</script>
 
 <body>
 
@@ -91,14 +150,14 @@
 		<h5 id="location-text">내</h5>
 		<div class="btn-group" id="location-km">
 			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="location-default">
+				data-toggle="dropdown" aria-expanded="false" id="distance-default">
 				5km <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">5km</a></li>
-				<li><a href="#">10km</a></li>
-				<li><a href="#">15km</a></li>
-				<li><a href="#">모든거리</a></li>
+				<li><a href="#" id="five_km">5km</a></li>
+				<li><a href="#" id="ten_km">10km</a></li>
+				<li><a href="#" id="fifteen_km">15km</a></li>
+				<li><a href="#" id="all_km">모든거리</a></li>
 			</ul>
 		</div>
 
