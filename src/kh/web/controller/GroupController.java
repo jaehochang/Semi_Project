@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import kh.web.dao.GroupDAO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
@@ -163,8 +165,29 @@ public class GroupController extends HttpServlet {
 				
 				System.out.println("email: "+member_email+"seq : " +groupSeq+"/ group_name :" + group_name);
 				
+				JSONObject json = new JSONObject();
 				
-				out.println("adfasdf");
+				json.put("name", "회원입니다.");
+				
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				
+				response.getWriter().print(json);
+				response.getWriter().flush();
+				response.getWriter().close();
+				
+				
+				isRedirect = false;
+				dst="groupInfo.jsp";
+				
+				
+			}else if(command.equals("/out.group")) {
+				
+				String member_email = request.getSession().getAttribute("loginId").toString();
+				String groupSeq = request.getParameter("group_seq");
+				int group_seq = Integer.parseInt(groupSeq);
+				
+				int result = dao.groupMemberOut(group_seq, member_email);
 				
 				isRedirect = false;
 				dst="groupInfo.jsp";
