@@ -304,6 +304,24 @@ public class GroupDAO {
 		
 		int result = pstat.executeUpdate();
 		
+		con.commit();
+		con.close();
+		pstat.close();
+		
+		return result;
+	}
+	
+	public int groupMemberOut(int group_seq,String member_email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "delete from mygroup where member_email=? and group_seq=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		pstat.setString(1, member_email);
+		pstat.setInt(2, group_seq);
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
 		con.close();
 		pstat.close();
 		
