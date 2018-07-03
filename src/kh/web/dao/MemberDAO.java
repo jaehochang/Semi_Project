@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.catalina.connector.Request;
-
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
 import kh.web.utils.DBUtils;
@@ -41,7 +39,7 @@ public class MemberDAO {
 
 		String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
 				+ "?," // 2: member_name
-				+ "'null'," // 3: member_email
+				+ " ? ," // 3: member_email
 				+ "'null'," // 4: member_pwd
 				+ "'null'," // 5: member_location
 				+ "'null'," // 6: member_interests
@@ -72,13 +70,14 @@ public class MemberDAO {
 		PreparedStatement ps = con.prepareStatement(sql);
 
 		ps.setString(1, dto.getKakao_nickName()); // 첫번째 물음표 : 이름
-		ps.setString(2, dto.getKakao_photo()); // 두번째 : 사진 url < 카카오프로필
+		ps.setString(2, dto.getKakao_email()); // 두번째 : 사진 url < 카카오프로필
+		ps.setString(3, dto.getKakao_photo()); // 두번째 : 사진 url < 카카오프로필
 
-		ps.setString(3, dto.getKakao_id());
-		ps.setString(4, dto.getKakao_nickName()); // 4 : 닉네임
-		ps.setString(5, dto.getKakao_email());
-		ps.setString(6, dto.getKakao_photo());
-
+		ps.setString(4, dto.getKakao_id());
+		ps.setString(5, dto.getKakao_nickName()); // 4 : 닉네임
+		ps.setString(6, dto.getKakao_email());
+		ps.setString(7, dto.getKakao_photo());
+		System.out.println("dto.getKakao_photo() : " + dto.getKakao_photo());
 		int result = ps.executeUpdate();
 
 		con.commit();
@@ -510,14 +509,14 @@ public class MemberDAO {
 		rs.next();
 
 		int recordTotalCount = rs.getInt("totalCount");// rs.getInt("totalCount");
-														// // 전체 글(레코드)의 개수를
-														// 저장하는 변수
+		// // 전체 글(레코드)의 개수를
+		// 저장하는 변수
 		int recordCountPerPage = 10; // 한 페이지에 게시글이 몇개 보일건지
 		int naviCountPerPage = 10; // 한 페이지에서 네비게이터가 몇개씩 보일건지
 		int pageTotalCount = 0; // 전체가 몇 페이지로 구성 될것인지
 
 		if (recordTotalCount % recordCountPerPage > 0) {// 정확히 10으로 나누어 떨어지지 않는
-														// 경우
+			// 경우
 			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
 		} else {
 			pageTotalCount = recordTotalCount / recordCountPerPage;
@@ -527,7 +526,7 @@ public class MemberDAO {
 		int currentPage = currentPageNo;
 
 		if (currentPage < 1) { // 페이지 네비를 클릭해서 들어오는게 아니라 url에 페이지 번호를 입력해서 들어오는
-								// 경우
+			// 경우
 			currentPage = 1;
 		} else if (currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
@@ -821,11 +820,11 @@ public class MemberDAO {
 
 		ResultSet rs = ps.executeQuery();
 		boolean result = rs.next();
-		
+
 		rs.close();
 		ps.close();
 		con.close();
-		
+
 		if (result) {
 			return true;
 
@@ -833,4 +832,28 @@ public class MemberDAO {
 			return false;
 		}
 	}
+
+	// public String getProfilePhoto(MemberDTO dto) throws Exception {
+	// Connection con = DBUtils.getConnection();
+	// String sql = "select kakao_photo,fb_photourl,ggimgurl from sns_id where
+	// member_seq = ?";
+	// PreparedStatement ps = con.prepareStatement(sql);
+	// ps.setInt(1, dto.getMember_seq());
+	//
+	// ResultSet rs = ps.executeQuery();
+	//
+	// String kakaoPhotoUrl;
+	// String fbPhotoUrl;
+	// String ggImgUrl;
+	//
+	// if (rs.next()) {
+	//
+	// kakaoPhotoUrl = rs.getString("kakao_photo");
+	// fbPhotoUrl = rs.getString("fb_photourl");
+	// ggImgUrl = rs.getString("ggimgurl");
+	//
+	//
+	//
+	// }
+
 }

@@ -70,46 +70,7 @@ public class MemberController extends HttpServlet {
 					response.getWriter().print(result);
 				}
 
-			}
-//
-//			else if (command.equals("/signUpWithSnsEmail.co")) {
-//
-//				String kakao_id = request.getParameter("kakao_id");
-//				String kakao_nickname = request.getParameter("kakao_nickname");
-//				String email = request.getParameter("email");
-//				String name = request.getParameter("name");
-//
-//				MemberDAO mDAO = new MemberDAO();
-//				MemberDTO mDTO = new MemberDTO();
-//
-//				SnsDTO sDTO = new SnsDTO();
-//
-//				sDTO.setKakao_id(kakao_id);
-//				sDTO.setKakao_nickName(kakao_nickname);
-//
-//				mDTO.setMember_email(email);
-//				mDTO.setMember_name(name);
-//
-//				boolean result = mDAO.InptEmailtoAccnt(mDTO, sDTO);
-//
-//				System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " + result);
-//
-//				System.out.println("signUpWithSnsEmail.co - kakao_id" + kakao_id);
-//
-//				if (result) {
-//					isRedirect = false;
-//					request.setAttribute("result", result);
-//					System.out.println("result : " + result);
-//					request.setAttribute("kakaoSecretNumId", kakao_id);
-//					System.out.println(kakao_id);
-//					dst = "kakaoSignUpPage.jsp";
-//
-//				} else {
-//					System.out.println("/signUpWithSnsEmail : failed ");
-//					dst = "error.html";
-//				}
-
-			 else if (command.equals("/kakaoIdDplCheck.co")) {
+			}	 else if (command.equals("/kakaoIdDplCheck.co")) {
 
 				String kakao_id = request.getParameter("kakao_id");
 				String kakao_nickname = request.getParameter("kakao_nickname");
@@ -222,19 +183,7 @@ public class MemberController extends HttpServlet {
 					dst = "mypage.jsp";
 
 				System.out.println("/mypage.co 의 session Login Id : " + loginId);
-				MemberDAO mDAO = new MemberDAO();
-
-				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
-
-				request.setAttribute("userName", accntInfo.getMember_name());
-				request.setAttribute("userEmail", accntInfo.getMember_email());
-				request.setAttribute("userLocation", accntInfo.getMember_location());
-				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userInterests", accntInfo.getMember_interests());
-				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
-
-				isRedirect = false;
-				dst = "mypage.jsp";
+			
 
 			} else if (command.equals("/signUpApply.co")) {
 
