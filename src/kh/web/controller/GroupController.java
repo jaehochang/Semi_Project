@@ -180,6 +180,7 @@ public class GroupController extends HttpServlet {
 				isRedirect = false;
 				dst="groupInfo.jsp";
 			}else if(command.equals("/out.group")) {
+				
 				String member_email = request.getSession().getAttribute("loginId").toString();
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
