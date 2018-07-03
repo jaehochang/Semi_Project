@@ -290,7 +290,7 @@
 						<div class="col-md-3" style="padding: 10px;">
 							<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 								<div class="over-img" id="distSearch">
-									<img src="files/${item.system_name }" class="img_size">
+									<img src="files/${item.system_name}" class="img_size">
 								</div>
 								<h4 class="group_title">${item.group_name }</h4> <c:forEach
 									var="item2" items="${memberCount }">
@@ -310,7 +310,7 @@
 			<div id="recoMeetnow">
 				<p id="pTag">추천 MeetNow</p>
 				<div class="row" id="distrow">
-					<c:forEach var="item" items="${groupList }">
+					<c:forEach var="item" items="${groupList}">
 						<div class="col-md-4" id="distTitle">
 						<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 							<div class="img_div"  id="imgSearch2">
