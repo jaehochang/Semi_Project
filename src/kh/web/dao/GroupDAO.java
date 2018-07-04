@@ -20,7 +20,7 @@ public class GroupDAO {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from create_group";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		
+
 		ResultSet rs = pstat.executeQuery();
 		List<GroupDTO> result = new ArrayList<>();
 		
@@ -36,11 +36,11 @@ public class GroupDAO {
 			
 			result.add(dto);
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return result;
 	}
 	
@@ -48,7 +48,7 @@ public class GroupDAO {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from group_picture";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		
+
 		ResultSet rs = pstat.executeQuery();
 		List<GroupPicDTO> result = new ArrayList<>();
 		
@@ -61,56 +61,56 @@ public class GroupDAO {
 			dto.setSystem_name(rs.getString("system_name"));
 			
 			result.add(dto);
-			
+
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return result;
 	}
-	
-	public List<MygroupDTO> myGroupList(String member_email) throws Exception{
+
+	public List<MygroupDTO> myGroupList(String email) throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select mygroup_seq, system_name, group_name ,group_picture.group_seq "
-				+ "from group_picture join mygroup on group_picture.group_seq = mygroup.group_seq "
-				+ "where mygroup.member_email=? order by mygroup_seq";
+		String sql = "select a.GROUP_SEQ,a.GROUP_NAME, b.SYSTEM_NAME "
+				+ "from mygroup a, group_picture b, group_member c "
+				+ "where a.GROUP_SEQ = b.GROUP_SEQ and a.GROUP_SEQ = c.GROUP_SEQ and a.MEMBER_EMAIL = ? "
+				+ "group by a.GROUP_SEQ, a.GROUP_NAME, b.SYSTEM_NAME";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, member_email);
-		
+		pstat.setString(1, email);
 		ResultSet rs = pstat.executeQuery();
-		
+
 		List<MygroupDTO> result = new ArrayList<>();
-		
+
 		while(rs.next()) {
 			MygroupDTO dto = new MygroupDTO();
-			
+
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_name(rs.getString("group_name"));
 			dto.setSystem_name(rs.getString("system_name"));
-			
+
 			result.add(dto);
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return result;
 	}
-	
+
 	public MemberCountDTO MemberCount(int groupSeq) throws Exception{
 		Connection con = DBUtils.getConnection();
 		String sql = "select DISTINCT GROUP_SEQ, (select count(*) from group_member where GROUP_SEQ = ?) count from group_member where GROUP_SEQ = ? ";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setInt(1, groupSeq);
 		pstat.setInt(2, groupSeq);
-		
+
 		ResultSet rs = pstat.executeQuery();
 		List<MemberCountDTO> result = new ArrayList<>();
 		MemberCountDTO dto = null;
-		
+
 		if(rs.next()) {
 			dto = new MemberCountDTO();
 			
@@ -118,14 +118,102 @@ public class GroupDAO {
 			dto.setCount(rs.getInt(2));
 
 		}
-		
+
 		con.close();
 		rs.close();
 		pstat.close();
-		
+
 		return dto;
+
+	}
+	public List<String> DistanceSearch(String lat, String lng, String distance) throws Exception{
+
+		Connection con = DBUtils.getConnection();
+		
+		double latitude = Double.parseDouble(lat);
+		
+		double longitude =Double.parseDouble(lng);
+		
+		String sql = 
+		"select a.GROUP_NAME,a.GROUP_LAT,a.GROUP_LNG,count(*) as member_count,c.system_name "
+		+ "from create_group a, group_member b, group_picture c "
+		+ "where a.GROUP_SEQ=b.GROUP_SEQ and a.group_seq = c.GROUP_SEQ "
+		+ "group by b.GROUP_SEQ, a.GROUP_NAME,c.system_name,a.GROUP_LAT,a.GROUP_LNG";
+		
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		ResultSet rs = pstat.executeQuery();
+		List<String> fiveList = new ArrayList<>();
+		List<String> tenList = new ArrayList<>();
+		List<String> fifteenList = new ArrayList<>();
+		List<String> allList = new ArrayList<>();
+
+		while(rs.next()) {
+
+			String dbGroupName = rs.getString("group_name");
+			double dbGroupLat = Double.parseDouble(rs.getString("group_lat"));
+			double dbGroupLng = Double.parseDouble(rs.getString("group_lng"));
+			String dbGroupMemberCount = rs.getString("member_count");
+			String dbGroupPicture = rs.getString("system_name");
+			
+			double theta = longitude - dbGroupLng;
+			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbGroupLat)) + Math.cos(deg2rad(latitude))
+			*Math.cos(deg2rad(dbGroupLat)) * Math.cos(deg2rad(theta));
+
+			dist = Math.acos(dist);
+			dist = rad2deg(dist);
+			dist = dist * 60 * 1.1515;
+			dist = dist * 1.609344; //km일때
+			//		 	 dist = dist * 1609.344; meter 일때
+			System.out.println("계산된 거리 : " + dist);
+			
+			if(dist <= 5) {
+				fiveList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+				
+			}
+			if(dist <= 10) {
+				tenList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+				
+			}
+			if(dist <= 15) {
+				fifteenList.add(dbGroupName +":"+dbGroupMemberCount +":"+ dbGroupPicture);
+			
+			}
+			if(dist != 0) {
+				allList.add(dbGroupName);
+			}
+			
+		}
+		
+		if(distance.equals("5")) {
+			System.out.println("거리가 5km 인 그룹 : " + fiveList);
+			con.close();
+			pstat.close();
+			return fiveList;
+		}else if(distance.equals("10")) {
+			System.out.println("거리가 10km 인 그룹 : " + tenList);
+			con.close();
+			pstat.close();
+			return tenList;
+		}else if(distance.equals("15")) {
+			con.close();
+			pstat.close();
+			return fifteenList;
+		}
+		else {
+			con.close();
+			pstat.close();
+			return allList;
+		}
 		
 	}
+	public double deg2rad(double deg){  
+		return (double)(deg * Math.PI / (double)180d);  
+	}  
+	public double rad2deg(double rad) {
+		return (double)(rad*(double)180d / Math.PI);
+	}
+
 	
 	public List<GroupDTO> groupInfo(String seq) throws Exception{
 		int group_seq = Integer.parseInt(seq);
@@ -158,6 +246,7 @@ public class GroupDAO {
 		
 		return result;
 	}
+<<<<<<< HEAD
 	
 	public String payCheck(String member_email) throws Exception{
 		Connection con = DBUtils.getConnection();
@@ -184,6 +273,9 @@ public class GroupDAO {
 	
 	
 	
+=======
+
+>>>>>>> master_clone_branch
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		

@@ -11,7 +11,7 @@
 <div id="navi-div">
 
 	<ul class="nav nav-tabs">
-		<c:forEach var="item" items="${result }">
+		<c:forEach var="item" items="${result}">
 			<li role="presentation" class="active"><a
 				href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
 			<li role="presentation"><a
