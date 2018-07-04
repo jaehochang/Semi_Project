@@ -12,7 +12,7 @@
 	<c:when test="${sessionScope.loginId != null}">
 
 		<nav>
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
+			<a href="main.jsp" class="jello"><img src="https://i.imgur.com/axIYcKj.png"
 				style="height: 50px; width: 150px;"></a>
 			<ul id=nav-ul>
 
@@ -38,8 +38,8 @@
 		<nav>
 			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				style="height: 50px; width: 150px;"></a>
+				
 			<ul id=nav-ul>
-
 				<li><a href="#">새 그룹 시작하기</a>
 				<li><a href="login.jsp">로그인</a>
 				<li><button type="button" class="btn btn-default"
@@ -55,10 +55,12 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h2 class="modal-title" id="exampleModalLabel">회원가입</h2>
+							
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
+							
 						</div>
 						<div class="modal-body">
 
@@ -75,8 +77,7 @@
 							<div class=sns-login-btn>
 
 								<div>
-									<a id="kakao-signUp-btn"><img src="img/kakao.png"
-										style="width: 35px; height: 35px;">카카오톡으로 회원가입</a>
+									<a id="kakao-signUp-btn" >카카오톡으로 회원가입</a>
 								</div>
 
 								<!-- 페이스북 -->
@@ -90,7 +91,6 @@
 									<button type=button onclick="google_login_in()">구글로
 										회원가입</button>
 								</div>
-							
 							</div>
 
 
@@ -125,13 +125,10 @@
 			</div>
 
 			<!-- 구글 API  -->
+			<div>
 			<%@ include file="../../signUpWithGoogle.jsp"%>
-
-
-
-
-
 			</div>
+
 		</nav>
 	</c:when>
 

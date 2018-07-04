@@ -15,6 +15,8 @@
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 <link rel="stylesheet" type="text/css"
 	href="css/mypage-section-style.css">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+
 
 <!-- google api -->
 <meta name="google-signin-client_id" content="201245295217-c7jm6q8qk7qf81smd0qfkfp3mlnr33cn.apps.googleusercontent.com">
@@ -68,7 +70,6 @@
 		<div class="panel panel-default" id=profilebody>
 			<div class=container id=boxheader>
 				<h1>${requestScope.userName}</h1>
-	
 			</div>
 
 			<div class=container>위치 : ${requestScope.userLocation}</div>
@@ -76,13 +77,10 @@
 			<div class=container id=snsBts>
 				SNS :
 				<div class="fa-2x">
-
 					<a href="http://www.facebook.com"> <i class="fab fa-facebook"></i>
 					</a> <a href="http://www.instagram.com"> <i
 						class="fab fa-instagram"></i>
 					</a>
-
-
 				</div>
 
 
@@ -94,20 +92,15 @@
 				<a href="#">가입한 그룹 숨기기</a>
 			</div>
 
-
 			<div class="container" id="joinedgroup-list">
-
 				<img>
 				<div class=container id="flushbottom">
 					<h4>4조 B4A3</h4>
 				</div>
 				<div class=container id="grouproll">회원</div>
 			</div>
-
-
 			<div class=container id="docsectionsmall">안부 인사를 게시하려 하시나요? 대화를
 				시작해보시는건 어떤가요?</div>
-
 		</div>
 
 
@@ -116,17 +109,12 @@
 			<img src="https://media.giphy.com/media/bcrPgNgUPRc6G2EbZf/giphy.gif"
 				style="height: 150px; width: 200px; display: block; margin: 0 auto;">
 			<span>change your photo</span>
-
 			<div id=interestbox>
 				<h2>관심사</h2>
 				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a>
 			</div>
-
 			<div id=interests>${requestScope.getUserInterests }</div>
-
 		</div>
-
-
 	</div>
 
 

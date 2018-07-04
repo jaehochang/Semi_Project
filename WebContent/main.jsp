@@ -49,6 +49,8 @@
 <link href="./resources/docs/examples/jumbotron/jumbotron.css"
 	rel="stylesheet">
 
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+
 <title>Meet now</title>
 
 <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
@@ -86,8 +88,6 @@
 
 </head>
 
-
-
 <script>
 	$(document).ready(function() {
 		$('#media').carousel({
@@ -117,13 +117,11 @@
 	<div class="jumbotron" style="background-color: #b548d0">
 		<div class="container">
 
-			<!--       <video src="./video/MeetNow.mp4" autoplay="autoplay" loop="loop" width="100%" height="100%"> -->
 			<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
 			<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
 			<p>
 				<a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
 			</p>
-			<!--       </video> -->
 		</div>
 	</div>
 
@@ -132,7 +130,6 @@
 		<h2 style="color: #5e5568;">
 			<b>주변의 인기 Meet Up</b>
 		</h2>
-		</br>
 		<div class='row'>
 			<div class='col-md-12'>
 				<div class="carousel slide media-carousel" id="media">
@@ -263,8 +260,6 @@
 
 						</div>
 					</div>
-				</div>
-			</div>
 
 
 		<div class="col">
@@ -286,7 +281,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<div class="container">
 		<h2 class="interest-title" style="color: #5e5568;">

@@ -66,18 +66,206 @@
 		$("#loginFailModal").modal('show');
 
 	})
-</script>
+
+	$(function(){
+		$('nav a').click(function(){
+		var speed=200;
+		var i=$(this).index();
+		$('.page.current').animate(){
+			opacity:0, marginTop:80},speed,function(){
+				$(this).removeClass('current');
+			});
+		});
+		}
+	})
+	</script>
+
 
 
 <style>
 #snsLoginBtns {
 	display: block;
+	margin: 0 auto;
+	text-align: center;
 }
 
-#snsLoginBtns a {
-	border: 1px solid black;
-	text-decoration: none;
-	color: black;
+html {
+	overflow-y: scroll;
+}
+
+.page {
+	display: none;
+	opacity: 0;
+}
+
+.page.current {
+	display: block;
+	opacity: 1;
+}
+
+.button {
+	/*[ Position ]*/
+	margin: 0 10px 50px 10px;
+	/* 	float:left; */
+	/* 	left: 200px; */
+	/* 	top:90px; */
+	/* [ Botton ] */
+	position: relative;
+	height: 70px;
+	width: 70px;
+	cursor: pointer;
+	line-height: 47px;
+	background-color: #f1f1f1;
+	text-align: center;
+	font-size: 30px;
+	display: inline-block;
+	text-shadow: 0px -1px 1px rgba(255, 255, 255, 0.5);
+	color: #444;
+	/* Transitions */
+	-moz-transition: .1s ease-out;
+	-webkit-transition: .1s ease-out;
+	-o-transition: .1s ease-out;
+	-ms-transition: .1s ease-out;
+	-khtml-transition: .1s ease-out;
+	transition: .1s ease-out;
+	/* Shadows */
+	box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+	-ms-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+	-webkit-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+	-khtml-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+	-o-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+	/* Borders */
+	border-width: 1px;
+	border-style: solid;
+	border-left-color: #777;
+	border-right-color: #777;
+	border-top-color: #999;
+	border-bottom: 4px solid #555;
+	/* {{ No selectable }} */
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	/*[{- Border radius -}]*/
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-o-border-radius: 5px;
+	/* Gradient */
+	background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
+	background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
+	background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
+	background-image: -khtml-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
+	background-image: -ms-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
+	background-image: linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
+}
+
+.button:hover {
+	color: #333;
+	/*{Gradient}*/
+	background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
+	background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
+	background-image: -ms-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
+	background-image: -khtml-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
+	background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
+	background-image: linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
+}
+
+.button:active {
+	margin-top: 4px;
+	color: #777;
+	border: 1px solid #999;
+	/*{Shadow}*/
+	box-shadow: inset 0 0 5px 0 #333;
+	-moz-box-shadow: inset 0 0 5px 0 #333;
+	-webkit-box-shadow: inset 0 1px 2px 0 #333, 0 1px 1px 0 #fff;
+}
+
+.button-shadow {
+	box-shadow: 3px 3px 3px grey;
+}
+
+.text-shadow-negra {
+	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.text-blanco {
+	color: #F2F2F2;
+}
+
+.text-blanco:hover {
+	color: #3f3035;
+}
+
+.text-blanco:active {
+	color: #3f3035;
+}
+
+.text-blanco-fb {
+	color: #F2F2F2;
+}
+
+.text-blanco-fb:hover {
+	color: #dfe3ee;
+}
+
+.text-blanco-fb:active {
+	color: #dfe3ee;
+}
+
+.blue {
+	background-color: #659AE0;
+	border-bottom-color: #436796;
+	border-left-color: #5981AF;
+	border-right-color: #5981AF;
+	border-top-color: #719CCE;
+}
+
+.red {
+	background-color: #C46A6A;
+	border-bottom-color: #A05D5D;
+	border-left-color: #AF5757;
+	border-right-color: #AF5757;
+	border-top-color: #C66767;
+}
+
+.green {
+	background-color: #82C43A;
+	border-color: #578720;
+}
+
+.yellow {
+	background-color: #EFEC40;
+	border-color: #9B9800;
+}
+
+.brown {
+	background-color: #594343;
+	border-bottom-color: #423F1B;
+	border-right-color: #3F3D28;
+	border-left-color: #3F3D28;
+	border-top-color: #7C6262;
+}
+
+.black {
+	background-color: #555;
+	border-bottom-color: #444;
+	border-left-color: #666;
+	border-right-color: #666;
+	border-top-color: #777;
+}
+
+.orange {
+	background-color: #FAA407;
+	border-bottom-color: #BA7500;
+	border-left-color: #DB8A00;
+	border-right-color: #DB8A00;
+	border-top-color: #E89200;
 }
 </style>
 </head>
@@ -99,7 +287,7 @@
 					<div class="modal-body text-center">
 						<h1>실패!</h1>
 						<p>아이디 혹은 비밀번호가 올바르지 않습니다. 확인해주세요!</p>
-						<button class="btn btn-success" data-dismiss="modal"
+						<button class="button button-shadow" data-dismiss="modal"
 							onclick="window.close()">다시 로그인</button>
 
 					</div>
@@ -112,15 +300,15 @@
 	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
 	</nav>
+
 	<div class="panel panel-default" style="width: 100%; margin: 0;">
 		<div class="panel-body" style="width: 50%; margin: 0 auto;">
 			<div id=loginheader style="margin-bottom: 15px;">
 				<h2>로그인</h2>
 				<p>아직 등록하지 않으셨나요?</p>
-
-
-				<button type="button" class="btn btn-default" data-toggle="modal"
-					data-target='#idTypeQuestions'>가입하기</button>
+				<button type="button" class="button button-shadow"
+					data-toggle="modal" data-target='#idTypeQuestions'
+					style="width: 90px; font-size: 15px;">가입하기</button>
 			</div>
 			<div id=loginbody style="border-bottom: 1px solid #ddd;">
 				<form action="login.co" method=post>
@@ -137,53 +325,46 @@
 						<div>
 							<a href="#">비밀번호를 잊으셨나요?</a>
 						</div>
+
 						<input id=pwd type=password max=13 name=pwd class=form-control
 							required>
-						<div style="display: block; margin-top: 10px;">
-							<input type=checkbox>로그인 상태 유지
-						</div>
-
-						<div id=btns style="margin-top: 10px;">
-							<button id=loginCheck class="btn btn-default" style=>로그인</button>
-						</div>
-
-						<br> 또는
-
-						<div id=snsLoginBtns>
-							<div>
-								<a id="kakaoLoginBtn"><img src="img/kakao.png" height=35px
-									width=35px>카카오톡으로 로그인하기</a>
-							</div>
-							<div>
-								<a id=fbLoginBtn href="javascript:signIn()"><img
-									src="img/facebook.png" height=35px width=35px>페이스북으로
-									로그인하기</a>
-							</div>
-							<div>
-								<button type=button onclick="google_login_in()">구글로
-									로그인하기</button>
-
-							</div>
-						</div>
-
+						<div style="display: block; margin-top: 10px;"></div>
 					</div>
 				</form>
+
+				<div id=btns style="margin-top: 10px;">
+					<button id=loginCheck class="button button-shadow"
+						style="font-size: 15px;">로그인</button>
+				</div>
+
+				<br>
+				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
+
+				<div id=snsLoginBtns style="margin: 0 auto; width: 100%;">
+					<button id="kakaoLoginBtn"
+						class="button button-shadow yellow text-blanco text-shadow-negra">🗨</button>
+					<button id=fbLoginBtn
+						class="button blue button-shadow text-blanco-fb text-shadow-negra"
+						onclick="javascript:signIn()">f</button>
+					<button id=ggLoginBtn class="button button-shadow"
+						onclick="javascript:google_login_in()">G</button>
+				</div>
 			</div>
 		</div>
+	</div>
 
 
 
 
-		<!-- SNS 로그인 API  -->
+	<!-- SNS 로그인 API  -->
 
-		<div>
-			<%@ include file="logInWithKakao.jsp"%>
-			<%@ include file="signUpWithFaceBook.jsp"%>
-			<%@ include file="signUpWithGoogle.jsp"%>
-
-		</div>
+	<div>
+		<%@ include file="logInWithKakao.jsp"%>
+		<%@ include file="signUpWithFaceBook.jsp"%>
+		<%@ include file="signUpWithGoogle.jsp"%>
 
 	</div>
+
 
 	<!-- footer -->
 	<footer>

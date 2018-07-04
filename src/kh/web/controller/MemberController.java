@@ -65,49 +65,12 @@ public class MemberController extends HttpServlet {
 				if (result) {
 					System.out.println("해당 페이스북 아이디 이미 존재");
 					request.getSession().setAttribute("loginId", fbId);
-					dst = "main.jsp"; // 그냥 해당 아이디로 로그인 시켜버리기
+					dst = "index.jsp"; // 그냥 해당 아이디로 로그인 시켜버리기
 				} else {
 					response.getWriter().print(result);
 				}
 
 			}
-//
-//			else if (command.equals("/signUpWithSnsEmail.co")) {
-//
-//				String kakao_id = request.getParameter("kakao_id");
-//				String kakao_nickname = request.getParameter("kakao_nickname");
-//				String email = request.getParameter("email");
-//				String name = request.getParameter("name");
-//
-//				MemberDAO mDAO = new MemberDAO();
-//				MemberDTO mDTO = new MemberDTO();
-//
-//				SnsDTO sDTO = new SnsDTO();
-//
-//				sDTO.setKakao_id(kakao_id);
-//				sDTO.setKakao_nickName(kakao_nickname);
-//
-//				mDTO.setMember_email(email);
-//				mDTO.setMember_name(name);
-//
-//				boolean result = mDAO.InptEmailtoAccnt(mDTO, sDTO);
-//
-//				System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " + result);
-//
-//				System.out.println("signUpWithSnsEmail.co - kakao_id" + kakao_id);
-//
-//				if (result) {
-//					isRedirect = false;
-//					request.setAttribute("result", result);
-//					System.out.println("result : " + result);
-//					request.setAttribute("kakaoSecretNumId", kakao_id);
-//					System.out.println(kakao_id);
-//					dst = "kakaoSignUpPage.jsp";
-//
-//				} else {
-//					System.out.println("/signUpWithSnsEmail : failed ");
-//					dst = "error.html";
-//				}
 
 			 else if (command.equals("/kakaoIdDplCheck.co")) {
 
@@ -131,7 +94,7 @@ public class MemberController extends HttpServlet {
 
 				if (dplChck) {
 					request.getSession().setAttribute("loginId", kakao_id); // 세션 담기
-					dst = "main.jsp";
+					dst = "index.jsp";
 
 				} else {
 					request.setAttribute("kakaoSecretNumId", kakao_id);
@@ -159,13 +122,13 @@ public class MemberController extends HttpServlet {
 				sDTO.setKakao_photo(kakaoPhoto);
 
 				boolean dplChck = mDAO.kakaoDplChck(sDTO);
-				if (dplChck) {// 카톡 아이디 중복체크, true면 존재 > main page로
+				if (dplChck) {// 카톡 아이디 중복체크, true면 존재 > index page로
 
 					isRedirect = true;
 					request.getSession().setAttribute("loginId", kakaoId);
-					dst = "main.jsp";
+					dst = "index.jsp";
 
-				} else { // true가 아니면, 없음 -> 회원가입 > main.jsp 로 세션 담아 보내기
+				} else { // true가 아니면, 없음 -> 회원가입 > index.jsp 로 세션 담아 보내기
 
 					boolean result = mDAO.signUpWithKakao(sDTO);
 					System.out.println(result);
@@ -175,7 +138,7 @@ public class MemberController extends HttpServlet {
 						isRedirect = false;
 						request.getSession().setAttribute("loginId", kakaoId);
 						request.setAttribute("result", result);
-						dst = "main.jsp";
+						dst = "index.jsp";
 					} else {
 						dst = "error.html";
 					}
@@ -244,7 +207,7 @@ public class MemberController extends HttpServlet {
 				if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
 
 					request.setAttribute("emailDplRslt", emailDplRslt);
-					dst = "main.jsp";
+					dst = "index.jsp";
 
 				} else { // 없는 경우 signUp 시키기
 
@@ -254,7 +217,7 @@ public class MemberController extends HttpServlet {
 
 						isRedirect = false;
 						request.setAttribute("loginId", memberEmail);
-						dst = "main.jsp";
+						dst = "index.jsp";
 
 					} else {
 
@@ -269,7 +232,7 @@ public class MemberController extends HttpServlet {
 				request.getSession().removeAttribute("loginId");
 
 				isRedirect = true;
-				dst = "main.jsp";
+				dst = "index.jsp";
 			} else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");
 
@@ -307,7 +270,7 @@ public class MemberController extends HttpServlet {
 
 					request.getSession().setAttribute("loginId", fb_uid);
 					request.setAttribute("isFbUidExist", isFbUidExist);
-					dst = "main.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
+					dst = "index.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
 					System.out.println(1);
 				} else {
 					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
@@ -316,7 +279,7 @@ public class MemberController extends HttpServlet {
 					if (fbSignUpResult) {
 						isRedirect = false;
 						request.getSession().setAttribute("loginId", fb_uid);
-						dst = "main.jsp";
+						dst = "index.jsp";
 						System.out.println(3);
 					} else {
 						System.out.println(4);
