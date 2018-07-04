@@ -13,16 +13,10 @@
 			
 			Kakao.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
 	
-			
-			
-			
 			Kakao.Auth
 					.loginForm({
 						success : function(authObj) {
 			
-							console.log(emailId);
-							console.log(JSON.stringify(authObj));
-							console.log(authObj.kaccount_email);
 							
 							Kakao.API
 									.request({
@@ -33,14 +27,13 @@
 											console.log(res.kaccount_email);
 											console.log(res.id);
 											console.log(res.properties['nickname']);
-											console.log(res.properties['profile_image']);
+											alert(res.properties['profile_image']);
 											
-											commit("stop!");
 											
 											var kakaoId = res.id;
 											var kakaoNickName = res.properties['nickname'];
 											var kakaoPhoto = res.properties['profile_image'];
-											var kakaoEmail = emailId;
+											
 											document
 													.getElementById("hiddenKakaoId").value = kakaoId;
 											document

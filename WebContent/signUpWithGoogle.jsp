@@ -62,15 +62,11 @@ console.log(ggId+ ggName+ggImgUrl+ggEmail);
 		alert("DupleResult : " + DupleResult);
 
 if(DupleResult=="true"){
-	var autoLogin = comfirm("존재하지 않는 아이디 입니다. 자동으로 회원가입 하시겠습니까?");
-	if(autoLogin == true){
-		location.href="main.jsp";
-	}else{
+		location.href="index.jsp";
 		
 	}
 }else{
-	alert("이미 존재하는 아이디 입니다. 자동으로 로그인 됩니다.");
-	location.href="main.jsp";
+	location.href="index.jsp";
 	
 }
 		
@@ -93,52 +89,4 @@ if(DupleResult=="true"){
   </script>
 
 
-
-<!-- <script> -->
-<!--  	 var googleSignIn = function onSignIn(googleUser) { -->
-
-<!--  		var profile = googleUser.getBasicProfile(); -->
-
-<!--  		var ggId = profile.getId(); -->
-<!--  		var ggName = profile.getName(); -->
-<!--  		var ggImgUrl = profile.getImageUrl(); -->
-<!--  		var ggEmail = profile.getEmail(); -->
-
-<!--  		console.log('ID: ' + profile.getId());  Do not send to your backend! Use an ID token instead. -->
-<!--  		console.log('Name: ' + profile.getName()); -->
-<!--  		console.log('Image URL: ' + profile.getImageUrl()); -->
-<!--  		console.log('Email: ' + profile.getEmail());  This is null if the 'email' scope is not present. -->
-
-<!--  		$.ajax({ -->
-<!--  			url : "ggAccntProc.co", -->
-<!--  			method : "post", -->
-<!--  			data : { -->
-<!--  				"ggId" : ggId, -->
-<!--  				"ggName" : ggName, -->
-<!--  				"ggImgUrl" : ggImgUrl, -->
-<!--  				"ggEmail" : ggEmail -->
-<!--  			}, -->
-<!--  			success : function(result) { -->
-<!--  				console.log(result); -->
-<!--  				if (result) { -->
-<!--  					alert("GG reg succeeded"); -->
-<!--  					location.href = "main.jsp"; -->
-
-<!--  				} else { -->
-<!--  					alert("GG reg Failed"); -->
-<!--  					location.href = "join.jsp"; -->
-<!--  				} -->
-<!--  			} -->
-
-<!--  		}) -->
-
-<!--  	} -->
-
-<!--  	function signOut() { -->
-<!--  		var auth2 = gapi.auth2.getAuthInstance(); -->
-<!--  		auth2.signOut().then(function() { -->
-<!--  			console.log('User signed out.'); -->
-<!--  		}); -->
-<!--  	} -->
-<!-- </script> -->
 

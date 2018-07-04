@@ -2,6 +2,7 @@ package kh.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -110,7 +111,7 @@ public class MemberController extends HttpServlet {
 
 				System.out.println("/kakaoId : " + kakaoId);
 				System.out.println("/kakaoNickName : " + kakaoNickName);
-				System.out.println("/kakaoEmail : " + kakaoNickName);
+				System.out.println("/kakaoEmail : " + kakaoEmail);
 				System.out.println("/kakaoPhoto : " + kakaoPhoto);
 
 				MemberDAO mDAO = new MemberDAO();
@@ -124,25 +125,42 @@ public class MemberController extends HttpServlet {
 				boolean dplChck = mDAO.kakaoDplChck(sDTO);
 				if (dplChck) {// 카톡 아이디 중복체크, true면 존재 > index page로
 
+					System.out.println(kakaoId + " : 해당 카톡 아이디가 있어 그냥 로그인 됩니다.");
 					isRedirect = true;
 					request.getSession().setAttribute("loginId", kakaoId);
 					dst = "index.jsp";
 
-				} else { // true가 아니면, 없음 -> 회원가입 > index.jsp 로 세션 담아 보내기
+				} else { // true가 아니면, 없음 -> 회원가입 > index.jsp 로 세션 담아 보내기, 또는 해당 이메일로 가입된 아이디가 이미 있음
 
-					boolean result = mDAO.signUpWithKakao(sDTO);
-					System.out.println(result);
+					try {
+						boolean result = mDAO.signUpWithKakao(sDTO);
 
-					if (result) {
+						System.out.println(result);
 
-						isRedirect = false;
-						request.getSession().setAttribute("loginId", kakaoId);
-						request.setAttribute("result", result);
-						dst = "index.jsp";
-					} else {
-						dst = "error.html";
+						if (result) {
+
+							isRedirect = false;
+							request.getSession().setAttribute("loginId", kakaoId);
+							request.setAttribute("result", result);
+							dst = "index.jsp";
+						} else {
+							Exception e = new Exception();
+							e.printStackTrace();
+							System.out.println(e.getMessage());
+
+							dst = "login.jsp";
+						}
+
+					} catch (Exception e) {
+						if (e.getMessage().contains("unique")) {
+							isRedirect=false;
+							request.setAttribute("emailExist", true);
+							dst = "signUpPlusWithKakao.jsp";
+						} else {
+							dst = "error.jsp";
+						}
+
 					}
-
 				}
 
 			} else if (command.equals("/login.co")) {
@@ -177,6 +195,11 @@ public class MemberController extends HttpServlet {
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
 
+				if (accntInfo == null) {
+					isRedirect = true;
+					dst = "login.jsp";
+				}
+
 				String camePhotoUrl = accntInfo.getMember_picture();
 				System.out.println("/camePhotoUrl : " + camePhotoUrl);
 
@@ -185,7 +208,7 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("userLocation", accntInfo.getMember_location());
 				request.setAttribute("userPicture", camePhotoUrl);
 
-				if (camePhotoUrl.equals("null")) {
+				if (camePhotoUrl == null) {
 
 					camePhotoUrl = "img/default_member.png";
 					request.setAttribute("userPicture", camePhotoUrl);
@@ -329,6 +352,15 @@ public class MemberController extends HttpServlet {
 
 				return;
 
+			} else if (command.equals("/isThisEmailExist.co")) {
+
+				String signUpTryingKakaoEmail = request.getParameter("SignUpTryingKakaoEmail");
+				MemberDAO mDAO = new MemberDAO();
+				boolean result = mDAO.isThisEmailExist(signUpTryingKakaoEmail);
+
+				isRedirect = false;
+				request.setAttribute("result", result);
+				return;
 			}
 
 			if (isRedirect == false) {

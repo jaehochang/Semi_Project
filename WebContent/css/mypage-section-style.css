@@ -3,23 +3,27 @@ snsBts * {
 }
 
 #profilebox {
-	width: 1000px;
+	display: flex;
+	justify-content: center;
 }
 
 #profilebody, #profileaside {
+	vertical-align: middle;
 	display: inline-block;
+	height: 500px;
 	width: 40%;
 	padding: 10px;
-	border-radius:5px;
-	box-shadow:1px 1px 3px grey;
-	margin:5px;
-	margin-top:30px;
-}
-#profilebody *{
-	width:100%;
+	border-radius: 5px;
+	box-shadow: 1px 1px 3px grey;
+	margin: 5px;
+	margin-top: 30px;
 }
 
-h1,h2,h3,h4 {
-	padding-bottom:10px;
-	display:inline-block;
+#profilebody * {
+	width: 100%;
+}
+
+h1, h2, h3, h4 {
+	padding-bottom: 10px;
+	display: inline-block;
 }

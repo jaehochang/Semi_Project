@@ -90,7 +90,7 @@
 			</div>
 
 			<div id=joinedgroup-list>
-				<img src="${requestScope.photoURL}" width=250px height=150px>
+				<img src="${requestScope.photoURL}" width=250px height=150px style="border-radius:50px;">
 				<div id="flushbottom">
 					<h4>4조 B4A3</h4>
 				</div>

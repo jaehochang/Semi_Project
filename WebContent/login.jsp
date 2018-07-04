@@ -73,11 +73,36 @@
 	})
 </script>
 
-
-
-<style></style>
 </head>
-<body class="fadeIn animated">
+<body>
+
+	<c:if test="${requestScope.emailExist==true}">
+
+		<!-- Login Failure Modal -->
+		<div id="loginFailModal" class="modal fade">
+			<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="icon-box">
+							<i class="material-icons">&#xE5CD;</i>
+						</div>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body text-center">
+						<h1>실패!</h1>
+						<p>이미 중복된 이메일이 존재합니다!</p>
+						<button class="button button-shadow" data-dismiss="modal"
+							onclick="window.location.href='getEmailAddress.jsp'">이메일 찾기</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</c:if>
+
+
 
 	<c:if test="${requestScope.loginResult==false}">
 
@@ -94,7 +119,7 @@
 					</div>
 					<div class="modal-body text-center">
 						<h1>실패!</h1>
-						<p>아이디 혹은 비밀번호가 올바르지 않습니다. 확인해주세요!</p>
+						<p>회원정보가 올바르지 않습니다!</p>
 						<button class="button button-shadow" data-dismiss="modal"
 							onclick="window.close()">다시 로그인</button>
 
