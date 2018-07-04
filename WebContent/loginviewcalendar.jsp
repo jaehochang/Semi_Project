@@ -147,13 +147,18 @@
 <div class="container">
 	<div class="row">
 		<div class="list-group" id="myList" role="tablist">
-  		<a class="list-group-item list-group-item-action active" data-toggle="list" href="#printlist" role="tab" id="alllist">All</a>
-  		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="recolist">Recommend</a>
+  		<a class="list-group-item list-group-item-action active" data-toggle="list" href="#printlist" role="tab" id="alllist" data-value="all">All</a>
+  		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="recolist" data-value="recommend">Recommend</a>
+		<a class="list-group-item list-group-item-action " data-toggle="list" href="#printlist" role="tab" id="mymeet" data-value="mymeet">My meet 들</a>
+  		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="come" data-value="check">참석하는 Meet</a>
 		</div>
 	</div>
 </div>
 
 	<div class="container">
+	<div class="row">
+	 <button type="button" id="today">today</button>
+	</div>
 		<div class="row">
 			<div class="col-md-8"></div>
 			<div class="col-md-4 ml-auto" id="datepicker"></div>
@@ -233,6 +238,8 @@
 	//alert(damn);
 	//damn = $(".list-group > .active").text();
 	//alert(damn);
+	//var suck = $(".list-group > .active").data("value");
+	//alert(suck+"맞을듯");
 	
 	setTimeout(function() {
 		
@@ -288,9 +295,10 @@
 	
 	function findEvents (date) { 
 		
-		var showtypes = $(".list-group > .active").text();
+		//var showtypes = $(".list-group > .active").text();
+		var showtypes = $(".list-group > .active").data("value");
 		
-		if(showtypes == "All"){
+		if(showtypes == "all"){
 		$.ajax({
 			url:"calendarchoice.meet",
 			type:"post",
@@ -334,7 +342,11 @@
 			}
 		});
 		
-		}else{
+		}else if(showtypes == "recommend"){
+			
+		}else if(showtypes == "mymeet"){
+			
+		}else if(showtypes == "check"){
 			
 		}
 		
@@ -342,6 +354,63 @@
 	}
 	//datawhat = $("#datepicker").val();
 	//alert(datawhat);
+	$("#today").click(function() {
+		$("#datepicker").datepicker('setDate', new Date());
+		var showtypes = $(".list-group > .active").data("value");
+		var date = $("#datepicker").val();
+		if(showtypes == "all"){
+			$.ajax({
+				url:"calendarchoice.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+						for(var i=0;i<response.length;i++){
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+					  	
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+					  	
+						}
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
+		}else if(showtypes == "recommend"){
+			
+		}else if(showtypes == "mymeet"){
+			
+		}else if(showtypes == "check"){
+			
+		}
+		
+		
+	});
 	
 	$("#alllist").click(function() {
 		var nowdata = $("#datepicker").val();

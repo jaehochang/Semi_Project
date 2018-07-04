@@ -148,6 +148,21 @@ public class MeetingController extends HttpServlet {
 
 				System.out.println(jarray);
 				new Gson().toJson(jarray,response.getWriter());
+			}else if(command.equals("/recommend.meet")) {
+				JSONArray jarray =new JSONArray();
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				
+			}else if(command.equals("/mymeet.meet")) {
+				JSONArray jarray =new JSONArray();
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				
+			}else if(command.equals("/checkup.meet")) {
+				JSONArray jarray =new JSONArray();
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				
 			}
          
          if(isajax) {
