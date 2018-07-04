@@ -106,7 +106,18 @@
 
 	});
 </script>
+<STYLE>
 
+/* 나눔고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+
+/* 제주고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+body {
+/*    font-family: 'Jeju Gothic', serif; */
+   font-family: 'Nanum Gothic', serif;
+}
+</STYLE>
 
 
 <body>
@@ -203,7 +214,7 @@
                   <strong><fmt:formatDate value="${items.meeting_start_time}" pattern="M"/>월</strong>
                     <span><fmt:formatDate value="${items.meeting_start_time}" pattern="dd"/></span>
                   </time>
-                  <a class="img-card" href="meeting.meet?seq=${items.meeting_seq}"><img src="files/1.jpg"> </a>
+                  <a class="img-card" href="meeting.meet?seq=${items.meeting_seq}"><img src="files/${items.meeting_picture}"> </a>
                   <div class="card-content">
                      <div class="" style="color:#8b96a8;" >
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="M"/>월

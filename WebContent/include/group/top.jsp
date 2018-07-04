@@ -67,6 +67,51 @@
 				<img src="files/${item.group_picture }" id="group-main-img"
 					class="img-responsive img-rounded">
 			</div>
+
+			<form action="upload.file?group_seq=${item.group_seq }" method="post" id="writeForm" enctype="multipart/form-data">
+				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
+				<button type="button" class="btn btn-secondary"
+					style="width: 200px; background-color: #b831d9; color: white;"
+					id="btn-upload">업로드</button>
+			</form>
+			
+			<script>
+				$("#btn-upload").click(function(e){
+					e.preventDefault();
+					$('#file').click();
+				});
+			</script>
+
+			<c:if test="${fileResult >=1 }">
+				<script>
+					var val = "${systemName}";
+					var seq = "${item.group_seq}";
+					$.ajax({
+						url : "../test.file",
+						type : "get",
+						data : {
+							value : val
+						},
+						success : function(resp) {
+
+							var contents = resp.html;
+
+							$("#top-contents-img").empty();
+							$("#top-contents-img").html(contents);
+						},
+						error : function(request, status, error) {
+							console.log(request.status + " : " + status + " : "
+									+ error);
+						},
+						complate : function() {
+							console.log("ajax 종료");
+						}
+					});
+				</script>
+			</c:if>
+
+
+
 			<div id="top-contents-info">
 				<div id="info-title">
 					<div id="info-groupname">

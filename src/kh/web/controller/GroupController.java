@@ -313,7 +313,9 @@ public class GroupController extends HttpServlet {
 				
 				JSONObject json = new JSONObject();
 				
-				json.put("name", "회원입니다.");
+				String html = "";
+				
+				json.put("html", html);
 				
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
@@ -322,9 +324,8 @@ public class GroupController extends HttpServlet {
 				response.getWriter().flush();
 				response.getWriter().close();
 				
-				
-				isRedirect = false;
-				dst="groupInfo.jsp";
+				isRedirect = true;
+				ajax="ajax";
 				
 				
 			}else if(command.equals("/out.group")) {
@@ -336,7 +337,7 @@ public class GroupController extends HttpServlet {
 				int result = dao.groupMemberOut(group_seq, member_email);
 				
 				isRedirect = false;
-				dst="groupInfo.jsp";
+				dst="groupMain.group?group_seq="+groupSeq+"&page=info";
 			}
 			
 			
@@ -362,7 +363,13 @@ public class GroupController extends HttpServlet {
 			}else{
 				
 				response.sendRedirect(dst);
+			}else if(isRedirect == true) {
+				if(ajax.equals("ajax")) {
+					System.out.println("test");
+				}else {
 			}
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

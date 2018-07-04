@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" type="text/css"
-	href="css/groupInfo-style.css?ver=1">
+	href="css/groupInfo-style.css?ver=2">
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
 
@@ -26,32 +26,63 @@
 
 	<div class="btn-group"
 		style="position: absolute; right: 500px; top: 475px;">
-		<c:if test="${isGroupMember eq true }">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false">회원입니다.</button>
-		</c:if>
-		<c:if test="${isGroupMember eq false }">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				id="joinGroupBT">이 그룹에 가입하기</button>
-		</c:if>
-		
-		<button id="t">이얍</button>
-
+			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
+		<ul class="dropdown-menu" role="menu">
+		</ul>
+	</div>
+	
+	<div class="btn-group"
+		style="position: absolute; right: 500px; top: 475px;">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+			aria-expanded="false" id="memberBT">회원입니다.</button>
 		<ul class="dropdown-menu" role="menu">
 		<c:forEach var="result" items="${result }">
 			<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
 			<li><a href="#">그룹 신고</a></li>
 		</c:forEach>
 		</ul>
-
 	</div>
+	
+	<c:if test="${isGroupMember eq true }">
+		<script>
+			$("#joinGroupBT").hide();
+		</script>
+	</c:if>
+	
+	<c:if test="${isGroupMember eq false }">
+		<script>
+			$("#memberBT").hide();
+		</script>
+	</c:if>
+	
+	
 
 	<c:forEach var="result" items="${result }">
-				<input type="hidden" id="group_seq" value="${result.group_seq }">
-				<input type="hidden" id="group_name" value="${result.group_name }">
+			<input type="hidden" id="group_seq" value="${result.group_seq }">
+			<input type="hidden" id="group_name" value="${result.group_name }">
 	</c:forEach>
 	
-			<script>
+			
+			
+
+	<c:if test="${isGroupMember eq false }">
+		<!-- Single button -->
+		<div class="btn-group"
+			style="position: absolute; right: 430px; top: 475px;">
+			<button type="button" class="btn btn-default dropdown-toggle"
+				data-toggle="dropdown" aria-expanded="false" id="test">
+				<span class="glyphicon glyphicon-option-horizontal"
+					aria-hidden="true"></span> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#">그룹 신고</a></li>
+			</ul>
+		</div>
+
+	</c:if>
+	
+	
+	<script>
 				$("#joinGroupBT").click(function(){
 					
 					var group_seq = $("#group_seq").val();
@@ -63,9 +94,11 @@
 						data:{group_seq:group_seq,group_name:group_name},
 						success:function(resp){
 							
-							var name = resp.name;
 							
-							$("#t").text(name);
+							
+							$("#memberBT").show();
+							$("#joinGroupBT").hide();
+							$("#test").remove();
 						},
 						error:function() {
 							console.log("에러발생 !" + request.status + " : " + status + " : " + error);
@@ -74,23 +107,10 @@
 				});
 				
 			</script>
-			
-
-	<c:if test="${isGroupMember eq false }">
-		<!-- Single button -->
-		<div class="btn-group"
-			style="position: absolute; right: 430px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false">
-				<span class="glyphicon glyphicon-option-horizontal"
-					aria-hidden="true"></span> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">그룹 신고</a></li>
-			</ul>
-		</div>
-
-	</c:if>
+	
+	
+	
+	
 </div>
 
 <div id="contents">
