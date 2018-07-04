@@ -130,6 +130,16 @@ public class GroupDAO {
 
 		Connection con = DBUtils.getConnection();
 		
+		String sql1 = "select group_seq, group_name,count(*) as count from group_member group by group_seq,group_name";
+		PreparedStatement pstat1 = con.prepareStatement(sql1);
+		ResultSet rs1 = pstat1.executeQuery();
+		List<String> count = new ArrayList<>();
+		
+		while(rs1.next()) {
+			count.add(rs1.getInt("group_seq")+":"+rs1.getInt("count"));
+		}
+		
+		
 		double latitude = Double.parseDouble(lat);
 		
 		double longitude =Double.parseDouble(lng);
