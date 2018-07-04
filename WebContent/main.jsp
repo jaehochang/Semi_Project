@@ -121,6 +121,7 @@ body {
                   <c:when test="${status.count!=1 && status.count%3==1}">
                      <div class="item">
                      <div class="row">
+                     
                   </c:when>
                </c:choose>
                
