@@ -183,6 +183,11 @@ li:nth-child(2) {
 position:relative;
 left:340px;
 }
+#hot{
+position:relative;
+left:160px;
+top:40px;
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -191,52 +196,105 @@ left:340px;
 	$(document).ready(function() {
 	
 		$('#Bt2').click(function() {
-			var IMP = window.IMP; 
-		IMP.init('imp14365188');
-		IMP.request_pay({
-			pg:'kakaopay',
-			amount:'1000',
-			pay_method:'card',
-			merchant_uid:'merchant_'+new Date().getTime(),
-            name:'주문명:결제테스트',	
-            buyer_email:'plmn8550@naver.com',
-            buyer_name : '홍길동',
-            buyer_tel:'010-6402-6090',
-            buyer_addr:'서울특별시 영등포구 당산동',
-            buyer_postcode:'123-456',
-            m_redirect_url:'payEnd.group'
-		
-		}, function(response) {
-			//결제 후 호출되는 callback함수
-			if (response.success) { //결제 성공
-				console.log(response);
-			var msg='결제가 완료되었습니다.';
-			msg+='고유ID : '+response.imp_uid;
-			msg+='상점 거래ID : '+response.merchant_uid;
-			msg+='결제 금액 : '+response.paid+amount;
-			msg+='카드 승인번호 : '+response.apply_num;
 			
-			// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-	        // jQuery로 HTTP 요청
-	        jQuery.ajax({
-	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-	            method: "POST",
-	            headers: { "Content-Type": "application/json" },
-	            data: {
-	                imp_uid: rsp.imp_uid,
-	                merchant_uid: rsp.merchant_uid
-	            }
-	        }).done(function (data) {
-
-	        })
 			
-			} else {
-				var msg='결제에 실패하였습니다.';
-				msg+='에러내용 : '+response.error_msg;
+			if ($("#radio1").is(":checked")) {
+				IMP.request_pay({
+					pg:'kakaopay',
+					amount:'3000',
+					pay_method:'card',
+					merchant_uid:'merchant_'+new Date().getTime(),
+		            name:'주문명:결제테스트',	
+		            buyer_email:'plmn8550@naver.com',
+		            buyer_name : '홍길동',
+		            buyer_tel:'010-6402-6090',
+		            buyer_addr:'서울특별시 영등포구 당산동',
+		            buyer_postcode:'123-456',
+		            m_redirect_url:'payEnd.group'
 				
-			}
-			alert(msg);
-		})
+				}, function(response) {
+					//결제 후 호출되는 callback함수
+					if (response.success) { //결제 성공
+						console.log(response);
+					var msg='결제가 완료되었습니다.';
+					msg+='고유ID : '+response.imp_uid;
+					msg+='상점 거래ID : '+response.merchant_uid;
+					msg+='결제 금액 : '+response.paid+amount;
+					msg+='카드 승인번호 : '+response.apply_num;
+					
+					// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			        // jQuery로 HTTP 요청
+			        jQuery.ajax({
+			            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+			            method: "POST",
+			            headers: { "Content-Type": "application/json" },
+			            data: {
+			                imp_uid: rsp.imp_uid,
+			                merchant_uid: rsp.merchant_uid
+			            }
+			        }).done(function (data) {
+
+			        })
+					
+					} else {
+						var msg='결제에 실패하였습니다.';
+						msg+='에러내용 : '+response.error_msg;
+						
+					}
+					alert(msg);
+				})
+	        }else if($("#radio2").is(":checked")){
+	        	IMP.request_pay({
+	    			pg:'kakaopay',
+	    			amount:'1000',
+	    			pay_method:'card',
+	    			merchant_uid:'merchant_'+new Date().getTime(),
+	                name:'주문명:결제테스트',	
+	                buyer_email:'plmn8550@naver.com',
+	                buyer_name : '홍길동',
+	                buyer_tel:'010-6402-6090',
+	                buyer_addr:'서울특별시 영등포구 당산동',
+	                buyer_postcode:'123-456',
+	                m_redirect_url:'payEnd.group'
+	    		
+	    		}, function(response) {
+	    			//결제 후 호출되는 callback함수
+	    			if (response.success) { //결제 성공
+	    				console.log(response);
+	    			var msg='결제가 완료되었습니다.';
+	    			msg+='고유ID : '+response.imp_uid;
+	    			msg+='상점 거래ID : '+response.merchant_uid;
+	    			msg+='결제 금액 : '+response.paid+amount;
+	    			msg+='카드 승인번호 : '+response.apply_num;
+	    			
+	    			// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+	    	        // jQuery로 HTTP 요청
+	    	        jQuery.ajax({
+	    	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+	    	            method: "POST",
+	    	            headers: { "Content-Type": "application/json" },
+	    	            data: {
+	    	                imp_uid: rsp.imp_uid,
+	    	                merchant_uid: rsp.merchant_uid
+	    	            }
+	    	        }).done(function (data) {
+
+	    	        })
+	    			
+	    			} else {
+	    				var msg='결제에 실패하였습니다.';
+	    				msg+='에러내용 : '+response.error_msg;
+	    				
+	    			}
+	    			alert(msg);
+	    		})
+	        	
+	        }
+	        	
+	        	
+
+		IMP.init('imp14365188');
+	
 
 		})
 	});

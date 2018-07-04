@@ -26,19 +26,21 @@
 					</div>
 					<div class="timeline-body">
 					<p style="text-align:center">${requestScope.groupName}이(가) 생성되었습니다!</p>
-					<p>주소는 <a href="#">http://localhost://</a></p>
 						<p style="font-size:20px;">이제 어떤 단계가 남았을까요?</p>
 						<br>
-						<p style="font-size:16px;">●맞춤화: 지금 Meetup을 맞춤화할 수 있습니다.</p>
-						<p style="font-size:16px;">●검토: 커뮤니티 팀에서 귀하의 Meetup을 검토합니다.</p>
-						<p style="font-size:16px;">●발표: 검토가 끝나면 관심을 보일 만한 회원에게 Meetup이 즉시 발표됩니다.</p>
+						<p style="font-size:16px;">●맞춤화: 지금 MeetNow를 맞춤화할 수 있습니다.</p>
+						<p style="font-size:16px;">●검토: 커뮤니티 팀에서 귀하의  MeetNow를 검토합니다.</p>
+						<p style="font-size:16px;">●발표: 검토가 끝나면 관심을 보일 만한 회원에게  MeetNow가 즉시 발표됩니다.</p>
 
 					</div>
 				</div>
 			</li>
 		</ul>
-		<input type="button" id="nextBt" class="btn btn-button default" value="새로 시작하기"
-				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold"></input>
+		<form method="get" id=groupCreateConfirm action="groupMain.group">
+		<input type="hidden" id="group_seq" value="${group_seq}" name="group_seq">
+		<input type="submit" id="nextBt" class="btn btn-button default" value="시작할까요!"
+		style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold"/></form>
+		
 	</div>
 	<!-- 점보트론 -->
 	

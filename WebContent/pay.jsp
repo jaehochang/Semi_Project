@@ -5,6 +5,8 @@
 
 <div class="container">
 	<div class="row">
+	<br>
+	<br>
 		<h1>구독 요금제 선택</h1>
 		<h4>${requestScope.groupName} 님에게가장적합한요금제를선택합니다 근처에 있는 회원들에게
 			MEETNOW를 홍보해드리며</h4>
@@ -12,7 +14,8 @@
 		<br>
 		<div class="row">
 			<div class="col-md-4 text-center">
-				<div class="box" id="payBox">
+				<img id="hot" src="./image/hot배지.png" style="width: 120px; height: 100px">
+				<div class="box" id="payBox" style="border:1px solid gray">
 					<div class="box-content">
 						<h1 class="tag-title">무제한</h1>
 						<hr />
@@ -20,7 +23,7 @@
 						<h3 class="text-center" style="color: blue">50% 할인</h3>
 						<p>Starts at 3천원/월</p>
 						<br /> <a data-toggle="collapse" href="#nextrow" id="Bt1"
-							class="btn btn-block btn-default">무제한 선택</a>
+							class="btn btn-block btn-default" style="background:#b831d9;color:white">무제한 선택</a>
 					</div>
 				</div>
 			</div>
@@ -40,12 +43,12 @@
 
 							<div class="radio radio-primary">
 								<input type=radio name="radio" id="radio1" value="option1">
-								<label for="radio1"> 6개월 </label>
+								<label for="radio1"> 6 months for $8 </label>
 							</div>
-
+<br>
 							<div class="radio radio-primary">
 								<input type=radio name="radio" id="radio2" value="option2">
-								<label for="radio2"> 1개월 </label>
+								<label for="radio2"> 1 months for $13 </label>
 							</div>
 <div class="container" style="background-color:blue">
 
@@ -53,10 +56,9 @@
 
 							<br>
 							<hr />
-							<p>MeetNow의 구독은 자동적으로 리뉴얼됩니다.여기다가 언제까지 리뉴될껀지 돈과 함께 그리고 취소를
-								언제까지 가능한지 생성</p>
+							<p>MeetNow의 구독은 자동적으로 리뉴얼됩니다.구독 취소를 원하시면 Support@meetnow.com or 1588-1200으로 연락주시길 바랍니다</p>
 							<br /> <button id="Bt2"
-								class="btn btn-block btn-default">계속</button>
+								class="btn btn-block btn-default" style="background:#b831d9;color:white">계속</button>
 						</div>
 
 

@@ -80,6 +80,11 @@ li:nth-child(1) {
 li:nth-child(2) {
 	padding-right: 15px;
 }
+#row1,#row2,#row3,#row4{
+position:relative;
+left:178px;
+}
+
 
 #bg-video {
 	top: 0px;
@@ -96,6 +101,7 @@ li:nth-child(2) {
 {
     opacity: 0;
     border-radius: 15px;
+    font-weight:10px;
     
 }
 
@@ -121,6 +127,7 @@ li:nth-child(2) {
 {
     /* Move the check mark back when checked */
 	text-indent: 0;
+	font-weigth:15px;
 }
 
 #photoName {
@@ -385,12 +392,16 @@ li:nth-child(2) {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 	background-color: #555;
 }
+
 </style>
 <script>
+
 	$(document).on('change', '.badgebox', function() {
-
+		
+		
+		
 		if ($(this).prop('checked')) {
-
+			
 			$.ajax({
 				url : "checked.autocomplete",
 				data : {
@@ -405,9 +416,12 @@ li:nth-child(2) {
 					alert("NO");
 				}
 			})
+			
+			
+			
 
 		} else {
-			alert("체크 해제")
+			
 			$.ajax({
 				url : "unchecked.autocomplete",
 				data : {
@@ -422,12 +436,19 @@ li:nth-child(2) {
 				}
 			})
 		}
-
+       
 	})
 
-	$(document)
-			.ready(
-					function() {
+	
+	$(document).ready(function() {
+$('#nextBt').click(function(){
+	var group_seq=$('#group_seq').val();
+	alert(group_seq);
+	$('#groupCreateConfirm').submit();
+	
+})
+	
+	
 
 						var items = new Array;
 
@@ -438,12 +459,17 @@ li:nth-child(2) {
 						var uncheckStr = [];
 						var uncheckStr2=[];
 						var uncheckStrArr=[];
-						var filterArr=[];						
-						$('#tagText').keyup(
-										function() {
+						var filterArr=[];
+						
+						
+						
+						$('#tagText').keyup(function() {
 											$('#printTerm1').empty();
 											$('#printTerm2').empty();
 
+											
+											
+											
 											var term = $(this).val();
 
 											$.ajax({
@@ -471,15 +497,15 @@ li:nth-child(2) {
 															if (uncheckStr.length > 0|| checkStr.length > 0) {
 
 																for (var j = 0; j < checkStr.length; j++) {
-																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-success\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ checkStr[j] + "\"  style=\"width:10;height:5;background-color:white; border: 2px solid #bcbcbc;\" checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0;font-weight:bold\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"checkbox\" value=\""+ checkStr[j] + "\"   checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
 																}
 
 																for (var i = 0; i < uncheckStr.length; i++) {
-																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-success\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ uncheckStr[i] + "\"  style=\"width:10;height:5;background-color:white;border:1px\" >"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"checkbox\" value=\""+ uncheckStr[i] + "\">"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
 
 																}
 
-															} else if (uncheckStr.length == null|| checkStr.length == null) {
+															} else{
 																alert("no result")
 																$('#printTerm1').html("해당 결과가 없습니다.");
 
@@ -495,57 +521,26 @@ li:nth-child(2) {
 
 										});
 
-						/* 							
-						
-						+"<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default\">"
-						+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""
-		+ response[1] + "\"  style=\"width:10;height:5;background-color:white;border:1px\" >"+ response[1]
-						+"&nbsp;<span class=\"badge\">&check;</span></label></span>" */
 
-						/* $('#create').validate({
-							 rules: {
-								 eventText: { required: true, minlength: 10 },
-								 textArea: { required: true, minlength: 50  },
-						        
-						        },
-						        messages: {
-						        	eventText: {
-						                required: "이름에 힌트를 좀 더 추가해 보세요",
-						                
-						           },
-						            textArea: { required: "최소 50자 이상 입력하세요" },
-						            
-						        },
-						        submitHandler: function (create) {
-						        	 create.submit(); 
-						        },
-						        success: function (e) { 
-						            alert("노이어 ㅋㅋㅋㅋ")
-						            }
-						        
-							
-							
-						}) */
 
 						$('#eventText').mouseleave(function() {
-							if ($('#eventText').val() == '') {
+							if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
-							} else {
+							}else{
 								$('#showText').html("");
-
 							}
 						});
 
 						/*------------------------------------------  */
 
 						$('#textArea').mouseleave(function() {
-							if ($('#textArea').val() == '') {
+							if (!$('#textArea').val()) {
+								alert("텍스트어레이없음")
 								$('#textAreaWarning').text("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
-							} else {
+							}else{
 								$('#textAreaWarning').text("");
-
 							}
 						});
 
@@ -560,35 +555,34 @@ li:nth-child(2) {
 							
 							
 						}) */
+						
+						
+						
+						
 
 						/*  ---------------이벤트 적용------------------- */
 
-						/* if($('#printTerm').val()=null){
-							
-							$('#printTerm').html(	
-							<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default\">"
-							+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""
-							+ listArray.get(i) + "\" onclick=bindAction() style=\"width:13px;height:5px;background-color:white;border:1px\" >"+ listArray.get(i)
-							+"&nbsp;<span class=\"badge\">&check;</span></label></span>);
-							
-						}
-						 */
+						
 
 						$("#fourthBt").click(function() {
 
-							/* if (!$('#eventText').val()) {
+							/*  if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
 								$('#eventText').css("border-color", "red");
 								$('#eventText').focus();
 								return;
-							}
+							}else{
+								$('#showText').html("");
+							} */
 
-							if ($("#hiddenTag").length < 16) {
-								$('#printTerm2').html("주제 선택은 15개까지만 가능합니다.")
+							/* if ($("#hiddenTag").length < 16) {
+								$('#printTerm2').html("태그 선택은 15개까지만 가능합니다.")
 								$('#printTerm2').css("color", "red");
 								$('#printTerm2').css("border-color", "red");
 								return;
+							}else{
+								$('#printTerm2').html("");
 							} */
 
 							/* var regpw = /^[A-Za-z0-9]{50,500}$/;
@@ -600,7 +594,7 @@ li:nth-child(2) {
 								return;
 							} */
 
-							/* if ($('#textArea').val() == '') {
+							 /* if (!$('#textArea').val()) {
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
 								$('#textArea').css("border-color", "red");
@@ -629,6 +623,9 @@ li:nth-child(2) {
 
 					});
 </script>
+
+
+
 </head>
 
 

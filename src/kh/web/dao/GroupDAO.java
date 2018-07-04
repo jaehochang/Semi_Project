@@ -162,7 +162,9 @@ public class GroupDAO {
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		
-		String sql = "insert into create_group values(group_seq.nextval,?,?,?,?,?,'default.jpg')";
+		
+		
+		String sql = "insert into create_group values(group_seq.nextval,?,?,'위도','경도',?,?,?,'default.jpg',sysdate,0,sysdate,0,0,sysdate)";
 		PreparedStatement  psat = con.prepareStatement(sql);
 		psat.setString(1,dto.getGroup_leader());
 		psat.setString(2, dto.getGroup_name());
@@ -170,31 +172,43 @@ public class GroupDAO {
 		psat.setString(4, dto.getGroup_interests());
 		psat.setString(5, dto.getGroup_info());
 		int result = psat.executeUpdate();
-
+        
+		
 		con.commit();
+		
+		/*String sql1="select group_seq from dual";
+		PreparedStatement pstat1 = con.prepareStatement(sql1);
+		ResultSet rs= pstat1.executeQuery();
+		if(!(rs.next())) {
+			pstat1.close();
+		}
+		int group_seq=rs.getInt("NEXTVAL");
+		
 		con.close();
-		psat.close();
+		psat.close();*/
 		
 		
 		return result;
 		
 		
 	}
-	public String printNameGroup(String groupTitle) throws Exception{
+	public String[] printNameGroup(String groupTitle) throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select group_name from create_group where group_name=?";
+		String sql = "select group_seq,group_name from create_group where group_name=?";
 		PreparedStatement psat = con.prepareStatement(sql);
 		psat.setString(1, groupTitle);
 		
 		ResultSet rs = psat.executeQuery();
 		rs.next();
+		String group_seq=rs.getString("group_seq");
 		String groupName=rs.getString("group_name");
-		System.out.println("그룹이름:"+groupName);
+		
+		System.out.println("그룹이름:"+groupName+"그룹seq : "+group_seq);
 		rs.close();
 		psat.close();
 		con.close();
 		
-		return (String) groupName;
+		return new String[] {group_seq,groupName};
 		
 		
 	}
