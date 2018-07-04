@@ -47,19 +47,48 @@ public class MeetingController extends HttpServlet {
             
          } else if (command.equals("/meeting.meet")) {
             int meeting_seq = Integer.parseInt(request.getParameter("seq"));
+            String member_email = (String) request.getSession().getAttribute("loginId");
+            
             MeetingDTO result = mdao.getEachMeetingData(meeting_seq);
             List<AttendDTO> result_attend = adao.getAttendMembers(meeting_seq);
+            
             int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+            int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+            
+            boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
+            
             
             request.setAttribute("result", result);
             request.setAttribute("result_attend", result_attend);
-            request.setAttribute("result_countAttendMembers", result_countAttendMembers);
+            request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+            request.setAttribute("result_areYouAttend", result_areYouAttend);
             isRedirect = false;
             dst = "meeting.jsp";
          } else if (command.equals("/attend.meet")) {
             int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
             String member_email = (String) request.getSession().getAttribute("loginId");
-            int result = adao.addAttendMember(meeting_seq, member_email);
+            int people = Integer.parseInt(request.getParameter("people"));
+            
+            boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
+            
+            if (result_areYouAttend == false) {
+               int result = adao.addAttendMember(meeting_seq, member_email, people);
+            } else {
+               System.out.println("이미 가입되어있습니다. ");
+            }
+            
+            isRedirect = false;
+            dst = "meeting.meet?seq="+meeting_seq;
+         } else if (command.equals("/attendCancel.meet")) {
+            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+             String member_email = (String) request.getSession().getAttribute("loginId");
+             int result = adao.deleteAttendMember(meeting_seq, member_email);
+             if(result!=0) {
+                System.out.println("참석 취소 성공");
+             }
+             isRedirect = false;
+             dst = "meeting.meet?seq="+meeting_seq;
+                
          }
          
          if(isRedirect) {

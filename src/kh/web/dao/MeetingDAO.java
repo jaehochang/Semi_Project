@@ -73,13 +73,31 @@ public class MeetingDAO {
       pstat.setInt(1, meeting_seq);
       ResultSet rs = pstat.executeQuery();
       rs.next();
-      
       int result = rs.getInt("count");
+      
       rs.close();
       pstat.close();
       con.close();
+      
       return result;
       
+   }
+   
+   public int countWithPeople(int meeting_seq) throws Exception {
+      Connection con= DBUtils.getConnection();
+         String sql = "select sum(attend_people) people_sum from attend where meeting_seq = ?";
+         PreparedStatement pstat = con.prepareStatement(sql);
+         pstat.setInt(1, meeting_seq);
+         ResultSet rs = pstat.executeQuery();
+         rs.next();
+         
+         int result = rs.getInt("people_sum");
+         
+         rs.close();
+         pstat.close();
+         con.close();
+         
+         return result;
    }
    
 }
