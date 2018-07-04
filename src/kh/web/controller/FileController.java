@@ -90,7 +90,7 @@ public class FileController extends HttpServlet {
             
             
             isRedirect = false;
-            dst = "file.jsp";
+            dst = "groupMain.group?group_seq="+groupSeq+"&page=info";
             
             
          }else if(command.equals("/test.file")) {

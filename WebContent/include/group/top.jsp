@@ -69,7 +69,7 @@
 			</div>
 
 			<form action="upload.file?group_seq=${item.group_seq }" method="post" id="writeForm" enctype="multipart/form-data">
-				<input type="file" id="file" name="file" onchange="this.form.submit()" />
+				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
 				<button type="button" class="btn btn-secondary"
 					style="width: 200px; background-color: #b831d9; color: white;"
 					id="btn-upload">업로드</button>
@@ -87,7 +87,7 @@
 					var val = "${systemName}";
 					var seq = "${item.group_seq}";
 					$.ajax({
-						url : "test.file",
+						url : "../test.file",
 						type : "get",
 						data : {
 							value : val
