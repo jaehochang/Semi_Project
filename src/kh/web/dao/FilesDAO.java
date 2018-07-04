@@ -3,6 +3,7 @@ package kh.web.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import kh.web.dto.GroupPicDTO;
 import kh.web.utils.DBUtils;
 
 public class FilesDAO {
@@ -22,4 +23,24 @@ public class FilesDAO {
 		
 		return result;
 	}
+	
+	public int addGroupPic(GroupPicDTO dto) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "insert into group_picture values(group_picture_seq.nextval,?,?,?)";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		pstat.setInt(1, dto.getGroup_seq());
+		pstat.setString(2, dto.getOriginal_name());
+		pstat.setString(3, dto.getSystem_name());
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
+		pstat.close();
+		con.close();
+		
+		return result;
+		
+	}
+	
 }

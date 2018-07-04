@@ -73,9 +73,8 @@ public class GroupDAO {
    
    public List<MygroupDTO> myGroupList(String member_email) throws Exception{
       Connection con = DBUtils.getConnection();
-      String sql = "select mygroup_seq, system_name, group_name ,group_picture.group_seq "
-            + "from group_picture join mygroup on group_picture.group_seq = mygroup.group_seq "
-            + "where mygroup.member_email=? order by mygroup_seq";
+      String sql = "select my.mygroup_seq , g.group_picture, my.group_name, my.group_seq from mygroup my, create_group g "
+      		+ "where my.group_seq = g.group_seq and my.member_email=? order by my.mygroup_seq";
       PreparedStatement pstat = con.prepareStatement(sql);
       pstat.setString(1, member_email);
       
@@ -88,7 +87,7 @@ public class GroupDAO {
          
          dto.setGroup_seq(rs.getInt("group_seq"));
          dto.setGroup_name(rs.getString("group_name"));
-         dto.setSystem_name(rs.getString("system_name"));
+         dto.setGroup_picture(rs.getString("group_picture"));
          
          result.add(dto);
       }
@@ -327,6 +326,31 @@ public class GroupDAO {
       
       return result;
       
+   }
+   
+   public List<GroupPicDTO> groupPagePic(int group_seq) throws Exception{
+	   Connection con = DBUtils.getConnection();
+	   String sql = "select * from group_picture where group_seq=?";
+	   PreparedStatement pstat = con.prepareStatement(sql);
+	   pstat.setInt(1, group_seq);
+	   
+	   ResultSet rs = pstat.executeQuery();
+	   List<GroupPicDTO> result = new ArrayList<>();
+	   
+	   while(rs.next()) {
+		   GroupPicDTO dto = new GroupPicDTO();
+		   
+		   dto.setGroup_picture_seq(rs.getInt("group_picture_seq"));
+		   dto.setGroup_seq(rs.getInt("group_seq"));
+		   dto.setOriginal_name(rs.getString("original_name"));
+		   dto.setSystem_name(rs.getString("system_name"));
+		   
+		   result.add(dto);
+		   
+	   }
+	   
+	   return result;
+	   
    }
    
 }

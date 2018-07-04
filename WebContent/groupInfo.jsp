@@ -260,30 +260,11 @@
 					</div>
 					<div id="photo-pics">
 						<div class="row">
-							<div class="col-md-4">
-								<img src="img/1.jpg" class="group-photo">
+							<c:forEach var="groupPagePic" items="${groupPagePic }">
+							<div class="col-md-4" style="border:1px solid black;">
+								<img src="files/${groupPagePic.system_name }" class="group-photo">
 							</div>
-
-							<div class="col-md-4">
-								<img src="img/1.jpg" class="group-photo">
-							</div>
-
-							<div class="col-md-4">
-								<img src="img/1.jpg" class="group-photo">
-							</div>
-
-							<div class="col-md-4">
-								<img src="img/1.jpg" class="group-photo">
-							</div>
-
-							<div class="col-md-4">
-								<img src="img/1.jpg" class="group-photo">
-							</div>
-
-							<div class="col-md-4">
-								<img src="img/1.jpg" class="group-photo">
-							</div>
-
+						</c:forEach>
 						</div>
 					</div>
 				</div>

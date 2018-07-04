@@ -141,7 +141,7 @@
 				<div class="col-md-3" style="padding: 10px;">
 					<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 					<div class="over-img">
-						<img src="files/${item.system_name }" class="img_size">
+						<img src="files/${item.group_picture }" class="img_size">
 					</div>
 					<h4 class="group_title">${item.group_name }</h4>
 					
