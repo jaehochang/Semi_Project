@@ -88,7 +88,7 @@ public class GroupDAO {
 
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_name(rs.getString("group_name"));
-			dto.setSystem_name(rs.getString("system_name"));
+			dto.setGroup_picture(rs.getString("system_name"));
 
 			result.add(dto);
 		}
