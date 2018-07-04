@@ -98,8 +98,6 @@ public class MeetingController extends HttpServlet {
              isRedirect = false;
              dst = "meeting.meet?seq="+meeting_seq;
                 
-         }
-            int result = adao.addAttendMember(meeting_seq, member_email);
          }else if(command.equals("/calendarchoice.meet")) {
 				try {
 					JSONArray jarray =new JSONArray();
@@ -199,7 +197,10 @@ public class MeetingController extends HttpServlet {
          if(isajax) {
 				
 			}else {
-				if(isRedirect) {
+           
+         
+				
+      		if(isRedirect) {
 					response.sendRedirect(dst);
 				} 
 				else {
@@ -207,9 +208,9 @@ public class MeetingController extends HttpServlet {
 					rd.forward(request, response);
 				}
 //response.getWriter().append("Served at: ").append(request.getContextPath());
-		}
-      
-      } catch (Exception e) {
+		
+			}
+      } catch(Exception e) {
          e.printStackTrace();
       }
       

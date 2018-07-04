@@ -229,6 +229,7 @@ public class GroupController extends HttpServlet {
 //				String member_email = request.getSession().getAttribute("loginId").toString();
 				System.out.println(3);
 				ajax_dist = "null";
+				ajax = "null";
 				if (((String) request.getSession().getAttribute("loginId")) != null) {
 					isRedirect = false;
 					dst = "create.jsp";
