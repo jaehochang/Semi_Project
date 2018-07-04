@@ -139,8 +139,8 @@
 
 		<div class="btn-group" role="group" id="search-check"
 			style="position: absolute; bottom: 15px; left: 750px;">
-			<button type="button" class="btn btn-default">그룹들</button>
-			<button type="button" class="btn btn-default">달력</button>
+			<button type="button" class="btn btn-default" id="gro">그룹들</button>
+			<button type="button" class="btn btn-default" id="cal">달력</button>
 		</div>
 	</div>
 
@@ -456,6 +456,10 @@
 				console.log("성공이건 실패건 어찌되었든 ajax 종료");
 			}
 		});
+	});
+	
+	$('#gro').click(function(e) {
+		location.href = 'loginview.jsp';
 	});
 	
 	
