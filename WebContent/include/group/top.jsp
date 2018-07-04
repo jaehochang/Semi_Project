@@ -16,7 +16,7 @@
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
@@ -71,8 +71,8 @@
 			<form action="upload.file?group_seq=${item.group_seq }" method="post" id="writeForm" enctype="multipart/form-data">
 				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
 				<button type="button" class="btn btn-secondary"
-					style="width: 200px; background-color: #b831d9; color: white;"
-					id="btn-upload">업로드</button>
+					style="width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
 			</form>
 			
 			<script>

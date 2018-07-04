@@ -13,7 +13,7 @@
 <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/meeting-style.css?ver=5">
+<link rel="stylesheet" type="text/css" href="css/meeting-style.css?ver=6">
 <link rel="stylesheet" type="text/css" href="css/meeting-nav-style.css?ver=1">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
 
@@ -205,7 +205,7 @@ body {
          </div>
          <br>
          <div class="row">
-            <div class="col-md-3">
+               <div class="col-md-3">
                   <img src="files/${result.meeting_picture}">
                   <div class="member-info">
                      <p>

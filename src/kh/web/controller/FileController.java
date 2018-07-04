@@ -18,6 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kh.web.dao.FilesDAO;
+import kh.web.dto.GroupPicDTO;
 
 
 @WebServlet("*.file")
@@ -63,6 +64,7 @@ public class FileController extends HttpServlet {
             
             System.out.println(11);
             int fileResult=0;
+            int GroupPicResult = 0;
             
             if(names != null){
                while(names.hasMoreElements()){
@@ -79,12 +81,16 @@ public class FileController extends HttpServlet {
                         fileResult = filesDAO.groupMainPic(systemName,group_seq);
                         request.setAttribute("systemName", systemName);
                         
+                        GroupPicResult = filesDAO.addGroupPic(new GroupPicDTO(0,group_seq,originalName,systemName));
+                        
                      } catch (Exception e) {
                         e.printStackTrace();
                      }
                   }
                }
             }
+            
+            System.out.println("테이블에 들어감?"+GroupPicResult);
             
             request.setAttribute("fileResult", fileResult);
             
