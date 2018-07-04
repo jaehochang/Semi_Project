@@ -49,7 +49,8 @@
 <link href="./resources/docs/examples/jumbotron/jumbotron.css"
 	rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="css/animate.css">
+<!-- Animated  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 <title>Meet now</title>
 

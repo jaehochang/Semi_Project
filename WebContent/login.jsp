@@ -13,16 +13,21 @@
 
 <meta name="google-signin-client_id"
 	content="29772503024-a0vbpecnn40g77lm6r1coi2sg7c1rmr5.apps.googleusercontent.com">
-<!-- google api -->
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>MeetNow 로그인</title>
 
+
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css"
-	href="css/login-failure-modal.css">
+<link rel="stylesheet" type="text/css" href="css/login-style.css">
+<link rel="stylesheet" type="text/css" href="css/login-failure-modal.css">
+<link rel="stylesheet" type="text/css" href="css/button-style.css">
 
+<!-- Animated  -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 <!-- Modal Icon -->
 <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
@@ -66,210 +71,13 @@
 		$("#loginFailModal").modal('show');
 
 	})
-
-	$(function(){
-		$('nav a').click(function(){
-		var speed=200;
-		var i=$(this).index();
-		$('.page.current').animate(){
-			opacity:0, marginTop:80},speed,function(){
-				$(this).removeClass('current');
-			});
-		});
-		}
-	})
-	</script>
+</script>
 
 
 
-<style>
-#snsLoginBtns {
-	display: block;
-	margin: 0 auto;
-	text-align: center;
-}
-
-html {
-	overflow-y: scroll;
-}
-
-.page {
-	display: none;
-	opacity: 0;
-}
-
-.page.current {
-	display: block;
-	opacity: 1;
-}
-
-.button {
-	/*[ Position ]*/
-	margin: 0 10px 50px 10px;
-	/* 	float:left; */
-	/* 	left: 200px; */
-	/* 	top:90px; */
-	/* [ Botton ] */
-	position: relative;
-	height: 70px;
-	width: 70px;
-	cursor: pointer;
-	line-height: 47px;
-	background-color: #f1f1f1;
-	text-align: center;
-	font-size: 30px;
-	display: inline-block;
-	text-shadow: 0px -1px 1px rgba(255, 255, 255, 0.5);
-	color: #444;
-	/* Transitions */
-	-moz-transition: .1s ease-out;
-	-webkit-transition: .1s ease-out;
-	-o-transition: .1s ease-out;
-	-ms-transition: .1s ease-out;
-	-khtml-transition: .1s ease-out;
-	transition: .1s ease-out;
-	/* Shadows */
-	box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
-	-moz-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
-	-ms-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
-	-webkit-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
-	-khtml-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
-	-o-box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
-	/* Borders */
-	border-width: 1px;
-	border-style: solid;
-	border-left-color: #777;
-	border-right-color: #777;
-	border-top-color: #999;
-	border-bottom: 4px solid #555;
-	/* {{ No selectable }} */
-	user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-o-user-select: none;
-	-ms-user-select: none;
-	-khtml-user-select: none;
-	/*[{- Border radius -}]*/
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-o-border-radius: 5px;
-	/* Gradient */
-	background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
-	background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
-	background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
-	background-image: -khtml-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
-	background-image: -ms-linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
-	background-image: linear-gradient(top, transparent, rgba(0, 0, 0, 0.2));
-}
-
-.button:hover {
-	color: #333;
-	/*{Gradient}*/
-	background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
-	background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
-	background-image: -ms-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
-	background-image: -khtml-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
-	background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
-	background-image: linear-gradient(top, transparent, rgba(0, 0, 0, 0.17));
-}
-
-.button:active {
-	margin-top: 4px;
-	color: #777;
-	border: 1px solid #999;
-	/*{Shadow}*/
-	box-shadow: inset 0 0 5px 0 #333;
-	-moz-box-shadow: inset 0 0 5px 0 #333;
-	-webkit-box-shadow: inset 0 1px 2px 0 #333, 0 1px 1px 0 #fff;
-}
-
-.button-shadow {
-	box-shadow: 3px 3px 3px grey;
-}
-
-.text-shadow-negra {
-	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.2);
-}
-
-.text-blanco {
-	color: #F2F2F2;
-}
-
-.text-blanco:hover {
-	color: #3f3035;
-}
-
-.text-blanco:active {
-	color: #3f3035;
-}
-
-.text-blanco-fb {
-	color: #F2F2F2;
-}
-
-.text-blanco-fb:hover {
-	color: #dfe3ee;
-}
-
-.text-blanco-fb:active {
-	color: #dfe3ee;
-}
-
-.blue {
-	background-color: #659AE0;
-	border-bottom-color: #436796;
-	border-left-color: #5981AF;
-	border-right-color: #5981AF;
-	border-top-color: #719CCE;
-}
-
-.red {
-	background-color: #C46A6A;
-	border-bottom-color: #A05D5D;
-	border-left-color: #AF5757;
-	border-right-color: #AF5757;
-	border-top-color: #C66767;
-}
-
-.green {
-	background-color: #82C43A;
-	border-color: #578720;
-}
-
-.yellow {
-	background-color: #EFEC40;
-	border-color: #9B9800;
-}
-
-.brown {
-	background-color: #594343;
-	border-bottom-color: #423F1B;
-	border-right-color: #3F3D28;
-	border-left-color: #3F3D28;
-	border-top-color: #7C6262;
-}
-
-.black {
-	background-color: #555;
-	border-bottom-color: #444;
-	border-left-color: #666;
-	border-right-color: #666;
-	border-top-color: #777;
-}
-
-.orange {
-	background-color: #FAA407;
-	border-bottom-color: #BA7500;
-	border-left-color: #DB8A00;
-	border-right-color: #DB8A00;
-	border-top-color: #E89200;
-}
-</style>
+<style></style>
 </head>
-<body>
+<body class="fadeIn animated">
 
 	<c:if test="${requestScope.loginResult==false}">
 
@@ -305,37 +113,34 @@ html {
 		<div class="panel-body" style="width: 50%; margin: 0 auto;">
 			<div id=loginheader style="margin-bottom: 15px;">
 				<h2>로그인</h2>
-				<p>아직 등록하지 않으셨나요?</p>
-				<button type="button" class="button button-shadow"
-					data-toggle="modal" data-target='#idTypeQuestions'
-					style="width: 90px; font-size: 15px;">가입하기</button>
 			</div>
-			<div id=loginbody style="border-bottom: 1px solid #ddd;">
+			<div id=loginbody class="panel-body"
+				style="border-bottom: 1px solid #ddd;">
 				<form action="login.co" method=post>
 
-					<div class=form-group>
+					<div class="form-group animated fadeIn">
 						<label for=member_email>이메일 주소</label> <input class=form-control
 							type=email id=member_email
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
 							title="이메일 형태로 입력하셔야 합니다." placeholder="example@gmail.com"
-							required name=member_email max=50>
+							required name=member_email max=50 width=auto>
 					</div>
-					<div class=form-group>
+					<div class="form-group animated fadeIn">
 						<label for=pwd>비밀번호</label>
 						<div>
 							<a href="#">비밀번호를 잊으셨나요?</a>
 						</div>
 
 						<input id=pwd type=password max=13 name=pwd class=form-control
-							required>
+							required width=auto>
 						<div style="display: block; margin-top: 10px;"></div>
 					</div>
-				</form>
 
-				<div id=btns style="margin-top: 10px;">
-					<button id=loginCheck class="button button-shadow"
-						style="font-size: 15px;">로그인</button>
-				</div>
+					<div id=btns style="margin-top: 10px;">
+						<button id=loginCheck class="button button-shadow"
+							style="font-size: 15px;">로그인</button>
+					</div>
+				</form>
 
 				<br>
 				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
@@ -344,7 +149,7 @@ html {
 					<button id="kakaoLoginBtn"
 						class="button button-shadow yellow text-blanco text-shadow-negra">🗨</button>
 					<button id=fbLoginBtn
-						class="button blue button-shadow text-blanco-fb text-shadow-negra"
+							class="button blue button-shadow text-blanco-fb text-shadow-negra"
 						onclick="javascript:signIn()">f</button>
 					<button id=ggLoginBtn class="button button-shadow"
 						onclick="javascript:google_login_in()">G</button>

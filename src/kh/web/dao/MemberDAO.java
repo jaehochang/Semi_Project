@@ -86,7 +86,7 @@ public class MemberDAO {
 
       if (result > 0) {
          return true;
-      } else {
+      } else { // unique constraint
          return false;
       }
 
@@ -213,12 +213,12 @@ public class MemberDAO {
          psKakao.setString(1, loginId);
          rs = psKakao.executeQuery();
 
-         if (rs.next()) { // 있으면 mDTO에 담기
+         if (rs.next()) { // 카카오 아이디 있으면 카카오 계정 정보 mDTO에 담기
 
             System.out.println("email과 접속한 시도한 loginId 검사");
-            mDTO.setMember_name(rs.getString("member_name"));
+            mDTO.setMember_name(rs.getString("kakao_nickname"));
             mDTO.setMember_interests(rs.getString("member_interests"));
-            mDTO.setMember_picture(rs.getString("member_picture"));
+            mDTO.setMember_picture(rs.getString("kakao_photo"));
             mDTO.setMember_joindate(rs.getString("member_joindate"));
             mDTO.setMember_location(rs.getString("member_location"));
 
@@ -231,11 +231,11 @@ public class MemberDAO {
             psFb.setString(1, loginId);
             rs = psFb.executeQuery();
 
-            if (rs.next()) { // 있으면 담기
+            if (rs.next()) { // 페북 아이디 있으면 mDTO에 페북 정보 담기
 
-               mDTO.setMember_name(rs.getString("member_name"));
+               mDTO.setMember_name(rs.getString("fb_name"));
                mDTO.setMember_interests(rs.getString("member_interests"));
-               mDTO.setMember_picture(rs.getString("member_picture"));
+               mDTO.setMember_picture(rs.getString("fb_photourl"));
                mDTO.setMember_joindate(rs.getString("member_joindate"));
                mDTO.setMember_location(rs.getString("member_location"));
 
@@ -249,15 +249,15 @@ public class MemberDAO {
 
                if (rs.next()) { // 있으면 담기
                   System.out.println("db에 현 login 정보 존재, mDTO에 담기");
-                  mDTO.setMember_name(rs.getString("member_name"));
+                  mDTO.setMember_name(rs.getString("ggname"));
                   mDTO.setMember_interests(rs.getString("member_interests"));
-                  mDTO.setMember_picture(rs.getString("member_picture"));
+                  mDTO.setMember_picture(rs.getString("ggimgurl"));
                   mDTO.setMember_joindate(rs.getString("member_joindate"));
                   mDTO.setMember_location(rs.getString("member_location"));
 
                } else {
 
-                  System.out.println("/MemberDAO.getAccountInfo [해당하는 로그인 아이디 없음]");
+                  System.out.println("/MemberDAO.getAccountInfo : 해당하는 로그인 아이디 없음 ");
                   Exception e = null;
                   e.printStackTrace();
 

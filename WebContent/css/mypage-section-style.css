@@ -3,21 +3,20 @@ snsBts * {
 }
 
 #profilebox {
-	width: 100%;
-	height: 600px;
+	width: 1000px;
 }
 
 #profilebody, #profileaside {
 	display: inline-block;
-	float: left;
 	width: 40%;
 	padding: 10px;
-	position: relative;
-	left: 10%;
 	border-radius:5px;
 	box-shadow:1px 1px 3px grey;
 	margin:5px;
 	margin-top:30px;
+}
+#profilebody *{
+	width:100%;
 }
 
 h1,h2,h3,h4 {

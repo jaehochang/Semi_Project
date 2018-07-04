@@ -4,7 +4,6 @@
 	text-decoration: none;
 }
 
-
 .cool-link::after {
 	content: '';
 	display: block;
@@ -38,8 +37,8 @@ footer {
 	padding: 8px;
 	width: 100%;
 	box-sizing: border-box;
+	position: absolute;
 }
-
 
 hr.style-six {
 	border: 0;

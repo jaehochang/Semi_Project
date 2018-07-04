@@ -72,7 +72,7 @@ public class MemberController extends HttpServlet {
 
 			}
 
-			 else if (command.equals("/kakaoIdDplCheck.co")) {
+			else if (command.equals("/kakaoIdDplCheck.co")) {
 
 				String kakao_id = request.getParameter("kakao_id");
 				String kakao_nickname = request.getParameter("kakao_nickname");
@@ -177,10 +177,20 @@ public class MemberController extends HttpServlet {
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
 
+				String camePhotoUrl = accntInfo.getMember_picture();
+				System.out.println("/camePhotoUrl : " + camePhotoUrl);
+
 				request.setAttribute("userName", accntInfo.getMember_name());
 				request.setAttribute("userEmail", accntInfo.getMember_email());
 				request.setAttribute("userLocation", accntInfo.getMember_location());
-				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userPicture", camePhotoUrl);
+
+				if (camePhotoUrl.equals("null")) {
+
+					camePhotoUrl = "img/default_member.png";
+					request.setAttribute("userPicture", camePhotoUrl);
+				}
+
 				request.setAttribute("userInterests", accntInfo.getMember_interests());
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 
