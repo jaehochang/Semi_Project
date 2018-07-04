@@ -45,7 +45,7 @@ public class GroupController extends HttpServlet {
 			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
-			String ajax_all = null;
+			String ajax = null;
 			String ajax_dist = null;
 			List<String> distResult = null;
 			List<MygroupDTO> allGroupList = null;
@@ -360,13 +360,14 @@ public class GroupController extends HttpServlet {
 				response.setContentType("application/json");
 				System.out.println(json);
 				new Gson().toJson(json, response.getWriter());
-			}else{
-				
-				response.sendRedirect(dst);
 			}else if(isRedirect == true) {
 				if(ajax.equals("ajax")) {
 					System.out.println("test");
-				}else {
+				
+			     }
+			}else{
+				
+				response.sendRedirect(dst);
 			}
 			
 			
