@@ -260,7 +260,7 @@
 					</div>
 					<div id="photo-pics">
 						<div class="row">
-							<c:forEach var="groupPagePic" items="${groupPagePic }">
+							<c:forEach var="groupPagePic" items="${groupPagePic}">
 							<div class="col-md-4" style="border:1px solid black;">
 								<img src="files/${groupPagePic.system_name }" class="group-photo">
 							</div>
