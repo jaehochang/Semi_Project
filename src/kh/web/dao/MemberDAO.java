@@ -832,6 +832,24 @@ public class MemberDAO {
 			return false;
 		}
 	}
+	public boolean isMyGroup(String email) throws Exception{
+		
+		Connection con = DBUtils.getConnection();
+		String sql = "select member_email from mygroup";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		
+		if(rs.next()) {
+			con.close();
+			pstat.close();
+			return true;
+		}else {
+			con.close();
+			pstat.close();
+			return false;
+			
+		}
+	}
 
 	// public String getProfilePhoto(MemberDTO dto) throws Exception {
 	// Connection con = DBUtils.getConnection();

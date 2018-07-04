@@ -61,7 +61,7 @@ if(DupleResult=="true"){
 // 	}else{
 		
 	}
-}else{
+else{
 	alert("이미 존재하는 아이디 입니다. 자동으로 로그인 됩니다.");
 	location.href="main.jsp";
 	
