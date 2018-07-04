@@ -187,15 +187,18 @@ public class GroupController extends HttpServlet {
 				System.out.println("로그인 아뒤:   " + loginid);
 
 				MemberDAO mDAO = new MemberDAO();
-
+                
 				if (loginid!= null) {
 					isRedirect = false;
 					
-					/*if() {   만약 구독페이를 했다면 create.jsp*/
+					
+					String payCheck=dao.payCheck(loginid);
+					
+					if(payCheck.equals("y")) {  
 						dst = "create.jsp";
-					/*}else 구독페이안하면 pay.jsp{
-						
-					}*/
+					}else{
+						dst = "pay.jsp";
+					}
 					
 					
 				} else {
@@ -203,7 +206,7 @@ public class GroupController extends HttpServlet {
 					dst = "signUpPage.jsp";
 
 				}
-			} else if (command.equals("/create.group")) {
+			}else if (command.equals("/create.group")) {
 
 				request.setCharacterEncoding("UTF-8");
 				String loginId = "plmn8550@naver.com";
@@ -224,7 +227,7 @@ public class GroupController extends HttpServlet {
 				dto.setGroup_name(groupTitle);
 				dto.setGroup_info(groupContents);
 				int result = dao.insertGroup(dto);
-                //result=group_seq
+                
 				if (result > 0) {
 					String[] printResult = dao.printNameGroup(groupTitle);
 					String gseq=printResult[0];

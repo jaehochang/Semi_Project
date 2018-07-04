@@ -159,6 +159,31 @@ public class GroupDAO {
 		return result;
 	}
 	
+	public String payCheck(String member_email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select payCheck from create_group_payment join member on member.member_seq = create_group_payment.member_seq where member.member_email=?";
+		
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, member_email);
+		ResultSet rs = pstat.executeQuery();
+		
+		rs.next();
+		String payCheck=rs.getString("payCheck");
+		
+		
+		System.out.println("페이유무:"+payCheck);
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return payCheck;
+		
+	}
+	
+	
+	
+	
+	
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		
@@ -175,18 +200,8 @@ public class GroupDAO {
         
 		
 		con.commit();
-		
-		/*String sql1="select group_seq from dual";
-		PreparedStatement pstat1 = con.prepareStatement(sql1);
-		ResultSet rs= pstat1.executeQuery();
-		if(!(rs.next())) {
-			pstat1.close();
-		}
-		int group_seq=rs.getInt("NEXTVAL");
-		
 		con.close();
-		psat.close();*/
-		
+		psat.close();
 		
 		return result;
 		
