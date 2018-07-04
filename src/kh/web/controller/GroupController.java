@@ -49,11 +49,13 @@ public class GroupController extends HttpServlet {
 			String ajax_dist = null;
 			List<String> distResult = null;
 			List<MygroupDTO> allGroupList = null;
-			String member_email = request.getSession().getAttribute("loginId").toString();
-			   
+			System.out.println(1);
+//			String member_email = request.getSession().getAttribute("loginId").toString();
+			System.out.println(2);
+			
          if (command.equals("/list.group")) {
             
-//            String member_email = request.getSession().getAttribute("loginId").toString();
+           String member_email = request.getSession().getAttribute("loginId").toString();
             
         
             
@@ -99,7 +101,7 @@ public class GroupController extends HttpServlet {
 			}
             
          }else if(command.equals("/groupMain.group")) {
-//            String member_email = request.getSession().getAttribute("loginId").toString();
+           String member_email = request.getSession().getAttribute("loginId").toString();
             
             String page = request.getParameter("page");
             String group_seq = request.getParameter("group_seq");
@@ -183,7 +185,7 @@ public class GroupController extends HttpServlet {
             
          }else if(command.equals("/join.group")) {
             
-//            String member_email = request.getSession().getAttribute("loginId").toString();
+            String member_email = request.getSession().getAttribute("loginId").toString();
             String groupSeq = request.getParameter("group_seq");
             int group_seq = Integer.parseInt(groupSeq);
             String group_name = request.getParameter("group_name");
@@ -219,25 +221,28 @@ public class GroupController extends HttpServlet {
             isRedirect = false;
             dst="groupInfo.jsp";
          }else if (command.equals("/createRequest.group")) {
-
+        	 	
 				System.out.println("createRequest.group 들어옴");
 				MemberDAO mDAO = new MemberDAO();
 				
-				String isMyGroup = request.getAttribute("isMyGroup").toString();
+//				String isMyGroup = request.getAttribute("isMyGroup").toString();
 //				String member_email = request.getSession().getAttribute("loginId").toString();
+				System.out.println(3);
+				ajax_dist = "null";
 				if (((String) request.getSession().getAttribute("loginId")) != null) {
-					isRedirect = true;
+					isRedirect = false;
 					dst = "create.jsp";
 				} else {
+					System.out.println("로그인 안했을 때");
 					isRedirect = true;
-					dst = "signUpPage.jsp";
-
+					System.out.println("로그인 안했을 때2");
+					dst = "signUpWithEmail.jsp";
+					System.out.println("로그인 안했을 때3");
 				}
 			} else if (command.equals("/create.group")) {
 
 				request.setCharacterEncoding("UTF-8");
-				String loginId = "plmn8550@naver.com";
-				/* (String)request.getSession().getAttribute("loginId"); */
+				String loginId = (String)request.getSession().getAttribute("loginId");
 				String location = (String) request.getParameter("location");
 				String tags = (String) request.getParameter("tags");
 				String groupTitle = (String) request.getParameter("eventName");
@@ -297,7 +302,7 @@ public class GroupController extends HttpServlet {
 				
 			}else if(command.equals("/join.group")) {
 				
-//				String member_email = request.getSession().getAttribute("loginId").toString();
+			String member_email = request.getSession().getAttribute("loginId").toString();
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 				String group_name = request.getParameter("group_name");
@@ -324,7 +329,7 @@ public class GroupController extends HttpServlet {
 				
 			}else if(command.equals("/out.group")) {
 				
-//				String member_email = request.getSession().getAttribute("loginId").toString();
+				String member_email = request.getSession().getAttribute("loginId").toString();
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 				
@@ -338,12 +343,15 @@ public class GroupController extends HttpServlet {
 			//------------------
 
          //------------------
-
+         	System.out.println(isRedirect);
+         	
 			if (isRedirect == false) {
+				
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 				
 			}else if(ajax_dist.equals("ajax_dist")) {
+				
 				JSONObject json = new JSONObject();
 				json.put("distResult", distResult);
 				
@@ -351,8 +359,8 @@ public class GroupController extends HttpServlet {
 				response.setContentType("application/json");
 				System.out.println(json);
 				new Gson().toJson(json, response.getWriter());
-			}
-			else {
+			}else{
+				
 				response.sendRedirect(dst);
 			}
 		}catch(Exception e) {
