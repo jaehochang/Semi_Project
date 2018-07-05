@@ -26,7 +26,14 @@
 			
 			
 			
-			<a id="locationChangeBt" data-toggle="collapse" href="#locationChangeShow" style="color: blue;">(위치변경)</a><br>
+			<a id="locationChangeBt" data-toggle="collapse" href="" style="color: blue;">(위치변경)</a><br>
+			<script>
+				$("#locationChangeBt").click(function(){
+					alert("위치변경");
+					open();
+					
+				})
+			</script>
 			<div id="locationChangeShow" class="collapse">
 			<input id="locationText" type="text" style="width: 500px"
 				class="form-control" name="x" placeholder="위치를 검색하세요" >
