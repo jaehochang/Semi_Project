@@ -22,23 +22,19 @@
 			<br>
            
 			<div class="form-group">
-			<label for="#hiddenLo" id="labelID" style="font-size:30px;font-weight:13;">&nbsp;<input id="hiddenLo" type="hidden" name="location">서울,KR</label><!-- 회원가입시 설정한 장소 -->
+			<label for="#hiddenLo" id="labelID" style="font-size:30px;font-weight:13;">&nbsp;<input id="hiddenLo" type="hidden" name="location"></label><!-- 회원가입시 설정한 장소 -->
 			
 			
 			
-			<a id="locationChangeBt" data-toggle="collapse" href="" style="color: blue;">(위치변경)</a><br>
+			<a id="locationChangeBt" data-toggle="collapse" href="" style="color: blue;">(위치설정)</a><br>
 			<script>
 				$("#locationChangeBt").click(function(){
 					alert("위치변경");
-					open();
+					open('groupmap.jsp','popup','scrollbars=no, resizable=no, width=800, height=600');
 					
 				})
 			</script>
-			<div id="locationChangeShow" class="collapse">
-			<input id="locationText" type="text" style="width: 500px"
-				class="form-control" name="x" placeholder="위치를 검색하세요" >
-			
-			</div>
+			<div id="locationChangeShow" class="collapse">asdadasd</div>
 			
 			</div>
 			<!-- <button id="firstBt" data-target="#container1"
