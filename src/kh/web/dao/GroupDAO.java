@@ -288,13 +288,14 @@ public class GroupDAO {
 		
 		
 		
-		String sql = "insert into create_group values(group_seq.nextval,?,?,'위도','경도',?,?,?,'default.jpg',sysdate,0,sysdate,0,0,sysdate)";
+		String sql = "insert into create_group values(group_seq.nextval,?,?,'위도','경도',?,?,?,'default.jpg',sysdate,0,sysdate,0,0,sysdate,?)";
 		PreparedStatement  psat = con.prepareStatement(sql);
 		psat.setString(1,dto.getGroup_leader());
 		psat.setString(2, dto.getGroup_name());
 		psat.setString(3, dto.getGroup_location());
 		psat.setString(4, dto.getGroup_interests());
 		psat.setString(5, dto.getGroup_info());
+		psat.setString(6, dto.getGroup_leader());
 		int result = psat.executeUpdate();
         
 		

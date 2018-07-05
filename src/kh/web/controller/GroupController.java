@@ -272,13 +272,8 @@ public class GroupController extends HttpServlet {
 				String tags = (String) request.getParameter("tags");
 				String groupTitle = (String) request.getParameter("eventName");
 				String groupContents = (String) request.getParameter("eventContents");
-
+                
 	
-
-				/*if(tags.length()>15) {
-					System.out.println();
-				}*/
-				
 
 				System.out.println("loginId : " + loginId + "/" + "location : " + location + "/" + "tags : " + tags
 						+ "/" + "groupTitle : " + groupTitle + "/" + "groupContents : " + groupContents);

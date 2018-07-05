@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="include/nav/createNav.jsp"%>
 
-<div class="jumbotron"
+<div class="jumbotron animated bounceInDown"
 	style="background-image: url(./image/열기구.jpg); background-size: 100%;">
 	<div class="container">
 	<div id="text" class=text-align>
@@ -101,7 +101,7 @@
 
 			<div class="col-md-7" style="background-image: gray;">
 				<div id="showmoreInfo" class="collapse">
-					<div class="well">"이 그룹은 하이킹, 암벽등반, 캠핑, 카약, 볼더링, 등에 관심있은 사람들을
+					<div class="well" style="background-color:white">"이 그룹은 하이킹, 암벽등반, 캠핑, 카약, 볼더링, 등에 관심있은 사람들을
 						위한 그룹입니다. 능력에 상관없이 모두 환영합니다. 야외스포츠에 열정적인 다른 사람들을 만나기 위해 이 그룹을 시작
 						하였습니다. 다른분들과 같이 야외 스포츠를 즐길날을 기대합니다."
 						<hr>
