@@ -57,7 +57,8 @@
 
 			<h1>당신의 MeetNow는 무엇과 관련되어 있나요?</h1>
 			<br> <input id="tagText" type="text" style="width: 500px;"
-				class="form-control"  placeholder="주제를 검색하세요" required> <br>
+				class="form-control"  placeholder="예:영화   (10개 까지 선택가능합니다.)" required>
+			<br>
 			<input id="tagStore" type="hidden" name="storedtags">
 			<input id="hiddenTag" type="hidden" name="tags">
 			
@@ -89,7 +90,7 @@
 
 			<h1>MeetNow 이벤트의 이름은 무엇으로 정하시겠어요?</h1>
 			<br> <input type="text" id="eventText" name="eventName" style="width: 500px"
-				class="form-control" name="x" placeholder="예: 서울 코딩 MeetNow" maxlength=400 minlength=10 required>
+				class="form-control" name="x" placeholder="예: 서울 코딩 MeetNow" maxlength=400 required>
 			<span id="showText" class="warning"></span> <br>
 			<h1>MeetNow에 누가 참여하고, 무엇을 할 것인지 알려 주세요.</h1>
 			<br> <span id="showideaText" class="default">아이디어가
@@ -112,10 +113,10 @@
 			<br>
 
 
-
-			<textArea id="textArea" name="eventContents" class="form-control" rows="5" maxlength="50000" style="height: 400px; width: 600px;" required maxlength="4000" minlength="50">
-			</textArea>
-			<span id="textAreaWarning" class="warning"></span> <br>
+<span id="textAreaWarning" class="warning"></span>
+			<textarea id="contents" onKeyPress="javascript: if (event.keyCode==13) return false;" name="eventContents" class="form-control" rows="5" style="height: 400px; width: 600px;"  maxlength="4000" required>
+			</textarea>
+			 <br>
 
 	<!-- 		<button id="thirdBt" class="btn btn-button default"
 				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold">다음</button> -->
@@ -139,7 +140,7 @@
 				정직한 목적을 가지고 있습니다</span> <br> <span>●언제나 안전하고 정중합니다</span><br> <span>●실제로
 				직접 대화를 나누세요</span> <br> <br>
 			<input type="button" id="fourthBt" class="btn btn-button default" value="동의후  그룹생성"
-				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold"></input>
+				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold">
 
 		</div>
 		<!--col-->

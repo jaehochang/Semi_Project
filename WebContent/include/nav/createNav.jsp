@@ -392,7 +392,9 @@ left:178px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 	background-color: #555;
 }
-
+.error{
+color: red;
+}
 </style>
 <script>
 
@@ -421,7 +423,7 @@ left:178px;
 			
 
 		} else {
-			
+		
 			$.ajax({
 				url : "unchecked.autocomplete",
 				data : {
@@ -443,7 +445,7 @@ left:178px;
 	$(document).ready(function() {
 $('#nextBt').click(function(){
 	var group_seq=$('#group_seq').val();
-	alert(group_seq);
+
 	$('#groupCreateConfirm').submit();
 	
 })
@@ -460,8 +462,8 @@ $('#nextBt').click(function(){
 						var uncheckStr2=[];
 						var uncheckStrArr=[];
 						var filterArr=[];
-						
-						
+						var count=0;
+						var maxCount=11;
 						
 						$('#tagText').keyup(function() {
 											$('#printTerm1').empty();
@@ -482,16 +484,6 @@ $('#nextBt').click(function(){
 															
 															uncheckStr= $.unique(response.uncheckedList);
 															checkStr= $.unique(response.checkedList);
-															
-															
-                                                            /*  var index=[]
-                                                             index=uncheckStr.indexOf(checkStr);
-                                                             if(index>-1){
-                                                            	 uncheckStr.splice(index)
-                                                            	 alert(uncheckStr.splice(index));
-                                                             } */
-                                                            
-												
 															
 												
 															if (uncheckStr.length > 0|| checkStr.length > 0) {
@@ -523,41 +515,52 @@ $('#nextBt').click(function(){
 
 
 
-						$('#eventText').mouseleave(function() {
+						$('#eventText').on('mouseleave',function(){
 							if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
 							}else{
 								$('#showText').html("");
 							}
-						});
+							
+						})
+						
+						$('#eventText').on('keyup',function(){
+							var gN=$('#eventText').val();
+							
+							$.ajax({
+								url:"groupNameCheck.group",
+								type:"get",
+								data:{groupName:gN}, 
+								success:function(response){
+								if(response.length>0){
+									$("#showText").html(response);
+									$('#showText').css("color", "red");
+								    $('#eventText').val("");
+									
+								}
+								},
+								error:function(){
+									console.log("에러 발생!");
+								}
+								
+							});
+							
+							
+						})
 
 						/*------------------------------------------  */
 
-						$('#textArea').mouseleave(function() {
-							if (!$('#textArea').val()) {
-								alert("텍스트어레이없음")
-								$('#textAreaWarning').text("최소 50자 이상 입력하세요");
+						$('#contents').on('mouseleave',function(){
+							if (!$('#contents').val()) {
+								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
+								
 							}else{
 								$('#textAreaWarning').text("");
 							}
 						});
 
-						/* $('#textArea').focusout(function(){
-							var val=$(this).val();
-							if(val==null){
-								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
-								$('#textAreaWarning').css("color","red");
-							}else{
-							
-							}
-							
-							
-						}) */
-						
-						
-						
 						
 
 						/*  ---------------이벤트 적용------------------- */
@@ -565,58 +568,82 @@ $('#nextBt').click(function(){
 						
 
 						$("#fourthBt").click(function() {
+							$('#hiddenLo').val($('#labelID').text());
+							
+							 var cntEPT = $('input:checkbox[name=checkbox]:checked').length;
+						
 
-							/*  if (!$('#eventText').val()) {
+
+							 if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
 								$('#eventText').css("border-color", "red");
 								$('#eventText').focus();
-								return;
-							}else{
-								$('#showText').html("");
-							} */
-
-							/* if ($("#hiddenTag").length < 16) {
-								$('#printTerm2').html("태그 선택은 15개까지만 가능합니다.")
-								$('#printTerm2').css("color", "red");
-								$('#printTerm2').css("border-color", "red");
-								return;
-							}else{
-								$('#printTerm2').html("");
-							} */
-
-							/* var regpw = /^[A-Za-z0-9]{50,500}$/;
-							if (!regpw.test($('#textArea').val())) {
+								console.log("event text validation")
+								return false;
+								
+								
+							}
+							 if(!$('#contents').val()){
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
-								$('#textArea').css("border-color", "red");
-								$('#eventText').focus();
-								return;
-							} */
-
-							 /* if (!$('#textArea').val()) {
+								$('#contents').css("border-color", "red");
+								$('#contents').focus();
+								
+								console.log("contents validation")
+								return false;
+							}else if($('#contents').val().length<51){
+								console.log("50개 미만 노노");
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
-								$('#textArea').css("border-color", "red");
-							} else {
-								$('#textAreaWarning').text("");
+								$('#contents').css("border-color", "red");
+								$('#contents').focus();
+								
+								return false;
+							}else if($('#contents').val().length>4000){
+								 alert("글자수는 영문4000, 한글2000자로 제한됩니다.!");  
+								 $('#contents').focus();
+								 return false;
+							}else{
+							
+								/* return true; */
+							}
 
-							} */
-
-							/* if(itmes=null||items<2){
-							 $('#printTerm').html("2개 이상 선택해주세요")
-							 
-							} */
-							$('#hiddenLo').val($('#labelID').text());
-
-							/* 원래방식 */
+						   while(items.length>0){
+							   items.pop();
+							   
+						   }
 							$('input[type=checkbox]:checked').each(function() {
 								items.push($(this).val());
 								console.log(items);
 								$("#hiddenTag").val(items);
-
+								
 							})
+							
+							
+                              if(!$("#hiddenTag").val()){
+								
+								$('#printTerm2').html("태그 선택은 1개이상 선택하셔야합니다.")
+								$('#printTerm2').focus();
+								$('#printTerm2').css("color", "red");
+								$('#printTerm2').css("border-color", "red");
+								return false;
+								
+							}
+							
+							if(cntEPT>10){
+								alert("태그 선택은 10개 까지 선택 가능합니다.");
+								console.log(items.length);
+								$('#printTerm2').html("태그 선택은 10개 까지 선택 가능합니다.")
+								$('#printTerm2').focus();
+								$('#printTerm2').css("color", "red");
+								$('#printTerm2').css("border-color", "red");
+								return false;
+							}
 
+							
+							
+							
 							$("#create").submit();
 
 						})

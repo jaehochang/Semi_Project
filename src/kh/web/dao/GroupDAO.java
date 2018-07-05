@@ -246,36 +246,32 @@ public class GroupDAO {
 		
 		return result;
 	}
-<<<<<<< HEAD
+
 	
 	public String payCheck(String member_email) throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select payCheck from create_group_payment join member on member.member_seq = create_group_payment.member_seq where member.member_email=?";
+		System.out.println("memberemail : "+member_email);
+		String sql = "select payCheck from create_group_payment join member on member.member_seq=create_group_payment.member_seq where create_group_payment.member_email=?";
 		
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, member_email);
 		ResultSet rs = pstat.executeQuery();
 		
-		rs.next();
-		String payCheck=rs.getString("payCheck");
+	    rs.next();
+		String pay=rs.getString("payCheck");
+		System.out.println("paycheck :"+pay);
 		
-		
-		System.out.println("페이유무:"+payCheck);
 		rs.close();
 		pstat.close();
 		con.close();
 		
-		return payCheck;
+		return pay;
+	
 		
 	}
 	
 	
-	
-	
-	
-=======
 
->>>>>>> master_clone_branch
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		
@@ -481,6 +477,45 @@ public class GroupDAO {
 		return result;
 		
 	}
+	
+	public int payFinish(String email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		
+		String sql = "update create_group_payment set paycheck='y' where member_email=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		pstat.setString(1, email);
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
+		con.close();
+		pstat.close();
+		
+		return result;
+		
+	}
+	
+	public boolean groupNameCheck(String group_name) throws Exception{
+
+		Connection con = DBUtils.getConnection();	
+		String sql = "select group_name from create_group where group_name=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, group_name);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		boolean result=rs.next();
+	
+		con.close();
+		rs.close();
+		ps.close();
+	
+		return result;
+		
+	
+	}
+	
 	
 }
 

@@ -197,45 +197,48 @@ top:40px;
 	
 		$('#Bt2').click(function() {
 			
-			
+			var name=$('#name').val();
+			var email=$('#email').val();
 			if ($("#radio1").is(":checked")) {
+				
+				IMP.init('imp14365188')
 				IMP.request_pay({
 					pg:'kakaopay',
-					amount:'3000',
+					amount:'8000',
 					pay_method:'card',
 					merchant_uid:'merchant_'+new Date().getTime(),
-		            name:'주문명:결제테스트',	
-		            buyer_email:'plmn8550@naver.com',
-		            buyer_name : '홍길동',
-		            buyer_tel:'010-6402-6090',
-		            buyer_addr:'서울특별시 영등포구 당산동',
-		            buyer_postcode:'123-456',
-		            m_redirect_url:'payEnd.group'
+		            name:'6개월 구독',	
+		            buyer_email:email,
+		            buyer_name : name,
+		           
 				
 				}, function(response) {
 					//결제 후 호출되는 callback함수
 					if (response.success) { //결제 성공
-						console.log(response);
-					var msg='결제가 완료되었습니다.';
-					msg+='고유ID : '+response.imp_uid;
-					msg+='상점 거래ID : '+response.merchant_uid;
-					msg+='결제 금액 : '+response.paid+amount;
-					msg+='카드 승인번호 : '+response.apply_num;
 					
+					var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
+					/* alert(msg); */
 					// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-			        // jQuery로 HTTP 요청
-			        jQuery.ajax({
-			            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-			            method: "POST",
-			            headers: { "Content-Type": "application/json" },
-			            data: {
-			                imp_uid: rsp.imp_uid,
-			                merchant_uid: rsp.merchant_uid
-			            }
-			        }).done(function (data) {
-
-			        })
-					
+			        $.ajax({
+	    	            url: 'payEnd.group', 
+	    	            type: "get",
+	    	            data: {
+	    	            	buyer_email: response.buyer_email,
+	    	            },
+	    	            success:function(response){
+	    	            	console.log("전달 성공!!"+response)
+	    	            	
+	    	            	if(response.equals("success")){
+	    	            		$(location).attr('href','createRequest.group');
+	    	            	}else{
+	    	            		$(location).attr('href','main.jsp');
+	    	            	}
+	    	            },
+	    	            fail : function() {
+	    	            	console.log("전달 실패!!")
+	    				}
+	    	        })
+			          
 					} else {
 						var msg='결제에 실패하였습니다.';
 						msg+='에러내용 : '+response.error_msg;
@@ -244,57 +247,56 @@ top:40px;
 					alert(msg);
 				})
 	        }else if($("#radio2").is(":checked")){
+	        	IMP.init('imp14365188')
 	        	IMP.request_pay({
 	    			pg:'kakaopay',
-	    			amount:'1000',
+	    			amount:'13000',
 	    			pay_method:'card',
 	    			merchant_uid:'merchant_'+new Date().getTime(),
-	                name:'주문명:결제테스트',	
-	                buyer_email:'plmn8550@naver.com',
-	                buyer_name : '홍길동',
-	                buyer_tel:'010-6402-6090',
-	                buyer_addr:'서울특별시 영등포구 당산동',
-	                buyer_postcode:'123-456',
-	                m_redirect_url:'payEnd.group'
+	                name:'1개월 구독',	
+	                buyer_email:email,
+	                buyer_name :name,
+	                
 	    		
 	    		}, function(response) {
 	    			//결제 후 호출되는 callback함수
 	    			if (response.success) { //결제 성공
-	    				console.log(response);
-	    			var msg='결제가 완료되었습니다.';
-	    			msg+='고유ID : '+response.imp_uid;
-	    			msg+='상점 거래ID : '+response.merchant_uid;
-	    			msg+='결제 금액 : '+response.paid+amount;
-	    			msg+='카드 승인번호 : '+response.apply_num;
+	    				 $.ajax({
+	 	    	            url: 'payEnd.group', 
+	 	    	            type: 'get',
+	 	    	            data: {
+	 	    	            	buyer_email: response.buyer_email,
+	 	    	            },
+	 	    	            success:function(response){
+	 	    	            	console.log("전달 성공!!")
+	 	    	            	
+	 	    	            	if(response.equals("success")){
+		    	            		$(location).attr('href','createRequest.group');
+		    	            	}else{
+		    	            		$(location).attr('href','main.jsp');
+		    	            	}
+	 	    	            },
+	 	    	            fail : function() {
+	 	    	            	console.log("전달 실패!!")
+	 	    				}
+	 	    	        })
+	    			var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
+	    			 alert(msg);
 	    			
 	    			// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
 	    	        // jQuery로 HTTP 요청
-	    	        jQuery.ajax({
-	    	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-	    	            method: "POST",
-	    	            headers: { "Content-Type": "application/json" },
-	    	            data: {
-	    	                imp_uid: rsp.imp_uid,
-	    	                merchant_uid: rsp.merchant_uid
-	    	            }
-	    	        }).done(function (data) {
-
-	    	        })
+	    	       
 	    			
 	    			} else {
 	    				var msg='결제에 실패하였습니다.';
 	    				msg+='에러내용 : '+response.error_msg;
 	    				
 	    			}
-	    			alert(msg);
+	    			
 	    		})
 	        	
 	        }
-	        	
-	        	
-
-		IMP.init('imp14365188');
-	
+	 
 
 		})
 	});
