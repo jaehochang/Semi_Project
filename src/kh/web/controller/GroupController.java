@@ -299,8 +299,6 @@ public class GroupController extends HttpServlet {
 				
 				
 				
-			}else if(command.equals("/groupMain.group")) {
-				
 			}else if(command.equals("/join.group")) {
 				
 			String member_email = request.getSession().getAttribute("loginId").toString();
