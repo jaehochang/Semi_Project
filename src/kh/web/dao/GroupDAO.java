@@ -459,6 +459,31 @@ public class GroupDAO {
 		
 	}
 	
+	 public List<GroupPicDTO> groupPagePic(int group_seq) throws Exception{
+		   Connection con = DBUtils.getConnection();
+		   String sql = "select * from group_picture where group_seq=?";
+		   PreparedStatement pstat = con.prepareStatement(sql);
+		   pstat.setInt(1, group_seq);
+		   
+		   ResultSet rs = pstat.executeQuery();
+		   List<GroupPicDTO> result = new ArrayList<>();
+		   
+		   while(rs.next()) {
+			   GroupPicDTO dto = new GroupPicDTO();
+			   
+			   dto.setGroup_picture_seq(rs.getInt("group_picture_seq"));
+			   dto.setGroup_seq(rs.getInt("group_seq"));
+			   dto.setOriginal_name(rs.getString("original_name"));
+			   dto.setSystem_name(rs.getString("system_name"));
+			   
+			   result.add(dto);
+			   
+		   }
+		   
+		   return result;
+		   
+	   }
+	
 }
 
 
