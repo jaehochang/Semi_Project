@@ -260,11 +260,14 @@
 					</div>
 					<div id="photo-pics">
 						<div class="row">
-							<c:forEach var="groupPagePic" items="${groupPagePic}">
-							<div class="col-md-4" style="border:1px solid black;">
-								<img src="files/${groupPagePic.system_name}" class="group-photo">
-							</div>
-						</c:forEach>
+							<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
+								<c:if test="${status.count < 7}">
+									<div class="col-md-4" style="margin-bottom: 5px;">
+										<img src="files/${groupPagePic.system_name }" class="group-photo">
+									</div>
+								</c:if>
+									
+							</c:forEach>
 						</div>
 					</div>
 				</div>
