@@ -9,10 +9,12 @@
 <link href="./resources/docs/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="./resources/docs/examples/jumbotron/jumbotron.css" rel="stylesheet">
 <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/meeting-member-list.css?ver=1">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <STYLE>
@@ -38,11 +40,17 @@ body {
 	 			<br>
 	 			<a href="">${result_group_name}</a>
 	 		</div>
-	 		<div class="option">정렬하는탭</div>
 	 	</div>
-	 	<div class="search">검색기능 들어갈 부분</div>
-	 	<div class="count-attend-member">총 ${result_countAttendMembers} 명 참석</div>
+	 	<div class="search">
+	 		<div class="box">
+			  <div class="container-3">
+			      <span class="icon"><i class="fa fa-search"></i></span>
+			      <input type="search" id="search" placeholder="회원 찾기" />
+			  </div>
+			</div>
+	 	</div>
 	 	<div class="attend-member">
+	 	<div class="count-attend-member">총 ${result_countAttendMembers} 명 참석</div>
 	 		<c:forEach var="items" items="${result}">
 		 		<div class="member">
 		 			<img src="files/${items.member_picture}">

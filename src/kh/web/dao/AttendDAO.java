@@ -41,7 +41,7 @@ public class AttendDAO {
    
    public int addAttendMember (int meeting_seq, String member_email, int attend_people) throws Exception {
       Connection con = DBUtils.getConnection();
-      String sql = "insert into attend values (attend_seq.nextval, ?,(select group_seq from meeting where meeting_seq = ?),?,(select member_seq from member where member_email = ?), ?,(select member_name from member where member_email = ?),(select member_picture from member where member_email = ?),default)";
+      String sql = "insert into attend values (attend_seq.nextval, ?,(select group_seq from meeting where meeting_seq = ?),?,(select member_seq from member where member_email = ?), ?,(select member_name from member where member_email = ?),(select member_picture from member where member_email = ?),sysdate)";
       PreparedStatement pstat = con.prepareStatement(sql);
       pstat.setInt(1, meeting_seq);
       pstat.setInt(2, meeting_seq);
