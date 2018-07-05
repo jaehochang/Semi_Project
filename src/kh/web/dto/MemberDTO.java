@@ -9,6 +9,7 @@ public class MemberDTO {
 	private String member_location;
 	private String member_interests;
 	private String member_picture;
+	private String member_age;
 	private String member_gender;
 	private int member_warningnumber;
 	private String member_warningdate;
@@ -17,31 +18,23 @@ public class MemberDTO {
 	private int member_alarm;
 	private int member_isblocked;
 	private int member_betweendate;
+	
+
+	
+	public String getMember_age() {
+		return member_age;
+	}
+
+
+	public void setMember_age(String member_age) {
+		this.member_age = member_age;
+	}
+
 
 	public MemberDTO() {
 		super();
 	}
 
-	public MemberDTO(int member_seq, String member_name, String member_email, String member_pwd, String member_location,
-			String member_interests, String member_picture, String member_gender, int member_warningnumber,
-			String member_warningdate, String member_expiredate, String member_joindate, int member_alarm,
-			int member_isblocked) {
-		super();
-		this.member_seq = member_seq;
-		this.member_name = member_name;
-		this.member_email = member_email;
-		this.member_pwd = member_pwd;
-		this.member_location = member_location;
-		this.member_interests = member_interests;
-		this.member_picture = member_picture;
-		this.member_gender = member_gender;
-		this.member_warningnumber = member_warningnumber;
-		this.member_warningdate = member_warningdate;
-		this.member_expiredate = member_expiredate;
-		this.member_joindate = member_joindate;
-		this.member_alarm = member_alarm;
-		this.member_isblocked = member_isblocked;
-	}
 
 	public int getMember_seq() {
 		return member_seq;

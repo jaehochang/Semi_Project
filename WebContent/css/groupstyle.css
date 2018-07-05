@@ -1,0 +1,87 @@
+   
+   div{
+      box-sizing: border-box;
+   }
+   
+   .myMeetNow{
+      margin: 0 auto;
+      padding:20px 0px 20px;
+      width: 900px;
+   }
+
+   img{
+   }
+   
+   .groupTitle{
+      color:black;
+      position: relative;
+      top:-80px;
+      right:80px;
+   }
+   
+   .groupMemberCount{
+      color:gray;
+      position: relative;
+      top:-80px;
+      right:100px;
+   }
+   
+   .myMeetGroup{
+      
+      float: left;
+      width:250px;
+      height:200px;
+   }
+   
+
+   #recoMeetnow{
+      margin: 0 auto;
+      width: 900px;
+   }
+   
+   #search{
+      margin: 0 auto;
+      position:absolute;
+      top:320px;
+      left:500px;
+      background-color: black;
+      width:900px;
+      height:60px;
+   }
+
+   #search-input{
+      margin:11px 5px;
+   }
+   
+   #search-bt{
+      position:absolute;
+      bottom:11px;
+      left:280px;
+   }
+   
+   #location-text{
+      position:absolute;
+      bottom:15px;
+      left:340px;
+      color:white;
+   }
+   
+   #location-text2{
+      position:absolute;
+      bottom:15px;
+      left:430px;
+      color:white;
+   }
+   
+   #location-km{
+      position:absolute;
+      bottom:15px;
+      left:360px;
+   }
+   
+   #search-check{
+      position:absolute;
+      bottom:15px;
+      left:700px;
+   }
+   
