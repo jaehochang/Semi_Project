@@ -91,6 +91,7 @@ time.icon span
    height : 100%;
    border-radius: 20px;
 }
+
 .fixed-bar {
    position : fixed;
    width : 300px;
@@ -105,12 +106,6 @@ time.icon span
 
 .fixed-bar-contents {
    padding : 20px 20px 0 20px;
-}
-
-.fixed-bar-location-image img {
-   width : 100%;
-   border-bottom-left-radius: 20px;
-   border-bottom-right-radius: 20px;
 }
 
 

@@ -1,6 +1,6 @@
 package kh.web.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MeetingDTO {
    private int meeting_seq;
@@ -13,15 +13,17 @@ public class MeetingDTO {
    private Date meeting_end_time;
    private String meeting_location;
    private String meeting_picture;
+   private String meeting_lat;
+   private String meeting_lng;
+   private String member_email;
 
    public MeetingDTO() {
+      super();
    }
-   
-   
 
    public MeetingDTO(int meeting_seq, int group_seq, String group_name, String group_leader, String meeting_title,
          String meeting_contents, Date meeting_start_time, Date meeting_end_time, String meeting_location,
-         String meeting_picture) {
+         String meeting_picture, String meeting_lat, String meeting_lng, String member_email) {
       super();
       this.meeting_seq = meeting_seq;
       this.group_seq = group_seq;
@@ -33,9 +35,10 @@ public class MeetingDTO {
       this.meeting_end_time = meeting_end_time;
       this.meeting_location = meeting_location;
       this.meeting_picture = meeting_picture;
+      this.meeting_lat = meeting_lat;
+      this.meeting_lng = meeting_lng;
+      this.member_email = member_email;
    }
-
-
 
    public int getMeeting_seq() {
       return meeting_seq;
@@ -115,6 +118,30 @@ public class MeetingDTO {
 
    public void setMeeting_picture(String meeting_picture) {
       this.meeting_picture = meeting_picture;
+   }
+
+   public String getMeeting_lat() {
+      return meeting_lat;
+   }
+
+   public void setMeeting_lat(String meeting_lat) {
+      this.meeting_lat = meeting_lat;
+   }
+
+   public String getMeeting_lng() {
+      return meeting_lng;
+   }
+
+   public void setMeeting_lng(String meeting_lng) {
+      this.meeting_lng = meeting_lng;
+   }
+
+   public String getMember_email() {
+      return member_email;
+   }
+
+   public void setMember_email(String member_email) {
+      this.member_email = member_email;
    }
 
 }

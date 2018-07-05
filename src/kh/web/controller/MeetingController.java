@@ -89,6 +89,23 @@ public class MeetingController extends HttpServlet {
              isRedirect = false;
              dst = "meeting.meet?seq="+meeting_seq;
                 
+         } else if (command.equals("/attendMember.meet")) {
+        	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+        	 String result_group_name = mdao.groupName(meeting_seq);
+        	 List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+        	 
+        	 int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+        	 
+             // 그룹 이름
+        	 request.setAttribute("result_group_name", result_group_name);
+        	 // 참석하는 명단 받아오는 list
+        	 request.setAttribute("result", result);
+        	 // 총 참석자 (참석인 + 데리고오는 사람)
+        	 request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+        	 
+        	 isRedirect = false;
+        	 dst = "meeting_member_list.jsp";
          }
          
          if(isRedirect) {

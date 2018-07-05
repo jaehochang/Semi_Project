@@ -29,6 +29,7 @@ public class AttendDAO {
          dto.setMember_email(rs.getString("member_email"));
          dto.setMember_name(rs.getString("member_name"));
          dto.setMember_picture(rs.getString("member_picture"));
+         dto.setAttend_time(rs.getDate("attend_time"));
          result.add(dto);
       }
       
@@ -40,7 +41,7 @@ public class AttendDAO {
    
    public int addAttendMember (int meeting_seq, String member_email, int attend_people) throws Exception {
       Connection con = DBUtils.getConnection();
-      String sql = "insert into attend values (attend_seq.nextval, ?,(select group_seq from meeting where meeting_seq = ?),?,(select member_seq from member where member_email = ?), ?,(select member_name from member where member_email = ?),(select member_picture from member where member_email = ?))";
+      String sql = "insert into attend values (attend_seq.nextval, ?,(select group_seq from meeting where meeting_seq = ?),?,(select member_seq from member where member_email = ?), ?,(select member_name from member where member_email = ?),(select member_picture from member where member_email = ?),default)";
       PreparedStatement pstat = con.prepareStatement(sql);
       pstat.setInt(1, meeting_seq);
       pstat.setInt(2, meeting_seq);
@@ -86,4 +87,6 @@ public class AttendDAO {
       con.close();
       return result;
    }
+   
+   
 }
