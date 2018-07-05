@@ -56,7 +56,7 @@ public class TagController extends HttpServlet {
 					String[] wordsArray = words.split(",");
 					JsonArray uncheckedList = new JsonArray();
 					JsonArray checkedList = new JsonArray();
-					// Todo
+					
 					// wordsArray 안에 있는 내용이 checkedList(Session) 에 겹치는걸 제외하고 unchecked에 넣는다.
 
 
