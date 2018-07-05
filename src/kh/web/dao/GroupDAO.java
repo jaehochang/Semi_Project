@@ -71,34 +71,33 @@ public class GroupDAO {
 		return result;
 	}
 
-	public List<MygroupDTO> myGroupList(String email) throws Exception{
-		Connection con = DBUtils.getConnection();
-		String sql = "select a.GROUP_SEQ,a.GROUP_NAME, b.SYSTEM_NAME "
-				+ "from mygroup a, group_picture b, group_member c "
-				+ "where a.GROUP_SEQ = b.GROUP_SEQ and a.GROUP_SEQ = c.GROUP_SEQ and a.MEMBER_EMAIL = ? "
-				+ "group by a.GROUP_SEQ, a.GROUP_NAME, b.SYSTEM_NAME";
-		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, email);
-		ResultSet rs = pstat.executeQuery();
-
-		List<MygroupDTO> result = new ArrayList<>();
-
-		while(rs.next()) {
-			MygroupDTO dto = new MygroupDTO();
-
-			dto.setGroup_seq(rs.getInt("group_seq"));
-			dto.setGroup_name(rs.getString("group_name"));
-			dto.setGroup_picture(rs.getString("system_name"));
-
-			result.add(dto);
-		}
-
-		con.close();
-		rs.close();
-		pstat.close();
-
-		return result;
-	}
+	public List<MygroupDTO> myGroupList(String member_email) throws Exception{
+	      Connection con = DBUtils.getConnection();
+	      String sql = "select my.mygroup_seq , g.group_picture, my.group_name, my.group_seq from mygroup my, create_group g "
+	      		+ "where my.group_seq = g.group_seq and my.member_email=? order by my.mygroup_seq";
+	      PreparedStatement pstat = con.prepareStatement(sql);
+	      pstat.setString(1, member_email);
+	      
+	      ResultSet rs = pstat.executeQuery();
+	      
+	      List<MygroupDTO> result = new ArrayList<>();
+	      
+	      while(rs.next()) {
+	         MygroupDTO dto = new MygroupDTO();
+	         
+	         dto.setGroup_seq(rs.getInt("group_seq"));
+	         dto.setGroup_name(rs.getString("group_name"));
+	         dto.setGroup_picture(rs.getString("group_picture"));
+	         
+	         result.add(dto);
+	      }
+	      
+	      rs.close();
+	      pstat.close();
+	      con.close();
+	      
+	      return result;
+	   }
 
 	public MemberCountDTO MemberCount(int groupSeq) throws Exception{
 		Connection con = DBUtils.getConnection();
