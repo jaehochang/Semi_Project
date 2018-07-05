@@ -14,4 +14,23 @@ div{
 	margin: 0 auto;
 	width:1000px;
 	height:1800px;
+	back
+}
+
+#upload-wrapper{
+	border: 1px solid black;
+	width:100%;
+	height:30px;
+}
+
+#photo-wrapper{
+	border: 1px solid black;
+	width:100%;
+	background-color: white;
+	border-radius: 10px;
+}
+
+.photo-wrapper-img{
+	width:300px;
+	height:200px;
 }

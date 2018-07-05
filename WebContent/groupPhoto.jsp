@@ -118,7 +118,18 @@
 
 <div id="contents">
 	<div id="wrapper">
-	
+		<div id="upload-wrapper">
+			<input type="file">
+		</div>
+		<div id="photo-wrapper">
+			<div class="row">
+				<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
+						<div class="col-md-4" style="margin-bottom: 5px; border: 1px solid black;">
+							<img src="files/${groupPagePic.system_name }" class="photo-wrapper-img">
+						</div>
+				</c:forEach>
+			</div>
+		</div>
 	</div>
 </div>
 
