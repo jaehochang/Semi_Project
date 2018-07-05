@@ -1,3 +1,4 @@
+         
 package kh.web.controller;
 
 import java.io.IOException;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import javafx.scene.Group;
 import kh.web.dao.GroupDAO;
+import kh.web.dao.AttendDAO;
 import kh.web.dao.MeetingDAO;
 import kh.web.dto.GroupDTO;
+import kh.web.dto.AttendDTO;
 import kh.web.dto.MeetingDTO;
 
 /**
@@ -31,18 +34,31 @@ public class MeetingController extends HttpServlet {
          
          GroupDAO gdao = new GroupDAO();
          MeetingDAO dao = new MeetingDAO();
+         MeetingDAO mdao = new MeetingDAO();
+         AttendDAO adao = new AttendDAO();
          boolean isRedirect = true;
          String dst = null;
          
          if(command.equals("/main.meet")) {
-            List<MeetingDTO> result = dao.getMeetingData();
+            List<MeetingDTO> result = mdao.getMeetingData();
             request.setAttribute("result", result);
             isRedirect = false;
-            dst = "main.jsp";
+            
+            if(request.getSession().getAttribute("loginId") != null) {
+               dst = "list.group";
+            }else {
+               dst = "main.jsp";
+            }
+            
          } else if (command.equals("/meeting.meet")) {
             int meeting_seq = Integer.parseInt(request.getParameter("seq"));
-            MeetingDTO result = dao.getEachMeetingData(meeting_seq);
+            MeetingDTO result = mdao.getEachMeetingData(meeting_seq);
+            List<AttendDTO> result_attend = adao.getAttendMembers(meeting_seq);
+            int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+            
             request.setAttribute("result", result);
+            request.setAttribute("result_attend", result_attend);
+            request.setAttribute("result_countAttendMembers", result_countAttendMembers);
             isRedirect = false;
             dst = "meeting.jsp";
             
@@ -75,6 +91,10 @@ public class MeetingController extends HttpServlet {
         	 
         	 isRedirect = false;
         	 dst="NewFile.html";
+         } else if (command.equals("/attend.meet")) {
+            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+            String member_email = (String) request.getSession().getAttribute("loginId");
+            int result = adao.addAttendMember(meeting_seq, member_email);
          }
          
          if(isRedirect) {
