@@ -33,13 +33,13 @@ public class MemberDAO {
 
 	}
 
-	public boolean signUpWithKakao(SnsDTO dto) throws Exception{
-		
+	public boolean signUpWithKakao(SnsDTO dto) throws Exception {
+
 		Connection con = DBUtils.getConnection();
 
 		String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
 				+ "?," // 2: member_name
-				+ " ? ," // 3: member_email
+				+ "?," // 3: member_email
 				+ "'null'," // 4: member_pwd
 				+ "'null'," // 5: member_location
 				+ "'null'," // 6: member_interests
@@ -69,27 +69,27 @@ public class MemberDAO {
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
-		ps.setString(1, dto.getKakao_nickName()); // 첫번째 물음표 : 이름
+		ps.setString(1, dto.getKakao_nickname()); // 첫번째 물음표 : 이름
 		ps.setString(2, dto.getKakao_email()); // 두번째 : 사진 url < 카카오프로필
 		ps.setString(3, dto.getKakao_photo()); // 두번째 : 사진 url < 카카오프로필
 
 		ps.setString(4, dto.getKakao_id());
-		ps.setString(5, dto.getKakao_nickName()); // 4 : 닉네임
+		ps.setString(5, dto.getKakao_nickname()); // 4 : 닉네임
 		ps.setString(6, dto.getKakao_email());
 		ps.setString(7, dto.getKakao_photo());
-		System.out.println("dto.getKakao_photo() : " + dto.getKakao_photo());
+
 		int result = ps.executeUpdate();
 
 		con.commit();
 		con.close();
 		ps.close();
-		
+
 		if (result > 0) {
 			return true;
 		} else { // unique constraint
 			return false;
 		}
-	
+
 	}
 
 	public boolean signUpApply(MemberDTO dto) throws Exception {
@@ -289,7 +289,7 @@ public class MemberDAO {
 
 		// sns_id 테이블에 들어갈 값
 		ps.setString(3, sDTO.getKakao_id());// kakaoId
-		ps.setString(4, sDTO.getKakao_nickName());// 카카오 닉네임
+		ps.setString(4, sDTO.getKakao_nickname());// 카카오 닉네임
 
 		int result = ps.executeUpdate();
 		System.out.println("/InptEmailtoAccnt 성공? = 1 이상은 성공 : " + result);
@@ -677,7 +677,16 @@ public class MemberDAO {
 		ps.setString(6, sDTO.getFb_uid());
 		ps.setString(7, sDTO.getFb_photoURL());
 
-		int result = ps.executeUpdate();
+		int result = 0;
+
+		try {
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			if (e.getMessage().contains("unique")) { // unique 에러 발생시 error.html 뜨지 않고 false 반환하도록 기능 추가
+
+				return false;
+			}
+		}
 
 		con.commit();
 		con.close();
@@ -712,21 +721,11 @@ public class MemberDAO {
 		}
 	}
 
-	public boolean SignUpWithGoogle(SnsDTO sDTO) throws Exception {
+	public boolean SignUpWithGoogle(SnsDTO sDTO) {
 
-		Connection con = DBUtils.getConnection();
-
-		boolean result = this.isGgIdExist(sDTO);
-
-		System.out.println("/isGgIdExist.result :" + result);
-
-		boolean regSccss = false;
-
-		if (result) { // 중복성 검사 결과 이미 존재하는 경우
-
-			return regSccss; // false 보내기
-
-		} else {
+		int insertTrial = 0;
+		try {
+			Connection con = DBUtils.getConnection();
 
 			String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
 					+ "?," // 2: member_name
@@ -767,21 +766,30 @@ public class MemberDAO {
 			ps.setString(5, sDTO.getGgname());
 			ps.setString(6, sDTO.getGgimgUrl());
 			ps.setString(7, sDTO.getGgEmail());
-			int insertTrial = ps.executeUpdate();
+
+			insertTrial = ps.executeUpdate();
+
 			System.out.println("/signUpWithGoogle result :" + insertTrial);
 
 			con.commit();
 			ps.close();
 			con.close();
 
-			if (insertTrial > 0) {
-				regSccss = true;
-			} else {
-				regSccss = false;
+		}catch (Exception e) {
+			if (e.getMessage().contains("unique")) {// 이메일 중복으로 에러시 false 반환
+				System.out.println("이메일 중복으로 회원가입 불가");
+				return false;
+			}else {
+				e.printStackTrace();
 			}
-
 		}
-		return regSccss;
+
+		if (insertTrial > 0) {
+			System.out.println("return true");
+			return true;// 회원 생성 성공
+		} else {
+			return false;//회원 생성 실패
+		}
 
 	}
 
@@ -830,4 +838,15 @@ public class MemberDAO {
 			return false;
 		}
 	}
+
+	// public boolean kakaoEmailUpdate(String kakaoId) {
+	//
+	// Connection con = DBUtils.getConnection();
+	// String sql = "update table member"
+	// PreparedStatement ps = con.prepareStatement(sql);
+	//
+	//
+	//
+	// return false;
+	// }
 }

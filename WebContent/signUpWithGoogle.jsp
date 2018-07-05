@@ -3,12 +3,6 @@
 
 
 
-<!-- <script src="code.jquery.com/jquery-1.12.0.min.js"></script> -->
-<!-- <script src="code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-<!-- <script src="www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> -->
-<!-- <script src="../firebase/init.js"></script> -->
-<!-- <script src="js/index.js"></script> -->
-<!-- <script src="https:www.gstatic.com/firebasejs/5.2.0/firebase.js"></script> -->
 
 <script>
    //Initialize Firebase
@@ -47,32 +41,13 @@
 	var ggImgUrl =user.photoURL; 
 	var ggEmail = user.email;
 
-console.log(ggId+ ggName+ggImgUrl+ggEmail);  	
+	document.getElementById("ggId").value = ggId;
+	document.getElementById("ggName").value = ggName;
+	document.getElementById("ggImgUrl").value = ggImgUrl;
+	document.getElementById("ggEmail").value = ggEmail;
 	
-	$.ajax({
-		url : "ggAccntProc.co",
-		method : "post",
-		data : {
-			"ggId" : ggId,
-			"ggName" : ggName,
-			"ggImgUrl" : ggImgUrl,
-			"ggEmail" : ggEmail
-		},
-		success : function(DupleResult) {
-		alert("DupleResult : " + DupleResult);
-
-if(DupleResult=="true"){
-		location.href="index.jsp";
-		
-	}
-}else{
-	location.href="index.jsp";
+	document.getElementById("ggRegForm").submit();
 	
-}
-		
-		}});
-	
-
 	
   }).catch(function(error) {
   	// Handle Errors here.
@@ -88,5 +63,9 @@ if(DupleResult=="true"){
   
   </script>
 
-
-
+<form id=ggRegForm action="ggAccntProc.co" method=post>
+<input id=ggId type=hidden name=ggId>
+<input id=ggName type=hidden name=ggName>
+<input id=ggEmail type=hidden name=ggEmail>
+<input id=ggImgUrl type=hidden name=ggImgUrl>
+</form>
