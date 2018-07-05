@@ -6,8 +6,7 @@
 <link rel="stylesheet" type="text/css"
 	href="css/groupInfo-style.css?ver=2">
 	
-<link rel="stylesheet" type="text/css"
-	href="css/groupPhoto-style.css">
+<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=1">
 
 <div id="navi-div">
 
@@ -116,25 +115,41 @@
 	
 </div>
 
+
+
+
+
 <div id="contents">
-	<div id="wrapper">
+	<div id="wrapper" style="height:auto; ">
 		<div id="upload-wrapper">
 			<input type="file">
 		</div>
-		<div id="photo-wrapper">
-			<div class="row">
-				<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
-						<div class="col-md-4" style="margin-bottom: 5px; border: 1px solid black;">
-							<img src="files/${groupPagePic.system_name }" class="photo-wrapper-img">
-						</div>
-				</c:forEach>
+		<div class="wrapper">
+			<div class="row" style="margin:0 auto;">
+			<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
+			<div class="col-md-4" 
+                  style="padding-left:0px;
+                  margin:0 10px 50px 0; width:300px; height:200px">
+			
+			<div class="item">
+				<div class="polaroid">
+				
+				 <a class="example-image-link" href="files/${groupPagePic.system_name }" data-lightbox="example-set" >
+                  <img class="example-image" src="files/${groupPagePic.system_name }"id="pola-img"/></a>
+				
+				
+	
+				</div>
+			</div>
+			</div>
+			</c:forEach>
 			</div>
 		</div>
 	</div>
 </div>
 
 
-
+<script src="photo/js/lightbox-plus-jquery.min.js"></script>
 
 
 

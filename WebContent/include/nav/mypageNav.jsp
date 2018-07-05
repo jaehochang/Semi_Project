@@ -11,10 +11,10 @@
 <c:choose>
 	<c:when test="${sessionScope.loginId != null}">
 
-		<nav>
+		<nav style="border-radius: 10px; padding: 18px; margin: 0; width: 100%;">
 			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				style="height: 50px; width: 150px;"></a>
-			<ul id=nav-ul style="">
+			<ul id=nav-ul style="" >
 
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list><a href="#">탐색</a>
@@ -34,7 +34,7 @@
 
 	<c:when test="${sessionScope.loginId == null }">
 
-	<nav>
+	<nav style="border-radius: 10px; padding: 18px; margin: 0; width: 100%;">
 		<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				style="height: 50px; width: 150px;"></a>
 			<ul id=nav-ul>

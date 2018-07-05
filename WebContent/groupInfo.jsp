@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" type="text/css"
-	href="css/groupInfo-style.css?ver=2">
+	href="css/groupInfo-style.css?ver=1">
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
 
@@ -44,6 +44,31 @@
 		</ul>
 	</div>
 	
+	
+	
+	<!-- 그룹 관리 -->
+	<div class="btn-group"
+		style="position: absolute; right: 600px; top: 475px;">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
+		<ul class="dropdown-menu" role="menu">
+		<c:forEach var="result" items="${result }">
+			<li><a href="#">그룹 내용 수정</a></li>
+			<li><a href="#">그룹 흥미 수정</a></li>
+		</c:forEach>
+		</ul>
+	</div>
+	
+	
+	
+	
+	
+	
+	<!-- 밋업 관리 -->
+	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
+	
+	
+	
 	<c:if test="${isGroupMember eq true }">
 		<script>
 			$("#joinGroupBT").hide();
@@ -58,10 +83,7 @@
 	
 	
 
-	<c:forEach var="result" items="${result }">
-			<input type="hidden" id="group_seq" value="${result.group_seq }">
-			<input type="hidden" id="group_name" value="${result.group_name }">
-	</c:forEach>
+	
 	
 			
 			
@@ -81,6 +103,29 @@
 		</div>
 
 	</c:if>
+	
+	
+	<c:forEach var="result" items="${result }">
+			<input type="hidden" id="group_seq" value="${result.group_seq }">
+			<input type="hidden" id="group_name" value="${result.group_name }">
+			
+			<c:choose>
+				<c:when test="${result.member_email eq  sessionScope.loginId}">
+					<script>
+						$("#joinGroupBT").hide();
+						$("#memberBT").hide();
+						$("#test").remove();
+					</script>
+				</c:when>
+				<c:otherwise>
+					<script>
+						$("#newMeetingBT").hide();
+						$("#groupSettingBT").hide();
+					</script>
+				</c:otherwise>
+			</c:choose>
+			
+	</c:forEach>
 	
 	
 	<script>
@@ -114,7 +159,7 @@
 	
 </div>
 
-<div id="contents">
+<div id="contents" style="background-color: #f4f6f7; height:1800px;">
 
 
 	<div id="wrapper">
@@ -398,8 +443,6 @@
 	</div>
 </div>
 
-<footer>
-	<%@ include file="include/bottom.jsp"%>
-</footer>
+
 </body>
 </html>

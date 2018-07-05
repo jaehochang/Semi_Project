@@ -15,6 +15,8 @@ public class GroupDTO {
    private int group_alarm;
    private String group_createdate;
    private int group_betweendate;
+   private String member_email;
+
 
    public GroupDTO() {
       super();
@@ -25,7 +27,7 @@ public class GroupDTO {
    public GroupDTO(int group_seq, String group_leader, String group_name, String group_location,
          String group_interests, String group_info, String group_picture, String group_warningdate,
          int group_warningnumber, String group_expiredate, int group_isblocked, int group_alarm,
-         String group_createdate, int group_betweendate) {
+         String group_createdate, int group_betweendate, String member_email) {
       super();
       this.group_seq = group_seq;
       this.group_leader = group_leader;
@@ -41,6 +43,7 @@ public class GroupDTO {
       this.group_alarm = group_alarm;
       this.group_createdate = group_createdate;
       this.group_betweendate = group_betweendate;
+      this.member_email = member_email;
    }
 
 
@@ -156,4 +159,14 @@ public class GroupDTO {
    public void setGroup_betweendate(int group_betweendate) {
       this.group_betweendate = group_betweendate;
    }
+
+   public String getMember_email() {
+	   return member_email;
+   }
+
+   public void setMember_email(String member_email) {
+	   this.member_email = member_email;
+   }
+   
+   
 }

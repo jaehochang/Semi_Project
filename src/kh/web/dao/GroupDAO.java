@@ -245,6 +245,8 @@ public class GroupDAO {
 			dto.setGroup_interests(rs.getString("group_interests"));
 			dto.setGroup_info(rs.getString("group_info"));
 			dto.setGroup_picture(rs.getString("group_picture"));
+			dto.setMember_email(rs.getString("member_email"));
+			
 			
 			result.add(dto);
 		}
@@ -460,7 +462,7 @@ public class GroupDAO {
 	
 	 public List<GroupPicDTO> groupPagePic(int group_seq) throws Exception{
 		   Connection con = DBUtils.getConnection();
-		   String sql = "select * from group_picture where group_seq=?";
+		   String sql = "select * from group_picture where group_seq=? order by group_picture_seq desc";
 		   PreparedStatement pstat = con.prepareStatement(sql);
 		   pstat.setInt(1, group_seq);
 		   

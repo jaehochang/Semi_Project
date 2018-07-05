@@ -32,7 +32,8 @@
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
+<!-- 사진  -->
+<link rel="stylesheet" href="photo/css/lightbox.min.css">
 
 <title>Group Main</title>
 
@@ -140,10 +141,10 @@ body {
 						<h2 >${item.group_name }</h2>
 					</div>
 					<div id="info-groupinfo">
-					<ul style="padding: 0px;">
-						<li style="list-style: none; margin: 0;">${item.group_location }
-						<li style="margin: 0 0 0 30px;">${count}명회원
-						<li style="margin: 0 0 0 30px;">공개그룹
+					<ul style="padding: 0px; float:left;">
+						<li style="list-style: none; margin: 0; float:left;">${item.group_location }
+						<li style="margin: 0 0 0 30px; float:left;">${count}명회원
+						<li style="margin: 0 0 0 30px; float:left;">공개그룹
 					</ul>
 					</div>
 					
