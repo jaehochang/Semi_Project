@@ -207,6 +207,12 @@
 						 alert("모든거리 입니다.");
 						$("#distance-default").html("모든거리 <span class=caret></span>");
 						})
+						
+					$(".dropdown-toggle ellipsize").click(function(){
+						
+						
+					})
+					
 					})
 </script>
 
@@ -229,8 +235,12 @@
 
 	<div id="search">
 		<div class="col-xs-4">
-			<input type="text" class="form-control" id="search-input"
-				placeholder="전체 MeetUp 이벤트">
+			<div class="dropdown callout">
+		<input id="mainKeywords" class="dropdown-toggle" type="text" name="keywords" size="30" maxlength="100" value="" title="" placeholder="전체 Meetup 이벤트" autocomplete="off" autocorrect="on" spellcheck="true" data-key="*" data-name="*">
+			<ul class="dropdown-menu" id="simple-criteria">
+				<li style="color:red">1111</li>
+			</ul>
+		   </div>
 			<button type="button" class="btn btn-default" aria-label="Left Align"
 				id="search-bt">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
