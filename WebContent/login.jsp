@@ -170,7 +170,8 @@
 				</form>
 			</div>
 		</div>
-	</div> -->
+	</div>
+	-->
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div id=loginheader style="border-bottom: 1px sold grey;">
@@ -217,7 +218,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="loginblock">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -257,25 +258,26 @@
 		</div>
 	</div>
 
-		<!-- SNS 로그인 API  -->
+	<!-- SNS 로그인 API  -->
+
+
+	<div>
+		<%@ include file="logInWithKakao.jsp"%>
+		<%@ include file="signUpWithFaceBook.jsp"%>
+		<%@ include file="signUpWithGoogle.jsp"%>
+		if (id == "" || pw == "") { $("#emptyinput").modal(); }
+
+	</div>
+
+	</div>
+
+	<!-- footer -->
+
 	<script>
 		$("#loginbtn").click(function() {
 			var id = $("#member_email").val();
 			var pw = $("#pwd").val();
 
-		<div>
-			<%@ include file="logInWithKakao.jsp"%>
-			<%@ include file="signUpWithFaceBook.jsp"%>
-			<%@ include file="signUpWithGoogle.jsp"%>
-			if (id == "" || pw == "") {
-				$("#emptyinput").modal();
-			}
-
-		</div>
-
-	</div>
-
-	<!-- footer -->
 			$.ajax({
 				url : "logincheck.co",
 				type : "post",
@@ -286,17 +288,17 @@
 				success : function(resp) {
 					//boolean이 true일때 로그인 안되는 모달창
 					//boolean이 false일때 로그인 성공
-// 					var bool = resp.bool;
+					// 					var bool = resp.bool;
 					console.log("성공")
 					console.log(resp.id);
 					console.log(resp.pw);
 					console.log(resp.bool);
 					console.log(resp.bdate)
-					if(resp.bool){
+					if (resp.bool) {
 						$("#blockid").modal();
-						$("#modaltext").text("사용까지"+resp.bdate+"일 남았습니다.");
-					}else{
-						location.href="CIHLogin.co?member_email="+resp.id;
+						$("#modaltext").text("사용까지" + resp.bdate + "일 남았습니다.");
+					} else {
+						location.href = "CIHLogin.co?member_email=" + resp.id;
 					}
 				},
 				error : function() {

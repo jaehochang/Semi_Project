@@ -811,8 +811,8 @@ public class AdminDAO {
 			mdto.setGroup_leader(rs.getString("group_leader"));
 			mdto.setMeeting_title(rs.getString("meeting_title"));
 			mdto.setMeeting_contents(rs.getString("meeting_contents"));
-			mdto.setMeeting_start_time(rs.getString("meeting_start_time"));
-			mdto.setMeeting_end_time(rs.getString("meeting_end_time"));
+			mdto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+			mdto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			mdto.setMeeting_location(rs.getString("meeting_location"));
 			mdto.setMeeting_picture(rs.getString("meeting_picture"));
 			mdto.setMeeting_lat(rs.getString("meeting_lat"));
@@ -933,8 +933,8 @@ public class AdminDAO {
 			mdto.setGroup_leader(rs.getString("group_leader"));
 			mdto.setMeeting_title(rs.getString("meeting_title"));
 			mdto.setMeeting_contents(rs.getString("meeting_contents"));
-			mdto.setMeeting_start_time(rs.getString("meeting_start_time"));
-			mdto.setMeeting_end_time(rs.getString("meeting_end_time"));
+			mdto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+			mdto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			mdto.setMeeting_location(rs.getString("meeting_location"));
 			mdto.setMeeting_picture(rs.getString("meeting_picture"));
 			mdto.setMeeting_lat(rs.getString("meeting_lat"));

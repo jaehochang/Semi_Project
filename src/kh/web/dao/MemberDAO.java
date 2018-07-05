@@ -855,6 +855,27 @@ public class MemberDAO {
 	//
 	//
 	// }
+	
+	   public boolean isMyGroup(String email) throws Exception{
+		      
+		      Connection con = DBUtils.getConnection();
+		      String sql = "select member_email from mygroup";
+		      PreparedStatement pstat = con.prepareStatement(sql);
+		      ResultSet rs = pstat.executeQuery();
+		      
+		      if(rs.next()) {
+		         rs.close();
+		         pstat.close();
+		         con.close();
+		         return true;
+		      }else {
+		         rs.close();
+		         pstat.close();
+		         con.close();
+		         return false;
+		         
+		      }
+		   }
 
 	public Boolean singin(String id, String pw) throws Exception {
 		Connection con = DBUtils.getConnection();
