@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+div{
+	box-sizing: border-box;
+}
+
+
+#contents{
+	background-color: #f4f6f7;
+}
+
+#wrapper{
+	border: 1px solid black;
+	margin: 0 auto;
+	width:1000px;
+	height:1800px;
+}

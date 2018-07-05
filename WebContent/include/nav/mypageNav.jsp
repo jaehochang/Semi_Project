@@ -14,7 +14,7 @@
 		<nav>
 			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				style="height: 50px; width: 150px;"></a>
-			<ul id=nav-ul>
+			<ul id=nav-ul style="">
 
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list><a href="#">탐색</a>

@@ -13,7 +13,9 @@
 			<li role="presentation"><a href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
 			<li role="presentation"><a href="groupMain.group?group_seq=${item.group_seq}&page=meetupNext">Meetup</a></li>
 			<li role="presentation"><a href="groupMain.group?group_seq=${item.group_seq}&page=member">회원</a></li>
-			<li role="presentation"><a href="#">사진</a></li>
+			<li role="presentation">
+			<a href="groupMain.group?group_seq=${item.group_seq}&page=photo">사진</a>
+			</li>
 		</c:forEach>
 		
 	</ul>

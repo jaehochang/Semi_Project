@@ -180,6 +180,9 @@ public class GroupController extends HttpServlet {
             }else if(page.equals("leader")) {
                isRedirect = false;
                dst="groupLeader.jsp";
+            }else if(page.equals("photo")) {
+            	isRedirect = false;
+                dst="groupPhoto.jsp";
             }
             
             

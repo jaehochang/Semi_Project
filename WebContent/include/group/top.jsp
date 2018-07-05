@@ -14,13 +14,20 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 <link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
+
+<!-- SJ 꺼 -->
+<link rel="stylesheet" type="text/css" href="./css/mypagenav-style.css">
+<link rel="stylesheet" type="text/css" href="./css/bottom-style.css">
+<link rel="stylesheet" type="text/css" href="./css/mypage-section-style.css">
+<!-- SJ 꺼 -->
+
+
+
 <script src="js/modernizr.custom.js"></script>
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -51,14 +58,29 @@
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
+	
 
 
 
+
+<STYLE>
+
+/* 나눔고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+
+/* 제주고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+body {
+/*    font-family: 'Jeju Gothic', serif; */
+   font-family: 'Nanum Gothic', serif;
+}
+</STYLE>
 </head>
 <body>
-	<header> <%@ include file="../nav/mypageNav.jsp"%>
-
-	</header>
+	<header>
+      <%@ include file="../nav/mypageNav.jsp"%>
+   </header>
+   
 	<hr>
 
 	<div id="group-top">
