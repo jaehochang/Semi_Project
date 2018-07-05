@@ -122,8 +122,12 @@ public class GroupController extends HttpServlet {
             
             
             List<GroupPicDTO> groupPagePic = dao.groupPagePic(groupSeq);
+            int groupPagePicCount = dao.groupPicCount(groupSeq);
+            
+            
             System.out.println("인원수"+count);
             System.out.println("그룹시퀀스 : "+result.get(0).getGroup_seq());
+            System.out.println("그룹사진갯수" + groupPagePicCount);
             
             
             //meeting 내용
@@ -150,6 +154,7 @@ public class GroupController extends HttpServlet {
             
             System.out.println("멤버리스트 사이즈 : "+memberList.size());
             
+            request.setAttribute("groupPagePicCount", groupPagePicCount);
             request.setAttribute("groupPagePic", groupPagePic);
             request.setAttribute("result", result);
             request.setAttribute("count", count);
