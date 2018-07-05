@@ -45,7 +45,7 @@ public class GroupController extends HttpServlet {
 			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
-			String ajax_all = null;
+			String ajax = null;
 			String ajax_dist = null;
 			String ajax_nameCheck=null;
 			String ajax_pay=null;
@@ -121,7 +121,7 @@ public class GroupController extends HttpServlet {
             
             
             
-            
+            List<GroupPicDTO> groupPagePic = dao.groupPagePic(groupSeq);
             System.out.println("인원수"+count);
             System.out.println("그룹시퀀스 : "+result.get(0).getGroup_seq());
             
@@ -150,6 +150,7 @@ public class GroupController extends HttpServlet {
             
             System.out.println("멤버리스트 사이즈 : "+memberList.size());
             
+            request.setAttribute("groupPagePic", groupPagePic);
             request.setAttribute("result", result);
             request.setAttribute("count", count);
             request.setAttribute("nextMeeting", nextMeeting);
@@ -180,6 +181,9 @@ public class GroupController extends HttpServlet {
             }else if(page.equals("leader")) {
                isRedirect = false;
                dst="groupLeader.jsp";
+            }else if(page.equals("photo")) {
+            	isRedirect = false;
+                dst="groupPhoto.jsp";
             }
             
             
@@ -328,8 +332,6 @@ public class GroupController extends HttpServlet {
 				
 				
 				
-			}else if(command.equals("/groupMain.group")) {
-				
 			}else if(command.equals("/join.group")) {
 				
 			String member_email = request.getSession().getAttribute("loginId").toString();
@@ -408,6 +410,8 @@ public class GroupController extends HttpServlet {
 				
 				response.sendRedirect(dst);
 			}
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

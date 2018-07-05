@@ -16,7 +16,7 @@
 	<div style="padding-left: 40px; padding-right: 40px;">
 		<hr class=style-six>
 	</div>
-	<ul>
+	<ul style="margin:0px;">
 		<li><a href="#" class="cool-link"
 			style="color: white; text-decoration: none;"> 도움말</a></li>
 		<li><a href="#" class="cool-link"
