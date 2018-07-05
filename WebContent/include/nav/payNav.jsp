@@ -216,28 +216,28 @@ top:40px;
 					//결제 후 호출되는 callback함수
 					if (response.success) { //결제 성공
 					
-					var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
-					/* alert(msg); */
-					// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-			        $.ajax({
+			         $.ajax({
 	    	            url: 'payEnd.group', 
 	    	            type: "get",
 	    	            data: {
 	    	            	buyer_email: response.buyer_email,
 	    	            },
 	    	            success:function(response){
-	    	            	console.log("전달 성공!!"+response)
 	    	            	
-	    	            	if(response.equals("success")){
+	    	            		var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
+	    		    			 alert(msg);
 	    	            		$(location).attr('href','createRequest.group');
-	    	            	}else{
-	    	            		$(location).attr('href','main.jsp');
-	    	            	}
+	    	            	
 	    	            },
 	    	            fail : function() {
 	    	            	console.log("전달 실패!!")
 	    				}
 	    	        })
+	    	        
+	    	        
+	    	        var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
+						
+						alert(msg); 
 			          
 					} else {
 						var msg='결제에 실패하였습니다.';
@@ -270,22 +270,18 @@ top:40px;
 	 	    	            success:function(response){
 	 	    	            	console.log("전달 성공!!")
 	 	    	            	
-	 	    	            	if(response.equals("success")){
+	 	    	            	
+	 	    	            		var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
+	 	    		    			 alert(msg);
 		    	            		$(location).attr('href','createRequest.group');
-		    	            	}else{
-		    	            		$(location).attr('href','main.jsp');
-		    	            	}
+		    	            	
 	 	    	            },
 	 	    	            fail : function() {
 	 	    	            	console.log("전달 실패!!")
 	 	    				}
 	 	    	        })
-	    			var msg='결제가 완료되었습니다. 그룹 생성 페이지로 이동합니다.';
-	    			 alert(msg);
 	    			
-	    			// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-	    	        // jQuery로 HTTP 요청
-	    	       
+	    			
 	    			
 	    			} else {
 	    				var msg='결제에 실패하였습니다.';
