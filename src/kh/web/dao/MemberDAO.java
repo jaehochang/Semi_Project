@@ -117,4 +117,26 @@ public class MemberDAO {
 
 	}
 
+	public Boolean singin(String id, String pw) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select member.*, floor(sysdate-member_expiredate) from member"
+				+ " where floor(sysdate-member_expiredate)<0 and member_email =? and member_pwd=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, id);
+		pstat.setString(2, pw);
+		ResultSet rs = pstat.executeQuery();
+		Boolean bool = true;
+
+		if (rs.next()) {
+			bool = true;
+		} else {
+			bool = false;
+		}
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return bool;
+	}
+
 }

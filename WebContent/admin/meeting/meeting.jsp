@@ -7,16 +7,15 @@
 		<div>
 			<select name="subject" id="subject">
 				<option value="meeting_title">Meeting제목</option>
-				<option value="meeting_start_time">Meeting 시작시간</option>
 				<option value="meeting_location">Meeting 위치</option>
 			</select> <input type="search" id="search">
 		</div>
 		<table class="table table-condensed">
 			<thead class="thead-dark">
 				<tr style="font-size: 20px;">
+					<th scope="col">미팅제목</th>
 					<th scope="col">그룹이름</th>
 					<th scope="col">그룹리더</th>
-					<th scope="col">미팅제목</th>
 					<th scope="col">미팅 위치</th>
 				</tr>
 			</thead>
@@ -31,9 +30,9 @@
 					<c:when test="${not empty list }">
 						<c:forEach var="mdto" items="${list }">
 							<tr>
+								<td><a href="meetingpage.ao?meeting_seq=${mdto.meeting_seq }">${mdto.meeting_title }</a></td>
 								<td><a href="grouppage.ao?group_seq=${mdto.group_seq }">${mdto.group_name }</a></td>
-								<td>${mdto.group_leader }</td>
-								<td>${mdto.meeting_title }</td>
+								<td><a href="memberpage.ao?member_email=${mdto.group_leader}">${mdto.group_leader }</a></td>
 								<td>${mdto.meeting_location }</td>
 							</tr>
 						</c:forEach>
@@ -69,15 +68,18 @@ $('#search').keydown(function() {
 					subject
 				},
 					success : function(resp) {
-
+						console.log("resp:"+resp);
+						console.log(resp.mlist);
+						console.log(resp.page);
 						var output;
+						var page;
 
-						if (resp.length == 0) {
+						if (resp.mlist.length == 0) {
 							output += "<tr>";
 							output += "</tr>";
 							$("tbody").html("찾는 결과가 없습니다.");
 						} else {
-							for (var i = 0; i < resp.length; i++) {
+							for (var i = 0; i < resp.mlist.length; i++) {
 								console.log("길이:" + resp.mlist.length);
 								console.log("susccess : "
 										+ resp.mlist[i].group_name);
@@ -97,7 +99,8 @@ $('#search').keydown(function() {
 								output += "</tr>";  
 							}
 							$('tbody').html(output);
-							output += "<td>'" + resp.page + "'</td>";
+							page = resp.page;
+							$('#pageul').html(page);
 						}
 					}
 

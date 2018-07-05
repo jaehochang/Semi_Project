@@ -49,6 +49,7 @@ public class AdminController extends HttpServlet {
 
 			AdminDAO adao = new AdminDAO();
 
+			boolean inRedirect = true;
 			boolean isRedirect = true;
 			String dst = null;
 
@@ -104,7 +105,7 @@ public class AdminController extends HttpServlet {
 					List<MemberDTO> list = adao.memberList(currentPage * 10 - 9, currentPage * 10, subject, text);
 
 					String page = adao.getMemberPageNavi(currentPage, subject, text);
-
+					System.out.println("member.ao_page : " + page);
 					request.setAttribute("list", list);
 					request.setAttribute("page", page);
 
@@ -150,6 +151,7 @@ public class AdminController extends HttpServlet {
 
 					List<GroupDTO> list = adao.allGroupList(currentPage * 10 - 9, currentPage * 10, subject, text);
 					String page = adao.getGroupPageNavi(currentPage, subject, text);
+					System.out.println("group.ao_page:" + page);
 
 					request.setAttribute("list", list);
 					request.setAttribute("page", page);
@@ -160,10 +162,9 @@ public class AdminController extends HttpServlet {
 				} else if (command.equals("/admin/memberpage.ao")) {
 					String member_email = request.getParameter("member_email");
 					System.out.println(member_email);
-					// 알림때문에 신고상태와 멤버페이지상태에서 나눠야하는데..
-					adao.modifyMemberReportState(member_email);
 					MemberDTO mdto = adao.getMember(member_email);
-
+					ReportDTO rdto = adao.reportMemJoin(member_email);
+					
 					Map<String, Object> map = adao.memGroupMemJoin(mdto.getMember_name());
 
 					List mlist = (List) map.get("mlist");
@@ -178,28 +179,28 @@ public class AdminController extends HttpServlet {
 					if (gmlist.size() != 0) {
 						// System.out.println("map 출력: " + gmlist.get(0));
 						GroupMemberDTO gmlistdto = (GroupMemberDTO) gmlist.get(0);
+						request.setAttribute("gmdto", gmlistdto);
 						System.out.println("gmlistdto:" + gmlistdto.getGroup_name());
-						request.setAttribute("gmlistdto", gmlistdto);
 					}
 					request.setAttribute("mdto", mdto);
-
+					request.setAttribute("rdto", rdto);
 					isRedirect = false;
 					dst = "member/memberpage.jsp";
 
 				} else if (command.equals("/admin/grouppage.ao")) {
 					int group_seq = Integer.parseInt(request.getParameter("group_seq"));
-
 					GroupDTO gdto = new GroupDTO();
 					gdto = adao.getGroupData(group_seq);
 					List<GroupMemberDTO> list = new ArrayList<>();
 					list = adao.getGroupMember(group_seq);
 					int size = list.size();
 					System.out.println("groupmember_size: " + list.size());
-
-					adao.modifyGroupReportState(gdto.getGroup_name());
-
+					
+					ReportDTO rdto = adao.reportGroupJoin(group_seq);
+					
 					request.setAttribute("size", size);
 					request.setAttribute("gdto", gdto);
+					request.setAttribute("rdto", rdto);
 
 					isRedirect = false;
 					dst = "group/grouppage.jsp?group_seq='" + group_seq + "'";
@@ -216,11 +217,42 @@ public class AdminController extends HttpServlet {
 					isRedirect = false;
 					dst = "report/memberreport.jsp";
 
-				} else if (command.equals("/admin/groupreport.ao")) {
-					List<ReportDTO> list = new ArrayList<>();
-					list = adao.getAllGroupReport(1);
-					request.setAttribute("list", list);
+				} else if (command.equals("/admin/modal.ao")) {
+					String distinction = request.getParameter("distinction");
+					String member_email = request.getParameter("member_email");
+					int report_seq = Integer.parseInt(request.getParameter("report_seq"));
+					String group_name = request.getParameter("group_name");
 
+					System.out.println("distinction: " + distinction);
+					System.out.println("member_email:" + member_email);
+					System.out.println("report_seq:" + report_seq);
+
+					JSONObject json = new JSONObject();
+
+					MemberDTO mdto = adao.getMember(member_email);
+					ReportDTO rdto = new ReportDTO();
+					GroupDTO gdto = new GroupDTO();
+
+					if (distinction.equals("member")) {
+						adao.modifyMemberReportState(member_email, report_seq);
+
+					} else {
+						System.out.println("modal.ao-group:" + group_name + "," + report_seq);
+						adao.modifyGroupReportState(group_name, report_seq);
+					}
+
+					response.setCharacterEncoding("UTF-8");
+					response.setContentType("application/json");
+
+					response.getWriter().print(json);
+					response.getWriter().flush();
+					response.getWriter().close();
+
+				} else if (command.equals("/admin/groupreport.ao")) {
+					List<ReportDTO> rlist = new ArrayList<>();
+					rlist = adao.getAllGroupReport();
+
+					request.setAttribute("rlist", rlist);
 					isRedirect = false;
 					dst = "report/groupreport.jsp";
 
@@ -256,10 +288,12 @@ public class AdminController extends HttpServlet {
 
 					} else if (request.getParameter("distinction").equals("group")) {
 						System.out.println("groupwarning");
-						int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+						// int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+						String group_name = request.getParameter("group_name");
+						System.out.println("warning-group:" + group_name);
 
-						int result = adao.plusGroupWarningNumber(group_seq);
-						GroupDTO gdto = adao.getGroupData(group_seq);
+						int result = adao.plusGroupWarningNumber(group_name);
+						GroupDTO gdto = adao.getGroupDataByName(group_name);
 
 						String warningdate = gdto.getGroup_warningdate();
 						String expiredate = gdto.getGroup_expiredate();
@@ -303,7 +337,7 @@ public class AdminController extends HttpServlet {
 						System.out.println("currentpage: " + currentPage);
 						System.out.println("currentpageString: " + currentPageString);
 
-						if (text.equals("")) {
+						if (text.equals("") || text.equals(null)) {
 							mlist = adao.memberList(currentPage * 10 - 9, currentPage * 10, subject, text);
 						} else {
 							mlist = adao.searchMemberList(currentPage * 10 - 9, currentPage * 10, subject, text);
@@ -358,8 +392,9 @@ public class AdminController extends HttpServlet {
 						map.put("page", page);
 
 						new Gson().toJson(map, response.getWriter());
-						
+
 					} else if (request.getParameter("distinction").equals("meeting")) {
+						System.out.println("distinction:meeting");
 						int currentPage = 0;
 						String currentPageString = request.getParameter("currentPage");
 
@@ -378,7 +413,7 @@ public class AdminController extends HttpServlet {
 						}
 
 						System.out.println("list.size(): " + mlist.size());
-						String page = adao.getGroupPageNavi(currentPage, subject, text);
+						String page = adao.getMeetingPageNavi(currentPage, subject, text);
 
 						for (int i = 0; i < meetlist.size(); i++) {
 							System.out.println("controller-search.ao:" + meetlist.get(i).getMeeting_title());
@@ -395,13 +430,26 @@ public class AdminController extends HttpServlet {
 					}
 
 				} else if (command.equals("/admin/email.ao")) {
+					String distinction = request.getParameter("distinction");
+					System.out.println("email.ao-disctinction:" + distinction);
+					String email = "";
+					String group_warningdate = "";
+					String group_expiredate = "";
 
-					System.out.println("뭐야");
+					if (distinction.equals("member")) {
+
+					} else {
+						email = request.getParameter("group_leader");
+						group_warningdate = request.getParameter("group_warningdate");
+						group_expiredate = request.getParameter("group_expiredate");
+					}
+
+					String toEmail = email;
 					String host = "smtp.naver.com";
 					final String user = "sksksrff@naver.com";
 					final String password = "rmancis1990!";
 
-					String to = "sksksrff@gmail.com";
+					String to = "sksksrff@gmail.com";// toEmail로 교체
 
 					// Get the session object
 					Properties props = new Properties();
@@ -424,7 +472,14 @@ public class AdminController extends HttpServlet {
 						message.setSubject("meetnow입니다.");
 
 						// Text
-						message.setText("다른 회원님에게서 신고를 당해 일주일간 블락입니다.");
+						if (distinction.equals("member")) {
+
+						} else {
+							message.setText("다른 회원님에게서 신고를 당해 일주일간 블락입니다." + "회원님이 블락된 날짜 : " + group_warningdate
+									+ "회원님의 블락 만료일 : " + group_expiredate);
+						}
+
+
 
 						// send the message
 						Transport.send(message);
@@ -438,18 +493,57 @@ public class AdminController extends HttpServlet {
 					// 연령(파이), 동호회카테고리별(파이), 신고내용별(막대) 방문자수(막대)
 					isRedirect = false;
 					dst = "stats/stats.jsp";
+
+				} else if (command.equals("/admin/getnum.ao")) {
+					String distinction = request.getParameter("distinction");
+					int report_seq = Integer.parseInt(request.getParameter("report_seq"));
+
+					System.out.println("distinction: " + distinction);
+					System.out.println("report_seq:" + report_seq);
+
+					JSONObject json = new JSONObject();
+
+					MemberDTO mdto = new MemberDTO();
+					ReportDTO rdto = new ReportDTO();
+					GroupDTO gdto = new GroupDTO();
+
+					if (distinction.equals("member")) {
+						mdto = adao.memReportJoin(report_seq);
+						json.put("warningnumber", String.valueOf(mdto.getMember_warningnumber()));
+						System.out.println("warning_mdto, " + mdto.getMember_email() + " warningnumber:"
+								+ mdto.getMember_warningnumber());
+
+					} else {
+						gdto = adao.groupReportJoin(report_seq);
+						json.put("warningnumber", String.valueOf(gdto.getGroup_warningnumber()));
+						System.out.println("warning_gdto :" + gdto.getGroup_name() + " warningnumber:"
+								+ mdto.getMember_warningnumber());
+					}
+
+					rdto = adao.getReportData(report_seq);
+					json.put("date", rdto.getReport_date());
+					json.put("caller", rdto.getReport_caller());
+					json.put("callee", rdto.getReport_calleemember());
+					json.put("reason", rdto.getReport_reason());
+
+					response.setCharacterEncoding("UTF-8");
+					response.setContentType("application/json");
+
+					response.getWriter().print(json);
+					response.getWriter().flush();
+					response.getWriter().close();
+
 				}
 
 			}
 
-			if (isRedirect == false)
-
-			{
+			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 			} else {
 				// response.sendRedirect(dst);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			// response.sendRedirect("error.html");

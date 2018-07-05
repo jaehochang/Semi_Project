@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javafx.scene.Group;
+import kh.web.dao.GroupDAO;
 import kh.web.dao.MeetingDAO;
+import kh.web.dto.GroupDTO;
 import kh.web.dto.MeetingDTO;
 
 /**
@@ -26,6 +29,7 @@ public class MeetingController extends HttpServlet {
          
          System.out.println(command); 
          
+         GroupDAO gdao = new GroupDAO();
          MeetingDAO dao = new MeetingDAO();
          boolean isRedirect = true;
          String dst = null;
@@ -41,6 +45,36 @@ public class MeetingController extends HttpServlet {
             request.setAttribute("result", result);
             isRedirect = false;
             dst = "meeting.jsp";
+            
+         } else if(command.equals("/newmeeting.meet")) {
+        	 System.out.println("in newmeeting.meet");
+//        	 int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+//        	 GroupDTO gdto = gdao.getGroupData(group_seq);
+        	 MeetingDTO mdto = new MeetingDTO();
+        	 String meeting_title = request.getParameter("sub2_textarea");
+        	 String meeting_contents = request.getParameter("sub5_textarea");
+        	 String meeting_location = request.getParameter("loc");
+        	 String meeting_latlng = request.getParameter("latlng");
+        	 // 지혜야 그림파일 넣어라
+        	 String meeting_picture = "default.jpg";
+        	 
+        	 System.out.println("newmeeting.meet:");
+        	 System.out.println(meeting_title);
+        	 System.out.println(meeting_contents);
+        	 System.out.println(meeting_location);
+        	 System.out.println(meeting_latlng);
+        	 
+        	 mdto.setMeeting_contents(meeting_contents);
+//        	 mdto.setMeeting_lat(meeting_lat);
+//        	 mdto.setMeeting_lng(meeting_lng);
+        	 mdto.setMeeting_location(meeting_location);
+        	 mdto.setMeeting_title(meeting_title);
+        	 mdto.setMeeting_picture(meeting_picture);
+        	 
+//        	 int result = dao.insertNewMeeting(gdto, mdto);
+        	 
+        	 isRedirect = false;
+        	 dst="NewFile.html";
          }
          
          if(isRedirect) {

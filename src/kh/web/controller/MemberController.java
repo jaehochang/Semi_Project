@@ -1,6 +1,8 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+
+import kh.web.dao.AdminDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
 
@@ -24,11 +31,9 @@ public class MemberController extends HttpServlet {
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length());
 
-
 			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
-			
-			
+
 			System.out.println(command);
 
 			MemberDAO dao = new MemberDAO();
@@ -36,24 +41,24 @@ public class MemberController extends HttpServlet {
 			String dst = null;
 
 			if (command.equals("/LoginController.co")) {
-				String email = request.getParameter("member_email");
-				String pw = request.getParameter("pwd");
-				boolean result = dao.isIdPw(email, pw);
-				if (result) {
-
-					request.getSession().setAttribute("loginId", email);
-
-					request.setAttribute("result", result);
-					request.setAttribute("id", email);
-					request.setAttribute("pw", pw);
-
-					isRedirect = false;
-					
-					dst = "loginview.jsp";
-
-				} else {
-
-				}
+//				String email = request.getParameter("member_email");
+//				String pw = request.getParameter("pwd");
+//				boolean result = dao.isIdPw(email, pw);
+//				if (result) {
+//
+//					request.getSession().setAttribute("loginId", email);
+//
+//					request.setAttribute("result", result);
+//					request.setAttribute("id", email);
+//					request.setAttribute("pw", pw);
+//
+//					isRedirect = false;
+//
+//					dst = "loginview.jsp";
+//
+//				} else {
+//
+//				}
 
 			} else if (command.equals("/login.co")) {
 
@@ -79,23 +84,20 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/mypage.co")) {
 
-				
-					
-					String loginId = (String)request.getSession().getAttribute("loginId");
-					MemberDAO mDAO = new MemberDAO();
-					
-					MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
-					
-					request.setAttribute("userName", accntInfo.getMember_name());
-					request.setAttribute("userEmail", accntInfo.getMember_email());
-					request.setAttribute("userLocation", accntInfo.getMember_location());
-					request.setAttribute("userPicture", accntInfo.getMember_picture());
-					request.setAttribute("userInterests", accntInfo.getMember_interests());
-					request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
-					
-					isRedirect = false;
-					dst = "mypage.jsp";
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				MemberDAO mDAO = new MemberDAO();
 
+				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+
+				request.setAttribute("userName", accntInfo.getMember_name());
+				request.setAttribute("userEmail", accntInfo.getMember_email());
+				request.setAttribute("userLocation", accntInfo.getMember_location());
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+
+				isRedirect = false;
+				dst = "mypage.jsp";
 
 			} else if (command.equals("/signUpPage.co")) {
 
@@ -137,13 +139,45 @@ public class MemberController extends HttpServlet {
 
 				isRedirect = true;
 				dst = "main.jsp";
+
+			//--------------밑으로 인형이가 만듬
+			} else if (command.equals("/logincheck.co")) {
+				String id = request.getParameter("id");
+				String pw = request.getParameter("pw");
+				System.out.println("logincheck: " + id);
+				System.out.println("logincheck: " + pw);
+				Boolean bool = dao.singin(id, pw);
+				AdminDAO adao = new AdminDAO();
+				int bdate = adao.getDate(id);
+				
+				JSONObject json = new JSONObject();
+				json.put("id", id);
+				json.put("pw", pw);
+				json.put("bool", bool);
+				json.put("bdate", bdate);
+
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+
+				response.getWriter().print(json);
+				response.getWriter().flush();
+				response.getWriter().close();
+
+			}else if(command.equals("/CIHLogin.co")) {
+				String member_email = request.getParameter("member_email");
+				System.out.println("CIHlogin.co:"+member_email);
+				
+				request.getSession().setAttribute("loginId", member_email);
+				System.out.println("session: "+request.getSession().getAttribute("loginId"));
+				isRedirect = false;
+				dst = "list.group";
 			}
 
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 			} else {
-				response.sendRedirect(dst);
+				// response.sendRedirect(dst);
 			}
 
 		} catch (Exception e) {

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.javafx.css.PseudoClassState;
+
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
@@ -227,6 +229,42 @@ public class GroupDAO {
 		rs.close();
 
 		return result;
+	}
+
+	public GroupDTO getGroupData(int group_seq) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select create_group.*, floor(sysdate - group_expiredate) as bdate from create_group where group_seq=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		ResultSet rs = pstat.executeQuery();
+		GroupDTO gdto = new GroupDTO();
+
+		while (rs.next()) {
+			gdto.setGroup_seq(rs.getInt("group_seq"));
+			gdto.setGroup_leader(rs.getString("group_leader"));
+			gdto.setGroup_name(rs.getString("group_name"));
+			gdto.setGroup_location(rs.getString("group_location"));
+			gdto.setGroup_interests(rs.getString("group_interests"));
+			gdto.setGroup_info(rs.getString("group_info"));
+			gdto.setGroup_picture(rs.getString("group_picture"));
+			gdto.setGroup_warningdate(rs.getString("group_warningdate"));
+			gdto.setGroup_warningnumber(rs.getInt("group_warningnumber"));
+			gdto.setGroup_expiredate(rs.getString("group_expiredate"));
+			gdto.setGroup_isblocked(rs.getInt("group_isblocked"));
+			gdto.setGroup_createdate(rs.getString("group_createdate"));
+			gdto.setGroup_alarm(rs.getInt("group_alarm"));
+			gdto.setGroup_lat(rs.getString("group_lat"));
+			gdto.setGroup_lng(rs.getString("group_lng"));
+			if (rs.getString("bdate") != null) {
+				gdto.setGroup_betweendate(rs.getInt("bdate"));
+			}
+		}
+		
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return gdto;
 	}
 
 }

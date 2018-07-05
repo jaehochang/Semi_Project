@@ -37,9 +37,11 @@
 		<div class="panel-footer">&nbsp;</div>
 	</div>
 </div>
-<!-- <div>현재 그룹수(오늘 새로 생성된 그룹수)</div> -->
-<!-- <div>현재 밋업 수(오늘 등록된 밋업수)</div> -->
-<!-- <div>확인하지 않은 신고수</div> -->
 <!-- <div>방문자수(할수있으면), 회원 연령별, 카테고리별,신고내용별</div> -->
+
+<div id="chart-container" style="margin-top: 50px;">연령별 파이 그래프</div>
+<div id="chart-container2" style="margin-top: 50px;">방문자를 해보자</div>
+<script type="text/javascript" src="js/stats.js"></script>
+
 </body>
 </html>

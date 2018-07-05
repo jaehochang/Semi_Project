@@ -30,7 +30,8 @@
 						<c:forEach var="gdto" items="${list }">
 							<tr>
 								<td><a href="grouppage.ao?group_seq=${gdto.group_seq}">${gdto.group_name }</a></td>
-								<td>${gdto.group_leader }</td>
+								<td><a
+									href="memberpage.ao?member_email=${gdto.group_leader}">${gdto.group_leader }</a></td>
 								<td>${gdto.group_location }</td>
 								<td>회원수</td>
 							</tr>
@@ -67,7 +68,8 @@
 					success : function(resp) {
 						var output;  
 						var page;
-
+						console.log(resp.page);
+						
 						if (resp.length == 0) {
 							output += "<tr>";
 							output += "</tr>";
@@ -77,16 +79,12 @@
 								console.log("길이:" + resp.glist.length);
 								output += "<tr>";
 								output += "<td><a href='grouppage.ao?group_seq="+resp.glist[i].group_seq+"'>'" + resp.glist[i].group_name + "'</a></td>";
-								output += "<td>'" + resp.glist[i].group_leader + "'</td>";
+								output += "<td><a href='memberpage.ao?member_email="+resp.glist[i].group_leader+"'>'" + resp.glist[i].group_leader + "'</td>";
 								output += "<td>'" + resp.glist[i].group_location + "'</td>";
-								if(resp.glist[i].group_alarm>0){
-									output += "<td class='badge'>'" + resp.glist[i].group_alarm + "'</td>";
-								}
 								output += "</tr>";
 							}
 							$('tbody').html(output);
-							page=resp.page;
-							$('#pageul').html(page);
+							$('#pageul').html(resp.page);
 						}
 					}
 

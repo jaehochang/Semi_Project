@@ -6,8 +6,10 @@
 	<div style="margin: 150px auto; width: 1000px;">
 		<div>
 			<select name="subject" id="subject" class="subject">
-				<option value="member_email">이메일</option>
+				<option value="member_email" selected="selected">이메일</option>
 				<option value="member_name">이름</option>
+				<option value="member_gender">성별</option>
+				<option value="member_location">위치</option>
 			</select> <input type="search" id="search" class="search">
 		</div>
 		<table class="table table-condensed">
@@ -87,33 +89,17 @@
 								console.log("길이:" + resp.mlist.length);
 								console.log("susccess : "
 										+ resp.mlist[i].member_email);
-								console
-										.log("susccess : "  
-												+ resp.mlist[i].member_name);
-								console.log("susccess : "
-										+ resp.mlist[i].member_joindate);
-								console.log("susccess : "
-										+ resp.mlist[i].member_warningnumber);
-								console.log("susccess : "
-										+ resp.mlist[i].member_warningdate);
-								console.log("susccess : "
-										+ resp.mlist[i].member_expiredate);
-								
 								output += "<tr>";
 								output += "<td><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></td>";
 								output += "<td>'" + resp.mlist[i].member_name + "'</td>";
 								output += "<td>'" + resp.mlist[i].member_gender + "'</td>";
 								output += "<td>'" + resp.mlist[i].member_location + "'</td>";
-								if(resp.mlist[i].member_alarm>0){
-									output += "<td class='badge'>'" + resp.mlist[i].member_alarm + "'</td>";
-								}
 								output += "</tr>";
 								
 								
 							}
 							$('tbody').html(output);
-							page = resp.page;
-							$('#pageul').html(page);
+							$('#pageul').html(resp.page);
 						}
 					}
 				})

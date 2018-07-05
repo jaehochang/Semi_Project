@@ -79,42 +79,27 @@
 			style="margin: 50px auto; width: 700px;">
 			<thead>
 				<tr>
-					<th style="font-size: 30px;">신고내용</th>
+					<th style="font-size: 30px;">신고기록</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>신고일시</td>
-					<td>report_date</td>
-				</tr>
-				<tr>
 					<td>신고자</td>
-					<td>report_caller</td>
-				</tr>
-				<tr>
 					<td>신고내용</td>
-					<td>report_reason</td>
 				</tr>
 				<tr>
-					<td>블락</td>
-					<c:if test="${gdto.group_warningnumber == 0}">
-						<td>
-							<button id="block" type="button" class="btn btn-warning">블락</button>
-						</td>
-					</c:if>
-					<c:if test="${gdto.group_warningnumber == 1}">
-						<td>
-							<button id="block" type="button" class="btn btn-warning">영구정지</button>
-						</td>
-					</c:if>
-					<c:if test="${gdto.group_warningnumber == 2}">
-						<td>
-							<button id="delet" type="button" class="btn btn-danger" disabled>삭제중</button>
-						</td>
+					<td>${rdto.report_date }</td>
+					<td>${rdto.report_caller}</td>
+					<td>${rdto.report_reason }</td>
+					<c:if test="${rdto.report_reason eq null }">
+						<td>${rdto.report_etcreason }</td>
 					</c:if>
 				</tr>
 				<tr>
-					<td style="font-size: 30px;"><strong>신고기록</strong></td>
+					<td></td>
+					<td></td>
+					<td>${rdto.report_etcreason }</td>
 				</tr>
 			</tbody>
 		</table>

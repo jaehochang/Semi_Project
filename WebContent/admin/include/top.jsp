@@ -25,12 +25,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-
-
+<!-- <script src="js/bootstrap.min.js"></script>-->
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 		<div class="container-fluid">
@@ -49,11 +45,23 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="member.ao">회원</a></li>
-					<li><a href="group.ao">그룹</a></li>
-					<li><a href="meeting.ao">meet up</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-expanded="false">관리
+							<span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="member.ao?currentPage=1&subject=member_email&title=">회원</a></li>
+							<li><a href="group.ao">그룹</a></li>
+							<li><a href="meeting.ao">meetup</a></li>
+							<!--<li class="divider"></li> -->
+							<!--<li class="dropdown-header">Nav header</li> -->
+							<!--<li><a href="#">Separated link</a></li> -->
+							<!--<li><a href="#">One more separated link</a></li> -->
+						</ul></li>
 					<li><a href="report.ao">신고</a></li>
 					<li><a href="stats.ao">통계</a></li>
+
+
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"

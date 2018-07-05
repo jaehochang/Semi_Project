@@ -7,7 +7,7 @@
 	href="css/groupInfo-style.css?ver=3">
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
-
+	
 <div id="navi-div">
 	<ul class="nav nav-tabs">
 		<c:forEach var="item" items="${result }">
@@ -26,7 +26,7 @@
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">그룹 신고</a></li>
+				<li><a href="groupreport.group?group_seq=${group_seq }">그룹 신고</a></li>
 			</ul>
 		</div>
 	</ul>
@@ -105,8 +105,6 @@
 			</div>
 		</div>
 
-		
-		
 		<c:forEach var="item2" items="${result }">
 			<div id="group-contents">
 				<div id="group-plan">

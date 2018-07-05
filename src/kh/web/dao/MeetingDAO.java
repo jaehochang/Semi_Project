@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kh.web.dto.GroupDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.utils.DBUtils;
 
@@ -62,6 +63,31 @@ public class MeetingDAO {
       }
       
       return dto;
+   }
+   
+   public int insertNewMeeting(GroupDTO gdto, MeetingDTO mdto) throws Exception{
+	   Connection con = DBUtils.getConnection();
+	   String sql = "insert into meeting values(meeing_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
+	   PreparedStatement pstat = con.prepareStatement(sql);
+	   pstat.setInt(1, gdto.getGroup_seq());
+	   pstat.setString(2, gdto.getGroup_name());
+	   pstat.setString(3, gdto.getGroup_leader());
+	   pstat.setString(4, mdto.getMeeting_title());
+	   pstat.setString(5, mdto.getMeeting_contents());
+	   pstat.setString(6, mdto.getMeeting_start_time());
+	   pstat.setString(7, mdto.getMeeting_end_time());
+	   pstat.setString(8, mdto.getMeeting_location());
+	   pstat.setString(9, mdto.getMeeting_lat());
+	   pstat.setString(10, mdto.getMeeting_lng());
+	   pstat.setString(11, mdto.getMeeting_picture());
+	   int result = pstat.executeUpdate();
+
+	   con.commit();
+	   pstat.close();
+	   con.close();
+	   
+	   return result;
+	   
    }
    
 }

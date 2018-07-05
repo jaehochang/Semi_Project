@@ -160,24 +160,25 @@
 
 
 	<div id="recoMeetnow">
-		<p>추천 MeetNow</p>
-		<div class="row">
-		
-		<c:forEach var="item" items="${groupList }">
-		
-			<div class="col-md-4">
-				<div class="img_div">
-				<div class="over-img">
-					<img src="files/${item.group_picture }" class="img_size">
-				</div>
-				</div>
-				<h4 class="group_title">${item.group_name }</h4>
-			</div>
-			
-		</c:forEach>
-		</div>
+      <p>추천 MeetNow</p>
+      <div class="row">
+      
+      <c:forEach var="item" items="${groupList }">
+      
+         <div class="col-md-4">
+            <a href="groupMain.group?group_seq=${item.group_seq}&page=info">
+            <div class="img_div">
+            <div class="over-img">
+               <img src="files/${item.group_picture }" class="img_size">
+            </div>
+            </div>
+            <h4 class="group_title">${item.group_name }</h4>
+         </div>
+         
+      </c:forEach>
+      </div>
 
-	</div>
+   </div>
 	
 	<div id="moreGroup">
 		<button type="button" class="btn btn-default btn-lg btn-block" style="height:30px; padding:0px;">더보기</button>
