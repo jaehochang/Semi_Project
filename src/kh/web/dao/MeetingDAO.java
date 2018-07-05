@@ -64,8 +64,10 @@ public class MeetingDAO {
          dto.setMeeting_picture(rs.getString("meeting_picture"));
          
       }
-      con.close();
+      
+      rs.close();
       pstat.close();
+      con.close();
       return dto;
    }
    

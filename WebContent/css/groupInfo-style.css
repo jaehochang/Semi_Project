@@ -413,6 +413,16 @@ div{
 }
    
    
+#newMeetingBT{
+	position: absolute;
+	right: 430px;
+	top: 475px;
+	width: 150px;
+	background-color: #b831d9;
+	color: white;
+	
+}
+   
    
    
    

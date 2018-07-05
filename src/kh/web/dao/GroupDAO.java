@@ -71,34 +71,33 @@ public class GroupDAO {
 		return result;
 	}
 
-	public List<MygroupDTO> myGroupList(String email) throws Exception{
-		Connection con = DBUtils.getConnection();
-		String sql = "select a.GROUP_SEQ,a.GROUP_NAME, b.SYSTEM_NAME "
-				+ "from mygroup a, group_picture b, group_member c "
-				+ "where a.GROUP_SEQ = b.GROUP_SEQ and a.GROUP_SEQ = c.GROUP_SEQ and a.MEMBER_EMAIL = ? "
-				+ "group by a.GROUP_SEQ, a.GROUP_NAME, b.SYSTEM_NAME";
-		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, email);
-		ResultSet rs = pstat.executeQuery();
-
-		List<MygroupDTO> result = new ArrayList<>();
-
-		while(rs.next()) {
-			MygroupDTO dto = new MygroupDTO();
-
-			dto.setGroup_seq(rs.getInt("group_seq"));
-			dto.setGroup_name(rs.getString("group_name"));
-			dto.setGroup_picture(rs.getString("system_name"));
-
-			result.add(dto);
-		}
-
-		con.close();
-		rs.close();
-		pstat.close();
-
-		return result;
-	}
+	public List<MygroupDTO> myGroupList(String member_email) throws Exception{
+	      Connection con = DBUtils.getConnection();
+	      String sql = "select my.mygroup_seq , g.group_picture, my.group_name, my.group_seq from mygroup my, create_group g "
+	      		+ "where my.group_seq = g.group_seq and my.member_email=? order by my.mygroup_seq desc";
+	      PreparedStatement pstat = con.prepareStatement(sql);
+	      pstat.setString(1, member_email);
+	      
+	      ResultSet rs = pstat.executeQuery();
+	      
+	      List<MygroupDTO> result = new ArrayList<>();
+	      
+	      while(rs.next()) {
+	         MygroupDTO dto = new MygroupDTO();
+	         
+	         dto.setGroup_seq(rs.getInt("group_seq"));
+	         dto.setGroup_name(rs.getString("group_name"));
+	         dto.setGroup_picture(rs.getString("group_picture"));
+	         
+	         result.add(dto);
+	      }
+	      
+	      rs.close();
+	      pstat.close();
+	      con.close();
+	      
+	      return result;
+	   }
 
 	public MemberCountDTO MemberCount(int groupSeq) throws Exception{
 		Connection con = DBUtils.getConnection();
@@ -246,6 +245,8 @@ public class GroupDAO {
 			dto.setGroup_interests(rs.getString("group_interests"));
 			dto.setGroup_info(rs.getString("group_info"));
 			dto.setGroup_picture(rs.getString("group_picture"));
+			dto.setMember_email(rs.getString("member_email"));
+			
 			
 			result.add(dto);
 		}
@@ -257,10 +258,37 @@ public class GroupDAO {
 		return result;
 	}
 
+	
+	public String payCheck(String member_email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		System.out.println("memberemail : "+member_email);
+		String sql = "select payCheck from create_group_payment join member on member.member_seq=create_group_payment.member_seq where create_group_payment.member_email=?";
+		
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, member_email);
+		ResultSet rs = pstat.executeQuery();
+		
+	    rs.next();
+		String pay=rs.getString("payCheck");
+		System.out.println("paycheck :"+pay);
+		
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return pay;
+	
+		
+	}
+	
+	
+
 	public int insertGroup(GroupDTO dto) throws Exception{
 		Connection con = DBUtils.getConnection();
 		
-		String sql = "insert into create_group values(group_seq.nextval,?,?,?,?,?,'default.jpg')";
+		
+		
+		String sql = "insert into create_group values(group_seq.nextval,?,?,'위도','경도',?,?,?,'default.jpg',sysdate,0,sysdate,0,0,sysdate)";
 		PreparedStatement  psat = con.prepareStatement(sql);
 		psat.setString(1,dto.getGroup_leader());
 		psat.setString(2, dto.getGroup_name());
@@ -268,31 +296,33 @@ public class GroupDAO {
 		psat.setString(4, dto.getGroup_interests());
 		psat.setString(5, dto.getGroup_info());
 		int result = psat.executeUpdate();
-
+        
+		
 		con.commit();
 		con.close();
 		psat.close();
-		
 		
 		return result;
 		
 		
 	}
-	public String printNameGroup(String groupTitle) throws Exception{
+	public String[] printNameGroup(String groupTitle) throws Exception{
 		Connection con = DBUtils.getConnection();
-		String sql = "select group_name from create_group where group_name=?";
+		String sql = "select group_seq,group_name from create_group where group_name=?";
 		PreparedStatement psat = con.prepareStatement(sql);
 		psat.setString(1, groupTitle);
 		
 		ResultSet rs = psat.executeQuery();
 		rs.next();
+		String group_seq=rs.getString("group_seq");
 		String groupName=rs.getString("group_name");
-		System.out.println("그룹이름:"+groupName);
+		
+		System.out.println("그룹이름:"+groupName+"그룹seq : "+group_seq);
 		rs.close();
 		psat.close();
 		con.close();
 		
-		return (String) groupName;
+		return new String[] {group_seq,groupName};
 		
 		
 	}
@@ -304,10 +334,11 @@ public class GroupDAO {
 					+ "from meeting where group_seq=? and meeting_start_time > sysdate) where rn = 1";
 			pstat = con.prepareStatement(sql);
 			pstat.setInt(1, groupSeq);
-		}else if(groupSeq == 0 && msg.equals("pre")) {
-			String sql = "select * from meeting where group_seq=3 and meeting_start_time > sysdate and meeting_seq != ?";
-			pstat = con.prepareStatement(sql);
-			pstat.setInt(1, meeting_seq);
+		}else if(msg.equals("pre")) {
+	         String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate and meeting_seq != ?";
+	         pstat = con.prepareStatement(sql);
+	         pstat.setInt(1, groupSeq);
+	         pstat.setInt(2, meeting_seq);
 		}else if(msg.equals("all")){
 			String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate";
 			pstat = con.prepareStatement(sql);
@@ -384,9 +415,14 @@ public class GroupDAO {
 		ResultSet rs = pstat.executeQuery();
 		
 		if(rs.next()) {
+			rs.close();
+			pstat.close();
+			con.close();
 			return true;
 		}
-		
+		rs.close();
+		pstat.close();
+		con.close();
 		return false;
 	}
 	
@@ -451,17 +487,56 @@ public class GroupDAO {
 			result.add(dto);
 		}
 		
-		con.close();
-		pstat.close();
 		rs.close();
+		pstat.close();
+		con.close();
 		
 		return result;
 		
 	}
 	
+	public int payFinish(String email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		
+		String sql = "update create_group_payment set paycheck='y' where member_email=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		pstat.setString(1, email);
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
+		con.close();
+		pstat.close();
+		
+		return result;
+		
+	}
+	
+	public boolean groupNameCheck(String group_name) throws Exception{
+
+		Connection con = DBUtils.getConnection();	
+		String sql = "select group_name from create_group where group_name=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, group_name);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		boolean result=rs.next();
+	
+		con.close();
+		rs.close();
+		ps.close();
+	
+		return result;
+		
+	
+	}
+	
+	
 	 public List<GroupPicDTO> groupPagePic(int group_seq) throws Exception{
 		   Connection con = DBUtils.getConnection();
-		   String sql = "select * from group_picture where group_seq=?";
+		   String sql = "select * from group_picture where group_seq=? order by group_picture_seq desc";
 		   PreparedStatement pstat = con.prepareStatement(sql);
 		   pstat.setInt(1, group_seq);
 		   
@@ -479,6 +554,10 @@ public class GroupDAO {
 			   result.add(dto);
 			   
 		   }
+		   
+		   rs.close();
+		   pstat.close();
+		   con.close();
 		   
 		   return result;
 		   
