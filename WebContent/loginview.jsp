@@ -283,22 +283,22 @@
 				<p>내 MeetNow</p>
 
 				<div class="row" id="myMeet_row">
-					<c:forEach var="item" items="${myGroupList}">
-
+					<c:forEach var="item" items="${myGroupList}" varStatus="status">
+						<c:if test="${status.count < 9}">
 						<div class="col-md-3" style="padding: 10px;">
 							<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 								<div class="over-img" id="distSearch">
 									<img src="files/${item.group_picture}" class="img_size">
 								</div>
-								<h4 class="group_title">${item.group_name }</h4> <c:forEach
-									var="item2" items="${memberCount }">
+								<h4 class="group_title">${item.group_name }</h4>
+								<c:forEach var="item2" items="${memberCount }">
 									<c:if test="${item.group_seq eq item2.group_seq }">
 										<h5 class="group_count">${item2.count}명의회원</h5>
 									</c:if>
 								</c:forEach>
 							</a>
 						</div>
-
+						</c:if>
 					</c:forEach>
 				</div>
 
