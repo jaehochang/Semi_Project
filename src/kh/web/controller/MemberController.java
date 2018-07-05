@@ -28,20 +28,19 @@ public class MemberController extends HttpServlet {
          request.setCharacterEncoding("utf8");
          response.setCharacterEncoding("utf8");
 
+			System.out.println(command);
 
-         System.out.println(command);
-
-         MemberDAO dao = new MemberDAO();
-         boolean isRedirect = true;
-         String dst = null;
-         
-         request.setAttribute("tmp", "haha");
-         
-         if (command.equals("/LoginController.co")) {
-            String email = request.getAttribute("member_email").toString();
-            String pw = request.getAttribute("pwd").toString();
-            boolean result = dao.isIdPw(email, pw);
-            if (result) {
+			MemberDAO dao = new MemberDAO();
+			boolean isRedirect = true;
+			String dst = null;
+			
+			request.setAttribute("tmp", "haha");
+			
+			if (command.equals("/LoginController.co")) {
+				String email = request.getAttribute("member_email").toString();
+				String pw = request.getAttribute("pwd").toString();
+				boolean result = dao.isIdPw(email, pw);
+				if (result) {
 
                request.getSession().setAttribute("loginId", email);
 
@@ -161,26 +160,46 @@ public class MemberController extends HttpServlet {
 
             isRedirect = false;
 
-            if (result) {
-               request.getSession().setAttribute("loginId", memberEmail);
-               boolean isMyGroup = mDAO.isMyGroup(memberEmail);
-            
-                  request.setAttribute("isMyGroup", isMyGroup);
-                  
-                  System.out.println("membercontroller 값 : "+isMyGroup);
+				if (result) {
+					request.getSession().setAttribute("loginId", memberEmail);
+					boolean isMyGroup = mDAO.isMyGroup(memberEmail);
+				
+						request.setAttribute("isMyGroup", isMyGroup);
+						
+						System.out.println("membercontroller 값 : "+isMyGroup);
 
-                  
-               
-                  
-                  dst = "list.group";
-               
+						
+					
+						
+						dst = "list.group";
+					
 
-            } else {
-               request.setAttribute("loginResult", result);
-               dst = "login.jsp";
-            }
+				} else {
+					request.setAttribute("loginResult", result);
+					dst = "login.jsp";
+				}
 
-         } else if (command.equals("/mypage.co")) {
+			} else if (command.equals("/mypage.co")) {
+
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+			
+
+				String loginId = (String)request.getSession().getAttribute("loginId");
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+				MemberDAO mDAO = new MemberDAO();
+
+				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+
+				request.setAttribute("userName", accntInfo.getMember_name());
+				request.setAttribute("userEmail", accntInfo.getMember_email());
+				request.setAttribute("userLocation", accntInfo.getMember_location());
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+				isRedirect = false;
+				dst = "mypage.jsp";
+
+			} else if (command.equals("/signUpApply.co")) {
 
             
          
@@ -232,7 +251,10 @@ public class MemberController extends HttpServlet {
                   request.setAttribute("loginId", memberEmail);
                   dst = "main.jsp";
 
-               } else {
+				isRedirect = true;
+				dst = "index.jsp";
+			} else if (command.equals("/isThisKakaoIdExist.co")) {
+				String loginKakaoId = request.getParameter("kakaoId");
 
                   isRedirect = true;
                   dst = "signUpFailure.jsp";
@@ -322,6 +344,13 @@ public class MemberController extends HttpServlet {
 
             boolean DupleResult = mDAO.SignUpWithGoogle(sDTO);
             System.out.println("mDAO.SignUpWithGoogle.regResult : " + DupleResult);
+			if (isRedirect) {
+				response.sendRedirect(dst);
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher(dst);
+				rd.forward(request, response);
+				
+			}
 
             isRedirect = false;
 

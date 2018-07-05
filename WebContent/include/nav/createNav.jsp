@@ -80,6 +80,11 @@ li:nth-child(1) {
 li:nth-child(2) {
 	padding-right: 15px;
 }
+#row1,#row2,#row3,#row4{
+position:relative;
+left:178px;
+}
+
 
 #bg-video {
 	top: 0px;
@@ -92,28 +97,37 @@ li:nth-child(2) {
 	text-decoration: underline;
 }
 
-.badgebox {
-	opacity: 0;
+.badgebox
+{
+    opacity: 0;
+    border-radius: 15px;
+    font-weight:10px;
+    
 }
 
-.badgebox+.badge {
-	/* Move the check mark away when unchecked */
-	text-indent: -999999px;
-	/* Makes the badge's width stay the same checked and unchecked */
+.badgebox + .badge
+{
+    /* Move the check mark away when unchecked */
+    text-indent: -999999px;
+    /* Makes the badge's width stay the same checked and unchecked */
 	width: 27px;
 }
 
-.badgebox:focus+.badge {
-	/* Set something to make the badge looks focused */
-	/* This really depends on the application, in my case it was: */
-	/* Adding a light border */
-	box-shadow: inset 0px 0px 5px;
-	/* Taking the difference out of the padding */
+.badgebox:focus + .badge
+{
+    /* Set something to make the badge looks focused */
+    /* This really depends on the application, in my case it was: */
+    
+    /* Adding a light border */
+    box-shadow: inset 0px 0px 5px;
+    /* Taking the difference out of the padding */
 }
 
-.badgebox:checked+.badge {
-	/* Move the check mark back when checked */
+.badgebox:checked + .badge
+{
+    /* Move the check mark back when checked */
 	text-indent: 0;
+	font-weigth:15px;
 }
 
 #photoName {
@@ -147,14 +161,9 @@ li:nth-child(2) {
 	left: 880px;
 }
 
-.badgebox {
-	font-size: 13px;
-	margin-bottom: 0;
-	padding: 5px 5px;
-	line-height: 1.4258571 text-align:center;
-	white-space: nowrap;
-	cursor: pointer;
-	border: 1px solid transparent;
+
+.btn btn-success{
+
 }
 /*  */
 /* ==========================================================================
@@ -383,12 +392,18 @@ li:nth-child(2) {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
 	background-color: #555;
 }
+.error{
+color: red;
+}
 </style>
 <script>
+
 	$(document).on('change', '.badgebox', function() {
-
+		
+		
+		
 		if ($(this).prop('checked')) {
-
+			
 			$.ajax({
 				url : "checked.autocomplete",
 				data : {
@@ -403,9 +418,12 @@ li:nth-child(2) {
 					alert("NO");
 				}
 			})
+			
+			
+			
 
 		} else {
-			alert("체크 해제")
+		
 			$.ajax({
 				url : "unchecked.autocomplete",
 				data : {
@@ -413,37 +431,51 @@ li:nth-child(2) {
 					uncheckedBox : $(this).val()
 				},
 				success : function(response) {
-					alert("체크 삭제 보냄");
+					
 				},
 				fail : function() {
-					alert("NO");
+					
 				}
 			})
 		}
-
+       
 	})
 
-	$(document)
-			.ready(
-					function() {
+	
+	$(document).ready(function() {
+$('#nextBt').click(function(){
+	var group_seq=$('#group_seq').val();
+
+	$('#groupCreateConfirm').submit();
+	
+})
+	
+	
 
 						var items = new Array;
 
 						var tmp = [];
 						var checkStr = [];
 						var checkStr2=[];
+						var checkStrArr=[];
 						var uncheckStr = [];
 						var uncheckStr2=[];
-						var filterArr=[];						
-						$('#tagText').keyup(
-										function() {
+						var uncheckStrArr=[];
+						var filterArr=[];
+						var count=0;
+						var maxCount=11;
+						
+						$('#tagText').keyup(function() {
 											$('#printTerm1').empty();
 											$('#printTerm2').empty();
 
+											
+											
+											
 											var term = $(this).val();
 
 											$.ajax({
-														type : 'GET',
+												type : 'GET',
 														url : 'tag.autocomplete',
 														data : {
 															term : term
@@ -453,36 +485,19 @@ li:nth-child(2) {
 															uncheckStr= $.unique(response.uncheckedList);
 															checkStr= $.unique(response.checkedList);
 															
-                                                             var index=[]
-                                                             index=uncheckStr.indexOf(checkStr);
-                                                             if(index>-1){
-                                                            	 uncheckStr.splice(index)
-                                                            	 alert(uncheckStr.splice(index));
-                                                             }
-                                                            
-													/* for(var a=0;a<checkStr.length;a++){
-														for(var b=0;b<uncheckStr.length;b++){
-															
-															if(checkStr[a]==uncheckStr[b]){
-																uncheckStr.splice();
-															}
-															
-														}
-													}	 */	
-															
 												
 															if (uncheckStr.length > 0|| checkStr.length > 0) {
 
 																for (var j = 0; j < checkStr.length; j++) {
-																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ checkStr[j] + "\"  style=\"width:10;height:5;background-color:white; border: 2px solid #bcbcbc;\" checked>"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0;font-weight:bold\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"checkbox\" value=\""+ checkStr[j] + "\"   checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
 																}
 
 																for (var i = 0; i < uncheckStr.length; i++) {
-																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""+ uncheckStr[i] + "\"  style=\"width:10;height:5;background-color:white;border:1px\" >"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"checkbox\" value=\""+ uncheckStr[i] + "\">"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
 
 																}
 
-															} else if (uncheckStr.length == null|| checkStr.length == null) {
+															} else{
 																alert("no result")
 																$('#printTerm1').html("해당 결과가 없습니다.");
 
@@ -498,140 +513,146 @@ li:nth-child(2) {
 
 										});
 
-						/* 							
-						
-						+"<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default\">"
-						+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""
-		+ response[1] + "\"  style=\"width:10;height:5;background-color:white;border:1px\" >"+ response[1]
-						+"&nbsp;<span class=\"badge\">&check;</span></label></span>" */
 
-						/* $('#create').validate({
-							 rules: {
-								 eventText: { required: true, minlength: 10 },
-								 textArea: { required: true, minlength: 50  },
-						        
-						        },
-						        messages: {
-						        	eventText: {
-						                required: "이름에 힌트를 좀 더 추가해 보세요",
-						                
-						           },
-						            textArea: { required: "최소 50자 이상 입력하세요" },
-						            
-						        },
-						        submitHandler: function (create) {
-						        	 create.submit(); 
-						        },
-						        success: function (e) { 
-						            alert("노이어 ㅋㅋㅋㅋ")
-						            }
-						        
-							
-							
-						}) */
 
-						$('#eventText').mouseleave(function() {
-							if ($('#eventText').val() == '') {
+						$('#eventText').on('mouseleave',function(){
+							if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
-							} else {
+							}else{
 								$('#showText').html("");
-
 							}
-						});
+							
+						})
+						
+						$('#eventText').on('keyup',function(){
+							var gN=$('#eventText').val();
+							
+							$.ajax({
+								url:"groupNameCheck.group",
+								type:"get",
+								data:{groupName:gN}, 
+								success:function(response){
+								if(response.length>0){
+									$("#showText").html(response);
+									$('#showText').css("color", "red");
+								    $('#eventText').val("");
+									
+								}
+								},
+								error:function(){
+									console.log("에러 발생!");
+								}
+								
+							});
+							
+							
+						})
 
 						/*------------------------------------------  */
 
-						$('#textArea').mouseleave(function() {
-							if ($('#textArea').val() == '') {
-								$('#textAreaWarning').text("최소 50자 이상 입력하세요");
+						$('#contents').on('mouseleave',function(){
+							if (!$('#contents').val()) {
+								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
-							} else {
+								
+							}else{
 								$('#textAreaWarning').text("");
-
 							}
 						});
 
-						/* $('#textArea').focusout(function(){
-							var val=$(this).val();
-							if(val==null){
-								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
-								$('#textAreaWarning').css("color","red");
-							}else{
-							
-							}
-							
-							
-						}) */
+						
 
 						/*  ---------------이벤트 적용------------------- */
 
-						/* if($('#printTerm').val()=null){
-							
-							$('#printTerm').html(	
-							<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default\">"
-							+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"check\" value=\""
-							+ listArray.get(i) + "\" onclick=bindAction() style=\"width:13px;height:5px;background-color:white;border:1px\" >"+ listArray.get(i)
-							+"&nbsp;<span class=\"badge\">&check;</span></label></span>);
-							
-						}
-						 */
+						
 
 						$("#fourthBt").click(function() {
+							$('#hiddenLo').val($('#labelID').text());
+							
+							 var cntEPT = $('input:checkbox[name=checkbox]:checked').length;
+						
 
-							if (!$('#eventText').val()) {
+
+							 if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
 								$('#eventText').css("border-color", "red");
 								$('#eventText').focus();
-								return;
+								console.log("event text validation")
+								return false;
+								
+								
 							}
-
-							if ($("#hiddenTag").length < 16) {
-								$('#printTerm2').html("주제 선택은 15개까지만 가능합니다.")
-								$('#printTerm2').css("color", "red");
-								$('#printTerm2').css("border-color", "red");
-								return;
-							}
-
-							var regpw = /^[A-Za-z0-9]{50,500}$/;
-							if (!regpw.test($('#textArea').val())) {
+							 if(!$('#contents').val()){
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
-								$('#textArea').css("border-color", "red");
-								$('#eventText').focus();
-								return;
-							}
-
-							/* if ($('#textArea').val() == '') {
+								$('#contents').css("border-color", "red");
+								$('#contents').focus();
+								
+								console.log("contents validation")
+								return false;
+							}else if($('#contents').val().length<51){
+								console.log("50개 미만 노노");
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
-								$('#textArea').css("border-color", "red");
-							} else {
-								$('#textAreaWarning').text("");
+								$('#contents').css("border-color", "red");
+								$('#contents').focus();
+								
+								return false;
+							}else if($('#contents').val().length>4000){
+								 alert("글자수는 영문4000, 한글2000자로 제한됩니다.!");  
+								 $('#contents').focus();
+								 return false;
+							}else{
+							
+								/* return true; */
+							}
 
-							} */
-
-							/* if(itmes=null||items<2){
-							 $('#printTerm').html("2개 이상 선택해주세요")
-							 
-							} */
-							$('#hiddenLo').val($('#labelID').text());
-
-							/* 원래방식 */
+						   while(items.length>0){
+							   items.pop();
+							   
+						   }
 							$('input[type=checkbox]:checked').each(function() {
 								items.push($(this).val());
 								console.log(items);
 								$("#hiddenTag").val(items);
-
+								
 							})
+							
+							
+                              if(!$("#hiddenTag").val()){
+								
+								$('#printTerm2').html("태그 선택은 1개이상 선택하셔야합니다.")
+								$('#printTerm2').focus();
+								$('#printTerm2').css("color", "red");
+								$('#printTerm2').css("border-color", "red");
+								return false;
+								
+							}
+							
+							if(cntEPT>10){
+								alert("태그 선택은 10개 까지 선택 가능합니다.");
+								console.log(items.length);
+								$('#printTerm2').html("태그 선택은 10개 까지 선택 가능합니다.")
+								$('#printTerm2').focus();
+								$('#printTerm2').css("color", "red");
+								$('#printTerm2').css("border-color", "red");
+								return false;
+							}
 
+							
+							
+							
 							$("#create").submit();
 
 						})
 
 					});
 </script>
+
+
+
 </head>
 
 

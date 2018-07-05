@@ -14,18 +14,26 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
+
+<!-- SJ 꺼 -->
+<link rel="stylesheet" type="text/css" href="./css/mypagenav-style.css">
+<link rel="stylesheet" type="text/css" href="./css/bottom-style.css">
+<link rel="stylesheet" type="text/css" href="./css/mypage-section-style.css">
+<!-- SJ 꺼 -->
+
+
+
 <script src="js/modernizr.custom.js"></script>
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
+<!-- 사진  -->
+<link rel="stylesheet" href="photo/css/lightbox.min.css">
 
 <title>Group Main</title>
 
@@ -51,14 +59,29 @@
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
+	
 
 
 
+
+<STYLE>
+
+/* 나눔고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+
+/* 제주고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+body {
+/*    font-family: 'Jeju Gothic', serif; */
+   font-family: 'Nanum Gothic', serif;
+}
+</STYLE>
 </head>
 <body>
-	<header> <%@ include file="../nav/mypageNav.jsp"%>
-
-	</header>
+	<header>
+      <%@ include file="../nav/mypageNav.jsp"%>
+   </header>
+   
 	<hr>
 
 	<div id="group-top">
@@ -67,16 +90,61 @@
 				<img src="files/${item.group_picture }" id="group-main-img"
 					class="img-responsive img-rounded">
 			</div>
+
+			<form action="upload.file?group_seq=${item.group_seq }" method="post" id="writeForm" enctype="multipart/form-data">
+				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
+				<button type="button" class="btn btn-secondary"
+					style="width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
+			</form>
+			
+			<script>
+				$("#btn-upload").click(function(e){
+					e.preventDefault();
+					$('#file').click();
+				});
+			</script>
+
+			<c:if test="${fileResult >=1 }">
+				<script>
+					var val = "${systemName}";
+					var seq = "${item.group_seq}";
+					$.ajax({
+						url : "../test.file",
+						type : "get",
+						data : {
+							value : val
+						},
+						success : function(resp) {
+
+							var contents = resp.html;
+
+							$("#top-contents-img").empty();
+							$("#top-contents-img").html(contents);
+						},
+						error : function(request, status, error) {
+							console.log(request.status + " : " + status + " : "
+									+ error);
+						},
+						complate : function() {
+							console.log("ajax 종료");
+						}
+					});
+				</script>
+			</c:if>
+
+
+
 			<div id="top-contents-info">
 				<div id="info-title">
 					<div id="info-groupname">
 						<h2 >${item.group_name }</h2>
 					</div>
 					<div id="info-groupinfo">
-					<ul style="padding: 0px;">
-						<li style="list-style: none; margin: 0;">${item.group_location }
-						<li style="margin: 0 0 0 30px;">${count}명회원
-						<li style="margin: 0 0 0 30px;">공개그룹
+					<ul style="padding: 0px; float:left;">
+						<li style="list-style: none; margin: 0; float:left;">${item.group_location }
+						<li style="margin: 0 0 0 30px; float:left;">${count}명회원
+						<li style="margin: 0 0 0 30px; float:left;">공개그룹
 					</ul>
 					</div>
 					
