@@ -305,10 +305,11 @@ public class GroupDAO {
 					+ "from meeting where group_seq=? and meeting_start_time > sysdate) where rn = 1";
 			pstat = con.prepareStatement(sql);
 			pstat.setInt(1, groupSeq);
-		}else if(groupSeq == 0 && msg.equals("pre")) {
-			String sql = "select * from meeting where group_seq=3 and meeting_start_time > sysdate and meeting_seq != ?";
-			pstat = con.prepareStatement(sql);
-			pstat.setInt(1, meeting_seq);
+		}else if(msg.equals("pre")) {
+	         String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate and meeting_seq != ?";
+	         pstat = con.prepareStatement(sql);
+	         pstat.setInt(1, groupSeq);
+	         pstat.setInt(2, meeting_seq);
 		}else if(msg.equals("all")){
 			String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate";
 			pstat = con.prepareStatement(sql);
@@ -385,9 +386,14 @@ public class GroupDAO {
 		ResultSet rs = pstat.executeQuery();
 		
 		if(rs.next()) {
+			rs.close();
+			pstat.close();
+			con.close();
 			return true;
 		}
-		
+		rs.close();
+		pstat.close();
+		con.close();
 		return false;
 	}
 	
@@ -452,9 +458,9 @@ public class GroupDAO {
 			result.add(dto);
 		}
 		
-		con.close();
-		pstat.close();
 		rs.close();
+		pstat.close();
+		con.close();
 		
 		return result;
 		
@@ -480,6 +486,10 @@ public class GroupDAO {
 			   result.add(dto);
 			   
 		   }
+		   
+		   rs.close();
+		   pstat.close();
+		   con.close();
 		   
 		   return result;
 		   

@@ -24,7 +24,6 @@
 
 	</ul>
 
-
 	<div class="btn-group"
 		style="position: absolute; right: 500px; top: 475px;">
 			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
@@ -44,6 +43,31 @@
 		</ul>
 	</div>
 	
+	
+	
+	<!-- 그룹 관리 -->
+	<div class="btn-group"
+		style="position: absolute; right: 600px; top: 475px;">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
+		<ul class="dropdown-menu" role="menu">
+		<c:forEach var="result" items="${result }">
+			<li><a href="#">그룹 내용 수정</a></li>
+			<li><a href="#">그룹 흥미 수정</a></li>
+		</c:forEach>
+		</ul>
+	</div>
+	
+	
+	
+	
+	
+	
+	<!-- 밋업 관리 -->
+	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
+	
+	
+	
 	<c:if test="${isGroupMember eq true }">
 		<script>
 			$("#joinGroupBT").hide();
@@ -58,10 +82,7 @@
 	
 	
 
-	<c:forEach var="result" items="${result }">
-			<input type="hidden" id="group_seq" value="${result.group_seq }">
-			<input type="hidden" id="group_name" value="${result.group_name }">
-	</c:forEach>
+	
 	
 			
 			
@@ -71,7 +92,7 @@
 		<div class="btn-group"
 			style="position: absolute; right: 430px; top: 475px;">
 			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="bt">
+				data-toggle="dropdown" aria-expanded="false" id="test">
 				<span class="glyphicon glyphicon-option-horizontal"
 					aria-hidden="true"></span> <span class="caret"></span>
 			</button>
@@ -81,6 +102,29 @@
 		</div>
 
 	</c:if>
+	
+	
+	<c:forEach var="result" items="${result }">
+			<input type="hidden" id="group_seq" value="${result.group_seq }">
+			<input type="hidden" id="group_name" value="${result.group_name }">
+			
+			<c:choose>
+				<c:when test="${result.member_email eq  sessionScope.loginId}">
+					<script>
+						$("#joinGroupBT").hide();
+						$("#memberBT").hide();
+						$("#test").remove();
+					</script>
+				</c:when>
+				<c:otherwise>
+					<script>
+						$("#newMeetingBT").hide();
+						$("#groupSettingBT").hide();
+					</script>
+				</c:otherwise>
+			</c:choose>
+			
+	</c:forEach>
 	
 	
 	<script>
@@ -95,11 +139,11 @@
 						data:{group_seq:group_seq,group_name:group_name},
 						success:function(resp){
 							
-							var contents = resp.html;
+							
 							
 							$("#memberBT").show();
 							$("#joinGroupBT").hide();
-							$("#bt").remove();
+							$("#test").remove();
 						},
 						error:function() {
 							console.log("에러발생 !" + request.status + " : " + status + " : " + error);
@@ -108,6 +152,8 @@
 				});
 				
 			</script>
+	
+	
 </div>
 
 <div id="contents">

@@ -246,9 +246,6 @@
 					</div>
 					</div>
 				</c:forEach>
-				
-			
-			
 		</div>
 
 
@@ -369,6 +366,8 @@
 						</div>
 					</c:forEach>
 				</div>
+				
+				
 
 
 				<div id="last-meetup-top">

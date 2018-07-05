@@ -33,9 +33,10 @@ public class TagDAO {
 			tdto.setTag_category_words(rs.getString("tag_category_words"));
 		}
         System.out.println("db카테고리:"+tdto.getTag_category_words());
-		con.close();
+        
+        rs.close();
 		pstat.close();
-		rs.close();
+		con.close();
 
 		return tdto;
 	}

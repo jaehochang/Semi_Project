@@ -143,7 +143,7 @@ public class MemberDAO {
 		con.close();
 
 		if (rs > 0) {
-
+			
 			return true;
 
 		} else {
@@ -171,9 +171,9 @@ public class MemberDAO {
 
 			System.out.println("dbPw " + ":" + dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
 
-			con.close();
 			rs.close();
 			ps.close();
+			con.close();
 
 			if (dbPw.equals(mDTO.getMember_pwd())) {
 
@@ -326,9 +326,9 @@ public class MemberDAO {
 			String inputKakaoId = dto.getKakao_id();
 			String dbKakaoId = rs.getString("kakao_id");
 
-			con.close();
-			ps.close();
 			rs.close();
+			ps.close();
+			con.close();
 
 			System.out.println("inputKakaoId : " + inputKakaoId + " / dbKakaoId : " + dbKakaoId);
 
@@ -602,9 +602,9 @@ public class MemberDAO {
 
 		System.out.println(dbKakaoId + "/" + loginKakaoId);
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		if (dbKakaoId.equals(loginKakaoId)) {
 			return true; // 아이디 db 내에 존재 : 통과 시킬 true 값 보내기
@@ -631,9 +631,9 @@ public class MemberDAO {
 			result = false;
 		}
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		return result;
 
@@ -685,8 +685,8 @@ public class MemberDAO {
 		int result = ps.executeUpdate();
 
 		con.commit();
-		con.close();
 		ps.close();
+		con.close();
 
 		if (result > 0) {
 			return true;
@@ -706,9 +706,9 @@ public class MemberDAO {
 
 		boolean result = rs.next();
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		if (result) {
 			return true; // 해당 페북 uid 로 아이디 존재함 > signUpWithFaceBook.co 로 결과값 보내기
@@ -807,9 +807,9 @@ public class MemberDAO {
 			result = false; // 없음
 		}
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		return result;
 
@@ -843,12 +843,14 @@ public class MemberDAO {
 		ResultSet rs = pstat.executeQuery();
 		
 		if(rs.next()) {
-			con.close();
+			rs.close();
 			pstat.close();
+			con.close();
 			return true;
 		}else {
-			con.close();
+			rs.close();
 			pstat.close();
+			con.close();
 			return false;
 			
 		}
