@@ -15,7 +15,7 @@ public class ReportDTO {
 	private String warningdate;
 	private String expiredate;
 	private String callee;
-	private int group_seq;
+	private int seq;
 
 	public ReportDTO() {
 		super();
@@ -139,12 +139,12 @@ public class ReportDTO {
 		this.callee = callee;
 	}
 
-	public int getGroup_seq() {
-		return group_seq;
+	public int getSeq() {
+		return seq;
 	}
 
-	public void setGroup_seq(int group_seq) {
-		this.group_seq = group_seq;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
 }

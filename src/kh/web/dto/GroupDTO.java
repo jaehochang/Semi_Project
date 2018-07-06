@@ -17,6 +17,7 @@ public class GroupDTO {
 	private int group_betweendate;
 	private String group_lat;
 	private String group_lng;
+	private String member_email;
 
 	public GroupDTO() {
 		super();
@@ -45,26 +46,30 @@ public class GroupDTO {
 		this.group_lng = group_lng;
 	}
 
-   public GroupDTO(int group_seq, String group_leader, String group_name, String group_location,
-         String group_interests, String group_info, String group_picture, String group_warningdate,
-         int group_warningnumber, String group_expiredate, int group_isblocked, int group_alarm,
-         String group_createdate, int group_betweendate) {
-      super();
-      this.group_seq = group_seq;
-      this.group_leader = group_leader;
-      this.group_name = group_name;
-      this.group_location = group_location;
-      this.group_interests = group_interests;
-      this.group_info = group_info;
-      this.group_picture = group_picture;
-      this.group_warningdate = group_warningdate;
-      this.group_warningnumber = group_warningnumber;
-      this.group_expiredate = group_expiredate;
-      this.group_isblocked = group_isblocked;
-      this.group_alarm = group_alarm;
-      this.group_createdate = group_createdate;
-      this.group_betweendate = group_betweendate;
-   }
+	public GroupDTO(int group_seq, String group_leader, String group_name, String group_location,
+			String group_interests, String group_info, String group_picture, String group_warningdate,
+			int group_warningnumber, String group_expiredate, int group_isblocked, int group_alarm,
+			String group_createdate, int group_betweendate) {
+		super();
+		this.group_seq = group_seq;
+		this.group_leader = group_leader;
+		this.group_name = group_name;
+		this.group_location = group_location;
+		this.group_interests = group_interests;
+		this.group_info = group_info;
+		this.group_picture = group_picture;
+		this.group_warningdate = group_warningdate;
+		this.group_warningnumber = group_warningnumber;
+		this.group_expiredate = group_expiredate;
+		this.group_isblocked = group_isblocked;
+		this.group_alarm = group_alarm;
+		this.group_createdate = group_createdate;
+		this.group_betweendate = group_betweendate;
+	}
+
+	public int getGroup_seq() {
+		return group_seq;
+	}
 
 	public void setGroup_seq(int group_seq) {
 		this.group_seq = group_seq;
@@ -182,7 +187,20 @@ public class GroupDTO {
 		this.group_lat = group_lat;
 	}
 
-   public void setGroup_betweendate(int group_betweendate) {
-      this.group_betweendate = group_betweendate;
-   }
+	public String getGroup_lng() {
+		return group_lng;
+	}
+
+	public void setGroup_lng(String group_lng) {
+		this.group_lng = group_lng;
+	}
+
+	public String getMember_email() {
+		return member_email;
+	}
+
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+
 }

@@ -174,11 +174,16 @@
 			</c:forEach>
 		</div>
 		<div id="memberList">
+			<%int cnt=0;%>
 			<c:forEach var="memberList" items="${memberList }">
+			<%=cnt=cnt+1 %>			
 			<hr>
 			<div class="member">
 				<div class="mem-img">
+				
+			<a href="memberprofile.group?member_email=${memberList.member_email}">
 					<img src="files/${memberList.member_picture }" class="member-photo">
+			</a>
 				</div>
 				<div class="mem-info">
 					<h4>${memberList.member_name }</h4>
@@ -193,7 +198,6 @@
 	</div>
 		
 </div>
-
 
 <footer>
 	<%@ include file="include/bottom.jsp"%>

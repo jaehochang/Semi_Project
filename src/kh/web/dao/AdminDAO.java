@@ -228,24 +228,20 @@ public class AdminDAO {
 	public List<MemberDTO> memberList(int startNum, int endNum, String subject, String text) throws Exception {
 		System.out.println("startNum : " + startNum);
 		System.out.println("endNum: " + endNum);
-		System.out.println("subject: " + subject);
 		System.out.println("text: " + text);
 		Connection con = DBUtils.getConnection();
-		if (subject == null) {
-			subject = "member_email";
-		}
 		String sql = null;
 
-		sql = "select * from "
-				+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
-				+ "where num between ? and ? and " + subject + " like '%' || ? || '%'";
-
+		sql = "select * from (select member.*, floor(sysdate - member_expiredate) as bdate ,"
+				+ " row_number() over(order by member_joindate) as num from member where "+subject+" like ?)"
+				+ " where (num between ? and ?)";
+		
 		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setInt(1, startNum);
-		pstat.setInt(2, endNum);
-		pstat.setString(3, text);
+		pstat.setString(1, "%"+text+"%");
+		pstat.setInt(2, startNum);
+		pstat.setInt(3, endNum);
 		ResultSet rs = pstat.executeQuery();
-		List<MemberDTO> result = new ArrayList();
+		List<MemberDTO> result = new ArrayList<>();
 
 		while (rs.next()) {
 			MemberDTO mdto = new MemberDTO();
@@ -275,55 +271,55 @@ public class AdminDAO {
 		return result;
 	}
 
-	public List<MemberDTO> searchMemberList(int startNum, int endNum, String subject, String text) throws Exception {
-		Connection con = DBUtils.getConnection();
-		String sql = "select * from "
-				+ "(select member.*, floor(sysdate - member_expiredate) as bdate , row_number() over(order by member_joindate) as num from member) "
-				+ "where num between ? and ? and " + subject + " like '%' || ? || '%'";
-		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setInt(1, startNum);
-		pstat.setInt(2, endNum);
-		pstat.setString(3, text);
-		ResultSet rs = pstat.executeQuery();
-		List<MemberDTO> result = new ArrayList();
-
-		while (rs.next()) {
-			MemberDTO mdto = new MemberDTO();
-			mdto.setMember_seq(rs.getInt("member_seq"));
-			mdto.setMember_name(rs.getString("member_name"));
-			mdto.setMember_email(rs.getString("member_email"));
-			mdto.setMember_pwd(rs.getString("member_pwd"));
-			mdto.setMember_location(rs.getString("member_location"));
-			mdto.setMember_interests(rs.getString("member_interests"));
-			mdto.setMember_picture(rs.getString("member_picture"));
-			mdto.setMember_gender(rs.getString("member_gender"));
-			mdto.setMember_warningnumber(rs.getInt("member_warningnumber"));
-			mdto.setMember_warningdate(rs.getString("member_warningdate"));
-			mdto.setMember_expiredate(rs.getString("member_expiredate"));
-			mdto.setMember_joindate(rs.getString("member_joindate"));
-			mdto.setMember_alarm(rs.getInt("member_alarm"));
-			mdto.setMember_isblocked(rs.getInt("member_isblocked"));
-			if (rs.getString("bdate") != null) {
-				mdto.setMember_betweendate(rs.getInt("bdate"));
-			}
-			result.add(mdto);
-		}
-		rs.close();
-		pstat.close();
-		con.close();
-
-		return result;
-	}
+	// public List<MemberDTO> searchMemberList(int startNum, int endNum, String
+	// subject, String text) throws Exception {
+	// Connection con = DBUtils.getConnection();
+	// String sql = "select * from "
+	// + "(select member.*, floor(sysdate - member_expiredate) as bdate ,
+	// row_number() over(order by member_joindate) as num from member) "
+	// + "where num between ? and ? and " + subject + " like '%' || ? || '%'";
+	// PreparedStatement pstat = con.prepareStatement(sql);
+	// pstat.setInt(1, startNum);
+	// pstat.setInt(2, endNum);
+	// pstat.setString(3, text);
+	// ResultSet rs = pstat.executeQuery();
+	// List<MemberDTO> result = new ArrayList();
+	//
+	// while (rs.next()) {
+	// MemberDTO mdto = new MemberDTO();
+	// mdto.setMember_seq(rs.getInt("member_seq"));
+	// mdto.setMember_name(rs.getString("member_name"));
+	// mdto.setMember_email(rs.getString("member_email"));
+	// mdto.setMember_pwd(rs.getString("member_pwd"));
+	// mdto.setMember_location(rs.getString("member_location"));
+	// mdto.setMember_interests(rs.getString("member_interests"));
+	// mdto.setMember_picture(rs.getString("member_picture"));
+	// mdto.setMember_gender(rs.getString("member_gender"));
+	// mdto.setMember_warningnumber(rs.getInt("member_warningnumber"));
+	// mdto.setMember_warningdate(rs.getString("member_warningdate"));
+	// mdto.setMember_expiredate(rs.getString("member_expiredate"));
+	// mdto.setMember_joindate(rs.getString("member_joindate"));
+	// mdto.setMember_alarm(rs.getInt("member_alarm"));
+	// mdto.setMember_isblocked(rs.getInt("member_isblocked"));
+	// if (rs.getString("bdate") != null) {
+	// mdto.setMember_betweendate(rs.getInt("bdate"));
+	// }
+	// result.add(mdto);
+	// }
+	// rs.close();
+	// pstat.close();
+	// con.close();
+	//
+	// return result;
+	// }
 
 	// -----------------------Paging--------------------------
 	public String getMemberPageNavi(int currentPageNo, String subject, String text) throws Exception {
-		System.out.println("paging subject: " + subject);
+
 		System.out.println("paging text: " + text);
-		if (subject == null) {
-			subject = "member_email";
-		}
+
 		Connection con = DBUtils.getConnection();
-		String sql = "select count(*) as totalCount from member where " + subject + " like '%' || ? || '%'";
+		String sql = "select count(*) as totalCount from member where "+subject+" like '%' || ? || '%'";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, text);
 		ResultSet rs = pstat.executeQuery();
@@ -383,52 +379,27 @@ public class AdminDAO {
 
 		StringBuilder sb = new StringBuilder();
 
-		
-			if (needPrev) {
-				sb.append("<li><a href='member.ao?currentPage=" + (startNavi - 1)
-						+ "'aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
-			}
+		if (needPrev) {
+			sb.append("<li><a href='member.ao?currentPage=" + (startNavi - 1)
+					+ "'aria-label='Previous'><span aria-hidden='true'>&raquo;</span></a></li>");
+		}
 
-			for (int i = startNavi; i <= endNavi; i++) {
-				if(text==null) {
-					if (currentPage == i) {
-						sb.append("<li><a href='member.ao?currentPage=" + i + "&subject=" + subject + "&text=" + ' '
-								+ "'> <b>" + i + "</b></a></li>");
-					} else {
-						sb.append("<li><a href='member.ao?currentPage=" + i + "&subject=" + subject + "&text=" + ' ' + "'>"
-								+ i + "</a></li>");
-					}	
-				}else {
-					if (currentPage == i) {
-						sb.append("<li><a href='member.ao?currentPage=" + i + "&subject=" + subject + "&text=" + text
-								+ "'> <b>" + i + "</b></a></li>");
-					} else {
-						sb.append("<li><a href='member.ao?currentPage=" + i + "&subject=" + subject + "&text=" + text + "'>"
-								+ i + "</a></li>");
-					}
-				}
-				
+		for (int i = startNavi; i <= endNavi; i++) {
+			if (currentPage == i) {
+				sb.append("<li><a href='member.ao?currentPage=" + i + "&subject="+subject+"&text=" + text + "'> <b>" + i + "</b></a></li>");
+			} else {
+				sb.append("<li><a href='member.ao?currentPage=" + i + "&subject="+subject+"&text=" + text + "'>" + i + "</a></li>");
 
 			}
-
-			// for (int i = startNavi; i <= endNavi; i++) {
-			// if (currentPage == i) {
-			// sb.append("<li><a href='member.ao?currentPage=" + i + "' > <b>" + i +
-			// "</b></a></li>");
-			// } else {
-			// sb.append("<li><a href='member.ao?currentPage=" + i + "'>" + i +
-			// "</a></li>");
-			// }
-			//
-			// }
 
 			if (needNext) {
 				sb.append("<a href='member.ao?currentPage=" + (endNavi + 1)
 						+ "'aria-label='Next'><span aria-hidden='true'>&raquo;</span></a>");
 			}
-		pstat.close();
-		con.close();
+			pstat.close();
+			con.close();
 
+		}
 		return sb.toString();
 	}
 
@@ -588,13 +559,17 @@ public class AdminDAO {
 	public List<GroupDTO> searchGroupList(int startNum, int endNum, String subject, String text) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = null;
-		sql = "select * from " + "(select create_group.*, floor(sysdate - group_expiredate) as bdate"
-				+ " , row_number() over(order by group_createdate) as num from create_group) " + "where " + subject
-				+ " like '%' || ? || '%'";
+		
+		sql = "select * from (select create_group.*, floor(sysdate - group_expiredate) as bdate ,"
+				+ " row_number() over(order by group_createdate) as num from create_group where "+subject+" like '%' || ? || '%' )"
+				+ " where (num between ? and ?)";
+		
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, text);
+		pstat.setInt(2, startNum);
+		pstat.setInt(3, endNum);
 		ResultSet rs = pstat.executeQuery();
-		List<GroupDTO> result = new ArrayList();
+		List<GroupDTO> result = new ArrayList<>();
 
 		while (rs.next()) {
 			GroupDTO gdto = new GroupDTO();
@@ -632,16 +607,16 @@ public class AdminDAO {
 		System.out.println("text: " + text);
 		Connection con = DBUtils.getConnection();
 		String sql = null;
-		sql = "select * from "
-				+ "(select create_group.*, floor(sysdate - group_expiredate) as bdate , row_number() over(order by group_createdate) as num from create_group) "
-				+ "where num between ? and ? and group_name like '%' || ? || '%'";
+		sql = "select * from (select create_group.*, floor(sysdate - group_expiredate) as bdate ,"
+				+ " row_number() over(order by group_createdate) as num from create_group where "+subject+" like '%' || ? || '%')"
+				+ " where (num between ? and ?)";
 
 		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setInt(1, startNum);
-		pstat.setInt(2, endNum);
-		pstat.setString(3, text);
+		pstat.setString(1, text);
+		pstat.setInt(2, startNum);
+		pstat.setInt(3, endNum);
 		ResultSet rs = pstat.executeQuery();
-		List<GroupDTO> result = new ArrayList();
+		List<GroupDTO> result = new ArrayList<>();
 
 		while (rs.next()) {
 			GroupDTO gdto = new GroupDTO();
@@ -679,9 +654,9 @@ public class AdminDAO {
 		if (subject == null) {
 			subject = "group_name";
 		}
-		String sql = "select count(*) as totalCount from create_group where " + subject + " like '%' || ? || '%'";
+		String sql = "select count(*) as totalCount from create_group where " + subject + " like ? ";
 		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, text);
+		pstat.setString(1, "%"+text+"%");
 		ResultSet rs = pstat.executeQuery();
 		rs.next();
 
@@ -741,9 +716,9 @@ public class AdminDAO {
 
 		for (int i = startNavi; i <= endNavi; i++) {
 			if (currentPage == i) {
-				sb.append("<li><a href='group.ao?currentPage=" + i + "' > <b>" + i + "</b></a></li>");
+				sb.append("<li><a href='group.ao?currentPage=" + i + "&subject="+subject+"&text=" + text + "' > <b>" + i + "</b></a></li>");
 			} else {
-				sb.append("<li><a href='group.ao?currentPage=" + i + "'>" + i + "</a></li>");
+				sb.append("<li><a href='group.ao?currentPage=" + i + "&subject="+subject+"&text=" + text +  "'>" + i + "</a></li>");
 			}
 
 		}
@@ -1100,37 +1075,33 @@ public class AdminDAO {
 		return result;
 	}
 
-	public List<ReportDTO> getAllReport(int type) throws Exception {
+	/*
+	 * public List<ReportDTO> getAllReport(int type) throws Exception { Connection
+	 * con = DBUtils.getConnection(); String sql =
+	 * "select * from report where report_type = ?"; PreparedStatement pstat =
+	 * con.prepareStatement(sql); pstat.setInt(1, type); ResultSet rs =
+	 * pstat.executeQuery(); List<ReportDTO> list = new ArrayList<>();
+	 * 
+	 * while (rs.next()) { ReportDTO rdto = new ReportDTO();
+	 * rdto.setReport_calleemember(rs.getString("report_calleemember"));
+	 * rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
+	 * rdto.setReport_caller(rs.getString("report_caller"));
+	 * rdto.setReport_date(rs.getString("report_date"));
+	 * rdto.setReport_reason(rs.getString("report_reason"));
+	 * rdto.setReport_state(rs.getInt("report_state"));
+	 * rdto.setReport_type(rs.getInt("report_type"));
+	 * rdto.setReport_seq(rs.getInt("report_seq")); list.add(rdto); }
+	 * 
+	 * rs.close(); pstat.close(); con.close();
+	 * 
+	 * return list; }
+	 */
+
+	public List<ReportDTO> getDeleteProcMember() throws Exception {
 		Connection con = DBUtils.getConnection();
-		String sql = "select * from report where report_type = ?";
-		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setInt(1, type);
-		ResultSet rs = pstat.executeQuery();
-		List<ReportDTO> list = new ArrayList<>();
-
-		while (rs.next()) {
-			ReportDTO rdto = new ReportDTO();
-			rdto.setReport_calleemember(rs.getString("report_calleemember"));
-			rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
-			rdto.setReport_caller(rs.getString("report_caller"));
-			rdto.setReport_date(rs.getString("report_date"));
-			rdto.setReport_reason(rs.getString("report_reason"));
-			rdto.setReport_state(rs.getInt("report_state"));
-			rdto.setReport_type(rs.getInt("report_type"));
-			rdto.setReport_seq(rs.getInt("report_seq"));
-			list.add(rdto);
-		}
-
-		rs.close();
-		pstat.close();
-		con.close();
-
-		return list;
-	}
-
-	public List<ReportDTO> getAllGroupReport() throws Exception {
-		Connection con = DBUtils.getConnection();
-		String sql = "select cg.*, r.*, floor(sysdate - group_expiredate) as bdate from create_group cg, report r where cg.group_name = r.report_calleegroup";
+		String sql = "select distinct member_seq, m.*,r.report_caller,r.report_reason,r.report_etcreason"+
+				" ,r.report_calleemember, r.report_date,r.report_type from member m, report r"+ 
+				" where m.member_email = r.report_calleemember and m.member_warningnumber = 2";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		ResultSet rs = pstat.executeQuery();
 		List<ReportDTO> rlist = new ArrayList<>();
@@ -1138,19 +1109,105 @@ public class AdminDAO {
 		while (rs.next()) {
 			ReportDTO rdto = new ReportDTO();
 			rdto.setReport_calleemember(rs.getString("report_calleemember"));
-			rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
 			rdto.setReport_caller(rs.getString("report_caller"));
 			rdto.setReport_date(rs.getString("report_date"));
 			rdto.setReport_reason(rs.getString("report_reason"));
-			rdto.setReport_state(rs.getInt("report_state"));
+			rdto.setReport_etcreason(rs.getString("report_etcreason"));
 			rdto.setReport_type(rs.getInt("report_type"));
-			rdto.setReport_seq(rs.getInt("report_seq"));
-			rdto.setWarningnumber(rs.getInt("group_warningnumber"));
-			rdto.setCallee(rs.getString("group_leader"));
-			rdto.setWarningdate(rs.getString("group_warningdate"));
-			rdto.setExpiredate(rs.getString("group_expiredate"));
-			rdto.setGroup_seq(rs.getInt("group_seq"));
+			rdto.setWarningnumber(rs.getInt("member_warningnumber"));
+			rdto.setCallee(rs.getString("member_email"));
+			rdto.setWarningdate(rs.getString("member_warningdate"));
+			rdto.setExpiredate(rs.getString("member_expiredate"));
+			rdto.setSeq(rs.getInt("member_seq"));
 			rlist.add(rdto);
+		}
+
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return rlist;
+	}
+
+//	public List<ReportDTO> getDeleteProcGroup() throws Exception {
+//		Connection con = DBUtils.getConnection();
+//		String sql = "select distinct group_seq, g.*, r.report_caller,r.report_reason,r.report_etcreason"+ 
+//		" r.report_calleegroup, r.report_date,r.report_type from create_group g, report r where g.group_name = r.report_calleegroup and g.group_warningnumber = 2";
+//		PreparedStatement pstat = con.prepareStatement(sql);
+//		ResultSet rs = pstat.executeQuery();
+//		List<ReportDTO> rlist = new ArrayList<>();
+//
+//		while (rs.next()) {
+//			ReportDTO rdto = new ReportDTO();
+//			rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
+//			rdto.setReport_caller(rs.getString("report_caller"));
+//			rdto.setReport_date(rs.getString("report_date"));
+//			rdto.setReport_reason(rs.getString("report_reason"));
+//			rdto.setReport_etcreason(rs.getString("report_etcreason"));
+//			rdto.setReport_type(rs.getInt("report_type"));
+//			rdto.setWarningnumber(rs.getInt("group_warningnumber"));
+//			rdto.setCallee(rs.getString("group_leader"));
+//			rdto.setWarningdate(rs.getString("group_warningdate"));
+//			rdto.setExpiredate(rs.getString("group_expiredate"));
+//			rdto.setSeq(rs.getInt("group_seq"));
+//			rlist.add(rdto);
+//		}
+//
+//		rs.close();
+//		pstat.close();
+//		con.close();
+//
+//		return rlist;
+//	}
+
+	public List<ReportDTO> getAllReport(String distinc) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "";
+		if (distinc.equals("member")) {
+			sql = "select m.*, r.*, floor(sysdate - member_expiredate) as bdate from member m, report r where m.member_email = r.report_calleemember";
+		} else if (distinc.equals("group")) {
+			sql = "select cg.*, r.*, floor(sysdate - group_expiredate) as bdate from create_group cg, report r where cg.group_name = r.report_calleegroup";
+		}
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		List<ReportDTO> rlist = new ArrayList<>();
+
+		if (distinc.equals("member")) {
+			while (rs.next()) {
+				ReportDTO rdto = new ReportDTO();
+				rdto.setReport_calleemember(rs.getString("report_calleemember"));
+				rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
+				rdto.setReport_caller(rs.getString("report_caller"));
+				rdto.setReport_date(rs.getString("report_date"));
+				rdto.setReport_reason(rs.getString("report_reason"));
+				rdto.setReport_state(rs.getInt("report_state"));
+				rdto.setReport_type(rs.getInt("report_type"));
+				rdto.setReport_seq(rs.getInt("report_seq"));
+				rdto.setWarningnumber(rs.getInt("member_warningnumber"));
+				rdto.setCallee(rs.getString("member_email"));
+				rdto.setWarningdate(rs.getString("member_warningdate"));
+				rdto.setExpiredate(rs.getString("member_expiredate"));
+				rdto.setSeq(rs.getInt("member_seq"));
+				rlist.add(rdto);
+			}
+		} else if (distinc.equals("group")) {
+			while (rs.next()) {
+				ReportDTO rdto = new ReportDTO();
+				rdto.setReport_calleemember(rs.getString("report_calleemember"));
+				rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
+				rdto.setReport_caller(rs.getString("report_caller"));
+				rdto.setReport_date(rs.getString("report_date"));
+				rdto.setReport_reason(rs.getString("report_reason"));
+				rdto.setReport_state(rs.getInt("report_state"));
+				rdto.setReport_type(rs.getInt("report_type"));
+				rdto.setReport_seq(rs.getInt("report_seq"));
+				rdto.setWarningnumber(rs.getInt("group_warningnumber"));
+				rdto.setCallee(rs.getString("group_leader"));
+				rdto.setWarningdate(rs.getString("group_warningdate"));
+				rdto.setExpiredate(rs.getString("group_expiredate"));
+				rdto.setSeq(rs.getInt("group_seq"));
+				rlist.add(rdto);
+			}
 		}
 
 		rs.close();
@@ -1214,5 +1271,10 @@ public class AdminDAO {
 		return result;
 	}
 	// Report관련 DAO끝
+
+	public String getPageNavi(int currentPage, String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

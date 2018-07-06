@@ -565,8 +565,6 @@ public class GroupDAO {
 		   
 	   }
 	
-}
-
 	public GroupDTO getGroupData(int group_seq) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select create_group.*, floor(sysdate - group_expiredate) as bdate from create_group where group_seq=?";

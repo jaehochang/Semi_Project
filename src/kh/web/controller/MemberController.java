@@ -165,25 +165,14 @@ public class MemberController extends HttpServlet {
 					boolean isMyGroup = mDAO.isMyGroup(memberEmail);
 				
 						request.setAttribute("isMyGroup", isMyGroup);
-						
 						System.out.println("membercontroller 값 : "+isMyGroup);
-
-						
-					
-						
 						dst = "list.group";
-					
-
 				} else {
 					request.setAttribute("loginResult", result);
 					dst = "login.jsp";
 				}
 
 			} else if (command.equals("/mypage.co")) {
-
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
-			
-
 				String loginId = (String)request.getSession().getAttribute("loginId");
 				System.out.println("/mypage.co 의 session Login Id : " + loginId);
 				MemberDAO mDAO = new MemberDAO();

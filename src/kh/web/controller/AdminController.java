@@ -49,22 +49,25 @@ public class AdminController extends HttpServlet {
 
 			AdminDAO adao = new AdminDAO();
 
-			boolean inRedirect = true;
-			boolean isRedirect = true;
+			boolean isAjax = false;
+			boolean isRedirect = false;
 			String dst = null;
 
 			String adminId = (String) request.getSession().getAttribute("adminId");
 			System.out.println("adminId: " + adminId);
 			if (adminId == null) {
+				isAjax = false;
 				isRedirect = false;
 				dst = "loginForm.jsp";
 			} else {
 				if (command.equals("/admin/login.ao")) {
+					isAjax = false;
 					isRedirect = false;
 					dst = "loginForm.jsp";
 
 				} else if (command.equals("/admin/logout.ao")) {
 					request.getSession().invalidate();
+					isAjax = false;
 					isRedirect = false;
 					dst = "login.ao";
 				} else if (command.equals("/admin/main.ao")) {
@@ -85,7 +88,7 @@ public class AdminController extends HttpServlet {
 					request.setAttribute("groupToday", groupToday);
 					request.setAttribute("meetingAll", meetingAll);
 					request.setAttribute("meetingToday", meetingToday);
-
+					isAjax = false;
 					isRedirect = false;
 					dst = "mainpage.jsp";
 
@@ -93,22 +96,22 @@ public class AdminController extends HttpServlet {
 					String text = request.getParameter("text");
 					String subject = request.getParameter("subject");
 
-					System.out.println("controller-text: " + text);
-					System.out.println("controller-subject: " + subject);
 					int currentPage = 0;
 					String currentPageString = request.getParameter("currentPage");
+
 					if (currentPageString == null) {
 						currentPage = 1;
 					} else {
 						currentPage = Integer.parseInt(currentPageString);
 					}
+
 					List<MemberDTO> list = adao.memberList(currentPage * 10 - 9, currentPage * 10, subject, text);
 
 					String page = adao.getMemberPageNavi(currentPage, subject, text);
-					System.out.println("member.ao_page : " + page);
 					request.setAttribute("list", list);
 					request.setAttribute("page", page);
 
+					isAjax = false;
 					isRedirect = false;
 					dst = "member/member.jsp";
 
@@ -131,7 +134,7 @@ public class AdminController extends HttpServlet {
 
 					request.setAttribute("list", list);
 					request.setAttribute("page", page);
-
+					isAjax = false;
 					isRedirect = false;
 					dst = "meeting/meeting.jsp";
 
@@ -155,7 +158,7 @@ public class AdminController extends HttpServlet {
 
 					request.setAttribute("list", list);
 					request.setAttribute("page", page);
-
+					isAjax = false;
 					isRedirect = false;
 					dst = "group/group.jsp";
 
@@ -164,7 +167,7 @@ public class AdminController extends HttpServlet {
 					System.out.println(member_email);
 					MemberDTO mdto = adao.getMember(member_email);
 					ReportDTO rdto = adao.reportMemJoin(member_email);
-					
+
 					Map<String, Object> map = adao.memGroupMemJoin(mdto.getMember_name());
 
 					List mlist = (List) map.get("mlist");
@@ -184,6 +187,7 @@ public class AdminController extends HttpServlet {
 					}
 					request.setAttribute("mdto", mdto);
 					request.setAttribute("rdto", rdto);
+					isAjax = false;
 					isRedirect = false;
 					dst = "member/memberpage.jsp";
 
@@ -195,25 +199,26 @@ public class AdminController extends HttpServlet {
 					list = adao.getGroupMember(group_seq);
 					int size = list.size();
 					System.out.println("groupmember_size: " + list.size());
-					
+
 					ReportDTO rdto = adao.reportGroupJoin(group_seq);
-					
+
 					request.setAttribute("size", size);
 					request.setAttribute("gdto", gdto);
 					request.setAttribute("rdto", rdto);
-
+					isAjax = false;
 					isRedirect = false;
 					dst = "group/grouppage.jsp?group_seq='" + group_seq + "'";
 
 				} else if (command.equals("/admin/report.ao")) {
+					isAjax = false;
 					isRedirect = false;
 					dst = "memberreport.ao";
 
 				} else if (command.equals("/admin/memberreport.ao")) {
 					List<ReportDTO> list = new ArrayList<>();
-					list = adao.getAllReport(0);
+					list = adao.getAllReport("member");
 					request.setAttribute("list", list);
-
+					isAjax = false;
 					isRedirect = false;
 					dst = "report/memberreport.jsp";
 
@@ -248,21 +253,29 @@ public class AdminController extends HttpServlet {
 					response.getWriter().flush();
 					response.getWriter().close();
 
+					isAjax = true;
+
 				} else if (command.equals("/admin/groupreport.ao")) {
 					List<ReportDTO> rlist = new ArrayList<>();
-					rlist = adao.getAllGroupReport();
+					rlist = adao.getAllReport("group");
 
 					request.setAttribute("rlist", rlist);
+					isAjax = false;
 					isRedirect = false;
 					dst = "report/groupreport.jsp";
 
-				} else if (command.equals("/admin/meetupreport.ao")) {
-					List<ReportDTO> list = new ArrayList<>();
-					list = adao.getAllReport(2);
-					request.setAttribute("list", list);
+				} else if (command.equals("/admin/deleteproc.ao")) {
+					List<ReportDTO> rlist1 = new ArrayList<>();
+					List<ReportDTO> rlist2 = new ArrayList<>();
+					rlist1 = adao.getDeleteProcMember();
+					// rlist2 = adao.getDeleteProcGroup();
 
+					request.setAttribute("rlist1", rlist1);
+					// request.setAttribute("rlist2", rlist2);
+
+					isAjax = false;
 					isRedirect = false;
-					dst = "report/meetupreport.jsp";
+					dst = "report/deleteproc.jsp";
 
 				} else if (command.equals("/admin/warning.ao")) {
 					JSONObject json = new JSONObject();
@@ -315,6 +328,7 @@ public class AdminController extends HttpServlet {
 					response.getWriter().flush();
 					response.getWriter().close();
 
+					isAjax = true;
 				} else if (command.equals("/admin/search.ao")) {
 					String subject = request.getParameter("subject");
 					String text = request.getParameter("text");
@@ -340,7 +354,8 @@ public class AdminController extends HttpServlet {
 						if (text.equals("") || text.equals(null)) {
 							mlist = adao.memberList(currentPage * 10 - 9, currentPage * 10, subject, text);
 						} else {
-							mlist = adao.searchMemberList(currentPage * 10 - 9, currentPage * 10, subject, text);
+							// mlist = adao.searchMemberList(currentPage * 10 - 9, currentPage * 10,
+							// subject, text);
 						}
 
 						System.out.println("list.size(): " + mlist.size());
@@ -359,7 +374,10 @@ public class AdminController extends HttpServlet {
 
 						new Gson().toJson(map, response.getWriter());
 
+						isAjax = true;
+						
 					} else if (request.getParameter("distinction").equals("group")) {
+						
 						int currentPage = 0;
 						String currentPageString = request.getParameter("currentPage");
 
@@ -371,7 +389,7 @@ public class AdminController extends HttpServlet {
 						System.out.println("currentpage: " + currentPage);
 						System.out.println("currentpageString: " + currentPageString);
 
-						if (text.equals("")) {
+						if (text.equals("") || text.equals(null)) {
 							glist = adao.allGroupList(currentPage * 10 - 9, currentPage * 10, subject, text);
 						} else {
 							glist = adao.searchGroupList(currentPage * 10 - 9, currentPage * 10, subject, text);
@@ -392,6 +410,8 @@ public class AdminController extends HttpServlet {
 						map.put("page", page);
 
 						new Gson().toJson(map, response.getWriter());
+
+						isAjax = true;
 
 					} else if (request.getParameter("distinction").equals("meeting")) {
 						System.out.println("distinction:meeting");
@@ -427,21 +447,25 @@ public class AdminController extends HttpServlet {
 						map.put("page", page);
 
 						new Gson().toJson(map, response.getWriter());
-					}
 
+						isAjax = true;
+					}
+					isAjax = true;
 				} else if (command.equals("/admin/email.ao")) {
 					String distinction = request.getParameter("distinction");
 					System.out.println("email.ao-disctinction:" + distinction);
 					String email = "";
-					String group_warningdate = "";
-					String group_expiredate = "";
+					String warningdate = "";
+					String expiredate = "";
 
 					if (distinction.equals("member")) {
-
+						email = request.getParameter("member_email");
+						warningdate = request.getParameter("member_warningdate");
+						expiredate = request.getParameter("member_expiredate");
 					} else {
 						email = request.getParameter("group_leader");
-						group_warningdate = request.getParameter("group_warningdate");
-						group_expiredate = request.getParameter("group_expiredate");
+						warningdate = request.getParameter("group_warningdate");
+						expiredate = request.getParameter("group_expiredate");
 					}
 
 					String toEmail = email;
@@ -472,14 +496,8 @@ public class AdminController extends HttpServlet {
 						message.setSubject("meetnow입니다.");
 
 						// Text
-						if (distinction.equals("member")) {
-
-						} else {
-							message.setText("다른 회원님에게서 신고를 당해 일주일간 블락입니다." + "회원님이 블락된 날짜 : " + group_warningdate
-									+ "회원님의 블락 만료일 : " + group_expiredate);
-						}
-
-
+						message.setText("다른 회원님에게서 신고를 당해 일주일간 블락입니다." + "회원님이 블락된 날짜 : " + warningdate
+								+ "회원님의 블락 만료일 : " + expiredate);
 
 						// send the message
 						Transport.send(message);
@@ -488,9 +506,10 @@ public class AdminController extends HttpServlet {
 					} catch (MessagingException e) {
 						e.printStackTrace();
 					}
-
+					isAjax = true;
 				} else if (command.equals("/admin/stats.ao")) {
 					// 연령(파이), 동호회카테고리별(파이), 신고내용별(막대) 방문자수(막대)
+					isAjax = false;
 					isRedirect = false;
 					dst = "stats/stats.jsp";
 
@@ -533,20 +552,28 @@ public class AdminController extends HttpServlet {
 					response.getWriter().flush();
 					response.getWriter().close();
 
+					isAjax = true;
 				}
 
 			}
 
-			if (isRedirect == false) {
-				RequestDispatcher rd = request.getRequestDispatcher(dst);
-				rd.forward(request, response);
+			if (isAjax) {
+
 			} else {
-				// response.sendRedirect(dst);
+
+				if (isRedirect) {
+					response.sendRedirect(dst);
+				} else {
+					RequestDispatcher rd = request.getRequestDispatcher(dst);
+					rd.forward(request, response);
+				}
+				// response.getWriter().append("Served at: ").append(request.getContextPath());
+
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// response.sendRedirect("error.html");
+			response.sendRedirect("error.html");
 		}
 
 	}

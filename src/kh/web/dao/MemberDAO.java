@@ -67,11 +67,7 @@ public class MemberDAO {
 				+ "'null',"// 11:ggname
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
-				+ "into create_group_payment values(" 
-				+ "member_seq.nextval," 
-				+"?," 
-				+ "'n')" 
-				+ "select * from dual";
+				+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')" + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -133,11 +129,7 @@ public class MemberDAO {
 				+ "'null',"// 11:ggname
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
-				+ "into create_group_payment values(" 
-				+ "member_seq.nextval," 
-				+"?," 
-				+ "'n')" 
-				+ "select * from dual";
+				+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')" + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
@@ -147,12 +139,12 @@ public class MemberDAO {
 		int rs = ps.executeUpdate();
 
 		con.commit();
-		
+
 		ps.close();
 		con.close();
 
 		if (rs > 0) {
-			
+
 			return true;
 
 		} else {
@@ -294,7 +286,8 @@ public class MemberDAO {
 		Connection con = DBUtils.getConnection();
 
 		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
-				+ "into sns_id values(member_seq.nextval,?,?) " + "into create_group_payment values(member_seq.nextval,?,'n')"+"select * from dual";
+				+ "into sns_id values(member_seq.nextval,?,?) "
+				+ "into create_group_payment values(member_seq.nextval,?,'n')" + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -679,11 +672,7 @@ public class MemberDAO {
 				+ "'null',"// 11:ggname
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
-				+ "into create_group_payment values(" 
-				+ "member_seq.nextval," + 
-				"?," 
-				+ "'n')" 
-				+ "select * from dual";
+				+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')" + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, sDTO.getFb_name()); // 이름
@@ -851,41 +840,22 @@ public class MemberDAO {
 		}
 	}
 
-	public boolean isMyGroup(String email) throws Exception {
-
-		Connection con = DBUtils.getConnection();
-		String sql = "select member_email from mygroup";
-		PreparedStatement pstat = con.prepareStatement(sql);
-		ResultSet rs = pstat.executeQuery();
-
-		if (rs.next()) {
-			con.close();
-			return true;
-		} else {
-			con.close();
-			return false;
-
-		}
-	}
-	
-	public String memberName(String email) throws Exception{
+	public String memberName(String email) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select member_name from member where member_email=?";
-		
+
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setString(1, email);
 		ResultSet rs = pstat.executeQuery();
 		rs.next();
-		String name=rs.getString("member_name");
-		
+		String name = rs.getString("member_name");
+
 		rs.close();
 		pstat.close();
 		con.close();
-		
+
 		return name;
 	}
-	
-	
 
 	// public String getProfilePhoto(MemberDTO dto) throws Exception {
 	// Connection con = DBUtils.getConnection();
@@ -909,27 +879,27 @@ public class MemberDAO {
 	//
 	//
 	// }
-	
-	   public boolean isMyGroup(String email) throws Exception{
-		      
-		      Connection con = DBUtils.getConnection();
-		      String sql = "select member_email from mygroup";
-		      PreparedStatement pstat = con.prepareStatement(sql);
-		      ResultSet rs = pstat.executeQuery();
-		      
-		      if(rs.next()) {
-		         rs.close();
-		         pstat.close();
-		         con.close();
-		         return true;
-		      }else {
-		         rs.close();
-		         pstat.close();
-		         con.close();
-		         return false;
-		         
-		      }
-		   }
+
+	public boolean isMyGroup(String email) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+		String sql = "select member_email from mygroup";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+
+		if (rs.next()) {
+			rs.close();
+			pstat.close();
+			con.close();
+			return true;
+		} else {
+			rs.close();
+			pstat.close();
+			con.close();
+			return false;
+
+		}
+	}
 
 	public Boolean singin(String id, String pw) throws Exception {
 		Connection con = DBUtils.getConnection();

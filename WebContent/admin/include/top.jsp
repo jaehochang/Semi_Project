@@ -50,8 +50,8 @@
 							<span class="caret"></span>
 					</a>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="member.ao?currentPage=1&subject=member_email&title=">회원</a></li>
-							<li><a href="group.ao">그룹</a></li>
+							<li><a href="member.ao?subject=member_email&text=">회원</a></li>
+							<li><a href="group.ao?subject=group_name&text=">그룹</a></li>
 							<li><a href="meeting.ao">meetup</a></li>
 							<!--<li class="divider"></li> -->
 							<!--<li class="dropdown-header">Nav header</li> -->

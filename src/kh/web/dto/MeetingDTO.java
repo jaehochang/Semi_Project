@@ -1,6 +1,6 @@
 package kh.web.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MeetingDTO {
 	private int meeting_seq;
