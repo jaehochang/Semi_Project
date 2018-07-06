@@ -114,7 +114,7 @@
 
 
 <span id="textAreaWarning" class="warning"></span>
-			<textarea id="contents" onKeyPress="javascript: if (event.keyCode==13) return false;" name="eventContents" class="form-control" rows="5" style="height: 400px; width: 600px;"  maxlength="4000" required>
+			<textarea id="contents" name="eventContents" class="form-control" rows="5" style="height: 400px; width: 600px;"  maxlength="4000" required>
 			</textarea>
 			 <br>
 

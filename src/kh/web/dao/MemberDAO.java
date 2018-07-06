@@ -746,13 +746,15 @@ public class MemberDAO {
 
 		} else {
 
-			String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
+			String sql = "insert all into member values(" 
+					+ "member_seq.nextval," // 1 : member_seq
 					+ "?," // 2: member_name
 					+ "?," // 3: member_email
 					+ "'null'," // 4: member_pwd
 					+ "'null'," // 5: member_location
 					+ "'null'," // 6: member_interests
 					+ "?," // 7: member_picture
+					
 					+ "0," // 8: member_age
 					+ "'undefined'," // 9 : member_gender
 					+ "0," // 10:member_warning_number
@@ -770,11 +772,15 @@ public class MemberDAO {
 					+ "'null',"// 7:fb_name
 					+ "'null',"// 8:fb_uid
 					+ "'null',"// 9:fb_photoURL
+					
 					+ "?,"// 10:ggid
 					+ "?,"// 11:ggname
 					+ "?,"// 12:ggimgUrl
 					+ "?)"// 13:ggEmail
-					+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')"
+					+ "into create_group_payment values(" 
+					+ "member_seq.nextval," 
+					+ "?," 
+					+ "'n')"
 					+ "select * from dual";
 
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -786,6 +792,7 @@ public class MemberDAO {
 			ps.setString(5, sDTO.getGgname());
 			ps.setString(6, sDTO.getGgimgUrl());
 			ps.setString(7, sDTO.getGgEmail());
+			
 			ps.setString(8, sDTO.getGgEmail());
 			int insertTrial = ps.executeUpdate();
 			System.out.println("/signUpWithGoogle result :" + insertTrial);
