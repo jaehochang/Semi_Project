@@ -12,6 +12,7 @@
 
 	<ul class="nav nav-tabs">
 		<c:forEach var="item" items="${result}">
+			<c:set var="groupSeqvar" value="${item.group_seq}" scope="request"/>
 			<li role="presentation" class="active"><a
 				href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
 			<li role="presentation"><a
@@ -23,8 +24,9 @@
 		</c:forEach>
 
 	</ul>
-
-
+	
+	
+	
 	<div class="btn-group"
 		style="position: absolute; right: 500px; top: 475px;">
 			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
@@ -259,8 +261,6 @@
 				
 			})
 		</script>
-
-
 
 		<c:forEach var="item2" items="${result }">
 			<div id="group-contents">

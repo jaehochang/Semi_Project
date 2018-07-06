@@ -82,6 +82,7 @@ public class GroupController extends HttpServlet {
             }
             
             
+            String originName = result.get(0).getGroup_name();
             
             List<GroupPicDTO> groupPagePic = dao.groupPagePic(groupSeq);
             int groupPagePicCount = dao.groupPicCount(groupSeq);
@@ -109,7 +110,9 @@ public class GroupController extends HttpServlet {
             System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
             System.out.println("지난 미팅"+lastMeeting.size());
             System.out.println("예정미팅"+preMeeting.size());
-            
+            // 세션에  그룹 시퀀스값 저장
+            request.getSession().setAttribute("groupSeq", groupSeq);
+            //  페이지 들어갈때가마다 그룹시퀀스 값 변경되어 글어감
             
             
             //member 내용

@@ -276,7 +276,8 @@ public class MeetingController extends HttpServlet {
 				JSONArray jarray = new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
-
+			}else if(command.equals("/updatebasic.meet")) {
+				
 			}
 
 			if (isajax) {
