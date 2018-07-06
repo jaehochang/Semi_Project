@@ -141,7 +141,7 @@
 				직접 대화를 나누세요</span> <br> <br>
 			<input type="button" id="fourthBt" class="btn btn-button default" value="동의후  그룹생성"
 				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold">
-
+            <input type="hidden" id="memberName" name="member_name" value="${requestScope.member_name}">
 		</div>
 		<!--col-->
 	</div>

@@ -241,6 +241,9 @@ public class GroupController extends HttpServlet {
                     System.out.println("페이유무 : "+payCheck);
 					if(payCheck.equals("y")) {
 						isRedirect = false;
+						String memberEmail=(String) request.getSession().getAttribute("loginId");
+						String memberName=dao1.memberName(memberEmail);
+						request.setAttribute("member_name", memberName);
 						dst = "create.jsp";
 					}else if(payCheck.equals("n")){
 						
@@ -268,6 +271,7 @@ public class GroupController extends HttpServlet {
 
 				request.setCharacterEncoding("UTF-8");
 				String loginId = (String)request.getSession().getAttribute("loginId");
+				String memberName=request.getParameter("member_name");
 				String location = (String) request.getParameter("location");
 				String tags = (String) request.getParameter("tags");
 				String groupTitle = (String) request.getParameter("eventName");
@@ -275,15 +279,16 @@ public class GroupController extends HttpServlet {
                 
 	
 
-				System.out.println("loginId : " + loginId + "/" + "location : " + location + "/" + "tags : " + tags
+				System.out.println("memberName : " + memberName + "/" + "location : " + location + "/" + "tags : " + tags
 						+ "/" + "groupTitle : " + groupTitle + "/" + "groupContents : " + groupContents);
 
 				GroupDTO dto = new GroupDTO();
-				dto.setGroup_leader(loginId);
+				dto.setGroup_leader(memberName);
 				dto.setGroup_location(location);
 				dto.setGroup_interests(tags);
 				dto.setGroup_name(groupTitle);
 				dto.setGroup_info(groupContents);
+				dto.setMember_email(loginId);
 				int result = dao.insertGroup(dto);
                 
 				if (result > 0) {

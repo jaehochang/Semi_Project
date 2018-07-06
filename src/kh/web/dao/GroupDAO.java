@@ -295,7 +295,7 @@ public class GroupDAO {
 		psat.setString(3, dto.getGroup_location());
 		psat.setString(4, dto.getGroup_interests());
 		psat.setString(5, dto.getGroup_info());
-		psat.setString(6, dto.getGroup_leader());
+		psat.setString(6, dto.getMember_email());
 		int result = psat.executeUpdate();
         
 		
