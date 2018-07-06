@@ -183,7 +183,7 @@ public class GroupController extends HttpServlet {
 			} else if (command.equals("/join.group")) {
 
 				String member_email = request.getSession().getAttribute("loginId").toString();
-				System.out.println("member_email:"+member_email);
+				System.out.println("member_email:" + member_email);
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 				String group_name = request.getParameter("group_name");
@@ -383,10 +383,49 @@ public class GroupController extends HttpServlet {
 				if (result > 0) {
 					System.out.println("result들어옴");
 					out.println("success");
-				} 
-			} 
-			
-			
+				}
+
+			} // ----------------밑으로 인형----------------
+			else if (command.equals("/groupreport.group")) {
+				int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+				request.setAttribute("group_seq", group_seq);
+				isRedirect = false;
+				dst = "groupreport.jsp";
+
+			} else if (command.equals("/groupreportproc.group")) {
+				String report_reason = request.getParameter("report_select");
+				int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+				AdminDAO adao = new AdminDAO();
+				GroupDTO gdto = adao.getGroupData(group_seq);
+
+				request.setAttribute("gdto", gdto);
+				request.setAttribute("report_reason", report_reason);
+				request.setAttribute("group_seq", group_seq);
+				isRedirect = false;
+				dst = "groupreportproc.jsp";
+
+			} else if (command.equals("/greportcomplete.group")) {
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				String group_name = request.getParameter("group_name");
+				String report_reason = request.getParameter("report_reason");
+				String etc_reason = request.getParameter("etc_reason");
+
+				AdminDAO adao = new AdminDAO();
+				int result = adao.insertGroupReport(member_email, group_name, report_reason, etc_reason);
+
+				if (result > 0) {
+					isRedirect = false;
+					dst = "list.group";
+				}
+				response.sendRedirect(dst);
+			} else if (command.equals("/memberprofile.group")) {
+				System.out.println("in memberprofile");
+				String member_email = request.getParameter("member_email");
+				System.out.println(member_email);
+
+				isRedirect = false;
+				dst = "memberprofile.jsp";
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

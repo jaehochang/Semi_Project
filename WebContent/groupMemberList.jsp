@@ -155,6 +155,34 @@
 	
 	
 </div>
+	<!-- modalmodal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">이름</h4>
+				</div>
+				<div class="modal-body" style="width:1000px; height:500px;">
+					
+					<div style="border: 1px black solid; width:500px;">
+						<div><label>위치:</label><span></span></div>
+						<div><label>부터 멤버:</label><span></span></div>
+						<div><label>가입그룹:</label><span></span></div>
+						<div><label>관심사:</label><span></span></div>
+						<button type="button" id="reportbtn" class="btn btn-default btn-xs" >신고하기</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <div id="contents">
 	<div id="wrapper">
@@ -180,8 +208,8 @@
 			<hr>
 			<div class="member">
 				<div class="mem-img">
-				
-			<a href="memberprofile.group?member_email=${memberList.member_email}">
+												<!-- 인형모달링크 -->
+			<a href="#myModal" data-toggle="modal" id="myModal" onclick="modal(${memberList.member_email})">
 					<img src="files/${memberList.member_picture }" class="member-photo">
 			</a>
 				</div>
