@@ -99,8 +99,7 @@ public class MemberController extends HttpServlet {
 					dst = "index.jsp";
 
 				} else {
-					request.setAttribute("kakaoSecretNumId", kakao_id);
-					dst = "kakaoSignUpPage.jsp";
+					dst = "login.jsp";
 				}
 
 			} else if (command.equals("/signUpWithKakao.co")) {
@@ -233,7 +232,7 @@ public class MemberController extends HttpServlet {
 				}
 
 				System.out.println(6 + accntInfo.getMember_picture() + "?!");
-				
+
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userName", accntInfo.getMember_name());
 				request.setAttribute("userEmail", accntInfo.getMember_email());
@@ -282,9 +281,10 @@ public class MemberController extends HttpServlet {
 						dst = "login.jsp";
 
 					} else {
-
-						isRedirect = true;
-						dst = "signUpFailure.jsp";
+						
+						isRedirect = false;
+						request.setAttribute("signUpFailure", true);
+						dst = "login.jsp";
 
 					}
 
@@ -339,18 +339,20 @@ public class MemberController extends HttpServlet {
 				if (isFbUidExist) { // 점검해봤더니 아이디가 이미 있음
 					// 이미 아이디가 존재
 
+					isRedirect = false;
 					request.getSession().setAttribute("loginId", fb_uid);
-					request.getSession().setAttribute("isFbUidExist", isFbUidExist);
-					dst = "index.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
+					request.setAttribute("loginSuccess", true);
+
+					dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 알려줌 
 				} else {
 
 					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
-					request.setAttribute("fbSignUpResult", fbSignUpResult);
+//					request.setAttribute("fbSignUpResult", fbSignUpResult);
 
 					if (fbSignUpResult) {
 						isRedirect = false;
 						request.getSession().setAttribute("loginId", fb_uid);
-						request.setAttribute("loginSuccess", true); // 최초 회원가입 성공시
+						request.setAttribute("signUpSuccess", true); // 최초 회원가입 성공시
 						dst = "login.jsp";
 
 					} else {// unique 로 인해 fbSignUpResult가 false를 반환한 경우
@@ -398,11 +400,9 @@ public class MemberController extends HttpServlet {
 					if (ggSignUpResult) {
 						System.out.println(4);
 						isRedirect = false;
-
 						request.getSession().setAttribute("loginId", ggId);
-						request.setAttribute("loginSuccess", true);
+						request.setAttribute("signUpSuccess", true);
 						dst = "login.jsp";
-
 					} else {
 						System.out.println(5);
 						isRedirect = false;

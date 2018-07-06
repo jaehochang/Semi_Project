@@ -174,7 +174,8 @@
 
 
 
-		<c:when test="${requestScope.emailExist==true}">
+		<c:when test="${requestScope.emailExist==true}"> 
+<!-- 		회원가입 아이디 중복  -->
 
 
 

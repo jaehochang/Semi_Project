@@ -133,20 +133,25 @@ public class MemberDAO {
 		ps.setString(2, dto.getMember_email());
 		ps.setString(3, dto.getMember_pwd());
 
-		int rs = ps.executeUpdate();
+		int result = 0;
+
+		try {
+			result = ps.executeUpdate();
+		} catch (Exception e) {
+			if (e.getMessage().contains("unique")) { // unique 에러 발생시 Oops.jsp 뜨지 않고 false 반환하도록 기능 추가
+
+				return false;
+			}
+		}
 
 		con.commit();
 		con.close();
 		ps.close();
 
-		if (rs > 0) {
-
+		if (result > 0) {
 			return true;
-
 		} else {
-
 			return false;
-
 		}
 
 	}
@@ -775,11 +780,11 @@ public class MemberDAO {
 			ps.close();
 			con.close();
 
-		}catch (Exception e) {
+		} catch (Exception e) {
 			if (e.getMessage().contains("unique")) {// 이메일 중복으로 에러시 false 반환
 				System.out.println("이메일 중복으로 회원가입 불가");
 				return false;
-			}else {
+			} else {
 				e.printStackTrace();
 			}
 		}
@@ -788,7 +793,7 @@ public class MemberDAO {
 			System.out.println("return true");
 			return true;// 회원 생성 성공
 		} else {
-			return false;//회원 생성 실패
+			return false;// 회원 생성 실패
 		}
 
 	}
