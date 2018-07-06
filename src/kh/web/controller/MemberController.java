@@ -60,7 +60,7 @@ public class MemberController extends HttpServlet {
 			} else if (command.equals("/isThisFbIdRegistered.co")) {
 
 				String fbId = request.getParameter("facebookUserId");
-
+                
 				MemberDAO mDAO = new MemberDAO();
 				boolean result = mDAO.isThisFbIdExist(fbId);
 
@@ -126,7 +126,7 @@ public class MemberController extends HttpServlet {
 				if (dplChck) {// 카톡 아이디 중복체크, true면 존재 > main page로
 
 					isRedirect = true;
-					request.getSession().setAttribute("loginId", kakaoId);
+					request.getSession().setAttribute("loginId", kakaoEmail);
 					dst = "main.jsp";
 
 				} else { // true가 아니면, 없음 -> 회원가입 > main.jsp 로 세션 담아 보내기
@@ -137,7 +137,7 @@ public class MemberController extends HttpServlet {
 					if (result) {
 
 						isRedirect = false;
-						request.getSession().setAttribute("loginId", kakaoId);
+						request.getSession().setAttribute("loginId", kakaoEmail);
 						request.setAttribute("result", result);
 						dst = "main.jsp";
 					} else {
@@ -279,7 +279,7 @@ public class MemberController extends HttpServlet {
 				if (isFbUidExist) { // 점검해봤더니 아이디가 이미 있음
 					// 이미 아이디가 존재
 
-					request.getSession().setAttribute("loginId", fb_uid);
+					request.getSession().setAttribute("loginId", fb_email);
 					request.setAttribute("isFbUidExist", isFbUidExist);
 					dst = "main.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
 					System.out.println(1);
@@ -289,7 +289,7 @@ public class MemberController extends HttpServlet {
 					System.out.println(2);
 					if (fbSignUpResult) {
 						isRedirect = false;
-						request.getSession().setAttribute("loginId", fb_uid);
+						request.getSession().setAttribute("loginId", fb_email);
 						dst = "main.jsp";
 						System.out.println(3);
 					} else {
@@ -326,7 +326,7 @@ public class MemberController extends HttpServlet {
 				// response.reset();
 				response.getWriter().print(DupleResult);
 				request.setAttribute("DupleResult", DupleResult);
-				request.getSession().setAttribute("loginId", ggId);
+				request.getSession().setAttribute("loginId", ggEmail);
 
 				return;
 
