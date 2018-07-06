@@ -43,7 +43,7 @@
 
 			<ul id=nav-ul style="width: 200px;">
 
-				<li><a href="#">새 그룹 시작하기</a>
+				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list class="dropdown active"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"><i
 						class="fas fa-user"></i></a>
@@ -132,7 +132,6 @@
 
 
 
-			</div>
 		</nav>
 	</c:when>
 

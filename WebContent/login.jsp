@@ -94,7 +94,7 @@
 							<p>로그인 성공!</p>
 
 							<button class="btn btn-success btn-block" data-dismiss="modal"
-								data-dismiss="modal" onclick="$(this).modal('toggle');">둘러보기</button>
+								data-dismiss="modal"  style="background-color:grey;" style="background-color:grey;"onclick="$(this).modal('toggle');">둘러보기</button>
 
 						</div>
 					</div>
@@ -126,7 +126,7 @@
 						<div class="modal-body text-center">
 							<h1>성공!</h1>
 							<p>로그인에 성공하였습니다.</p>
-							<button class="btn btn-success btn-block" data-dismiss="modal"
+							<button class="btn btn-success btn-block" data-dismiss="modal" style="background-color:grey;"
 								onclick="window.location.href='index.jsp'">둘러보기</button>
 						</div>
 					</div>
@@ -282,6 +282,11 @@
 					<div id=btns style="margin-top: 10px;">
 						<button id=loginCheck class="btn btn-default btn-block"
 							style="font-size: 15px;">로그인</button>
+						<button id=emailFind class="btn btn-default btn-block"
+							style="font-size: 15px;">이메일 찾기</button>
+						<button id=pwFind class="btn btn-default btn-block"
+							style="font-size: 15px;">비밀번호 찾기</button>
+							
 					</div>
 				</form>
 

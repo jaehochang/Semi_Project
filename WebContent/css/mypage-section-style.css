@@ -38,5 +38,9 @@ h1, h2, h3, h4 {
 	width: 200px;
 	display: block;
 	margin: 5px auto;
-	border-radius:150px;
+	border-radius: 150px;
+}
+
+#boxheader p{
+	margin-left:15px;
 }

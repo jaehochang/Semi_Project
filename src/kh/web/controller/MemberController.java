@@ -35,9 +35,9 @@ public class MemberController extends HttpServlet {
 			MemberDAO dao = new MemberDAO();
 			boolean isRedirect = true;
 			String dst = null;
-			
+
 			request.setAttribute("tmp", "haha");
-			
+
 			if (command.equals("/LoginController.co")) {
 				String email = request.getAttribute("member_email").toString();
 				String pw = request.getAttribute("pwd").toString();
@@ -75,43 +75,44 @@ public class MemberController extends HttpServlet {
 				}
 
 			}
-//
-//			else if (command.equals("/signUpWithSnsEmail.co")) {
-//
-//				String kakao_id = request.getParameter("kakao_id");
-//				String kakao_nickname = request.getParameter("kakao_nickname");
-//				String email = request.getParameter("email");
-//				String name = request.getParameter("name");
-//
-//				MemberDAO mDAO = new MemberDAO();
-//				MemberDTO mDTO = new MemberDTO();
-//
-//				SnsDTO sDTO = new SnsDTO();
-//
-//				sDTO.setKakao_id(kakao_id);
-//				sDTO.setKakao_nickName(kakao_nickname);
-//
-//				mDTO.setMember_email(email);
-//				mDTO.setMember_name(name);
-//
-//				boolean result = mDAO.InptEmailtoAccnt(mDTO, sDTO);
-//
-//				System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " + result);
-//
-//				System.out.println("signUpWithSnsEmail.co - kakao_id" + kakao_id);
-//
-//				if (result) {
-//					isRedirect = false;
-//					request.setAttribute("result", result);
-//					System.out.println("result : " + result);
-//					request.setAttribute("kakaoSecretNumId", kakao_id);
-//					System.out.println(kakao_id);
-//					dst = "kakaoSignUpPage.jsp";
-//
-//				} else {
-//					System.out.println("/signUpWithSnsEmail : failed ");
-//					dst = "error.html";
-//				}
+			//
+			// else if (command.equals("/signUpWithSnsEmail.co")) {
+			//
+			// String kakao_id = request.getParameter("kakao_id");
+			// String kakao_nickname = request.getParameter("kakao_nickname");
+			// String email = request.getParameter("email");
+			// String name = request.getParameter("name");
+			//
+			// MemberDAO mDAO = new MemberDAO();
+			// MemberDTO mDTO = new MemberDTO();
+			//
+			// SnsDTO sDTO = new SnsDTO();
+			//
+			// sDTO.setKakao_id(kakao_id);
+			// sDTO.setKakao_nickName(kakao_nickname);
+			//
+			// mDTO.setMember_email(email);
+			// mDTO.setMember_name(name);
+			//
+			// boolean result = mDAO.InptEmailtoAccnt(mDTO, sDTO);
+			//
+			// System.out.println("/MemberController.InptEmailtoAccnt - isSuccess : " +
+			// result);
+			//
+			// System.out.println("signUpWithSnsEmail.co - kakao_id" + kakao_id);
+			//
+			// if (result) {
+			// isRedirect = false;
+			// request.setAttribute("result", result);
+			// System.out.println("result : " + result);
+			// request.setAttribute("kakaoSecretNumId", kakao_id);
+			// System.out.println(kakao_id);
+			// dst = "kakaoSignUpPage.jsp";
+			//
+			// } else {
+			// System.out.println("/signUpWithSnsEmail : failed ");
+			// dst = "error.html";
+			// }
 
 			else if (command.equals("/kakaoIdDplCheck.co")) {
 
@@ -134,7 +135,9 @@ public class MemberController extends HttpServlet {
 				isRedirect = false;
 
 				if (dplChck) {
-					request.getSession().setAttribute("loginId", kakao_id); // 세션 담기
+
+					request.getSession().setAttribute("snsId", kakao_id); // 세션 담기
+
 					dst = "index.jsp";
 
 				} else {
@@ -169,7 +172,8 @@ public class MemberController extends HttpServlet {
 
 					System.out.println(kakaoId + " : 해당 카톡 아이디가 있어 그냥 로그인 됩니다.");
 					isRedirect = false;
-					request.getSession().setAttribute("loginId", kakaoId);
+					request.getSession().setAttribute("loginId", kakaoEmail);
+					request.getSession().setAttribute("snsId", kakaoId);
 					request.setAttribute("kakaoIdAlreadyExist", true);
 					dst = "login.jsp";
 					System.out.println(3);
@@ -192,7 +196,9 @@ public class MemberController extends HttpServlet {
 						if (result) { // 최초 가입 성공시 - index로 세션 담아 보내주기
 
 							isRedirect = false;
-							request.getSession().setAttribute("loginId", kakaoId);
+							request.getSession().setAttribute("loginId", kakaoEmail);
+							request.getSession().setAttribute("snsId", kakaoId);
+
 							request.setAttribute("loginSuccess", true);
 							dst = "login.jsp";
 
@@ -230,16 +236,12 @@ public class MemberController extends HttpServlet {
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
 					boolean isMyGroup = mDAO.isMyGroup(memberEmail);
-				
-						request.setAttribute("isMyGroup", isMyGroup);
-						
-						System.out.println("membercontroller 값 : "+isMyGroup);
 
-						
-					
-						
-						dst = "list.group";
-					
+					request.setAttribute("isMyGroup", isMyGroup);
+
+					System.out.println("membercontroller 값 : " + isMyGroup);
+
+					dst = "list.group";
 
 				} else {
 					request.setAttribute("loginResult", result);
@@ -248,22 +250,22 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/mypage.co")) {
 
-				
-			
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String snsId = (String) request.getSession().getAttribute("snsId");
 
-				String loginId = (String)request.getSession().getAttribute("loginId");
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+				System.out.println("/mypage.co 의 session Login Id's email : " + loginId);
+				System.out.println("/mypage.co 의 session Login snsId : " + snsId);
+
 				MemberDAO mDAO = new MemberDAO();
 
-				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
 				System.out.println(1);
-				System.out.println("accntInfo : " + accntInfo);
 
-				if (accntInfo == null) {
-					isRedirect = true;
-					dst = "login.jsp";
-					System.out.println(2);
-				}
+				// if (accntInfo == null) {
+				// isRedirect = true;
+				// dst = "login.jsp";
+				// System.out.println(2);
+				// }
 
 				try {
 					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
@@ -275,9 +277,9 @@ public class MemberController extends HttpServlet {
 					}
 
 				} catch (Exception e) {
-					if (e.getMessage().contains("Null")) {
+					if (e.getMessage().contains("null")) {
 						isRedirect = false;
-						request.setAttribute("Null", true);
+						request.setAttribute("null", true);
 						dst = "Oops.jsp";
 						System.out.println(5);
 					}
@@ -296,7 +298,8 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 				isRedirect = false;
 				dst = "mypage.jsp";
-
+				System.out.println("---------------------------------------------------------");
+				System.out.println(" ");
 			} else if (command.equals("/signUpApply.co")) {
 
 				String memberName = (String) request.getParameter("member_name");
@@ -332,7 +335,7 @@ public class MemberController extends HttpServlet {
 						dst = "login.jsp";
 
 					} else {
-						
+
 						isRedirect = false;
 						request.setAttribute("signUpFailure", true);
 						dst = "login.jsp";
@@ -342,33 +345,42 @@ public class MemberController extends HttpServlet {
 				}
 
 			} else if (command.equals("/LogoutController.co")) {
+
 				request.getSession().removeAttribute("loginId");
-
+				request.getSession().removeAttribute("snsId");
 				isRedirect = true;
+
 				dst = "index.jsp";
-			} else if (command.equals("/isThisKakaoIdExist.co")) {
-				// signUpWithKakao.jsp 가 이리로 들어옴
+				System.out.println(dst);
+				System.out.println("------------------------------------------------------");
 
-				String loginKakaoId = request.getParameter("kakaoId");
+			}
+			// else if (command.equals("/isThisKakaoIdExist.co")) {
+			// // signUpWithKakao.jsp 가 이리로 들어옴
+			//
+			// String loginKakaoId = request.getParameter("kakaoId");
+			//
+			// MemberDAO mDAO = new MemberDAO();
+			//
+			// boolean result = mDAO.isKakaoIdExist(loginKakaoId);
+			// if (result) { // 통과 - 아이디가 이미 존재
+			// // 세션 제공 - 자동 로그인 시켜주기
+			// isRedirect = false;
+			// request.getSession().setAttribute("loginId", loginKakaoId);
+			// request.getSession().setAttribute("snsId", loginKakaoId);
+			// request.setAttribute("loginSuccess", true);
+			// dst = "login.jsp";
+			//
+			// } else {// 중복되는 아이디가 없는 상황 - 회원가입 시킬 화면으로 이동
+			// isRedirect = false;
+			//
+			// response.getWriter().print(result);
+			// dst = "login.jsp"; // ajax - 여기 - 아무 값도 return하지 않음 - 중복된 아이디가 존재하지 않음 - 회원가입
+			// 시킬 수 있는 화면으로 이동
+			// }
 
-				MemberDAO mDAO = new MemberDAO();
-
-				boolean result = mDAO.isKakaoIdExist(loginKakaoId);
-				if (result) { // 통과 - 아이디가 이미 존재
-					// 세션 제공 - 자동 로그인 시켜주기
-					isRedirect = false;
-					request.getSession().setAttribute("loginId", loginKakaoId);
-					request.setAttribute("loginSuccess", true);
-					dst = "login.jsp";
-
-				} else {// 중복되는 아이디가 없는 상황 - 회원가입 시킬 화면으로 이동
-					isRedirect = false;
-
-					response.getWriter().print(result);
-					dst = "login.jsp"; // ajax - 여기 - 아무 값도 return하지 않음 - 중복된 아이디가 존재하지 않음 - 회원가입 시킬 수 있는 화면으로 이동
-				}
-
-			} else if (command.equals("/signUpWithFaceBook.co")) {
+			// }
+			else if (command.equals("/signUpWithFaceBook.co")) {
 
 				String fb_email = request.getParameter("fb_email");
 				String fb_name = request.getParameter("fb_name");
@@ -392,20 +404,24 @@ public class MemberController extends HttpServlet {
 
 					isRedirect = false;
 					request.getSession().setAttribute("loginId", fb_email);
+					request.getSession().setAttribute("snsId", fb_uid);
+
 					request.setAttribute("loginSuccess", true);
 
-					dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 / 동시에 로그인? 알려줌 
+					dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 / 동시에 로그인? 알려줌
 				} else {
-System.out.println(1);
+					System.out.println(1);
 					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
-//					request.setAttribute("fbSignUpResult", fbSignUpResult);
+					// request.setAttribute("fbSignUpResult", fbSignUpResult);
 
 					if (fbSignUpResult) {
 						isRedirect = false;
 						request.getSession().setAttribute("loginId", fb_email);
+						request.getSession().setAttribute("snsId", fb_uid);
+
 						request.setAttribute("signUpSuccess", true); // 최초 회원가입 성공시
 						dst = "login.jsp";
-System.out.println(2);
+						System.out.println(2);
 					} else {// unique 로 인해 fbSignUpResult가 false를 반환한 경우
 						System.out.println("MemberController : unique 로 인해 fbSignUpResult가 false를 반환");
 						isRedirect = false;
@@ -413,7 +429,7 @@ System.out.println(2);
 						System.out.println("emailExist :" + emailExist);
 						request.setAttribute("emailExist", emailExist);
 						dst = "login.jsp";
-System.out.println(3);
+						System.out.println(3);
 					}
 
 				}
@@ -427,7 +443,10 @@ System.out.println(3);
 				String ggImgUrl = request.getParameter("ggImgUrl");
 				String ggEmail = request.getParameter("ggEmail");
 
-				System.out.println(ggId + " / " + ggName + " / " + ggImgUrl + " / " + ggEmail);
+				System.out.println(ggId);
+				System.out.println(ggName);
+				System.out.println(ggImgUrl);
+				System.out.println(ggEmail);
 
 				MemberDAO mDAO = new MemberDAO();
 				SnsDTO sDTO = new SnsDTO();
@@ -435,13 +454,16 @@ System.out.println(3);
 				sDTO.setGgname(ggName);
 				sDTO.setGgimgUrl(ggImgUrl);
 				sDTO.setGgEmail(ggEmail);
-				
+
 				boolean ggDupleResult = mDAO.isGgIdExist(sDTO);
 				System.out.println(1);
+
 				if (ggDupleResult) { // 중복되는 아이디가 이미 있는 경우
 					// 아니 바로 로그인 시켜버리기
 					System.out.println(2);
-					request.getSession().setAttribute("loginId", ggId);
+					isRedirect=false;
+					request.getSession().setAttribute("loginId", ggEmail);
+					request.getSession().setAttribute("snsId", ggId);
 					request.setAttribute("loginSuccess", true);
 					dst = "login.jsp";
 
@@ -452,9 +474,11 @@ System.out.println(3);
 					if (ggSignUpResult) {
 						System.out.println(4);
 						isRedirect = false;
-						request.getSession().setAttribute("loginId", ggId);
+						request.getSession().setAttribute("loginId", ggEmail);
+						request.getSession().setAttribute("snsId", ggId);
 						request.setAttribute("signUpSuccess", true);
 						dst = "login.jsp";
+
 					} else {
 						System.out.println(5);
 						isRedirect = false;
@@ -485,22 +509,22 @@ System.out.println(3);
 			//
 			// }
 
-			else if(command.equals("/infoModify.co")) {
-				
+			else if (command.equals("/infoModify.co")) {
+
 				String loginId = (String) request.getSession().getAttribute("loginId");
+				String snsId = (String) request.getSession().getAttribute("snsId");
 
 				System.out.println("/mypage.co 의 session Login Id : " + loginId);
 				MemberDAO mDAO = new MemberDAO();
 
-				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+				MemberDTO accntInfo = mDAO.getAccountInfo(loginId, snsId);
 				System.out.println(1);
-				System.out.println("accntInfo : " + accntInfo);
 
-//				if (accntInfo == null) {
-//					isRedirect = true;
-//					dst = "login.jsp";
-//					System.out.println(2);
-//				}
+				// if (accntInfo == null) {
+				// isRedirect = true;
+				// dst = "login.jsp";
+				// System.out.println(2);
+				// }
 
 				try {
 					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
@@ -534,17 +558,15 @@ System.out.println(3);
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 
 				isRedirect = false;
-				dst = "mypage-modify.jsp";				
-				
-				
+				dst = "mypage-modify.jsp";
+
 			}
-			
-			
 			if (isRedirect == false) {
-			
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
-				
+			} else {
+
+				response.sendRedirect(dst);
 			}
 
 		} catch (Exception e) {

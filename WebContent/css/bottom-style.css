@@ -33,8 +33,17 @@ footer body {
 }
 
 footer {
-	background-color: black;
-	padding: 8px;
+	background-color: #2b1732;
+	
+/* 	gradient */
+background: rgb(94,9,92); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(94,9,92,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(94,9,92,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(94,9,92,1) 0%,rgba(14,14,14,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e095c', endColorstr='#0e0e0e',GradientType=0 );
+/* 	gradient end */
+	
+	padding : 8px ;
 	width: 100%;
 	box-sizing: border-box;
 	position: absolute;

@@ -76,13 +76,21 @@
 		<div id=profilebody class="animated fadeInLeft">
 
 			<div id=boxheader>
-				<h1>${requestScope.userName}</h1>
-
+				<h3>${requestScope.userName}</h3><a href="#"> 편집</a>
+				<p>이메일 : ${requestScope.userEmail}<a href="#"> 편집</a></p>
+				<p>지역 : ${requestScope.userLocation}<a href="#"> 편집</a></p>
+				<p>성별 : ${requestScope.userGender}<a href="#"> 편집</a></p>
+				<p>나이 : ${requestScope.userAge}<a href="#"> 편집</a></p>
+				<p>가입 날짜 : ${requestScope.userJoinDate}<a href="#"> 편집</a></p>
+			
+				
+				
 			</div>
+			
 
 
 			<div id="meetnow">
-				<h1>${requestScope.joinedMeetnowCounts}개의모임참여중</h1>
+				<h1>${requestScope.joinedMeetnowCounts} 모임 참여 중</h1>
 			</div>
 
 			<div id=joinedgroup-list>
@@ -91,50 +99,36 @@
 				</div>
 			</div>
 
+
 		</div>
 
 		<!-- aside 시작 -->
 		<div id=profileaside class="animated fadeInRight">
+			<img src="${requestScope.userPicture}"
+				style="border-radius:150px;height: 150px; width: 150px; display: block; margin: 0 auto;">
 
-			<div class="container" id="meetnow">
-				<h1>2 Meetup의 멤버</h1>
-				<a href="#">가입한 그룹 숨기기</a>
-			</div>
+			<form id="userPhotoChangeForm" action=userPhotoChangeForm
+				name=userPhotoChangeForm enctype="multipart/form-data">
 
-				<form id="userPhotoChangeForm" action=userPhotoChangeForm
-					name=userPhotoChangeForm enctype="multipart/form-data">
+				<div id=interestbox>
+					<h2>관심사</h2><a href="#"> 편집</a>
+					
+					<div id=interests>${requestScope.getUserInterests} </div>
+				</div>
+				<!-- 지혜야 부탁해 -->
 
+				<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
+				<!-- 					<input type=text id=file-url>  -->
+				<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
+				<!-- 						<i class="fas fa-image"></i> -->
+				<!-- 					</button> -->
+			</form>
+		</div>
 
-					<!-- 지혜야 부탁해 -->
-
-					<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
-					<!-- 					<input type=text id=file-url>  -->
-					<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
-					<!-- 						<i class="fas fa-image"></i> -->
-					<!-- 					</button> -->
-
-
-				</form>
-			</div>
-
-
-			<button onclick="document.location.href='infoModify.co'">개인정보
-				수정</button>
 
 
 
 		<!-- aside 시작 -->
-		<div class="panel panel-default" id=profileaside>
-			<img src="image/default_member.png"
-				style="height: 150px; width: 150px; display: block; margin: 0 auto;">
-<!-- 			<span>change your photo</span> -->
-
-			<div id=interestbox>
-				<h2>관심사</h2>
-				<div id=interests>${requestScope.getUserInterests}</div>
-			</div>
-
-		</div>
 	</div>
 
 
