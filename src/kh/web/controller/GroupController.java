@@ -50,6 +50,7 @@ public class GroupController extends HttpServlet {
 			String ajax_nameCheck=null;
 			String ajax_pay=null;
 			List<String> distResult = null;
+			List<String> distSearchCount = null;
 			List<MygroupDTO> allGroupList = null;
 //			String member_email = request.getSession().getAttribute("loginId").toString();
 
@@ -241,6 +242,9 @@ public class GroupController extends HttpServlet {
                     System.out.println("페이유무 : "+payCheck);
 					if(payCheck.equals("y")) {
 						isRedirect = false;
+						String memberEmail=(String) request.getSession().getAttribute("loginId");
+		                String memberName=dao1.memberName(memberEmail);
+		                request.setAttribute("member_name", memberName);
 						dst = "create.jsp";
 					}else if(payCheck.equals("n")){
 						
@@ -265,46 +269,49 @@ public class GroupController extends HttpServlet {
 				
 			
 			}else if (command.equals("/create.group")) {
-
-				request.setCharacterEncoding("UTF-8");
-				String loginId = (String)request.getSession().getAttribute("loginId");
-				String location = (String) request.getParameter("location");
-				String tags = (String) request.getParameter("tags");
-				String groupTitle = (String) request.getParameter("eventName");
-				String groupContents = (String) request.getParameter("eventContents");
-
-	
-
-				/*if(tags.length()>15) {
-					System.out.println();
-				}*/
+					
 				
+				request.setCharacterEncoding("UTF-8");
+	            String loginId = (String)request.getSession().getAttribute("loginId");
+	            String memberName = request.getParameter("member_name");
+	            String location = (String) request.getParameter("location");
+	            String lat = (String)request.getParameter("lat");
+	            String lng = (String)request.getParameter("lng");
+	            String tags = (String) request.getParameter("tags");
+	            String groupTitle = (String) request.getParameter("eventName");
+	            String groupContents = (String) request.getParameter("eventContents");
+	                
+	            
+	            System.out.println("위도  : " + lat );
+	            System.out.println("경도  : " + lng );
+	            System.out.println("memberName : " + memberName + "/" + "location : " + location + "/" + "tags : " + tags
+	                  + "/" + "groupTitle : " + groupTitle + "/" + "groupContents : " + groupContents);
 
-				System.out.println("loginId : " + loginId + "/" + "location : " + location + "/" + "tags : " + tags
-						+ "/" + "groupTitle : " + groupTitle + "/" + "groupContents : " + groupContents);
-
-				GroupDTO dto = new GroupDTO();
-				dto.setGroup_leader(loginId);
-				dto.setGroup_location(location);
-				dto.setGroup_interests(tags);
-				dto.setGroup_name(groupTitle);
-				dto.setGroup_info(groupContents);
-				int result = dao.insertGroup(dto);
-                
-				if (result > 0) {
-					String[] printResult = dao.printNameGroup(groupTitle);
-					String gseq=printResult[0];
-					String gTitle=printResult[1];
-					
-                    request.setAttribute("group_seq", gseq);
-					request.setAttribute("groupName", gTitle);
-					isRedirect = false;
-					dst = "groupCreateConfirm.jsp";
-					
-				} else {
-					isRedirect = true;
-					dst = "createRequest.group";
-				}
+	            GroupDTO dto = new GroupDTO();
+	            dto.setGroup_leader(memberName);
+	            dto.setGroup_location(location);
+	            dto.setGroup_latitude(lat);
+	            dto.setGroup_longitude(lng);
+	            dto.setGroup_interests(tags);
+	            dto.setGroup_name(groupTitle);
+	            dto.setGroup_info(groupContents);
+	            dto.setMember_email(loginId);
+	            int result = dao.insertGroup(dto);
+	                
+	            if (result > 0) {
+	               String[] printResult = dao.printNameGroup(groupTitle);
+	               String gseq=printResult[0];
+	               String gTitle=printResult[1];
+	               
+	                    request.setAttribute("group_seq", gseq);
+	               request.setAttribute("groupName", gTitle);
+	               isRedirect = false;
+	               dst = "groupCreateConfirm.jsp";
+	               
+	            } else {
+	               isRedirect = true;
+	               dst = "createRequest.group";
+	            }
 
 
 			} else if (command.equals("/payEnd.group")) {
@@ -328,8 +335,11 @@ public class GroupController extends HttpServlet {
 				System.out.println(lat);
 				System.out.println(lng);
 				distResult = dao.DistanceSearch(lat, lng, dist);
-				
-				
+				distSearchCount = dao.distSearchCount(distResult);
+				for(int i=0; i<distSearchCount.size(); i++) {
+					
+					System.out.println(distSearchCount.get(i));
+				}
 				
 				
 			}else if(command.equals("/join.group")) {
@@ -379,7 +389,7 @@ public class GroupController extends HttpServlet {
 			}else if(ajax_dist.equals("ajax_dist")) {
 				
 				JSONObject json = new JSONObject();
-				json.put("distResult", distResult);
+				json.put("distSearchCount", distSearchCount);
 				
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");

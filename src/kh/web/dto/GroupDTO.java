@@ -5,6 +5,8 @@ public class GroupDTO {
    private String group_leader;
    private String group_name;
    private String group_location;
+   private String group_latitude;
+   private String group_longitude;
    private String group_interests;
    private String group_info;
    private String group_picture;
@@ -13,7 +15,30 @@ public class GroupDTO {
    private String group_expiredate;
    private int group_isblocked;
    private int group_alarm;
-   private String group_createdate;
+   
+   public String getGroup_latitude() {
+	return group_latitude;
+}
+
+
+
+public void setGroup_latitude(String group_latitude) {
+	this.group_latitude = group_latitude;
+}
+
+
+
+public String getGroup_longitude() {
+	return group_longitude;
+}
+
+
+
+public void setGroup_longitude(String group_longitude) {
+	this.group_longitude = group_longitude;
+}
+
+private String group_createdate;
    private int group_betweendate;
    private String member_email;
 

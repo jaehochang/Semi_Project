@@ -781,7 +781,7 @@ public class MemberDAO {
 			ps.setString(1, sDTO.getGgname());
 			ps.setString(2, sDTO.getGgEmail());
 			ps.setString(3, sDTO.getGgimgUrl());
-
+			
 			ps.setString(4, sDTO.getGgid());
 			ps.setString(5, sDTO.getGgname());
 			ps.setString(6, sDTO.getGgimgUrl());
@@ -881,7 +881,7 @@ public class MemberDAO {
 		rs.close();
 		pstat.close();
 		con.close();
-		
+		System.out.println(name);
 		return name;
 	}
 	

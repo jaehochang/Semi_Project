@@ -11,6 +11,9 @@
     </style>
     
     <script>
+      var outputLat;
+      var outputLng;
+      var locations;
       var geocoder;
       var map;
       
@@ -37,6 +40,7 @@
     infowindow.setContent(infowindowContent);
     var marker = new google.maps.Marker({
       map: map,
+      
       anchorPoint: new google.maps.Point(0, -29)
     });
 
@@ -82,15 +86,17 @@
     function setupClickListener(id, types) {
         
           autocomplete.setTypes(types);
-       
+         
+          
       }
 
       setupClickListener('changetype-all', []);
       setupClickListener('changetype-address', ['address']);
       setupClickListener('changetype-establishment', ['establishment']);
       setupClickListener('changetype-geocode', ['geocode']);
-    
-
+      
+      alert(document.getElementById("address").value);
+      
   }
 
 
@@ -136,10 +142,14 @@
         
             infoWindow.open(map);
 
-        
+        outputLat = latlng2.lat();
+        outputLng = latlng2.lng();
+        locations = marker.title;
+        locationss = marker.title;
         alert(address);
-        alert(latlng2);
-        alert(marker.title);
+        alert(outputLat);
+        alert(outputLng);
+        
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
@@ -149,8 +159,10 @@
   function saveAddress() {
 	  
 	  
-	  opener.document.getElementById("labelID").innerHTML =
-      document.getElementById("address").value;
+	  opener.document.getElementById("labelID").innerHTML = locations;
+	  opener.document.getElementById("hiddenLo").value = locations;
+	  opener.document.getElementById("hiddenLat").value = outputLat;
+	  opener.document.getElementById("hiddenLng").value = outputLng;
 	  window.close();
 	  
 	  
@@ -171,7 +183,7 @@
     </div>
 
     
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsmMF3X7t6lovq3kLvJjN8dj-IVdFbJIE&libraries=places&callback=initialize"
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR1-iCsWIDoBgirV6OCgm6XUPWobIFqPY&libraries=places&callback=initialize"
         async defer></script>
    
   <div>

@@ -24,8 +24,10 @@
 			<br>
            
 			<div class="form-group">
-			<label for="#hiddenLo" id="labelID" style="font-size:30px;font-weight:13;">&nbsp;<input id="hiddenLo" type="hidden" name="location"></label><!-- 회원가입시 설정한 장소 -->
-			
+			<label for="#hiddenLo" id="labelID" style="font-size:30px;font-weight:13;"></label><!-- 회원가입시 설정한 장소 -->
+			<input id="hiddenLo" type="hidden" name="location">
+			<input id="hiddenLat" type="hidden" name="lat">
+			<input id="hiddenLng" type="hidden" name="lng">
 			
 			
 			<a id="locationChangeBt" data-toggle="collapse" href="" style="color: blue;">(위치설정)</a><br>
@@ -36,7 +38,7 @@
 					
 				})
 			</script>
-			<div id="locationChangeShow" class="collapse">asdadasd</div>
+			<div id="locationChangeShow" class="collapse"></div>
 			
 			</div>
 			<!-- <button id="firstBt" data-target="#container1"
@@ -144,7 +146,7 @@
 				직접 대화를 나누세요</span> <br> <br>
 			<input type="button" id="fourthBt" class="btn btn-button default" value="동의후  그룹생성"
 				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold">
-
+			<input type="hidden" id="memberName" name="member_name" value="${requestScope.member_name}">
 		</div>
 		<!--col-->
 	</div>

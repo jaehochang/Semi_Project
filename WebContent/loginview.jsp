@@ -64,6 +64,10 @@
 
 <script>
 	$(document).ready(function() {
+		
+		
+
+		 
 			navigator.geolocation.getCurrentPosition(function(position) {
 				pos = {
 						lat : position.coords.latitude,
@@ -96,9 +100,9 @@
 										distance : dist
 										},
 					success : function(response) {
-						var a = response.distResult.toString().split(",");
+						var a = response.distSearchCount.toString().split(",");
 						
-						for (var b = 0; b < response.distResult.length; b++) {
+						for (var b = 0; b < response.distSearchCount.length; b++) {
 							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
 						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
@@ -137,11 +141,11 @@
 									   },
 														
 						success : function(response) {
-									var a = response.distResult.toString().split(",");
+									var a = response.distSearchCount.toString().split(",");
 															
 									
 															
-									for (var b = 0; b < response.distResult.length; b++) {
+									for (var b = 0; b < response.distSearchCount.length; b++) {
 										alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
 									    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
@@ -181,10 +185,10 @@
 									},
 									success : function(response) {
 															
-									var a = response.distResult.toString().split(",");
+									var a = response.distSearchCount.toString().split(",");
 						
-					      for (var b = 0; b < response.distResult.length; b++) {
-							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
+					      for (var b = 0; b < response.distSearchCount.length; b++) {
+							alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
 						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
 						   					
@@ -207,9 +211,12 @@
 						 alert("모든거리 입니다.");
 						$("#distance-default").html("모든거리 <span class=caret></span>");
 						})
+					
+					$("#navigation-list").hide();
+					$("#search-input").click(function(){
 						
-					$(".dropdown-toggle ellipsize").click(function(){
-						
+						$("#navigation-list").slideToggle(300);
+
 						
 					})
 					
@@ -235,14 +242,29 @@
 
 	<div id="search">
 		<div class="col-xs-4">
-			<div class="dropdown callout">
-		<input id="mainKeywords" class="dropdown-toggle" type="text" name="keywords" size="30" maxlength="100" value="" title="" placeholder="전체 Meetup 이벤트" autocomplete="off" autocorrect="on" spellcheck="true" data-key="*" data-name="*">
-			<ul class="dropdown-menu" id="simple-criteria">
-				<li style="color:red">1111</li>
-			</ul>
-		   </div>
+		
+		<input id="search-input" style="padding-bottom:5px" class="dropdown-toggle ellipsize" type="text" name="keywords" size="30" maxlength="100" value="" title="" placeholder="전체 Meetup 이벤트" autocomplete="off" autocorrect="on" spellcheck="true" data-key="*" data-name="*">
+		<nav id="navigation-list" style= "padding-left:8px;position: absolute; z-index: 200">
+                  <ul style="background-color:white; padding-left:10px; list-style: none; float:left; border: ;" >
+                        <li><a href="#item1" style="text-decoration: none;">우기블로그</a></li>  
+                        <li><a href="#item2">기술</a></li>
+                        <li><a href="#item3">가족</a></li>
+                        <li><a href="#item4">친구</a></li>
+                    </ul>
+                    <ul style="background-color:white; padding-left:10px; list-style: none; float:left">
+                      
+                        <li><a href="#item2">운동</a></li>
+                        <li><a href="#item3">운동</a></li>
+                        <li><a href="#item4">운동</a></li>
+                    </ul>
+                  
+                    
+                </nav>
+	
+
+
 			<button type="button" class="btn btn-default" aria-label="Left Align"
-				id="search-bt">
+				id="search-bt" >
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			</button>
 		</div>

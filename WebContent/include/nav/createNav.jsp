@@ -568,8 +568,14 @@ $('#nextBt').click(function(){
 						
 
 						$("#fourthBt").click(function() {
-							$('#hiddenLo').val($('#labelID').text());
 							
+						
+							$("#hiddenLo").val();
+							alert($("#hiddenLo").val());
+							
+							$("#hiddenLat").val();
+							$("#hiddenLng").val();
+							alert($("#hiddenLat").val());
 							 var cntEPT = $('input:checkbox[name=checkbox]:checked').length;
 						
 
