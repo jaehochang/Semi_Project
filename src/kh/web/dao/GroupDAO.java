@@ -7,11 +7,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberCountDTO;
+import kh.web.dto.MemberDTO;
 import kh.web.dto.MygroupDTO;
 import kh.web.utils.DBUtils;
 
@@ -427,7 +429,25 @@ public class GroupDAO {
 		return false;
 	}
 	
-	public int joinGroup(String member_email, int group_seq, String group_name) throws Exception{
+	public int addGroupMember(String member_email, int group_seq,String member_name) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "insert into group_member values(group_member_seq.nextval,?,?,sysdate,?)";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, member_name);
+		pstat.setInt(2, group_seq);
+		pstat.setString(3, member_email);
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
+		pstat.close();
+		con.close();
+		
+		return result;
+	}
+	
+	
+	public int joinMyGroup(String member_email, int group_seq, String group_name) throws Exception{
 		Connection con = DBUtils.getConnection();
 		String sql = "insert into mygroup values(mygroup_seq.nextval,?,?,?)";
 		PreparedStatement pstat = con.prepareStatement(sql);
@@ -446,7 +466,22 @@ public class GroupDAO {
 		return result;
 	}
 	
-	public int groupMemberOut(int group_seq,String member_email) throws Exception{
+	public int removeGroupMember(String member_email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "delete from group_member where member_email=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, member_email);
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
+		pstat.close();
+		con.close();
+		
+		return result;
+	}
+	
+	public int MygroupOut(int group_seq,String member_email) throws Exception{
 		Connection con = DBUtils.getConnection();
 		String sql = "delete from mygroup where member_email=? and group_seq=?";
 		PreparedStatement pstat = con.prepareStatement(sql);
@@ -481,7 +516,6 @@ public class GroupDAO {
 			dto.setMember_name(rs.getString("member_name"));
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setJoin_date(rs.getString("join_date"));
-			dto.setGroup_name(rs.getString("group_name"));
 			dto.setMember_picture(rs.getString("member_picture"));
 			dto.setGroup_leader(rs.getString("group_leader"));
 			
@@ -584,6 +618,36 @@ public class GroupDAO {
 		return result;
 	 }
 	
+	 public int seq() throws Exception{
+			Connection con =DBUtils.getConnection();
+			String sql = "SELECT group_seq.NEXTVAL FROM DUAL";
+			PreparedStatement pstat = con.prepareStatement(sql);
+			
+			ResultSet rs = pstat.executeQuery();
+			
+			int seq=0;
+			if(rs.next()) {
+				seq=rs.getInt(1);
+			}
+			
+			con.commit();
+			rs.close();
+			pstat.close();
+			con.close();
+			
+			return seq;
+		}
+	 
+//	 public List<MemberDTO> meetingAttendPic(int meeting_seq) throws Exception{
+//		 Connection con =DBUtils.getConnection();
+//		 String sql = "select a.meeting_seq,a.member_seq, m.member_picture from attend a, member m where a.member_seq=m.member_seq and meeting_seq=?";
+//		 PreparedStatement pstat = con.prepareStatement(sql);
+//		 pstat.setInt(1, meeting_seq);
+//		 
+//		 List
+//		 
+//	 }
+//	 
 }
 
 

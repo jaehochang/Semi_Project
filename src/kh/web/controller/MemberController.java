@@ -182,8 +182,6 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/mypage.co")) {
 
-				
-			
 
 				String loginId = (String)request.getSession().getAttribute("loginId");
 				System.out.println("/mypage.co 의 session Login Id : " + loginId);

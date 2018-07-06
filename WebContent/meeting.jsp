@@ -201,7 +201,7 @@ body {
       <div class="meeting-member-wrapper">
          <div class="meeting-member-title">
             <p class="pull-left">참석자</p>
-            (${result_countAttendMembers}) <a href="" class="pull-right">모두보기</a><br>
+            (${result_countAttendMembers}) <a href="attendMember.meet?meeting_seq=${result.meeting_seq}" class="pull-right">모두보기</a><br><br>
          </div>
          <br>
          <div class="row">

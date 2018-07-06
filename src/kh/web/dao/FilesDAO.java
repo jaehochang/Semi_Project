@@ -43,4 +43,21 @@ public class FilesDAO {
 		
 	}
 	
+	public int memberPicChange(String member_email, String systemName) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "update member set member_picture=? where member_email=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		pstat.setString(1, systemName);
+		pstat.setString(2, member_email);
+		
+		int result = pstat.executeUpdate();
+		
+		con.commit();
+		pstat.close();
+		con.close();
+		
+		return result;
+	}
+	
 }

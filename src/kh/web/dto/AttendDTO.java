@@ -1,5 +1,7 @@
 package kh.web.dto;
 
+import java.util.Date;
+
 public class AttendDTO {
    private int attend_seq;
    private int meeting_seq;
@@ -9,13 +11,14 @@ public class AttendDTO {
    private String member_email;
    private String member_name;
    private String member_picture;
+   private Date attend_time;
 
    public AttendDTO () {}
    
    
 
    public AttendDTO(int attend_seq, int meeting_seq, int group_seq, int attend_people, int member_seq,
-         String member_email, String member_name, String member_picture) {
+         String member_email, String member_name, String member_picture, Date attend_time) {
       super();
       this.attend_seq = attend_seq;
       this.meeting_seq = meeting_seq;
@@ -25,11 +28,12 @@ public class AttendDTO {
       this.member_email = member_email;
       this.member_name = member_name;
       this.member_picture = member_picture;
+      this.attend_time = attend_time;
+      
    }
 
 
-
-   public int getAttend_seq() {
+public int getAttend_seq() {
       return attend_seq;
    }
 
@@ -92,6 +96,20 @@ public class AttendDTO {
    public void setMember_picture(String member_picture) {
       this.member_picture = member_picture;
    }
+
+
+
+public Date getAttend_time() {
+   return attend_time;
+}
+
+
+
+public void setAttend_time(Date attend_time) {
+   this.attend_time = attend_time;
+}
+   
+   
    
    
 }

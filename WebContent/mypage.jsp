@@ -14,8 +14,7 @@
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
-<link rel="stylesheet" type="text/css"
-	href="css/mypage-section-style.css">
+<link rel="stylesheet" type="text/css" href="css/mypage-section-style.css?var=2">
 
 <!-- google api -->
 <meta name="google-signin-client_id"
@@ -112,9 +111,13 @@
 
 		<!-- aside 시작 -->
 		<div class="panel panel-default" id=profileaside>
-			<img src="image/default_member.png"
-				style="height: 150px; width: 150px; display: block; margin: 0 auto;">
-<!-- 			<span>change your photo</span> -->
+			<img src="files/${userPicture }" id="memPic" style="height: 150px; width: 150px; display: block; margin: 0 auto; border-radius: 150px">
+			<form action="upload.file?group_seq=0&page=mypage" method="post" id="writeForm" enctype="multipart/form-data">
+				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
+				<button type="button" class="btn btn-secondary"
+					style="width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
+			</form>
 
 			<div id=interestbox>
 				<h2>관심사</h2>
@@ -124,6 +127,39 @@
 		</div>
 	</div>
 
+
+	<script>
+		$("#btn-upload").click(function(e) {
+			e.preventDefault();
+			$('#file').click();
+		});
+	</script>
+
+	<c:if test="${fileResult >=1 }">
+		<script>
+			var val = "${systemName}";
+			
+			$.ajax({
+				url : "test.file",
+				type : "get",
+				data : {value : val},
+				success : function(resp) {
+
+					var contents = resp.html;
+					
+					console.log(contents);
+				},
+				error : function(request, status, error) {
+					console
+							.log(request.status + " : " + status + " : "
+									+ error);
+				},
+				complate : function() {
+					console.log("ajax 종료");
+				}
+			});
+		</script>
+	</c:if>
 
 	<!-- 	footer -->
 	<%@ include file="include/bottom.jsp"%>

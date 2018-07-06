@@ -756,7 +756,7 @@ public class MemberDAO {
 					+ "0," // 8: member_age
 					+ "'undefined'," // 9 : member_gender
 					+ "0," // 10:member_warning_number
-					+ "sysdate," // 11:member_warningdate
+					+ "sysdate," // 11: member_warningdate
 					+ "sysdate," // 12: member_expiredate
 					+ "sysdate," // 13: member_joindate
 					+ "0," // 14: member_alarm

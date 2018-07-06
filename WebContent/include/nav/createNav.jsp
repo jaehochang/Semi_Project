@@ -676,9 +676,8 @@ $('#nextBt').click(function(){
 								/* return true; */
 							}
 
-						  
-
-							
+							 var str = document.getElementById("contents").value;
+							 str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 							
 							
 							$("#create").submit();

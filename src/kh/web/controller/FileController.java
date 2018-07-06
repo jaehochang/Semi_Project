@@ -39,10 +39,13 @@ public class FileController extends HttpServlet {
          String ajax = null;
 
          if(command.equals("/upload.file")) {
-        	 
+        	String member_email = request.getSession().getAttribute("loginId").toString();
         	String groupSeq = request.getParameter("group_seq");
         	int group_seq = Integer.parseInt(groupSeq);
+        	String page = request.getParameter("page");
         	 
+        	
+        	System.out.println(page);
             request.setCharacterEncoding("UTF-8");
 
             String realPath = request.getServletContext().getRealPath("/files/");
@@ -62,7 +65,7 @@ public class FileController extends HttpServlet {
             
             Enumeration<String> names = mr.getFileNames();
             
-            System.out.println(11);
+            
             int fileResult=0;
             int GroupPicResult = 0;
             
@@ -72,16 +75,26 @@ public class FileController extends HttpServlet {
                   String originalName = mr.getOriginalFileName(paramName);
                   String systemName = mr.getFilesystemName(paramName);
 
-                  System.out.println(22);
+                 
                   
                   if(originalName != null){
                      try {
-                        
-                        System.out.println(33);
-                        fileResult = filesDAO.groupMainPic(systemName,group_seq);
-                        request.setAttribute("systemName", systemName);
-                        
-                        GroupPicResult = filesDAO.addGroupPic(new GroupPicDTO(0,group_seq,originalName,systemName));
+
+                    	 if(page.equals("group")) {
+                    		 fileResult = filesDAO.groupMainPic(systemName,group_seq);
+                    		 request.setAttribute("systemName", systemName);
+
+                    		 GroupPicResult = filesDAO.addGroupPic(new GroupPicDTO(0,group_seq,originalName,systemName));
+                    		 dst = "groupMain.group?group_seq="+groupSeq+"&page=info";
+                    		 
+                    	 }else if(page.equals("mypage")) {
+                    		 System.out.println("마이페이지 값 : "+member_email+" : " + systemName);
+                    		 fileResult = filesDAO.memberPicChange(member_email, systemName);
+                    		 request.setAttribute("systemName", systemName);
+                    		 
+                    		 System.out.println("fileResult"+fileResult);
+                    		 dst="mypage.co";
+                    	 }
                         
                      } catch (Exception e) {
                         e.printStackTrace();
@@ -94,9 +107,7 @@ public class FileController extends HttpServlet {
             
             request.setAttribute("fileResult", fileResult);
             
-            
             isRedirect = false;
-            dst = "groupMain.group?group_seq="+groupSeq+"&page=info";
             
             
          }else if(command.equals("/test.file")) {
@@ -112,7 +123,7 @@ public class FileController extends HttpServlet {
 			
 			JSONObject json = new JSONObject();
 			
-			String html = "<img src= '"+fullPath+"'>";
+			String html = fullPath;
 			
 			System.out.println(html);
 			
