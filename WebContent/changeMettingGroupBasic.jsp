@@ -37,7 +37,7 @@
  <%@ include file="include/nav/mypageNav.jsp"%>
 <!-- 임의로 윗 상단 디자인  -->
 </header>
-
+<!-- 수정사이트 -->
 <div class="container">
 <form action="updatebasic.group" method="post" id="basicupdate">
 
@@ -53,9 +53,12 @@
 		<h4>Meetup Group name</h4>
 	</div>
 	<div class="row">
-		<input type="text" id="groups" name="groupname" value="${result.group_name }">
+		<input type="text" id="groups" name="groupname" size="40" maxLength="200" value="${result.group_name }">
 	</div>
-	
+	<div>
+		<button type="button" id="duple">중복체크</button>
+		
+	</div>
 	<!-- head line 삭제  -->
 	
 	<div class="row">
@@ -65,7 +68,7 @@
 		<p>what is this meetup's purpose? who should join? why?</p>
 	</div>
 	<div class="row">
-		<input type="text" id="aboutgroup" name="description" value="${result.group_info }">
+		<input type="text" id="aboutgroup" name="description" size="40"   value="${result.group_info }">
 	</div>
 </c:forEach>	
 	<button type="button" id="update">저장하기</button>
@@ -81,6 +84,8 @@
 $('#update').click(function(e) {
 	$('#basicupdate').submit();
 });
+
+
 </script>
 </body>
 </html>
