@@ -1,7 +1,6 @@
 package kh.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +16,7 @@ import kh.web.dto.SnsDTO;
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
 
-   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
 
       try {
@@ -29,7 +28,6 @@ public class MemberController extends HttpServlet {
          response.setCharacterEncoding("utf8");
 
 			System.out.println(command);
-
 			MemberDAO dao = new MemberDAO();
 			boolean isRedirect = true;
 			String dst = null;
@@ -270,99 +268,115 @@ public class MemberController extends HttpServlet {
 
             }
 
-         } else if (command.equals("/signUpWithFaceBook.co")) {
+         }else if (command.equals("/signUpWithFaceBook.co")) {
 
-					request.getSession().setAttribute("loginId", fb_email);
-					request.setAttribute("isFbUidExist", isFbUidExist);
-					dst = "main.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
-					System.out.println(1);
-				} else {
-					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
-					request.setAttribute("fbSignUpResult", fbSignUpResult);
-					System.out.println(2);
-					if (fbSignUpResult) {
-						isRedirect = false;
-						request.getSession().setAttribute("loginId", fb_email);
-						dst = "main.jsp";
-						System.out.println(3);
-					} else {
-						System.out.println(4);
-						dst = "error.jsp";
+             String fb_email = request.getParameter("fb_email");
+             String fb_name = request.getParameter("fb_name");
+             String fb_uid = request.getParameter("fb_uid");
+             String fb_photoURL = request.getParameter("fb_photoURL");
 
-            MemberDAO mDAO = new MemberDAO();
-            SnsDTO sDTO = new SnsDTO();
-            sDTO.setFb_uid(fb_uid);
-            sDTO.setFb_name(fb_name);
-            sDTO.setFb_email(fb_email);
-            sDTO.setFb_photoURL(fb_photoURL);
+             MemberDAO mDAO = new MemberDAO();
+             SnsDTO sDTO = new SnsDTO();
+             sDTO.setFb_uid(fb_uid);
+             sDTO.setFb_name(fb_name);
+             sDTO.setFb_email(fb_email);
+             sDTO.setFb_photoURL(fb_photoURL);
 
-            // 먼저 해당 facebook_uid가 db에 있는지 중복 확인
-            boolean isFbUidExist = mDAO.isFbUidExist(sDTO);
+             // 먼저 해당 facebook_uid가 db에 있는지 중복 확인
+             boolean isFbUidExist = mDAO.isFbUidExist(sDTO);
 
-            isRedirect = false;
+             isRedirect = false;
 
-            if (isFbUidExist) { // 점검해봤더니 아이디가 이미 있음
-               // 이미 아이디가 존재
+             if (isFbUidExist) { // 점검해봤더니 아이디가 이미 있음
+                // 이미 아이디가 존재
 
-               request.getSession().setAttribute("loginId", fb_uid);
-               request.setAttribute("isFbUidExist", isFbUidExist);
-               dst = "main.jsp";// 바로 메인화면으로 세션 담아서 넘겨줌
-               System.out.println(1);
-            } else {
-               boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
-               request.setAttribute("fbSignUpResult", fbSignUpResult);
-               System.out.println(2);
-               if (fbSignUpResult) {
-                  isRedirect = false;
-                  request.getSession().setAttribute("loginId", fb_uid);
-                  dst = "main.jsp";
-                  System.out.println(3);
-               } else {
-                  System.out.println(4);
-                  dst = "error.jsp";
+                isRedirect = false;
+                request.getSession().setAttribute("loginId", fb_email);
+                request.getSession().setAttribute("snsId", fb_uid);
 
-               }
+                request.setAttribute("loginSuccess", true);
 
-            }
+                dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 / 동시에 로그인? 알려줌
+             } else {
+                System.out.println(1);
+                boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
+                // request.setAttribute("fbSignUpResult", fbSignUpResult);
 
-         } else if (command.equals("/ggAccntProc.co")) {
+                if (fbSignUpResult) {
+                   isRedirect = false;
+                   request.getSession().setAttribute("loginId", fb_email);
+                   request.getSession().setAttribute("snsId", fb_uid);
 
-            // https://developers.google.com/identity/sign-in/web/backend-auth
+                   request.setAttribute("signUpSuccess", true); // 최초 회원가입 성공시
+                   dst = "login.jsp";
+                   System.out.println(2);
+                } else {// unique 로 인해 fbSignUpResult가 false를 반환한 경우
+                   System.out.println("MemberController : unique 로 인해 fbSignUpResult가 false를 반환");
+                   isRedirect = false;
+                   boolean emailExist = true;
+                   System.out.println("emailExist :" + emailExist);
+                   request.setAttribute("emailExist", emailExist);
+                   dst = "login.jsp";
+                   System.out.println(3);
+                }
 
-				// response.reset();
-				response.getWriter().print(DupleResult);
-				request.setAttribute("DupleResult", DupleResult);
-				request.getSession().setAttribute("loginId", ggEmail);
+             }
 
-            System.out.println(ggId + "/" + ggName + "/" + ggImgUrl + "/" + ggEmail);
+          }else if (command.equals("/ggAccntProc.co")) {
 
-            MemberDAO mDAO = new MemberDAO();
-            SnsDTO sDTO = new SnsDTO();
-            sDTO.setGgid(ggId);
-            sDTO.setGgname(ggName);
-            sDTO.setGgimgUrl(ggImgUrl);
-            sDTO.setGgEmail(ggEmail);
+              // https://developers.google.com/identity/sign-in/web/backend-auth
 
-            boolean DupleResult = mDAO.SignUpWithGoogle(sDTO);
-            System.out.println("mDAO.SignUpWithGoogle.regResult : " + DupleResult);
-			if (isRedirect) {
-				response.sendRedirect(dst);
-			} else {
-				RequestDispatcher rd = request.getRequestDispatcher(dst);
-				rd.forward(request, response);
-				
-			}
+              String ggId = request.getParameter("ggId");
+              String ggName = request.getParameter("ggName");
+              String ggImgUrl = request.getParameter("ggImgUrl");
+              String ggEmail = request.getParameter("ggEmail");
 
-            isRedirect = false;
+              System.out.println(ggId);
+              System.out.println(ggName);
+              System.out.println(ggImgUrl);
+              System.out.println(ggEmail);
 
-            // response.reset();
-            response.getWriter().print(DupleResult);
-            request.setAttribute("DupleResult", DupleResult);
-            request.getSession().setAttribute("loginId", ggId);
+              MemberDAO mDAO = new MemberDAO();
+              SnsDTO sDTO = new SnsDTO();
+              sDTO.setGgid(ggId);
+              sDTO.setGgname(ggName);
+              sDTO.setGgimgUrl(ggImgUrl);
+              sDTO.setGgEmail(ggEmail);
 
-            return;
+              boolean ggDupleResult = mDAO.isGgIdExist(sDTO);
+              System.out.println(1);
 
-         }
+              if (ggDupleResult) { // 중복되는 아이디가 이미 있는 경우
+                 // 아니 바로 로그인 시켜버리기
+                 System.out.println(2);
+                 isRedirect=false;
+                 request.getSession().setAttribute("loginId", ggEmail);
+                 request.getSession().setAttribute("snsId", ggId);
+                 request.setAttribute("loginSuccess", true);
+                 dst = "login.jsp";
+
+              } else {
+                 System.out.println(3);
+                 boolean ggSignUpResult = mDAO.SignUpWithGoogle(sDTO);
+
+                 if (ggSignUpResult) {
+                    System.out.println(4);
+                    isRedirect = false;
+                    request.getSession().setAttribute("loginId", ggEmail);
+                    request.getSession().setAttribute("snsId", ggId);
+                    request.setAttribute("signUpSuccess", true);
+                    dst = "login.jsp";
+
+                 } else {
+                    System.out.println(5);
+                    isRedirect = false;
+                    request.setAttribute("emailExist", true);
+                    dst = "login.jsp";
+                 }
+
+              }
+
+           } 
 
          if (isRedirect) {
             response.sendRedirect(dst);
@@ -380,10 +394,10 @@ public class MemberController extends HttpServlet {
 
    }
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-      doGet(request, response);
-   }
+		doGet(request, response);
+	}
 
 }

@@ -7,8 +7,6 @@ public class GroupMemberDTO {
 	private String member_name;
 	private int group_seq;
 	private Date join_date;
-	private String member_email;
-	
 	private String group_name;
 	private String member_picture;
 	private String group_leader;

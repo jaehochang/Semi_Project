@@ -515,7 +515,7 @@ public class GroupDAO {
 			dto.setGroup_member_seq(rs.getInt("group_member_seq"));
 			dto.setMember_name(rs.getString("member_name"));
 			dto.setGroup_seq(rs.getInt("group_seq"));
-			dto.setJoin_date(rs.getString("join_date"));
+			dto.setJoin_date(rs.getDate("join_date"));
 			dto.setMember_picture(rs.getString("member_picture"));
 			dto.setGroup_leader(rs.getString("group_leader"));
 			
@@ -652,6 +652,26 @@ public class GroupDAO {
 		con.close();
 		
 		return gdto;
+	}
+	
+	public int seq() throws Exception{
+		Connection con =DBUtils.getConnection();
+		String sql = "SELECT group_seq.NEXTVAL FROM DUAL";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		
+		ResultSet rs = pstat.executeQuery();
+		
+		int seq=0;
+		if(rs.next()) {
+			seq=rs.getInt(1);
+		}
+		
+		con.commit();
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return seq;
 	}
 
 }
