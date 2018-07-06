@@ -481,7 +481,7 @@
 	});
 	
 	$('#gro').click(function(e) {
-		location.href = 'loginview.jsp';
+		location.href = 'list.group';
 	});
 	
 	

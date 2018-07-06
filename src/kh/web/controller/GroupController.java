@@ -119,7 +119,7 @@ public class GroupController extends HttpServlet {
             }
             
             
-            
+            String originName = result.get(0).getGroup_name();
             
             System.out.println("인원수"+count);
             System.out.println("그룹시퀀스 : "+result.get(0).getGroup_seq());
@@ -141,14 +141,15 @@ public class GroupController extends HttpServlet {
             
             System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
             System.out.println("지난 미팅"+lastMeeting.size());
-            
+            // 세션에  그룹 시퀀스값 저장
+            request.getSession().setAttribute("groupSeq", groupSeq);
+            //  페이지 들어갈때가마다 그룹시퀀스 값 변경되어 글어감
             
             //member 내용
             
             List<GroupMemberDTO> memberList = dao.memberList(groupSeq);
             
             System.out.println("멤버리스트 사이즈 : "+memberList.size());
-            
             request.setAttribute("result", result);
             request.setAttribute("count", count);
             request.setAttribute("nextMeeting", nextMeeting);
@@ -337,6 +338,35 @@ public class GroupController extends HttpServlet {
 				
 				isRedirect = false;
 				dst="groupInfo.jsp";
+			}else if(command.equals("/toupdate.group")) {
+				String groseq = request.getParameter("groupSeq");
+				 List<GroupDTO> result = dao.groupInfo(groseq);
+				 request.setAttribute("result", result);
+				isRedirect = false;
+				dst="changeMettingGroupBasic.jsp";
+			}else if(command.equals("/updatebasic.group")){
+				String group_seq = request.getSession().getAttribute("groupSeq").toString();
+				int groupseq = Integer.parseInt(group_seq);
+				System.out.println(groupseq);
+
+				String groupName = request.getParameter("groupname");
+				System.out.println(groupName);
+				String groupDescripton = request.getParameter("description");
+				System.out.println(groupDescripton);
+				GroupDTO dto = new GroupDTO();
+				dto.setGroup_name(groupName);
+				dto.setGroup_info(groupDescripton);
+				int result = dao.updateMettingBasic(dto, groupseq);
+				System.out.println(result);
+				
+				if(result > 0) {
+					isRedirect = false;
+					dst="list.group";
+				}else {
+					isRedirect = true;
+					dst="list.group";
+				}
+				
 			}
 			
 			

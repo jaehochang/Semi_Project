@@ -12,6 +12,7 @@
 
 	<ul class="nav nav-tabs">
 		<c:forEach var="item" items="${result}">
+			<c:set var="groupSeqvar" value="${item.group_seq}" scope="request"/>
 			<li role="presentation" class="active"><a
 				href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
 			<li role="presentation"><a
@@ -22,8 +23,9 @@
 		</c:forEach>
 
 	</ul>
-
-
+	
+	
+	
 	<div class="btn-group"
 		style="position: absolute; right: 500px; top: 475px;">
 		<c:if test="${isGroupMember eq true }">
@@ -49,6 +51,10 @@
 	<c:forEach var="result" items="${result }">
 				<input type="hidden" id="group_seq" value="${result.group_seq }">
 				<input type="hidden" id="group_name" value="${result.group_name }">
+	</c:forEach>
+	
+	<c:forEach var="result" items="${result }">
+		<button type="button" onclick="window.location.href='toupdate.group?groupSeq=${result.group_seq}'">수정(임시방편)</button>		
 	</c:forEach>
 	
 			<script>
@@ -180,12 +186,8 @@
 					</div>
 					</div>
 				</c:forEach>
-				
-			
-			
+
 		</div>
-
-
 
 		<c:forEach var="item2" items="${result }">
 			<div id="group-contents">
@@ -396,5 +398,7 @@
 <footer>
 	<%@ include file="include/bottom.jsp"%>
 </footer>
+	
+	
 </body>
 </html>

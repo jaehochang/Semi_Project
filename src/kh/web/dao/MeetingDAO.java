@@ -110,5 +110,20 @@ public class MeetingDAO {
       return result;
       
    }
+   /* 더미 값   혹시 모르니 삭제 하시지 마시길 바랍니다
+   public int updateMettingBasic(MeetingDTO mdto , int meetseq) throws Exception {
+	   Connection con = DBUtils.getConnection();
+	   String sql = "update meeting set GROUP_NAME = ? , MEETING_TITLE = ?, MEETING_CONTENTS = ? where MEETING_SEQ = ?";
+	   PreparedStatement pstat = con.prepareStatement(sql);
+	   pstat.setString(1, mdto.getGroup_name());
+	   pstat.setString(2, mdto.getMeeting_title());
+	   pstat.setString(3, mdto.getMeeting_contents());
+	   pstat.setInt(4, meetseq);
+	   int result = pstat.executeUpdate();
+	   pstat.close();
+	   con.close();
+	   return result;
+   }
+   */
    
 }
