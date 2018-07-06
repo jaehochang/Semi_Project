@@ -281,7 +281,7 @@ public class GroupController extends HttpServlet {
 				String tags = (String) request.getParameter("tags");
 				String groupTitle = (String) request.getParameter("eventName");
 				String groupContents = (String) request.getParameter("eventContents");
-                
+                groupContents=groupContents.replace("\r\n", "<br>");
 	
 
 				System.out.println("memberName : " + memberName + "/" + "location : " + location + "/" + "tags : " + tags

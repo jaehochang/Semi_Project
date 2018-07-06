@@ -685,16 +685,13 @@ $('#nextBt').click(function(){
 							 $.ajax({
 									url : "unchecked.autocomplete",
 									data : {removeallTerm : items},
-									success : function(response) {
+									success : function() {
 										
 									},
 									fail : function() {
 										
 									}
 								})
-							
-							
-							
 							$("#create").submit();
 
 						})
