@@ -100,13 +100,13 @@ public int getAttend_seq() {
 
 
 public Date getAttend_time() {
-   return attend_time;
+	return attend_time;
 }
 
 
 
 public void setAttend_time(Date attend_time) {
-   this.attend_time = attend_time;
+	this.attend_time = attend_time;
 }
    
    

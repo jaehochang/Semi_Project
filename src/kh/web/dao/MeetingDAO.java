@@ -108,70 +108,90 @@ public class MeetingDAO {
          return result;
    }
    
-         public String groupName(int meeting_seq) throws Exception {
-         Connection con= DBUtils.getConnection();
-            String sql = "select group_name from meeting where meeting_seq = ?";
-            PreparedStatement pstat = con.prepareStatement(sql);
-            pstat.setInt(1, meeting_seq);
-            ResultSet rs = pstat.executeQuery();
-            rs.next();
-            
-            String result = rs.getString("group_name");
-            
-            rs.close();
-            pstat.close();
-            con.close();
-            
-            return result;
-      }
-         
-         public List<AttendDTO> getAttendData(int meeting_seq) throws Exception {
-            Connection con = DBUtils.getConnection();
-            String sql = "select * from attend where meeting_seq = ? ";
-            PreparedStatement pstat = con.prepareStatement(sql);
-          pstat.setInt(1, meeting_seq);
-          ResultSet rs = pstat.executeQuery();
-          
-          List<AttendDTO> result = new ArrayList<>();
-          
-          while(rs.next()) {
-            AttendDTO dto = new AttendDTO();
-            dto.setAttend_seq(rs.getInt("attend_seq"));
-             dto.setMeeting_seq(rs.getInt("meeting_seq"));
-             dto.setGroup_seq(rs.getInt("group_seq"));
-             dto.setAttend_people(rs.getInt("attend_people"));
-             dto.setMember_seq(rs.getInt("member_seq"));
-             dto.setMember_email(rs.getString("member_email"));
-             dto.setMember_name(rs.getString("member_name"));
-             dto.setMember_picture(rs.getString("member_picture"));
-             dto.setAttend_time(rs.getDate("attend_time"));
-             result.add(dto);
-          }
-          rs.close();
-          pstat.close();
-          con.close();
-          return result;
-         }
-         
-         public int groupSeq(int meeting_seq) throws Exception {
-           Connection con= DBUtils.getConnection();
-              String sql = "select group_seq from meeting where meeting_seq = ?";
-              PreparedStatement pstat = con.prepareStatement(sql);
-              pstat.setInt(1, meeting_seq);
-              ResultSet rs = pstat.executeQuery();
-              rs.next();
-              
-              int result = rs.getInt("group_seq");
-              
-              rs.close();
-              pstat.close();
-              con.close();
-              
-              return result;
-        }
-         
-         
-      
-         
+   		public String groupName(int meeting_seq) throws Exception {
+	      Connection con= DBUtils.getConnection();
+	         String sql = "select group_name from meeting where meeting_seq = ?";
+	         PreparedStatement pstat = con.prepareStatement(sql);
+	         pstat.setInt(1, meeting_seq);
+	         ResultSet rs = pstat.executeQuery();
+	         rs.next();
+	         
+	         String result = rs.getString("group_name");
+	         
+	         rs.close();
+	         pstat.close();
+	         con.close();
+	         
+	         return result;
+	   }
+   		
+   		public List<AttendDTO> getAttendData(int meeting_seq) throws Exception {
+   	      Connection con = DBUtils.getConnection();
+   	      String sql = "select * from attend where meeting_seq = ? ";
+	   	   PreparedStatement pstat = con.prepareStatement(sql);
+	       pstat.setInt(1, meeting_seq);
+	       ResultSet rs = pstat.executeQuery();
+	       
+	       List<AttendDTO> result = new ArrayList<>();
+	       
+	       while(rs.next()) {
+	    	  AttendDTO dto = new AttendDTO();
+	    	  dto.setAttend_seq(rs.getInt("attend_seq"));
+	          dto.setMeeting_seq(rs.getInt("meeting_seq"));
+	          dto.setGroup_seq(rs.getInt("group_seq"));
+	          dto.setAttend_people(rs.getInt("attend_people"));
+	          dto.setMember_seq(rs.getInt("member_seq"));
+	          dto.setMember_email(rs.getString("member_email"));
+	          dto.setMember_name(rs.getString("member_name"));
+	          dto.setMember_picture(rs.getString("member_picture"));
+	          dto.setAttend_time(rs.getDate("attend_time"));
+	          result.add(dto);
+	       }
+	       rs.close();
+	       pstat.close();
+	       con.close();
+	       return result;
+   	   }
+   		
+   		public int groupSeq(int meeting_seq) throws Exception {
+  	      Connection con= DBUtils.getConnection();
+  	         String sql = "select group_seq from meeting where meeting_seq = ?";
+  	         PreparedStatement pstat = con.prepareStatement(sql);
+  	         pstat.setInt(1, meeting_seq);
+  	         ResultSet rs = pstat.executeQuery();
+  	         rs.next();
+  	         
+  	         int result = rs.getInt("group_seq");
+  	         
+  	         rs.close();
+  	         pstat.close();
+  	         con.close();
+  	         
+  	         return result;
+  	   }
+   		
+   		public List<GroupMemberDTO> getGroupMemberData(int group_seq) throws Exception {
+     	   Connection con = DBUtils.getConnection();
+     	   String sql = "select * from group_member where group_seq = ? ";
+  	   	   PreparedStatement pstat = con.prepareStatement(sql);
+  	   	   pstat.setInt(1, group_seq);
+  	       ResultSet rs = pstat.executeQuery();
+  	       
+  	       List<GroupMemberDTO> result = new ArrayList<>();
+  	       
+  	       while(rs.next()) {
+  	    	  GroupMemberDTO dto = new GroupMemberDTO();
+  	    	  dto.setGroup_member_seq(rs.getInt("group_member_seq"));
+  	    	  dto.setMember_name(rs.getString("member_name"));
+  	    	  dto.setGroup_seq(rs.getInt("group_seq"));
+  	    	  dto.setJoin_date(rs.getDate("join_date"));
+  	    	  dto.setMember_email(rs.getString("member_email"));
+  	          result.add(dto);
+  	       }
+  	       rs.close();
+  	       pstat.close();
+  	       con.close();
+  	       return result;
+     	   }
    
 }

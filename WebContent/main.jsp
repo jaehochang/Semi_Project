@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css">
 
-<link rel="stylesheet" type="text/css" href="css/main-card-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/main-card-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-carousel-style.css">
 
@@ -78,8 +78,8 @@
 /* 제주고딕 */
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 body {
-/*    font-family: 'Jeju Gothic', serif; */
-   font-family: 'Nanum Gothic', serif;
+/* 	font-family: 'Jeju Gothic', serif; */
+	font-family: 'Nanum Gothic', serif;
 }
 </STYLE>
 
@@ -113,17 +113,17 @@ body {
           
           <c:forEach var="items" items="${result}" varStatus="status" >
           
-                <c:choose>
-                  <c:when test="${status.count==1}">
-                     <div class="item  active">
-                     <div class="row">
-                  </c:when>
-                  <c:when test="${status.count!=1 && status.count%3==1}">
-                     <div class="item">
-                     <div class="row">
-                  </c:when>
-               </c:choose>
-               
+          	   <c:choose>
+      				<c:when test="${status.count==1}">
+      					<div class="item  active">
+            			<div class="row">
+      				</c:when>
+      				<c:when test="${status.count!=1 && status.count%3==1}">
+      					<div class="item">
+            			<div class="row">
+      				</c:when>
+      			</c:choose>
+      			
             <div class="col-md-4">
                <div class="card">
                   <time class="icon">
@@ -148,22 +148,19 @@ body {
                         <img style="width: 60px; height: 60px; border-radius: 50%; outline: none; margin : 0 10px 20px 0;" class="pull-left" src="./image/manse.jpeg" alt="Focus Lab">
                      </p>
                      <div class="">주최자 : ${items.group_leader}</div>
-                     <div class="">주최그룹 : ${items.group_name}</div>
+                     <div class="">주최그룹 : ${items.group_name}</p></div>
                      
                   </div>
                </div>
             </div>
             <c:choose>
             <c:when test="${status.count%3==0}">
-               </div>
-               </div>
-            </c:when>
-            <c:when test="${status.end%3!=0}">
-               </div>
-               </div>
-            </c:when>
-            </c:choose>
-            </c:forEach>
+      			</div>
+         		</div>
+      		</c:when>
+      		
+      		</c:choose>
+      		</c:forEach>
           
         </div>
         <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
@@ -180,7 +177,7 @@ body {
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/outside activities.jpg"></a> <br />
+                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/야외활동.JPG"></a> <br />
                <p class="interest-name">야외활동</p>
             </div>
          </div>
@@ -305,16 +302,7 @@ body {
          
       </div>
       
-         
-      
-      
-
    </div> 
-
-
-
-      
-
 
 
    <footer>

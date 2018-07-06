@@ -29,73 +29,81 @@ body {
 }
 </STYLE>
 <script>
-   $(document).ready(function() {
-      $("#search").keyup(function(){
-         var meeting_seq = 6;
-         
-         $.ajax({
-            url:"search_member.meet",
-            type:"get",
-            data:{meeting_seq:meeting_seq},
-            success:function(resp) {
-               
-               console.log("ㅋㅋㅋㅋ");
-               for(var i=0; i<resp.length; i++) {
-                  var member_name = resp[i].member_name;
-                  $("#response").text($("#response").text()+member_name);
-               }
-               console.log("전달성공");
-               
-            }
-         })
-      })
-   })
+	$(document).ready(function() {
+		$("#search").keyup(function(){
+			$("#response").val('');
+			var meeting_seq = ${meeting_seq};
+			var search = $("#search").val();
+			$.ajax({
+				url:"search_member.meet",
+				type:"get",
+				data:{meeting_seq:meeting_seq},
+				success:function(resp) {
+					for(var i=0; i<resp.length; i++) {
+						var member_name = resp[i].member_name;
+						var name = member_name.indexOf(search);
+						if(name != -1) {
+							$("#response").text(member_name);
+						}
+						
+						
+						
+						
+					}
+				} ,
+				error:function(request, status, error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+				
+			})
+		})
+	})
+	
+	
 </script>
 </head>
 <body>
-    <header> <%@ include file="include/nav/mypageNav.jsp"%></header>
-    
-    <div class ="back-header"></div>
-    
-    <div class="wrapper">
-       <div class="title"> 
-          <a href=""><span class="glyphicon glyphicon-menu-left"></span></a>
-          <div class="group-info">
-             참석자 <br>
-             <br>
-             <a href="">${result_group_name}</a>
-          </div>
-       </div>
-       <div class="search">
-          <div class="box">
-           <div class="container-3">
-               <span class="icon"><i class="fa fa-search"></i></span>
-               <input type="search" id="search" placeholder="회원 찾기" />
-           </div>
-         </div>
-       </div>
-       <div class="attend-member">
-       <div class="count-attend-member">총 ${result_countAttendMembers} 명 참석</div>
-          <c:forEach var="items" items="${result}">
-             <div class="member">
-                <img src="files/${items.member_picture}">
-                <div class="member-info">
-                   <div class="member-name"><B>${items.member_name}</B></div>
-                   <c:choose>
-                      <c:when test="${items.attend_people!=0}">
-                         <div style="color:gray;"> &ensp; + 총 ${items.attend_people}명의 손님</div>
-                      </c:when>
-                      <c:when test="${items.attend_people==0}">
-                         <Br>
-                      </c:when>
-                   </c:choose>
-                   <div class="attend-date">${items.attend_time}</div>
-                </div>
-             </div>
-          </c:forEach>
-       </div>
-       <P id="response"></P>
-    </div>
+	 <header> <%@ include file="include/nav/mypageNav.jsp"%></header>
+	 <div class ="back-header"></div>
+	 <div class="wrapper">
+	 	<div class="title"> 
+	 		<a href=""><span class="glyphicon glyphicon-menu-left"></span></a>
+	 		<div class="group-info">
+	 			참석자 <br>
+	 			<br>
+	 			<a href="">${result_group_name}</a>
+	 		</div>
+	 	</div>
+	 	<div class="search">
+	 		<div class="box">
+			  <div class="container-3">
+			      <span class="icon"><i class="fa fa-search"></i></span>
+			      <input type="search" id="search" placeholder="회원 찾기" />
+			  </div>
+			</div>
+	 	</div>
+	 	<div class="attend-member" id="response">
+	 	<div class="count-attend-member">총 ${result_countAttendMembers} 명 참석</div>
+	 		<c:forEach var="items" items="${result}">
+		 		<div class="member">
+		 			<img src="files/${items.member_picture}">
+		 			<div class="member-info">
+			 			<div class="member-name"><B>${items.member_name}</B></div>
+			 			<c:choose>
+			 				<c:when test="${items.attend_people!=0}">
+			 					<div style="color:gray;"> &ensp; + 총 ${items.attend_people}명의 손님</div>
+			 				</c:when>
+			 				<c:when test="${items.attend_people==0}">
+			 					<Br>
+			 				</c:when>
+			 			</c:choose>
+			 			<div class="attend-date">${items.attend_time}</div>
+		 			</div>
+		 		</div>
+	 		</c:forEach>
+	 	</div>
+<!-- 	 	<p id="response"></p> -->
+	 </div>
 
 </body>
 </html>

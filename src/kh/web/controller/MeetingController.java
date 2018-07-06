@@ -24,6 +24,7 @@ import kh.web.dto.MeetingDTO;
  */
 @WebServlet("*.meet")
 public class MeetingController extends HttpServlet {
+
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       try {
          String requestURI = request.getRequestURI();
@@ -36,6 +37,7 @@ public class MeetingController extends HttpServlet {
          AttendDAO adao = new AttendDAO();
          boolean isRedirect = true;
          String dst = null;
+         String ajax = null;
          
          if(command.equals("/main.meet")) {
             List<MeetingDTO> result = mdao.getMeetingData();
@@ -93,29 +95,49 @@ public class MeetingController extends HttpServlet {
              dst = "meeting.meet?seq="+meeting_seq;
                 
          } else if (command.equals("/attendMember.meet")) {
-            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-            String result_group_name = mdao.groupName(meeting_seq);
-            List<AttendDTO> result = mdao.getAttendData(meeting_seq);
-            
-            int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+        	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+        	 String result_group_name = mdao.groupName(meeting_seq);
+        	 List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+        	 
+        	 int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
              int result_countWithPeople = mdao.countWithPeople(meeting_seq);
-            
+        	 
              // 그룹 이름
-            request.setAttribute("result_group_name", result_group_name);
-            // 참석하는 명단 받아오는 list
-            request.setAttribute("result", result);
-            // 총 참석자 (참석인 + 데리고오는 사람)
-            request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
-            // meeting_seq
-            request.setAttribute("meeting_seq", meeting_seq);
-            
-            isRedirect = false;
-            dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
+        	 request.setAttribute("result_group_name", result_group_name);
+        	 // 참석하는 명단 받아오는 list
+        	 request.setAttribute("result", result);
+        	 // 총 참석자 (참석인 + 데리고오는 사람)
+        	 request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+        	 // meeting_seq
+        	 request.setAttribute("meeting_seq", meeting_seq);
+        	 
+        	 isRedirect = false;
+        	 dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
          
+         } else if (command.equals("/search_member.meet")) {
+        	 // meeting.jsp에서 group member를 찾는 query
+        	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+        	 int group_seq = mdao.groupSeq(meeting_seq);
+        	 List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+        	 
+        	 String search = request.getParameter("search");
+        	 
+        	 
+        	 
+        	 response.setCharacterEncoding("utf8");
+        	 response.setContentType("application/json");
+        	 
+        	 new Gson().toJson(result,response.getWriter());
+        	 
+        	 ajax="ajax";
          }
          
          if(isRedirect) {
-            response.sendRedirect(dst);
+        	 if(ajax.equals("ajax")) {
+        		 System.out.println("ajax?");
+        	 }else {
+        		 response.sendRedirect(dst);
+        	 }
          } else {
             RequestDispatcher rd = request.getRequestDispatcher(dst);
             rd.forward(request, response);
@@ -124,9 +146,7 @@ public class MeetingController extends HttpServlet {
       } catch (Exception e) {
          e.printStackTrace();
       }
-      
-      
-      response.getWriter().append("Served at: ").append(request.getContextPath());
+//      response.getWriter().append("Served at: ").append(request.getContextPath());
    }
    
    
