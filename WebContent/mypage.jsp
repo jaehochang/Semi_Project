@@ -66,9 +66,7 @@
 </head>
 <body>
 	<!-- nav -->
-	<nav>
-		<%@ include file="include/nav/mypageNav.jsp"%>
-	</nav>
+	<%@ include file="include/nav/mypageNav.jsp"%>
 
 	<!-- 이 줄 밑으로 my page 구현하기 -->
 
@@ -106,22 +104,23 @@
 
 				<form id="userPhotoChangeForm" action=userPhotoChangeForm
 					name=userPhotoChangeForm enctype="multipart/form-data">
-					
-					
-			<!-- 지혜야 부탁해 -->
 
-<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
-<!-- 					<input type=text id=file-url>  -->
-<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
-<!-- 						<i class="fas fa-image"></i> -->
-<!-- 					</button> -->
+
+					<!-- 지혜야 부탁해 -->
+
+					<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
+					<!-- 					<input type=text id=file-url>  -->
+					<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
+					<!-- 						<i class="fas fa-image"></i> -->
+					<!-- 					</button> -->
 
 
 				</form>
 			</div>
 
 
-
+			<button onclick="document.location.href='infoModify.co'">개인정보
+				수정</button>
 
 
 

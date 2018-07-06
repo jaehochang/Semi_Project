@@ -343,7 +343,7 @@ public class MemberController extends HttpServlet {
 					request.getSession().setAttribute("loginId", fb_uid);
 					request.setAttribute("loginSuccess", true);
 
-					dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 알려줌 
+					dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 / 동시에 로그인? 알려줌 
 				} else {
 
 					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
@@ -384,6 +384,7 @@ public class MemberController extends HttpServlet {
 				sDTO.setGgname(ggName);
 				sDTO.setGgimgUrl(ggImgUrl);
 				sDTO.setGgEmail(ggEmail);
+				
 				boolean ggDupleResult = mDAO.isGgIdExist(sDTO);
 				System.out.println(1);
 				if (ggDupleResult) { // 중복되는 아이디가 이미 있는 경우
@@ -433,6 +434,61 @@ public class MemberController extends HttpServlet {
 			//
 			// }
 
+			else if(command.equals("/infoModify.co")) {
+				
+				String loginId = (String) request.getSession().getAttribute("loginId");
+
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+				MemberDAO mDAO = new MemberDAO();
+
+				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+				System.out.println(1);
+				System.out.println("accntInfo : " + accntInfo);
+
+//				if (accntInfo == null) {
+//					isRedirect = true;
+//					dst = "login.jsp";
+//					System.out.println(2);
+//				}
+
+				try {
+					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
+
+					if ((accntInfo.getMember_picture().equals("null")) || (accntInfo.getMember_picture() == null)) {
+						System.out.println(3);
+						accntInfo.setMember_picture("img/default_member.png");
+						System.out.println(4);
+					}
+
+				} catch (Exception e) {
+					if (e.getMessage().contains("Null")) {
+						isRedirect = false;
+						request.setAttribute("Null", true);
+						dst = "Oops.jsp";
+						System.out.println(5);
+					}
+				}
+
+				System.out.println(6 + accntInfo.getMember_picture() + "?!");
+
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userName", accntInfo.getMember_name());
+				request.setAttribute("userEmail", accntInfo.getMember_email());
+				request.setAttribute("userLocation", accntInfo.getMember_location());
+				request.setAttribute("userGender", accntInfo.getMember_gender());
+				request.setAttribute("userAge", accntInfo.getMember_age());
+				System.out.println(7);
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+
+				isRedirect = false;
+				dst = "mypage-modify.jsp";				
+				
+				
+			}
+			
+			
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
