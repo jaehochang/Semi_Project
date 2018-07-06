@@ -7,80 +7,87 @@
 
 
 <script type='text/javascript'>
+			$("#kakao-signUp-btn")
+			.click(
+					function() {
 
-		document.getElementById("kakao-signUp-btn").onclick = function() {
+						Kakao
+								.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
 
-			var kakaoEmail = prompt(
-					"카카오톡으로 진행시 이메일 입력이 필요합니다.",""
-					);
-			
-			var regex=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+						Kakao.Auth
+								.loginForm({
 
-			if(regex.test(kakaoEmail)){
-	
-				console.log("kakaoEmail : " + kakaoEmail);
+									success : function(
+											authObj) {
 
-				Kakao.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
+										Kakao.API
+												.request({
+													url : '/v1/user/me',
+													success : function(
+															res) {
 
-				Kakao.Auth
-						.loginForm({
+														var kakaoEmail = prompt(
+																"카카오톡으로 진행시 이메일 입력이 필요합니다.",
+																"");
 
-							success : function(authObj) {
+														var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-								Kakao.API
-										.request({
-											url : '/v1/user/me',
-											success : function(res) {
+														if (regex
+																.test(kakaoEmail)) {
 
-												console.log(res.properties)
-												console.log(res.kaccount_email);
-												console.log(res.id);
-												console
-														.log(res.properties['nickname']);
-												console
-														.log(res.properties['profile_image']);
+											
+															console
+																	.log(res.properties)
+															console
+																	.log(res.kaccount_email);
+															console
+																	.log(res.id);
+															console
+																	.log(res.properties['nickname']);
+															console
+																	.log(res.properties['profile_image']);
 
-												var kakaoId = res.id;
-												var kakaoNickName = res.properties['nickname'];
-												var kakaoPhoto = res.properties['profile_image'];
+															var kakaoId = res.id;
+															var kakaoNickName = res.properties['nickname'];
+															var kakaoPhoto = res.properties['profile_image'];
 
-												document
-														.getElementById("hiddenKakaoId").value = kakaoId;
-												document
-														.getElementById("hiddenKakaoNickName").value = kakaoNickName;
-												document
-														.getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
+															console
+																	.log("kakaoEmail : "
+																			+ kakaoEmail);
 
-												document
-														.getElementById("hiddenKakaoEmail").value = kakaoEmail;
+															document
+																	.getElementById("hiddenKakaoId").value = kakaoId;
+															document
+																	.getElementById("hiddenKakaoNickName").value = kakaoNickName;
+															document
+																	.getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
 
-												document.forms["sendkakaoIdToController"]
-														.submit();
+															document
+																	.getElementById("hiddenKakaoEmail").value = kakaoEmail;
 
+															document.forms["sendkakaoIdToController"]
+																	.submit();
 
-												var valCheck = document
-														.getElementById("hiddenKakaoId").value;
+															var valCheck = document
+																	.getElementById("hiddenKakaoId").value;
 
-											}
-										});
-							},
-							fail : function(errorObj) {
-								console.log(authObj)
-							},
-							persistAccessToken : true,
-							persistRefreshToken : false
-						});
-			}else{
-				alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
-				location.reload();
-			}
-
-	
-	
-				
-			};
-
-	//]]>
+														} else {
+															alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
+															location
+																	.reload();
+														}
+													}
+												});
+									},
+									fail : function(
+											errorObj) {
+										console
+												.log(authObj)
+									},
+									persistAccessToken : true,
+									persistRefreshToken : false
+								});
+					});
 </script>
 
 

@@ -94,7 +94,9 @@
 							<p>로그인 성공!</p>
 
 							<button class="btn btn-success btn-block" data-dismiss="modal"
-								data-dismiss="modal"  style="background-color:grey;" style="background-color:grey;"onclick="$(this).modal('toggle');">둘러보기</button>
+								data-dismiss="modal" style="background-color: grey;"
+								style="background-color:grey;"
+								onclick="$(this).modal('toggle');">둘러보기</button>
 
 						</div>
 					</div>
@@ -126,7 +128,8 @@
 						<div class="modal-body text-center">
 							<h1>성공!</h1>
 							<p>로그인에 성공하였습니다.</p>
-							<button class="btn btn-success btn-block" data-dismiss="modal" style="background-color:grey;"
+							<button class="btn btn-success btn-block" data-dismiss="modal"
+								style="background-color: grey;"
 								onclick="window.location.href='index.jsp'">둘러보기</button>
 						</div>
 					</div>
@@ -174,8 +177,8 @@
 
 
 
-		<c:when test="${requestScope.emailExist==true}"> 
-<!-- 		회원가입 아이디 중복  -->
+		<c:when test="${requestScope.emailExist==true}">
+			<!-- 		회원가입 아이디 중복  -->
 
 
 
@@ -286,7 +289,7 @@
 							style="font-size: 15px;">이메일 찾기</button>
 						<button id=pwFind class="btn btn-default btn-block"
 							style="font-size: 15px;">비밀번호 찾기</button>
-							
+
 					</div>
 				</form>
 
@@ -320,31 +323,30 @@
 						$("#kakao-signUp-btn-main")
 								.click(
 										function() {
-											var kakaoEmail = prompt(
-													"카카오톡으로 진행시 이메일 입력이 필요합니다.",""
-													);
 
-											var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+											Kakao
+													.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
 
-											if (regex.test(kakaoEmail)) {
+											Kakao.Auth
+													.loginForm({
 
-												console.log("kakaoEmail : "
-														+ kakaoEmail);
+														success : function(
+																authObj) {
 
-												Kakao
-														.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
+															Kakao.API
+																	.request({
+																		url : '/v1/user/me',
+																		success : function(
+																				res) {
 
-												Kakao.Auth
-														.loginForm({
+																			var kakaoEmail = prompt(
+																					"카카오톡으로 진행시 이메일 입력이 필요합니다.",
+																					"");
 
-															success : function(
-																	authObj) {
+																			var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-																Kakao.API
-																		.request({
-																			url : '/v1/user/me',
-																			success : function(
-																					res) {
+																			if (regex
+																					.test(kakaoEmail)) {
 
 																				console
 																						.log(res.properties)
@@ -360,6 +362,10 @@
 																				var kakaoId = res.id;
 																				var kakaoNickName = res.properties['nickname'];
 																				var kakaoPhoto = res.properties['profile_image'];
+
+																				console
+																						.log("kakaoEmail : "
+																								+ kakaoEmail);
 
 																				document
 																						.getElementById("hiddenKakaoId").value = kakaoId;
@@ -377,21 +383,22 @@
 																				var valCheck = document
 																						.getElementById("hiddenKakaoId").value;
 
+																			} else {
+																				alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
+																				location
+																						.reload();
 																			}
-																		});
-															},
-															fail : function(
-																	errorObj) {
-																console
-																		.log(authObj)
-															},
-															persistAccessToken : true,
-															persistRefreshToken : false
-														});
-											} else {
-												alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
-												location.reload();
-											}
+																		}
+																	});
+														},
+														fail : function(
+																errorObj) {
+															console
+																	.log(authObj)
+														},
+														persistAccessToken : true,
+														persistRefreshToken : false
+													});
 										});
 					</script>
 				</div>
