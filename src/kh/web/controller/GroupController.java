@@ -26,6 +26,7 @@ import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberCountDTO;
+import kh.web.dto.MemberDTO;
 import kh.web.dto.MygroupDTO;
 
 @WebServlet("*.group")
@@ -422,9 +423,20 @@ public class GroupController extends HttpServlet {
 				System.out.println("in memberprofile");
 				String member_email = request.getParameter("member_email");
 				System.out.println(member_email);
+				AdminDAO adao = new AdminDAO();
+				MemberDTO mdto = adao.getMember(member_email);
+				
+				JSONObject json = new JSONObject();
 
-				isRedirect = false;
-				dst = "memberprofile.jsp";
+				json.put("mdto", mdto);
+
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+
+				response.getWriter().print(json);
+				response.getWriter().flush();
+				response.getWriter().close();
+
 			}
 
 		} catch (Exception e) {
