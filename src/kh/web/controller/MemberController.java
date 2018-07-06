@@ -245,7 +245,7 @@ public class MemberController extends HttpServlet {
 				request.getSession().removeAttribute("loginId");
 
 				isRedirect = true;
-				dst = "main.jsp";
+				dst = "index.jsp";
 			} else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");
 

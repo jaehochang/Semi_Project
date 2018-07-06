@@ -3,26 +3,28 @@
 <%@ include file="include/group/top.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" type="text/css" href="css/groupMember-style.css?ver=1">
-<link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
+<link rel="stylesheet" type="text/css"
+	href="css/groupInfo-style.css?ver=2">
+	
+<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=1">
 
 <div id="navi-div">
-	
-	
+
 	<ul class="nav nav-tabs">
-		<c:forEach var="item" items="${result }">
+		<c:forEach var="item" items="${result}">
 			<li role="presentation"><a
 				href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
 			<li role="presentation"><a
 				href="groupMain.group?group_seq=${item.group_seq}&page=meetupNext">Meetup</a></li>
-			<li role="presentation"  class="active"><a
+			<li role="presentation"><a
 				href="groupMain.group?group_seq=${item.group_seq}&page=member">회원</a></li>
-			<li role="presentation">
-			<a href="groupMain.group?group_seq=${item.group_seq}&page=photo">사진</a>
+			<li role="presentation" class="active">
+				<a href="groupMain.group?group_seq=${item.group_seq}&page=photo">사진</a>
 			</li>
 		</c:forEach>
 
 	</ul>
+
 
 	<div class="btn-group"
 		style="position: absolute; right: 500px; top: 475px;">
@@ -43,31 +45,6 @@
 		</ul>
 	</div>
 	
-	
-	
-	<!-- 그룹 관리 -->
-	<div class="btn-group"
-		style="position: absolute; right: 600px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
-		<ul class="dropdown-menu" role="menu">
-		<c:forEach var="result" items="${result }">
-			<li><a href="#">그룹 내용 수정</a></li>
-			<li><a href="#">그룹 흥미 수정</a></li>
-		</c:forEach>
-		</ul>
-	</div>
-	
-	
-	
-	
-	
-	
-	<!-- 밋업 관리 -->
-	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
-	
-	
-	
 	<c:if test="${isGroupMember eq true }">
 		<script>
 			$("#joinGroupBT").hide();
@@ -82,7 +59,10 @@
 	
 	
 
-	
+	<c:forEach var="result" items="${result }">
+			<input type="hidden" id="group_seq" value="${result.group_seq }">
+			<input type="hidden" id="group_name" value="${result.group_name }">
+	</c:forEach>
 	
 			
 			
@@ -102,29 +82,6 @@
 		</div>
 
 	</c:if>
-	
-	
-	<c:forEach var="result" items="${result }">
-			<input type="hidden" id="group_seq" value="${result.group_seq }">
-			<input type="hidden" id="group_name" value="${result.group_name }">
-			
-			<c:choose>
-				<c:when test="${result.member_email eq  sessionScope.loginId}">
-					<script>
-						$("#joinGroupBT").hide();
-						$("#memberBT").hide();
-						$("#test").remove();
-					</script>
-				</c:when>
-				<c:otherwise>
-					<script>
-						$("#newMeetingBT").hide();
-						$("#groupSettingBT").hide();
-					</script>
-				</c:otherwise>
-			</c:choose>
-			
-	</c:forEach>
 	
 	
 	<script>
@@ -154,45 +111,49 @@
 			</script>
 	
 	
+	
+	
 </div>
 
+
+
+
+
 <div id="contents">
-	<div id="wrapper">
-		<div id="memberSearch">
-			<div style="margin-bottom: 10px;">
-			<input type="text" class="form-control" id="search-input"
-				placeholder="회원 찾기" style="width:300px;">
-			<button type="button" class="btn btn-default" aria-label="Left Align" id="search-bt">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-			</button>
-			</div>
+	<div id="wrapper" style="height:auto; ">
+		<div id="upload-wrapper">
+			<input type="file">
 		</div>
-		<div id="tab">
-			<c:forEach var="item" items="${result }">
-			<a href="groupMain.group?group_seq=${item.group_seq}&page=member">모든회원</a>
-			<a href="groupMain.group?group_seq=${item.group_seq}&page=leader">주최자</a>
-			</c:forEach>
-		</div>
-		<div id="memberList">
-			<c:forEach var="memberList" items="${memberList }">
-			<hr>
-			<div class="member">
-				<div class="mem-img">
-					<img src="files/${memberList.member_picture }" class="member-photo">
-				</div>
-				<div class="mem-info">
-					<h4>${memberList.member_name }</h4>
-					<fmt:parseDate value="${memberList.join_date}" var="time"  pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${time}" pattern="M"/>월  
-                    <fmt:formatDate value="${time}" pattern="dd"/>일      
-                    <fmt:formatDate value="${time}" pattern="E"/>요일  <br>
+		<div class="wrapper">
+			<div class="row" style="margin:0 auto;">
+			<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
+			<div class="col-md-4" 
+                  style="padding-left:0px;
+                  margin:0 10px 50px 0; width:300px; height:200px">
+			
+			<div class="item">
+				<div class="polaroid">
+				
+				 <a class="example-image-link" href="files/${groupPagePic.system_name }" data-lightbox="example-set" >
+                  <img class="example-image" src="files/${groupPagePic.system_name }"id="pola-img"/></a>
+				
+				
+	
 				</div>
 			</div>
+			</div>
 			</c:forEach>
+			</div>
 		</div>
 	</div>
-		
 </div>
+
+
+<script src="photo/js/lightbox-plus-jquery.min.js"></script>
+
+
+
+
 
 
 <footer>
@@ -200,3 +161,4 @@
 </footer>
 </body>
 </html>
+
