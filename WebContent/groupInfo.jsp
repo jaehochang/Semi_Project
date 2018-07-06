@@ -7,7 +7,7 @@
 	href="css/groupInfo-style.css?ver=3">
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
-
+	
 <div id="navi-div">
 
 	<ul class="nav nav-tabs">
@@ -32,17 +32,18 @@
 		</ul>
 	</div>
 	
-	<div class="btn-group"
-		style="position: absolute; right: 500px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-			aria-expanded="false" id="memberBT">회원입니다.</button>
-		<ul class="dropdown-menu" role="menu">
-		<c:forEach var="result" items="${result }">
-			<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
-			<li><a href="#">그룹 신고</a></li>
-		</c:forEach>
-		</ul>
-	</div>
+	<c:forEach var="result" items="${result }">
+		<div class="btn-group" 
+			style="position: absolute; right: 430px; top: 475px;">  
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+				aria-expanded="false" id="memberBT">회원입니다.</button>
+				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" style="margin-left: 10px;" class="btn btn-default">Meetup 계획</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
+				<li><a href="#">그룹 신고</a></li>
+			</ul>
+		</div>
+	</c:forEach>
 	
 	
 	
@@ -133,10 +134,23 @@
 				});
 				
 			</script>
-	
-	
-	
-	
+			
+
+	<c:if test="${isGroupMember eq false }">
+		<!-- Single button -->
+		<div class="btn-group"
+			style="position: absolute; right: 430px; top: 475px;">
+			<button type="button" class="btn btn-default dropdown-toggle"
+				data-toggle="dropdown" aria-expanded="false">
+				<span class="glyphicon glyphicon-option-horizontal"
+					aria-hidden="true"></span> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="groupreport.group?group_seq=${group_seq }">그룹 신고</a></li>
+			</ul>
+		</div>
+
+	</c:if>
 </div>
 
 <div id="contents" style="background-color: #f4f6f7; height:1800px;">

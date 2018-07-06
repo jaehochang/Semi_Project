@@ -1,12 +1,12 @@
 package kh.web.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.javafx.css.PseudoClassState;
 
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
@@ -14,6 +14,7 @@ import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberCountDTO;
 import kh.web.dto.MemberDTO;
+import kh.web.dto.GroupDTO;
 import kh.web.dto.MygroupDTO;
 import kh.web.utils.DBUtils;
 
@@ -25,8 +26,8 @@ public class GroupDAO {
 
 		ResultSet rs = pstat.executeQuery();
 		List<GroupDTO> result = new ArrayList<>();
-		
-		while(rs.next()) {
+
+		while (rs.next()) {
 			GroupDTO dto = new GroupDTO();
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_leader(rs.getString("group_leader"));
@@ -35,7 +36,7 @@ public class GroupDAO {
 			dto.setGroup_interests(rs.getString("group_interests"));
 			dto.setGroup_info(rs.getString("group_info"));
 			dto.setGroup_picture(rs.getString("group_picture"));
-			
+
 			result.add(dto);
 		}
 
@@ -45,7 +46,7 @@ public class GroupDAO {
 
 		return result;
 	}
-	
+
 	public List<GroupPicDTO> allgroupsPictures() throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from group_picture";
@@ -53,15 +54,15 @@ public class GroupDAO {
 
 		ResultSet rs = pstat.executeQuery();
 		List<GroupPicDTO> result = new ArrayList<>();
-		
-		while(rs.next()) {
+
+		while (rs.next()) {
 			GroupPicDTO dto = new GroupPicDTO();
-			
+
 			dto.setGroup_picture_seq(rs.getInt("group_picture_seq"));
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setOriginal_name(rs.getString("original_name"));
 			dto.setSystem_name(rs.getString("system_name"));
-			
+
 			result.add(dto);
 
 		}
@@ -114,7 +115,7 @@ public class GroupDAO {
 
 		if(rs.next()) {
 			dto = new MemberCountDTO();
-			
+
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setCount(rs.getInt(2));
 
@@ -228,18 +229,18 @@ public class GroupDAO {
 	
 	public List<GroupDTO> groupInfo(String seq) throws Exception{
 		int group_seq = Integer.parseInt(seq);
-		
+
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from create_group where GROUP_SEQ=?";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setInt(1, group_seq);
 		ResultSet rs = pstat.executeQuery();
-		
+
 		List<GroupDTO> result = new ArrayList<>();
-		
-		if(rs.next()) {
+
+		if (rs.next()) {
 			GroupDTO dto = new GroupDTO();
-			
+
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_leader(rs.getString("group_leader"));
 			dto.setGroup_name(rs.getString("group_name"));
@@ -252,11 +253,11 @@ public class GroupDAO {
 			
 			result.add(dto);
 		}
-		
+
 		con.close();
 		pstat.close();
 		rs.close();
-		
+
 		return result;
 	}
 
@@ -347,13 +348,13 @@ public class GroupDAO {
 			pstat = con.prepareStatement(sql);
 			pstat.setInt(1, groupSeq);
 		}
-		
+
 		ResultSet rs = pstat.executeQuery();
-		
+
 		List<MeetingDTO> result = new ArrayList<>();
-		if(rs.next()) {
+		if (rs.next()) {
 			MeetingDTO dto = new MeetingDTO();
-			
+
 			dto.setMeeting_seq(rs.getInt("meeting_seq"));
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_name(rs.getString("group_name"));
@@ -364,29 +365,28 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
-			
+
 			result.add(dto);
 		}
-		
+
 		con.close();
 		pstat.close();
 		rs.close();
-		
-		
+
 		return result;
 	}
-	
-	public List<MeetingDTO> lastMeeting(int groupSeq) throws Exception{
+
+	public List<MeetingDTO> lastMeeting(int groupSeq) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select * from meeting where group_seq=? and meeting_start_time < sysdate";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setInt(1, groupSeq);
 		ResultSet rs = pstat.executeQuery();
-		
+
 		List<MeetingDTO> result = new ArrayList<>();
-		while(rs.next()) {
+		while (rs.next()) {
 			MeetingDTO dto = new MeetingDTO();
-			
+
 			dto.setMeeting_seq(rs.getInt("meeting_seq"));
 			dto.setGroup_seq(rs.getInt("group_seq"));
 			dto.setGroup_name(rs.getString("group_name"));
@@ -397,14 +397,14 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
-			
+
 			result.add(dto);
 		}
-		
+
 		con.close();
 		pstat.close();
 		rs.close();
-		
+
 		return result;
 	}
 	
@@ -618,39 +618,43 @@ public class GroupDAO {
 		return result;
 	 }
 	
-	 public int seq() throws Exception{
-			Connection con =DBUtils.getConnection();
-			String sql = "SELECT group_seq.NEXTVAL FROM DUAL";
-			PreparedStatement pstat = con.prepareStatement(sql);
-			
-			ResultSet rs = pstat.executeQuery();
-			
-			int seq=0;
-			if(rs.next()) {
-				seq=rs.getInt(1);
+	public GroupDTO getGroupData(int group_seq) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select create_group.*, floor(sysdate - group_expiredate) as bdate from create_group where group_seq=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		ResultSet rs = pstat.executeQuery();
+		GroupDTO gdto = new GroupDTO();
+
+		while (rs.next()) {
+			gdto.setGroup_seq(rs.getInt("group_seq"));
+			gdto.setGroup_leader(rs.getString("group_leader"));
+			gdto.setGroup_name(rs.getString("group_name"));
+			gdto.setGroup_location(rs.getString("group_location"));
+			gdto.setGroup_interests(rs.getString("group_interests"));
+			gdto.setGroup_info(rs.getString("group_info"));
+			gdto.setGroup_picture(rs.getString("group_picture"));
+			gdto.setGroup_warningdate(rs.getString("group_warningdate"));
+			gdto.setGroup_warningnumber(rs.getInt("group_warningnumber"));
+			gdto.setGroup_expiredate(rs.getString("group_expiredate"));
+			gdto.setGroup_isblocked(rs.getInt("group_isblocked"));
+			gdto.setGroup_createdate(rs.getString("group_createdate"));
+			gdto.setGroup_alarm(rs.getInt("group_alarm"));
+			gdto.setGroup_lat(rs.getString("group_lat"));
+			gdto.setGroup_lng(rs.getString("group_lng"));
+			if (rs.getString("bdate") != null) {
+				gdto.setGroup_betweendate(rs.getInt("bdate"));
 			}
-			
-			con.commit();
-			rs.close();
-			pstat.close();
-			con.close();
-			
-			return seq;
 		}
-	 
-//	 public List<MemberDTO> meetingAttendPic(int meeting_seq) throws Exception{
-//		 Connection con =DBUtils.getConnection();
-//		 String sql = "select a.meeting_seq,a.member_seq, m.member_picture from attend a, member m where a.member_seq=m.member_seq and meeting_seq=?";
-//		 PreparedStatement pstat = con.prepareStatement(sql);
-//		 pstat.setInt(1, meeting_seq);
-//		 
-//		 List
-//		 
-//	 }
-//	 
+		
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return gdto;
+	}
+
 }
-
-
 
 
 

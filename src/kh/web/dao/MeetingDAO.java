@@ -194,4 +194,29 @@ public class MeetingDAO {
   	       return result;
      	   }
    
+   public int insertNewMeeting(MeetingDTO mdto) throws Exception{
+	   Connection con = DBUtils.getConnection();
+	   String sql = "insert into meeting values(meeting_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?)";
+	   PreparedStatement pstat = con.prepareStatement(sql);
+	   pstat.setInt(1,mdto.getGroup_seq());
+	   pstat.setString(2, mdto.getGroup_name());
+	   pstat.setString(3, mdto.getGroup_leader());
+	   pstat.setString(4, mdto.getMeeting_title());
+	   pstat.setString(5,mdto.getMeeting_contents());
+	   pstat.setTimestamp(6, new java.sql.Timestamp(mdto.getMeeting_start_time().getTime()));
+	   pstat.setTimestamp(7, new java.sql.Timestamp(mdto.getMeeting_end_time().getTime()));
+	   pstat.setString(8, mdto.getMeeting_location());
+	   pstat.setString(9, mdto.getMeeting_lat());
+	   pstat.setString(10, mdto.getMeeting_lng());
+	   pstat.setString(11, mdto.getMeeting_picture());
+	   pstat.setString(12, mdto.getMember_email());
+	   int result = pstat.executeUpdate();
+	   
+	   con.commit();
+	   pstat.close();
+	   con.close();
+	   
+	   return result;
+   }
+   
 }
