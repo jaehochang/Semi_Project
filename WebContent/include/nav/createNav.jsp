@@ -509,6 +509,9 @@ $('#nextBt').click(function(){
 															term : term
 														},
 														success : function(response) {
+
+															
+															if(response==null){$('#printTerm1').html("검색 결과가 없습니다.");}
 															
 															uncheckStr= $.unique(response.uncheckedList);
 															checkStr= $.unique(response.checkedList);
@@ -658,7 +661,7 @@ $('#nextBt').click(function(){
 								console.log("contents validation")
 								return false;
 							}else if($('#contents').val().length<51){
-								console.log("50개 미만 노노");
+								
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
 								$('#contents').css("border-color", "red");
@@ -666,8 +669,9 @@ $('#nextBt').click(function(){
 								$('#contents').focus();
 								
 								return false;
-							}else if($('#contents').val().length>4000){
-								 
+							}else if($('#contents').val().length>3000){
+								$('#textAreaWarning').html("최대 3000자까지만 입력가능합니다");
+								$('#textAreaWarning').css("color", "red");
 								 $('#contents').addClass('animated shake');
 								 $('#contents').focus();
 								 return false;
@@ -676,8 +680,18 @@ $('#nextBt').click(function(){
 								/* return true; */
 							}
 
-						  
-
+						 
+						  $.ajaxSettings.traditional = true;
+							 $.ajax({
+									url : "unchecked.autocomplete",
+									data : {removeallTerm : items},
+									success : function(response) {
+										
+									},
+									fail : function() {
+										
+									}
+								})
 							
 							
 							
