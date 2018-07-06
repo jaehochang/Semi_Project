@@ -120,7 +120,7 @@ public class MeetingController extends HttpServlet {
         	 int group_seq = mdao.groupSeq(meeting_seq);
         	 List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
         	 
-//        	 String search = request.getParameter("search");
+        	 String search = request.getParameter("search");
         	 
         	 
         	 

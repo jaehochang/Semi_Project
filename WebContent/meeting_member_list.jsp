@@ -31,8 +31,9 @@ body {
 <script>
 	$(document).ready(function() {
 		$("#search").keyup(function(){
+			$("#response").val('');
 			var meeting_seq = ${meeting_seq};
-// 			var search = $("#search").val();
+			var search = $("#search").val();
 			$.ajax({
 				url:"search_member.meet",
 				type:"get",
@@ -40,10 +41,15 @@ body {
 				success:function(resp) {
 					for(var i=0; i<resp.length; i++) {
 						var member_name = resp[i].member_name;
-							$("#response").text($("#response").text() + member_name);
+						var name = member_name.indexOf(search);
+						if(name != -1) {
+							$("#response").text(member_name);
+						}
+						
+						
+						
+						
 					}
-					console.log("전달성공");
-					
 				} ,
 				error:function(request, status, error){
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -76,7 +82,7 @@ body {
 			  </div>
 			</div>
 	 	</div>
-	 	<div class="attend-member">
+	 	<div class="attend-member" id="response">
 	 	<div class="count-attend-member">총 ${result_countAttendMembers} 명 참석</div>
 	 		<c:forEach var="items" items="${result}">
 		 		<div class="member">
@@ -96,7 +102,7 @@ body {
 		 		</div>
 	 		</c:forEach>
 	 	</div>
-	 	<p id="response"></p>
+<!-- 	 	<p id="response"></p> -->
 	 </div>
 
 </body>
