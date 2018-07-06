@@ -105,11 +105,16 @@
 					name=userPhotoChangeForm enctype="multipart/form-data">
 
 
-				<img>
-				<div class=container id="flushbottom">
-					<h4>4조 B4A3</h4>
-				</div>
-				<div class=container id="grouproll">회원</div>
+					<!-- 지혜야 부탁해 -->
+
+					<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
+					<!-- 					<input type=text id=file-url>  -->
+					<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
+					<!-- 						<i class="fas fa-image"></i> -->
+					<!-- 					</button> -->
+
+
+				</form>
 			</div>
 
 
