@@ -35,27 +35,27 @@ $('#formid').submit(function() {
                  </select>
                </div>
                <div class="modal-footer">
-<!--                   <button type="button" class="btn btn-default" data-dismiss="modal">취소</button> -->
-<!--                   <button type="button" class="btn btn-primary">참석하기</button> -->
-                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary">참석하기</a>
+                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary" style="background-color:#68e2d6; border:0; outline:0;">참석하기</a>
                </div>
             </div>
          </div>
       </div>
+      
+      
       <!-- second modal -->
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">
-                     <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                  <button type="button" class="close" data-dismiss="modal" >
+                     <span aria-hidden="true" >×</span><span class="sr-only">Close</span>
                   </button>
-                  <h4 class="modal-title" id="myModalLabel">가입하기</h4>
+                  <h4 class="modal-title" id="myModalLabel"><Br></h4>
                </div>
-               <div class="modal-body" style="background-color : pink;"><h2>참석이 최종 확인되었습니다</h2>
+               <div class="modal-body" style="background-color:#68e2d6; color:white; text-align : center;"><span class="glyphicon glyphicon-ok-sign" style="font-size: 50px;"></span><h2>참석이 최종 확인되었습니다</h2>
                </div>
                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" >참석 확인</button>
+                  <button type="submit" class="btn btn-primary" style="background-color:#68e2d6; border:0; outline:0;">참석 확인</button>
                </div>
             </div>
          </div>
