@@ -64,7 +64,10 @@
 	
 	
 	
-	
+	   <!-- 임시로 수정버튼을 지정해준거니 추후 GroupLeader.jsp 에 이동하면 됨 -->
+   <c:forEach var="result" items="${result }">
+      <button type="button" onclick="window.location.href='toupdate.group?groupSeq=${result.group_seq}'">수정(임시방편)</button>      
+   </c:forEach>
 	
 	
 	<!-- 밋업 관리 -->
