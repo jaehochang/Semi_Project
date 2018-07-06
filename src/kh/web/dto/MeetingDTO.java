@@ -1,6 +1,6 @@
 package kh.web.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MeetingDTO {
 	private int meeting_seq;
@@ -108,8 +108,8 @@ public class MeetingDTO {
       return meeting_start_time;
    }
 
-   public void setMeeting_start_time(Date meeting_start_time) {
-      this.meeting_start_time = meeting_start_time;
+   public void setMeeting_start_time(Date startDate) {
+      this.meeting_start_time = startDate;
    }
 
    public Date getMeeting_end_time() {
@@ -156,4 +156,9 @@ public class MeetingDTO {
 		this.member_email = member_email;
 	}
 
+	public String getMeeting_picture() {
+		return meeting_picture;
+	}
+
+	
 }

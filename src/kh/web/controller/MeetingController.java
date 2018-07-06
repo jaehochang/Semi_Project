@@ -223,44 +223,41 @@ public class MeetingController extends HttpServlet {
 		               e.printStackTrace();
 		            }
 			} else if (command.equals("/calendarfirst.meet")) {
-				JSONArray jarray = new JSONArray();
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-				Date today = new Date();
-				SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-				String str = date.format(today);
-				System.out.println(str);
-				String[] datecase = str.split("/");
-				String alldata = null;
-				String year = datecase[0];
-				String month = datecase[1];
-				String day = datecase[2];
-				for (int i = 0; i < datecase.length; i++) {
-					if (i == 0) {
-						alldata = datecase[i];
-					} else {
-						alldata += datecase[i];
-					}
-				}
-				Date tempDate = simpleDateFormat.parse(alldata);
-				System.out.println(tempDate);
-				List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
+				  JSONArray jarray =new JSONArray();
+	               response.setCharacterEncoding("utf8");
+	               response.setContentType("application/json");
+	               String value = request.getParameter("val"); 
+	               System.out.println(value);
+	               String[] datecase = value.split("/");
+	               String alldata = null;
+	               String year = datecase[0];
+	               String month = datecase[1];
+	               String day = datecase[2];
+	               for(int i=0;i<datecase.length;i++) {
+	                  if(i==0) {
+	                     alldata = datecase[i];
+	                  }else {
+	                     alldata += datecase[i];
+	                  }
+	               }
+	               Date tempDate = simpleDateFormat.parse(alldata);
+	               System.out.println(tempDate);
+	               List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
+	               isajax = true;
+	               for(int i=0;i<showlist.size();i++) {
+	                  JSONObject json = new JSONObject();
+	                  json.put("date", showlist.get(i).getDat_month());
+	                  json.put("hour", showlist.get(i).getHour_minut());
+	                  json.put("groupName", showlist.get(i).getGroup_name());
+	                  json.put("groupTitle", showlist.get(i).getMeeting_title());
+	                  json.put("location", showlist.get(i).getMeeting_location());
+	                  jarray.add(json);
+	               }
 
-				isajax = true;
-				for (int i = 0; i < showlist.size(); i++) {
-					JSONObject json = new JSONObject();
-					json.put("date", showlist.get(i).getDat_month());
-					json.put("hour", showlist.get(i).getHour_minut());
-					json.put("groupName", showlist.get(i).getGroup_name());
-					json.put("groupTitle", showlist.get(i).getMeeting_title());
-					json.put("location", showlist.get(i).getMeeting_location());
-					jarray.add(json);
-				}
-
-				// request.setAttribute("showlist", showlist);
-
-				System.out.println(jarray);
-				new Gson().toJson(jarray, response.getWriter());
+	               //request.setAttribute("showlist", showlist);
+	               //System.out.println(jarray);
+	               System.out.println(jarray);
+	               new Gson().toJson(jarray,response.getWriter());
 			} else if (command.equals("/recommend.meet")) {
 				JSONArray jarray = new JSONArray();
 				response.setCharacterEncoding("utf8");

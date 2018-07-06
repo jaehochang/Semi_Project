@@ -255,9 +255,7 @@ public class MeetingDAO {
 	      }
 	      rs.close();
 	      pstat.close();
-	      con.close();
 	      
-	      return list;
-	   }
-   
+		return list;
+   }
 }

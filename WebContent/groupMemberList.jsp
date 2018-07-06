@@ -58,11 +58,6 @@
 		</ul>
 	</div>
 	
-	
-	
-	
-	
-	
 	<!-- 밋업 관리 -->
 	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
 	
