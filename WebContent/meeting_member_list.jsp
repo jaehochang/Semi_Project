@@ -28,6 +28,33 @@ body {
    font-family: 'Nanum Gothic', serif; 
 }
 </STYLE>
+<script>
+	$(document).ready(function() {
+		$("#search").keyup(function(){
+			var meeting_seq = ${meeting_seq};
+// 			var search = $("#search").val();
+			$.ajax({
+				url:"search_member.meet",
+				type:"get",
+				data:{meeting_seq:meeting_seq},
+				success:function(resp) {
+					for(var i=0; i<resp.length; i++) {
+						var member_name = resp[i].member_name;
+							$("#response").text($("#response").text() + member_name);
+					}
+					console.log("전달성공");
+					
+				} ,
+				error:function(request, status, error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+				
+			})
+		})
+	})
+	
+	
+</script>
 </head>
 <body>
 	 <header> <%@ include file="include/nav/mypageNav.jsp"%></header>
@@ -69,6 +96,7 @@ body {
 		 		</div>
 	 		</c:forEach>
 	 	</div>
+	 	<p id="response"></p>
 	 </div>
 
 </body>

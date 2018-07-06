@@ -1,10 +1,14 @@
 package kh.web.dto;
 
+import java.sql.Date;
+
 public class GroupMemberDTO {
 	private int group_member_seq;
 	private String member_name;
 	private int group_seq;
-	private String join_date;
+	private Date join_date;
+	private String member_email;
+	
 	private String group_name;
 	private String member_picture;
 	private String group_leader;
@@ -14,19 +18,19 @@ public class GroupMemberDTO {
 		super();
 	}
 
-	public GroupMemberDTO(int group_member_seq, String member_name, int group_seq, String join_date, String group_name,
-			String member_picture, String group_leader) {
+
+	public GroupMemberDTO(int group_member_seq, String member_name, int group_seq, Date join_date,
+			String member_email, String group_name, String member_picture, String group_leader) {
 		super();
 		this.group_member_seq = group_member_seq;
 		this.member_name = member_name;
 		this.group_seq = group_seq;
 		this.join_date = join_date;
+		this.member_email = member_email;
 		this.group_name = group_name;
 		this.member_picture = member_picture;
 		this.group_leader = group_leader;
 	}
-
-
 
 
 	public int getGroup_member_seq() {
@@ -59,13 +63,23 @@ public class GroupMemberDTO {
 	}
 
 
-	public String getJoin_date() {
+	public Date getJoin_date() {
 		return join_date;
 	}
 
 
-	public void setJoin_date(String join_date) {
+	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
+	}
+
+
+	public String getMember_email() {
+		return member_email;
+	}
+
+
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
 	}
 
 
@@ -97,7 +111,7 @@ public class GroupMemberDTO {
 	public void setGroup_leader(String group_leader) {
 		this.group_leader = group_leader;
 	}
-	
+
 	
 	
 	

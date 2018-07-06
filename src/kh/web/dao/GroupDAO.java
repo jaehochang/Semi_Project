@@ -312,7 +312,7 @@ public class GroupDAO {
          dto.setGroup_member_seq(rs.getInt("group_member_seq"));
          dto.setMember_name(rs.getString("member_name"));
          dto.setGroup_seq(rs.getInt("group_seq"));
-         dto.setJoin_date(rs.getString("join_date"));
+         dto.setJoin_date(rs.getDate("join_date"));
          dto.setGroup_name(rs.getString("group_name"));
          dto.setMember_picture(rs.getString("member_picture"));
          dto.setGroup_leader(rs.getString("group_leader"));
