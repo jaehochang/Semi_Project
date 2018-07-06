@@ -1,6 +1,7 @@
 package kh.web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,13 +28,14 @@ public class MemberController extends HttpServlet {
          request.setCharacterEncoding("utf8");
          response.setCharacterEncoding("utf8");
 
+
 			System.out.println(command);
 			MemberDAO dao = new MemberDAO();
 			boolean isRedirect = true;
 			String dst = null;
-			
+
 			request.setAttribute("tmp", "haha");
-			
+
 			if (command.equals("/LoginController.co")) {
 				String email = request.getAttribute("member_email").toString();
 				String pw = request.getAttribute("pwd").toString();
@@ -171,21 +173,57 @@ public class MemberController extends HttpServlet {
 				}
 
 			} else if (command.equals("/mypage.co")) {
-				String loginId = (String)request.getSession().getAttribute("loginId");
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String snsId = (String) request.getSession().getAttribute("snsId");
+
+				System.out.println("/mypage.co 의 session Login Id's email : " + loginId);
+				System.out.println("/mypage.co 의 session Login snsId : " + snsId);
+
 				MemberDAO mDAO = new MemberDAO();
 
-				MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
+				System.out.println(1);
 
+				// if (accntInfo == null) {
+				// isRedirect = true;
+				// dst = "login.jsp";
+				// System.out.println(2);
+				// }
+
+				try {
+					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
+
+					if ((accntInfo.getMember_picture().equals("null")) || (accntInfo.getMember_picture() == null)) {
+						System.out.println(3);
+						accntInfo.setMember_picture("img/default_member.png");
+						System.out.println(4);
+					}
+
+				} catch (Exception e) {
+					if (e.getMessage().contains("null")) {
+						isRedirect = false;
+						request.setAttribute("null", true);
+						dst = "Oops.jsp";
+						System.out.println(5);
+					}
+				}
+
+				System.out.println(6 + accntInfo.getMember_picture() + "?!");
+
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userName", accntInfo.getMember_name());
 				request.setAttribute("userEmail", accntInfo.getMember_email());
 				request.setAttribute("userLocation", accntInfo.getMember_location());
+
+				System.out.println(7);
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userInterests", accntInfo.getMember_interests());
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 				isRedirect = false;
 				dst = "mypage.jsp";
-
+				System.out.println("---------------------------------------------------------");
+				System.out.println(" ");
 			} else if (command.equals("/signUpApply.co")) {
 
             
@@ -238,10 +276,9 @@ public class MemberController extends HttpServlet {
                   request.setAttribute("loginId", memberEmail);
                   dst = "main.jsp";
 
-				isRedirect = true;
 				dst = "index.jsp";
-			} else if (command.equals("/isThisKakaoIdExist.co")) {
-				String loginKakaoId = request.getParameter("kakaoId");
+				System.out.println(dst);
+				System.out.println("------------------------------------------------------");
 
                   isRedirect = true;
                   dst = "signUpFailure.jsp";
