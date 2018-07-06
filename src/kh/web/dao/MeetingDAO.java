@@ -69,6 +69,9 @@ public class MeetingDAO {
       return dto;
    }
    
+   
+   
+   
    public List<ShowMeetingDTO> selectMeet(Date bigindate) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select to_char(meeting_start_time,'yyyy\"년\"mm\"월\"dd\"일\" day'),to_char(meeting_start_time,'HH24:mi'),group_name,meeting_title ,meeting_location "
@@ -110,6 +113,10 @@ public class MeetingDAO {
       return result;
       
    }
+   // select * from attend where MEMBER_EMAIL in (select MEMBER_EMAIL from MEETING where member_email = 'abc@abc.com');
+   
+   
+   
    /* 더미 값   혹시 모르니 삭제 하시지 마시길 바랍니다
    public int updateMettingBasic(MeetingDTO mdto , int meetseq) throws Exception {
 	   Connection con = DBUtils.getConnection();
