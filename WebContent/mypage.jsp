@@ -30,6 +30,7 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
+
 <!-- //밑에 CDN 순서 맞지 않으면 오류 발생// -->
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet"
@@ -55,35 +56,24 @@
 <!-- 위에 CDN 순서 맞지 않으면 오류 발생 -->
 
 
-<style>
-#imgChooser {
-	width: 0;
-	height: 0;
-	opacity: 0;
-}
-</style>
 
 </head>
 <body>
-	<!-- nav -->
 	<%@ include file="include/nav/mypageNav.jsp"%>
 
 	<!-- 이 줄 밑으로 my page 구현하기 -->
-
 
 	<div id="profilebox">
 
 		<div id=profilebody class="animated fadeInLeft">
 
 			<div id=boxheader>
-				<h3>${requestScope.userName}</h3><a href="#"> 편집</a>
-				<p>이메일 : ${requestScope.userEmail}<a href="#"> 편집</a></p>
-				<p>지역 : ${requestScope.userLocation}<a href="#"> 편집</a></p>
-				<p>성별 : ${requestScope.userGender}<a href="#"> 편집</a></p>
-				<p>나이 : ${requestScope.userAge}<a href="#"> 편집</a></p>
-				<p>가입 날짜 : ${requestScope.userJoinDate}<a href="#"> 편집</a></p>
-			
-				
+				<h3>${requestScope.userName}</h3>
+				<p>이메일 : ${requestScope.userEmail}</p>
+				<p>지역 : ${requestScope.userLocation}</p>
+				<p>성별 : ${requestScope.userGender}</p>
+				<p>나이 : ${requestScope.userAge}</p>
+				<p>가입 날짜 : ${requestScope.userJoinDate}</p>
 				
 			</div>
 			
@@ -107,34 +97,20 @@
 			<img src="${requestScope.userPicture}"
 				style="border-radius:150px;height: 150px; width: 150px; display: block; margin: 0 auto;">
 
-			<form id="userPhotoChangeForm" action=userPhotoChangeForm
-				name=userPhotoChangeForm enctype="multipart/form-data">
 
 				<div id=interestbox>
-					<h2>관심사</h2><a href="#"> 편집</a>
+					<h2>관심사</h2>
 					
 					<div id=interests>${requestScope.getUserInterests} </div>
 				</div>
 				<!-- 지혜야 부탁해 -->
 
-				<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
-				<!-- 					<input type=text id=file-url>  -->
-				<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
-				<!-- 						<i class="fas fa-image"></i> -->
-				<!-- 					</button> -->
-			</form>
 		</div>
-
-
-
-
-		<!-- aside 시작 -->
 	</div>
 
 
 	<!-- 	footer -->
 	<%@ include file="include/bottom.jsp"%>
-
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
