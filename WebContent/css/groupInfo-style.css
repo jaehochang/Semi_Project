@@ -208,8 +208,9 @@ div{
 #pre-meetup-top{
 	width:100%;
 	height:100px;
-	padding-top:70px;
+	padding-top:50px;
 	padding-left:20px;
+	padding-bottom: 0px;
 }
 
 #last-meetup-all{
@@ -227,6 +228,7 @@ div{
 	width:100%;
 	padding-left:8px;
 }
+
 
 
 #lastmeetup{
@@ -249,7 +251,17 @@ div{
 	margin-bottom: 30px;
 }
 
+#noPremeetup{
+	border : 3px dashed gray;
+	border-radius: 10px;
+	width:100%;
+	height:250px;
+	margin-bottom: 30px;
+}
 
+#noPremeetup:hover{
+	cursor: pointer;
+}
 
 #premeetup:hover{
 	cursor: pointer;
@@ -289,9 +301,23 @@ div{
       border-radius: 20px;
       padding: 5px 0;
    }
-   
-   .group-photo:hover{
+
+.group-photo-last{
+	width:180px;
+      height:150px;
+      border-radius: 20px;
+      padding: 5px 0;
+      opacity: 0.4;
+}
+
+.group-photo:hover{
       transform:scale(1.01);
+      cursor: pointer;
+   }
+   
+   .group-photo-last:hover{
+      transform:scale(1.01);
+      cursor: pointer;
    }
    
    #meetup-img{

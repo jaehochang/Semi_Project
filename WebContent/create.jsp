@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="include/nav/createNav.jsp"%>
 
-<div class="jumbotron"
+<div class="jumbotron animated bounceInDown"
 	style="background-image: url(./image/열기구.jpg); background-size: 100%;">
 	<div class="container">
 	<div id="text" class=text-align>
@@ -57,7 +57,7 @@
 
 			<h1>당신의 MeetNow는 무엇과 관련되어 있나요?</h1>
 			<br> <input id="tagText" type="text" style="width: 500px;"
-				class="form-control"  placeholder="예:영화   (10개 까지 선택가능합니다.)" required>
+				class="form-control"  placeholder="예:여행   (10개 까지 선택가능합니다.)" required>
 			<br>
 			<input id="tagStore" type="hidden" name="storedtags">
 			<input id="hiddenTag" type="hidden" name="tags">
@@ -90,7 +90,7 @@
 
 			<h1>MeetNow 이벤트의 이름은 무엇으로 정하시겠어요?</h1>
 			<br> <input type="text" id="eventText" name="eventName" style="width: 500px"
-				class="form-control" name="x" placeholder="예: 서울 코딩 MeetNow" maxlength=400 required>
+				class="form-control" name="x" placeholder="예: 서을 블록체인  MeetNow" maxlength=400 required>
 			<span id="showText" class="warning"></span> <br>
 			<h1>MeetNow에 누가 참여하고, 무엇을 할 것인지 알려 주세요.</h1>
 			<br> <span id="showideaText" class="default">아이디어가
@@ -101,11 +101,9 @@
 
 			<div class="col-md-7" style="background-image: gray;">
 				<div id="showmoreInfo" class="collapse">
-					<div class="well">"이 그룹은 하이킹, 암벽등반, 캠핑, 카약, 볼더링, 등에 관심있은 사람들을
-						위한 그룹입니다. 능력에 상관없이 모두 환영합니다. 야외스포츠에 열정적인 다른 사람들을 만나기 위해 이 그룹을 시작
-						하였습니다. 다른분들과 같이 야외 스포츠를 즐길날을 기대합니다."
+					<div class="well" style="background-color:white">"이 그룹에서는 함께 공부하며, 공부내용을 공유하고, 서로 실력을 쌓아 나갈 수 있는 자바 웹 & 앱 개발 공부 방입니다. 현재 저는 카카오팀에서 웹 개발 파트에서 일하고 있으며 , 코딩을 모르시는 분도 제가 처음부터 가르쳐 드릴수 있습니다 ^^ 함께 열심히 코딩 하실분 얼른 그룹 참여하세요! "
 						<hr>
-						“Calling all Chihuahua owners! I'd love for my Chihuahua Becky to meet other Chihuahuas and other small dogs! We'll meet once a week at the park to get together and let our dogs play. We can also meet at the Captain's Table down the street (they allow dogs on their patio!) for some food and drink afterward.”
+						"In this group, you can study together, share your studies, and build your skills. I am currently working in the web development part of Kakao team, and I can teach you from the beginning if you don't know the coding. If you're working hard together, join the group!"
 						
 						</div>
 				</div>
@@ -114,7 +112,7 @@
 
 
 <span id="textAreaWarning" class="warning"></span>
-			<textarea id="contents" onKeyPress="javascript: if (event.keyCode==13) return false;" name="eventContents" class="form-control" rows="5" style="height: 400px; width: 600px;"  maxlength="4000" required>
+			<textarea id="contents" name="eventContents" class="form-control" rows="5" style="height: 400px; width: 600px;"  maxlength="3000" required>
 			</textarea>
 			 <br>
 
@@ -141,7 +139,7 @@
 				직접 대화를 나누세요</span> <br> <br>
 			<input type="button" id="fourthBt" class="btn btn-button default" value="동의후  그룹생성"
 				style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold">
-
+            <input type="hidden" id="memberName" name="member_name" value="${requestScope.member_name}">
 		</div>
 		<!--col-->
 	</div>

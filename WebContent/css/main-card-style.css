@@ -25,10 +25,11 @@
   transition: all .25s ease;
 }
 .card-content {
+	width : 100%;
   display : table-cell;
-  padding:15px;
-  text-align:left;
-  overflow:hidden;
+  padding : 15px 15px 30px 15px;
+  text-align : left;
+  overflow : hidden;
   
 }
 .card-title {
@@ -55,7 +56,7 @@
 
 .img-member img{
    width: 60px;
-    height: 60px;
+    width: 60px;
     border-radius: 50%;
    outline: none;
    margin : 0 10px 20px 0;
@@ -95,7 +96,7 @@
 }
 
 .time {
-   color : pink;
+	color : pink;
 }
 
 .card-title p{
@@ -117,3 +118,6 @@
    -webkit-line-clamp: 3; 
    -webkit-box-orient: vertical;
 }
+
+
+

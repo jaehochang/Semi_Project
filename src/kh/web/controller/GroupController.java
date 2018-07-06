@@ -61,166 +61,152 @@ public class GroupController extends HttpServlet {
 
 				String member_email = request.getSession().getAttribute("loginId").toString();
 
-				List<GroupDTO> groupList = dao.allgroups();
-				List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
-				// List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
-				List<MemberCountDTO> memberCount = new ArrayList<>();
-
-				boolean isMyGroup = dao1.isMyGroup(member_email);
-
-				if (isMyGroup) {
-					List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
-
-					if (myGroupList.size() != 0) {
-						for (int i = 0; i < myGroupList.size(); i++) {
-							MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
-
-							memberCount.add(dto);
-						}
-					}
-
-					System.out.println("MemberCount" + memberCount.size());
-
-					request.setAttribute("groupList", groupList);
-					request.setAttribute("groupPicList", groupPicList);
-					request.setAttribute("myGroupList", myGroupList);
-					request.setAttribute("memberCount", memberCount);
-					request.setAttribute("isMyGroup", isMyGroup);
-
-					isRedirect = false;
-					dst = "loginview.jsp";
-
-				} else {
-
-					request.setAttribute("groupList", groupList);
-					request.setAttribute("isMyGroup", isMyGroup);
-
-					isRedirect = false;
-					dst = "loginview.jsp";
-
-				}
-
-			} else if (command.equals("/groupMain.group")) {
-				String member_email = request.getSession().getAttribute("loginId").toString();
-
-				String page = request.getParameter("page");
-				String group_seq = request.getParameter("group_seq");
-
-				int groupSeq = Integer.parseInt(group_seq);
-
-				List<GroupDTO> result = dao.groupInfo(group_seq);
-				MemberCountDTO dto = dao.MemberCount(groupSeq);
-				boolean isGroupMember = dao.isGroupMember(groupSeq, member_email);
-
-				int count = 0;
-
-				if (dto != null) {
-					count = dto.getCount();
-				}
-
-				List<GroupPicDTO> groupPagePic = dao.groupPagePic(groupSeq);
-				System.out.println("인원수" + count);
-				System.out.println("그룹시퀀스 : " + result.get(0).getGroup_seq());
-
-				// meeting 내용
-
-				List<MeetingDTO> nextMeeting = dao.nextMeetup(groupSeq, 0, "one");
-				List<MeetingDTO> lastMeeting = dao.lastMeeting(groupSeq);
-				List<MeetingDTO> nextAllMeeting = dao.nextMeetup(groupSeq, 0, "all");
-
-				int meeting_seq = 0;
-
-				if (nextMeeting.size() != 0) {
-					meeting_seq = nextMeeting.get(0).getMeeting_seq();
-				}
-
-				List<MeetingDTO> preMeeting = dao.nextMeetup(0, meeting_seq, "pre");
-
-				System.out.println("다음미팅 시퀀스  : " + meeting_seq);
-				System.out.println("지난 미팅" + lastMeeting.size());
-
-				// member 내용
-
-				List<GroupMemberDTO> memberList = dao.memberList(groupSeq);
-
-				System.out.println("멤버리스트 사이즈 : " + memberList.size());
-
-				request.setAttribute("groupPagePic", groupPagePic);
-				request.setAttribute("result", result);
-				request.setAttribute("count", count);
-				request.setAttribute("nextMeeting", nextMeeting);
-				request.setAttribute("lastMeeting", lastMeeting);
-				request.setAttribute("preMeeting", preMeeting);
-				request.setAttribute("isGroupMember", isGroupMember);
-				request.setAttribute("nextAllMeeting", nextAllMeeting);
-				request.setAttribute("memberList", memberList);
-
-				if (page.equals("info")) {
-					System.out.println("info");
-
-					isRedirect = false;
-					dst = "groupInfo.jsp";
-				} else if (page.equals("meetupNext")) {
-					System.out.println("meetupNext");
-
-					isRedirect = false;
-					dst = "groupMeetupNext.jsp";
-				} else if (page.equals("meetupLast")) {
-					System.out.println("meetupLast");
-
-					isRedirect = false;
-					dst = "groupMeetupLast.jsp";
-				} else if (page.equals("member")) {
-					isRedirect = false;
-					dst = "groupMemberList.jsp";
-				} else if (page.equals("leader")) {
-					isRedirect = false;
-					dst = "groupLeader.jsp";
-				} else if (page.equals("photo")) {
-					isRedirect = false;
-					dst = "groupPhoto.jsp";
-				}
-
-			} else if (command.equals("/join.group")) {
-
-				String member_email = request.getSession().getAttribute("loginId").toString();
-				System.out.println("member_email:" + member_email);
-				String groupSeq = request.getParameter("group_seq");
-				int group_seq = Integer.parseInt(groupSeq);
-				String group_name = request.getParameter("group_name");
-
-				int joinGroup = dao.joinGroup(member_email, group_seq, group_name);
-
-				System.out.println("email: " + member_email + "seq : " + groupSeq + "/ group_name :" + group_name);
-
-				JSONObject json = new JSONObject();
-
-				json.put("name", "회원입니다.");
-
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-
-				response.getWriter().print(json);
-				response.getWriter().flush();
-				response.getWriter().close();
-
-				isRedirect = false;
-				dst = "groupInfo.jsp";
-
-			} else if (command.equals("/out.group")) {
-
-				// String member_email =
-				// request.getSession().getAttribute("loginId").toString();
-				String groupSeq = request.getParameter("group_seq");
-				int group_seq = Integer.parseInt(groupSeq);
-
-				/* int result = dao.groupMemberOut(group_seq, member_email); */
-
-				isRedirect = false;
-				dst = "groupInfo.jsp";
-			} else if (command.equals("/createRequest.group")) {
-
-				/* String isMyGroup = request.getAttribute("isMyGroup").toString(); */
+		            isRedirect = false;
+		            dst="loginview.jsp";
+		            	
+			}else if(command.equals("/groupMain.group")) {
+           String member_email = request.getSession().getAttribute("loginId").toString();
+            
+            String page = request.getParameter("page");
+            String group_seq = request.getParameter("group_seq");
+            
+            int groupSeq = Integer.parseInt(group_seq);
+            
+            List<GroupDTO> result = dao.groupInfo(group_seq);
+            MemberCountDTO dto = dao.MemberCount(groupSeq);
+            boolean isGroupMember = dao.isGroupMember(groupSeq, member_email);
+            
+            int count = 0;
+            
+            if(dto != null) {
+               count = dto.getCount();
+            }
+            
+            
+            String originName = result.get(0).getGroup_name();
+            
+            List<GroupPicDTO> groupPagePic = dao.groupPagePic(groupSeq);
+            int groupPagePicCount = dao.groupPicCount(groupSeq);
+            
+            
+            System.out.println("인원수"+count);
+            System.out.println("그룹시퀀스 : "+result.get(0).getGroup_seq());
+            System.out.println("그룹사진갯수" + groupPagePicCount);
+            
+            
+            //meeting 내용
+            
+            List<MeetingDTO> nextMeeting = dao.nextMeetup(groupSeq,0,"one");
+            List<MeetingDTO> lastMeeting = dao.lastMeeting(groupSeq);
+            List<MeetingDTO> nextAllMeeting = dao.nextMeetup(groupSeq,0,"all");
+            
+            int meeting_seq = 0;
+            
+            if(nextMeeting.size() !=0) {
+               meeting_seq = nextMeeting.get(0).getMeeting_seq();
+            }
+            
+            List<MeetingDTO> preMeeting = dao.nextMeetup(groupSeq, meeting_seq,"pre");
+            
+            System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
+            System.out.println("지난 미팅"+lastMeeting.size());
+            System.out.println("예정미팅"+preMeeting.size());
+            // 세션에  그룹 시퀀스값 저장
+            request.getSession().setAttribute("groupSeq", groupSeq);
+            //  페이지 들어갈때가마다 그룹시퀀스 값 변경되어 글어감
+            
+            
+            //member 내용
+            
+            List<GroupMemberDTO> memberList = dao.memberList(groupSeq);
+            
+            System.out.println("멤버리스트 사이즈 : "+memberList.size());
+            
+            request.setAttribute("groupPagePicCount", groupPagePicCount);
+            request.setAttribute("groupPagePic", groupPagePic);
+            request.setAttribute("result", result);
+            request.setAttribute("count", count);
+            request.setAttribute("nextMeeting", nextMeeting);
+            request.setAttribute("lastMeeting", lastMeeting);
+            request.setAttribute("preMeeting", preMeeting);
+            request.setAttribute("isGroupMember", isGroupMember);
+            request.setAttribute("nextAllMeeting", nextAllMeeting);
+            request.setAttribute("memberList", memberList);
+            
+            if(page.equals("info")) {
+               System.out.println("info");
+               
+               isRedirect = false;
+               dst="groupInfo.jsp";
+            }else if(page.equals("meetupNext")) {
+               System.out.println("meetupNext");
+               
+               isRedirect = false;
+               dst="groupMeetupNext.jsp";
+            }else if(page.equals("meetupLast")) {
+               System.out.println("meetupLast");
+               
+               isRedirect = false;
+               dst="groupMeetupLast.jsp";
+            }else if(page.equals("member")) {
+               isRedirect = false;
+               dst="groupMemberList.jsp";
+            }else if(page.equals("leader")) {
+               isRedirect = false;
+               dst="groupLeader.jsp";
+            }else if(page.equals("photo")) {
+            	isRedirect = false;
+                dst="groupPhoto.jsp";
+            }
+            
+            
+            
+         }else if(command.equals("/join.group")) {
+             
+             String member_email = request.getSession().getAttribute("loginId").toString();
+             String groupSeq = request.getParameter("group_seq");
+             int group_seq = Integer.parseInt(groupSeq);
+             String group_name = request.getParameter("group_name");
+             String member_name = dao1.memberName(member_email);
+             
+             int joinGroup = dao.joinMyGroup(member_email,group_seq,group_name);
+             int addGroupMember = dao.addGroupMember(member_email, group_seq, member_name);
+             
+             System.out.println("email: "+member_email+"seq : " +groupSeq+"/ group_name :" + group_name);
+             
+             JSONObject json = new JSONObject();
+             
+             json.put("name", "회원입니다.");
+             
+             response.setCharacterEncoding("utf8");
+             response.setContentType("application/json");
+             
+             response.getWriter().print(json);
+             response.getWriter().flush();
+             response.getWriter().close();
+             
+             
+             isRedirect = false;
+             dst="groupInfo.jsp";
+             
+             
+          }else if(command.equals("/out.group")) {
+         	 
+         	 System.out.println(11111);
+             
+             String member_email = request.getSession().getAttribute("loginId").toString();
+             String groupSeq = request.getParameter("group_seq");
+             int group_seq = Integer.parseInt(groupSeq);
+             
+             int result = dao.MygroupOut(group_seq, member_email);
+             int removeGroupMember = dao.removeGroupMember(member_email);
+             
+             isRedirect = false;
+             dst="groupMain.group?group_seq="+groupSeq+"&page=info";
+             
+         }else if (command.equals("/createRequest.group")) {
+        	 
+			    /*String isMyGroup = request.getAttribute("isMyGroup").toString();*/
 				String member_email = (String) request.getSession().getAttribute("loginId");
 
 				ajax_dist = "null";
@@ -234,6 +220,9 @@ public class GroupController extends HttpServlet {
 					System.out.println("페이유무 : " + payCheck);
 					if (payCheck.equals("y")) {
 						isRedirect = false;
+						String memberEmail=(String) request.getSession().getAttribute("loginId");
+						String memberName=dao1.memberName(memberEmail);
+						request.setAttribute("member_name", memberName);
 						dst = "create.jsp";
 					} else if (payCheck.equals("n")) {
 
@@ -242,7 +231,6 @@ public class GroupController extends HttpServlet {
 						request.setAttribute("member_email", member_email);
 						isRedirect = false;
 						dst = "pay.jsp";
-
 					}
 				} else {
 					isRedirect = true;
@@ -256,27 +244,28 @@ public class GroupController extends HttpServlet {
 			} else if (command.equals("/create.group")) {
 
 				request.setCharacterEncoding("UTF-8");
-				String loginId = (String) request.getSession().getAttribute("loginId");
+				String loginId = (String)request.getSession().getAttribute("loginId");
+				String memberName=request.getParameter("member_name");
 				String location = (String) request.getParameter("location");
 				String tags = (String) request.getParameter("tags");
 				String groupTitle = (String) request.getParameter("eventName");
 				String groupContents = (String) request.getParameter("eventContents");
+                int seq = dao.seq();
+	
 
-				/*
-				 * if(tags.length()>15) { System.out.println(); }
-				 */
-
-				System.out.println("loginId : " + loginId + "/" + "location : " + location + "/" + "tags : " + tags
+				System.out.println("memberName : " + memberName + "/" + "location : " + location + "/" + "tags : " + tags
 						+ "/" + "groupTitle : " + groupTitle + "/" + "groupContents : " + groupContents);
 
 				GroupDTO dto = new GroupDTO();
-				dto.setGroup_leader(loginId);
+				dto.setGroup_leader(memberName);
 				dto.setGroup_location(location);
 				dto.setGroup_interests(tags);
 				dto.setGroup_name(groupTitle);
 				dto.setGroup_info(groupContents);
+				dto.setMember_email(loginId);
 				int result = dao.insertGroup(dto);
-
+				int joinMyGroup = dao.joinMyGroup(loginId, seq+1, groupTitle);
+                
 				if (result > 0) {
 					String[] printResult = dao.printNameGroup(groupTitle);
 					String gseq = printResult[0];
@@ -297,12 +286,8 @@ public class GroupController extends HttpServlet {
 				ajax_nameCheck = "null";
 				ajax_pay = "ajax_pay";
 
-			} else if (command.equals("/join.group")) {
-
-				String member_email = request.getSession().getAttribute("loginId").toString();
-
-			} else if (command.equals("/distanceKm.group")) {
-
+			} else if(command.equals("/distanceKm.group")) {
+				
 				ajax_dist = "ajax_dist";
 				String fiveKm = request.getParameter("value");
 				String dist = request.getParameter("distance");
@@ -312,43 +297,10 @@ public class GroupController extends HttpServlet {
 				System.out.println(lat);
 				System.out.println(lng);
 				distResult = dao.DistanceSearch(lat, lng, dist);
-
-			} else if (command.equals("/join.group")) {
-
-				String member_email = request.getSession().getAttribute("loginId").toString();
-
-				String groupSeq = request.getParameter("group_seq");
-				int group_seq = Integer.parseInt(groupSeq);
-				String group_name = request.getParameter("group_name");
-
-				int joinGroup = dao.joinGroup(member_email, group_seq, group_name);
-
-				System.out.println("email: " + member_email + "seq : " + groupSeq + "/ group_name :" + group_name);
-
-				JSONObject json = new JSONObject();
-
-				json.put("name", "회원입니다.");
-
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-
-				response.getWriter().print(json);
-				response.getWriter().flush();
-				response.getWriter().close();
-
-				isRedirect = false;
-				dst = "groupInfo.jsp";
-
-			} else if (command.equals("/out.group")) {
-
-				String member_email = request.getSession().getAttribute("loginId").toString();
-				String groupSeq = request.getParameter("group_seq");
-				int group_seq = Integer.parseInt(groupSeq);
-
-				int result = dao.groupMemberOut(group_seq, member_email);
-
-				isRedirect = false;
-				dst = "groupInfo.jsp";
+				
+				
+				
+				
 			}
 
 			if (isRedirect == false) {
@@ -386,33 +338,33 @@ public class GroupController extends HttpServlet {
 					out.println("success");
 				}
 
-			} // ----------------밑으로 인형----------------
-			else if (command.equals("/groupreport.group")) {
-				int group_seq = Integer.parseInt(request.getParameter("group_seq"));
-				request.setAttribute("group_seq", group_seq);
-				isRedirect = false;
-				dst = "groupreport.jsp";
+			}// ----------------밑으로 인형----------------
+	         else if (command.equals("/groupreport.group")) {
+	             int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+	             request.setAttribute("group_seq", group_seq);
+	             isRedirect = false;
+	             dst = "groupreport.jsp";
 
-			} else if (command.equals("/groupreportproc.group")) {
-				String report_reason = request.getParameter("report_select");
-				int group_seq = Integer.parseInt(request.getParameter("group_seq"));
-				AdminDAO adao = new AdminDAO();
-				GroupDTO gdto = adao.getGroupData(group_seq);
+	          } else if (command.equals("/groupreportproc.group")) {
+	             String report_reason = request.getParameter("report_select");
+	             int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+	             AdminDAO adao = new AdminDAO();
+	             GroupDTO gdto = adao.getGroupData(group_seq);
 
-				request.setAttribute("gdto", gdto);
-				request.setAttribute("report_reason", report_reason);
-				request.setAttribute("group_seq", group_seq);
-				isRedirect = false;
-				dst = "groupreportproc.jsp";
+	             request.setAttribute("gdto", gdto);
+	             request.setAttribute("report_reason", report_reason);
+	             request.setAttribute("group_seq", group_seq);
+	             isRedirect = false;
+	             dst = "groupreportproc.jsp";
 
-			} else if (command.equals("/greportcomplete.group")) {
-				String member_email = (String) request.getSession().getAttribute("loginId");
-				String group_name = request.getParameter("group_name");
-				String report_reason = request.getParameter("report_reason");
-				String etc_reason = request.getParameter("etc_reason");
+	          } else if (command.equals("/greportcomplete.group")) {
+	             String member_email = (String) request.getSession().getAttribute("loginId");
+	             String group_name = request.getParameter("group_name");
+	             String report_reason = request.getParameter("report_reason");
+	             String etc_reason = request.getParameter("etc_reason");
 
-				AdminDAO adao = new AdminDAO();
-				int result = adao.insertGroupReport(member_email, group_name, report_reason, etc_reason);
+	             AdminDAO adao = new AdminDAO();
+	             int result = adao.insertGroupReport(member_email, group_name, report_reason, etc_reason);
 
 				if (result > 0) {
 					isRedirect = false;
