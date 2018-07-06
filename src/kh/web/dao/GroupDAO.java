@@ -288,13 +288,14 @@ public class GroupDAO {
 		
 		
 		
-		String sql = "insert into create_group values(group_seq.nextval,?,?,'위도','경도',?,?,?,'default.jpg',sysdate,0,sysdate,0,0,sysdate)";
+		String sql = "insert into create_group values(group_seq.nextval,?,?,'위도','경도',?,?,?,'default.jpg',sysdate,0,sysdate,0,0,sysdate,?)";
 		PreparedStatement  psat = con.prepareStatement(sql);
 		psat.setString(1,dto.getGroup_leader());
 		psat.setString(2, dto.getGroup_name());
 		psat.setString(3, dto.getGroup_location());
 		psat.setString(4, dto.getGroup_interests());
 		psat.setString(5, dto.getGroup_info());
+		psat.setString(6, dto.getMember_email());
 		int result = psat.executeUpdate();
         
 		
@@ -562,6 +563,26 @@ public class GroupDAO {
 		   return result;
 		   
 	   }
+	 
+	 public int groupPicCount(int group_seq) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select count(*) from group_picture where group_seq=?";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		
+		ResultSet rs = pstat.executeQuery();
+		int result = 0;
+		
+		if(rs.next()) {
+			result = rs.getInt(1);
+		}
+		
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return result;
+	 }
 	
 }
 

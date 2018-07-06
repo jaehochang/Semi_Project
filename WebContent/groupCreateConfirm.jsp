@@ -17,7 +17,7 @@
 
 		</div>
 
-		<ul class="timeline" id="timeline">
+		<ul class="timeline animated bounceInLeft" id="timeline">
 			<li class="timeline-inverted">
 
 				<div class="timeline-panel" style="width: 500px">
