@@ -84,7 +84,7 @@ public class MemberController extends HttpServlet {
             SnsDTO sDTO = new SnsDTO();
 
             sDTO.setKakao_id(kakao_id);
-            sDTO.setKakao_nickName(kakao_nickname);
+            sDTO.setKakao_nickname(kakao_nickname);
 
             boolean dplChck = mDAO.kakaoDplChck(sDTO);
 
@@ -117,7 +117,7 @@ public class MemberController extends HttpServlet {
             SnsDTO sDTO = new SnsDTO();
 
             sDTO.setKakao_id(kakaoId);
-            sDTO.setKakao_nickName(kakaoNickName);
+            sDTO.setKakao_nickname(kakaoNickName);
             sDTO.setKakao_email(kakaoEmail);
             sDTO.setKakao_photo(kakaoPhoto);
 
@@ -230,10 +230,11 @@ public class MemberController extends HttpServlet {
          
 
             String loginId = (String)request.getSession().getAttribute("loginId");
+            String snsId = (String)request.getSession().getAttribute("snsId");
             System.out.println("/mypage.co 의 session Login Id : " + loginId);
             MemberDAO mDAO = new MemberDAO();
 
-            MemberDTO accntInfo = mDAO.getAccountInfo(loginId);
+            MemberDTO accntInfo = mDAO.getAccountInfo(snsId,loginId);
 
             request.setAttribute("userName", accntInfo.getMember_name());
             request.setAttribute("userEmail", accntInfo.getMember_email());

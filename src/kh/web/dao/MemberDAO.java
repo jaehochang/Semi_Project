@@ -153,7 +153,6 @@ public class MemberDAO {
 		con.close();
 
 		if (result > 0) {
-		if (rs > 0) {
 
 			return true;
 		} else {
@@ -693,7 +692,8 @@ public class MemberDAO {
 				+ "into create_group_payment values(" + "member_seq.nextval," + "?," // email
 				+ "'n')" // pay:n
 				+ "select * from dual";
-				+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')" + "select * from dual";
+		// + "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')"
+		// + "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, sDTO.getFb_name()); // 이름
@@ -758,74 +758,71 @@ public class MemberDAO {
 		try {
 			Connection con = DBUtils.getConnection();
 
-		boolean result = this.isGgIdExist(sDTO);
+			boolean result = this.isGgIdExist(sDTO);
 
-		System.out.println("/isGgIdExist.result :" + result);
+			System.out.println("/isGgIdExist.result :" + result);
 
-		boolean regSccss = false;
+			boolean regSccss = false;
 
-		if (result) { // 중복성 검사 결과 이미 존재하는 경우
+			if (result) { // 중복성 검사 결과 이미 존재하는 경우
 
-			return regSccss; // false 보내기
+				return regSccss; // false 보내기
 
-		} else {
+			} else {
 
-			String sql = "insert all into member values(" 
-					+ "member_seq.nextval," // 1 : member_seq
-					+ "?," // 2: member_name
-					+ "?," // 3: member_email
-					+ "'null'," // 4: member_pwd
-					+ "'null'," // 5: member_location
-					+ "'null'," // 6: member_interests
-					+ "?," // 7: member_picture
-					
-					+ "0," // 8: member_age
-					+ "'undefined'," // 9 : member_gender
-					+ "0," // 10:member_warning_number
-					+ "sysdate," // 11: member_warningdate
-					+ "sysdate," // 12: member_expiredate
-					+ "sysdate," // 13: member_joindate
-					+ "0," // 14: member_alarm
-					+ "0)" // 15: member_isblocked
-					+ "into sns_id values(" + "member_seq.nextval," // 1: member_seq
-					+ "'null'," // 2:kakao_id
-					+ "'null',"// 3:kakao_nicname
-					+ "'null',"// 4:kakao_email
-					+ "'null',"// 5:kakao_photo
-					+ "'null',"// 6:fb_email
-					+ "'null',"// 7:fb_name
-					+ "'null',"// 8:fb_uid
-					+ "'null',"// 9:fb_photoURL
-					
-					+ "?,"// 10:ggid
-					+ "?,"// 11:ggname
-					+ "?,"// 12:ggimgUrl
-					+ "?)"// 13:ggEmail
-					+ "into create_group_payment values(" 
-					+ "member_seq.nextval," 
-					+ "?," 
-					+ "'n')"
-					+ "select * from dual";
+				String sql = "insert all into member values(" + "member_seq.nextval," // 1 : member_seq
+						+ "?," // 2: member_name
+						+ "?," // 3: member_email
+						+ "'null'," // 4: member_pwd
+						+ "'null'," // 5: member_location
+						+ "'null'," // 6: member_interests
+						+ "?," // 7: member_picture
 
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, sDTO.getGgname());
-			ps.setString(2, sDTO.getGgEmail());
-			ps.setString(3, sDTO.getGgimgUrl());
+						+ "0," // 8: member_age
+						+ "'undefined'," // 9 : member_gender
+						+ "0," // 10:member_warning_number
+						+ "sysdate," // 11: member_warningdate
+						+ "sysdate," // 12: member_expiredate
+						+ "sysdate," // 13: member_joindate
+						+ "0," // 14: member_alarm
+						+ "0)" // 15: member_isblocked
+						+ "into sns_id values(" + "member_seq.nextval," // 1: member_seq
+						+ "'null'," // 2:kakao_id
+						+ "'null',"// 3:kakao_nicname
+						+ "'null',"// 4:kakao_email
+						+ "'null',"// 5:kakao_photo
+						+ "'null',"// 6:fb_email
+						+ "'null',"// 7:fb_name
+						+ "'null',"// 8:fb_uid
+						+ "'null',"// 9:fb_photoURL
 
-			ps.setString(4, sDTO.getGgid());
-			ps.setString(5, sDTO.getGgname());
-			ps.setString(6, sDTO.getGgimgUrl());
-			ps.setString(7, sDTO.getGgEmail());
-			
-			ps.setString(8, sDTO.getGgEmail());
+						+ "?,"// 10:ggid
+						+ "?,"// 11:ggname
+						+ "?,"// 12:ggimgUrl
+						+ "?)"// 13:ggEmail
+						+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')"
+						+ "select * from dual";
 
-			insertTrial = ps.executeUpdate();
-			System.out.println("/signUpWithGoogle result :" + insertTrial);
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setString(1, sDTO.getGgname());
+				ps.setString(2, sDTO.getGgEmail());
+				ps.setString(3, sDTO.getGgimgUrl());
 
-			con.commit();
-			ps.close();
-			con.close();
+				ps.setString(4, sDTO.getGgid());
+				ps.setString(5, sDTO.getGgname());
+				ps.setString(6, sDTO.getGgimgUrl());
+				ps.setString(7, sDTO.getGgEmail());
 
+				ps.setString(8, sDTO.getGgEmail());
+
+				insertTrial = ps.executeUpdate();
+				System.out.println("/signUpWithGoogle result :" + insertTrial);
+
+				con.commit();
+				ps.close();
+				con.close();
+
+			}
 		} catch (Exception e) {
 			if (e.getMessage().contains("unique")) {// 이메일 중복으로 에러시 false 반환
 				System.out.println("이메일 중복으로 회원가입 불가");
