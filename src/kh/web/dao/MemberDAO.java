@@ -80,7 +80,7 @@ public class MemberDAO {
 		ps.setString(3, dto.getKakao_photo()); // 두번째 : 사진 url < 카카오프로필
 
 		ps.setString(4, dto.getKakao_id());
-		ps.setString(5, dto.getKakao_nickName()); // 4 : 닉네임
+		ps.setString(5, dto.getKakao_nickname()); // 4 : 닉네임
 		ps.setString(6, dto.getKakao_email());
 		ps.setString(7, dto.getKakao_photo());
 		ps.setString(8, dto.getKakao_email());
@@ -306,7 +306,7 @@ public class MemberDAO {
 
 		// sns_id 테이블에 들어갈 값
 		ps.setString(3, sDTO.getKakao_id());// kakaoId
-		ps.setString(4, sDTO.getKakao_nickName());// 카카오 닉네임
+//		ps.setString(4, sDTO.getKakao_nickName());// 카카오 닉네임
 		ps.setString(5, mDTO.getMember_email());
 		int result = ps.executeUpdate();
 		System.out.println("/InptEmailtoAccnt 성공? = 1 이상은 성공 : " + result);
@@ -683,9 +683,9 @@ public class MemberDAO {
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
 				+ "into create_group_payment values(" 
-				+ "member_seq.nextval," + 
-				"?," 
-				+ "'n')" 
+				+ "member_seq.nextval," 
+				+ "?,"  // email
+				+ "'n')" // pay:n
 				+ "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -697,12 +697,15 @@ public class MemberDAO {
 		ps.setString(5, sDTO.getFb_name());
 		ps.setString(6, sDTO.getFb_uid());
 		ps.setString(7, sDTO.getFb_photoURL());
+		ps.setString(8, sDTO.getFb_email());
 
 		int result = 0;
 
 		try {
 			result = ps.executeUpdate();
+			System.out.println("result :"+result);
 		} catch (Exception e) {
+			e.printStackTrace();
 			if (e.getMessage().contains("unique")) { // unique 에러 발생시 error.html 뜨지 않고 false 반환하도록 기능 추가
 
 				return false;
@@ -789,7 +792,8 @@ public class MemberDAO {
 			ps.setString(6, sDTO.getGgimgUrl());
 			ps.setString(7, sDTO.getGgEmail());
 			ps.setString(8, sDTO.getGgEmail());
-			int insertTrial = ps.executeUpdate();
+			
+			insertTrial = ps.executeUpdate();
 			System.out.println("/signUpWithGoogle result :" + insertTrial);
 
 			con.commit();

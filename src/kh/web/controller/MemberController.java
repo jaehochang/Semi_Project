@@ -391,21 +391,21 @@ public class MemberController extends HttpServlet {
 					// 이미 아이디가 존재
 
 					isRedirect = false;
-					request.getSession().setAttribute("loginId", fb_uid);
+					request.getSession().setAttribute("loginId", fb_email);
 					request.setAttribute("loginSuccess", true);
 
 					dst = "login.jsp";// 바로 login.jsp로 아이디 이미 존재한다는 것 / 동시에 로그인? 알려줌 
 				} else {
-
+System.out.println(1);
 					boolean fbSignUpResult = mDAO.signUpWithFb(sDTO); // 없는 경우는 바로 아이디 만들어줌
 //					request.setAttribute("fbSignUpResult", fbSignUpResult);
 
 					if (fbSignUpResult) {
 						isRedirect = false;
-						request.getSession().setAttribute("loginId", fb_uid);
+						request.getSession().setAttribute("loginId", fb_email);
 						request.setAttribute("signUpSuccess", true); // 최초 회원가입 성공시
 						dst = "login.jsp";
-
+System.out.println(2);
 					} else {// unique 로 인해 fbSignUpResult가 false를 반환한 경우
 						System.out.println("MemberController : unique 로 인해 fbSignUpResult가 false를 반환");
 						isRedirect = false;
@@ -413,7 +413,7 @@ public class MemberController extends HttpServlet {
 						System.out.println("emailExist :" + emailExist);
 						request.setAttribute("emailExist", emailExist);
 						dst = "login.jsp";
-
+System.out.println(3);
 					}
 
 				}
