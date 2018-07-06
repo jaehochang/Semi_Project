@@ -61,7 +61,9 @@ time.icon span
 }
 
 .ask-attend {
+   float:left;
    margin-left : 50px;
+   margin-top : 30px;
 }
 
 .ask-attend .btn {
@@ -99,6 +101,8 @@ time.icon span
    line-height : 2em;
 }
 
+
+
 .fixed-bar-contents {
    padding : 20px 20px 0 20px;
 }
@@ -110,27 +114,33 @@ time.icon span
 }
 
 
-
 .meeting-member-wrapper {
    width : 600px;
 }
 
 .meeting-member-title {
    width : 600px;
-   border : 1px solid blue;
 }
 
-.meeting-member-wrapper.row {
+.row {
    box-sizing: border-box;
+   width : 100%;
    margin : auto;
-   
 }
 
-.meeting-member-wrapper .row .col-md-3 {
-   border:1px solid pink;
+.col-md-3:hover{ 
+   box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.col-md-3 {
    height : 200px;
+   width : 129px;
    vertical-align: center;
    text-align : center;
+   margin : 10px;
+   border-radius : 10px;
+   background-color: #f7f2fc;
+   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+   transition: box-shadow .25s;
 }
 
 .meeting-member-wrapper .row .col-md-3 img{
@@ -138,4 +148,13 @@ time.icon span
    height : 80px;
    border-radius: 50%;
    display : inline-block;
+   margin : 30px 0 20px 0;
+}
+
+button {
+   transition: box-shadow .25s;
+}
+
+button:hover{ 
+   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }

@@ -91,14 +91,38 @@ div{
   	border-radius: 150px;
 }
 
-li{
-	float:left;
-}
-
 #navi-div{
 	width:1000px;
 	margin: 0 auto;
 }
+
+
+#pic-upload{
+	position:absolute;
+	top:200px;
+}
+
+
+#btn-upload {
+	position: absolute;
+	top:160px;
+	left:470px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

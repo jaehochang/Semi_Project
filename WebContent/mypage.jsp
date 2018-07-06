@@ -66,9 +66,7 @@
 </head>
 <body>
 	<!-- nav -->
-	<nav>
-		<%@ include file="include/nav/mypageNav.jsp"%>
-	</nav>
+	<%@ include file="include/nav/mypageNav.jsp"%>
 
 	<!-- 이 줄 밑으로 my page 구현하기 -->
 
@@ -79,9 +77,6 @@
 
 			<div id=boxheader>
 				<h1>${requestScope.userName}</h1>
-
-				<div>위치 : ${requestScope.userLocation}</div>
-				<div>가입 날짜 : ${requestScope.userJoinDate}</div>
 
 			</div>
 
@@ -101,29 +96,33 @@
 		<!-- aside 시작 -->
 		<div id=profileaside class="animated fadeInRight">
 
-			<div id=profile-aside-header>
-				<img id=user-photo src="${requestScope.userPicture}">
+			<div class="container" id="meetnow">
+				<h1>2 Meetup의 멤버</h1>
+				<a href="#">가입한 그룹 숨기기</a>
+			</div>
 
 				<form id="userPhotoChangeForm" action=userPhotoChangeForm
 					name=userPhotoChangeForm enctype="multipart/form-data">
-					
-					
-			<!-- 지혜야 부탁해 -->
-
-<!-- 					<input id=imgChooser name=file type=file style="display:none;"> -->
-<!-- 					<input type=text id=file-url>  -->
-<!-- 					<button type=button id=user-photo-change-btn onclick="'javscript:document.getElementById('imgChooser').click(); document.getElementById('imgChooser').value=document.getElementById('file-url').value;"> -->
-<!-- 						<i class="fas fa-image"></i> -->
-<!-- 					</button> -->
 
 
-				</form>
+				<img>
+				<div class=container id="flushbottom">
+					<h4>4조 B4A3</h4>
+				</div>
+				<div class=container id="grouproll">회원</div>
 			</div>
 
 
+			<button onclick="document.location.href='infoModify.co'">개인정보
+				수정</button>
 
 
 
+		<!-- aside 시작 -->
+		<div class="panel panel-default" id=profileaside>
+			<img src="image/default_member.png"
+				style="height: 150px; width: 150px; display: block; margin: 0 auto;">
+<!-- 			<span>change your photo</span> -->
 
 			<div id=interestbox>
 				<h2>관심사</h2>
@@ -131,8 +130,6 @@
 			</div>
 
 		</div>
-
-
 	</div>
 
 

@@ -22,12 +22,14 @@ public class MemberDAO {
 
 		ResultSet rs = pstat.executeQuery();
 		if (rs.next()) {
-			con.close();
+			rs.close();
 			pstat.close();
+			con.close();
 			return true;
 		} else {
-			con.close();
+			rs.close();
 			pstat.close();
+			con.close();
 			return false;
 		}
 
@@ -65,6 +67,10 @@ public class MemberDAO {
 				+ "'null',"// 11:ggname
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
+				+ "into create_group_payment values(" 
+				+ "member_seq.nextval," 
+				+"?," 
+				+ "'n')" 
 				+ "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -74,10 +80,11 @@ public class MemberDAO {
 		ps.setString(3, dto.getKakao_photo()); // 두번째 : 사진 url < 카카오프로필
 
 		ps.setString(4, dto.getKakao_id());
-		ps.setString(5, dto.getKakao_nickname()); // 4 : 닉네임
+		ps.setString(5, dto.getKakao_nickName()); // 4 : 닉네임
 		ps.setString(6, dto.getKakao_email());
 		ps.setString(7, dto.getKakao_photo());
-
+		ps.setString(8, dto.getKakao_email());
+		System.out.println("dto.getKakao_photo() : " + dto.getKakao_photo());
 		int result = ps.executeUpdate();
 
 		con.commit();
@@ -126,13 +133,17 @@ public class MemberDAO {
 				+ "'null',"// 11:ggname
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
+				+ "into create_group_payment values(" 
+				+ "member_seq.nextval," 
+				+"?," 
+				+ "'n')" 
 				+ "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_name());
 		ps.setString(2, dto.getMember_email());
 		ps.setString(3, dto.getMember_pwd());
-
+		ps.setString(4, dto.getMember_email());
 		int result = 0;
 
 		try {
@@ -145,8 +156,9 @@ public class MemberDAO {
 		}
 
 		con.commit();
-		con.close();
+		
 		ps.close();
+		con.close();
 
 		if (result > 0) {
 			return true;
@@ -173,9 +185,9 @@ public class MemberDAO {
 
 			System.out.println("dbPw " + ":" + dbPw + " / mDTO.getPwd : " + mDTO.getMember_pwd());
 
-			con.close();
 			rs.close();
 			ps.close();
+			con.close();
 
 			if (dbPw.equals(mDTO.getMember_pwd())) {
 
@@ -285,7 +297,7 @@ public class MemberDAO {
 		Connection con = DBUtils.getConnection();
 
 		String sql = "insert all into member values(member_seq.nextval,?,?,'qwe','당산','코딩','sj.png','남자',0,sysdate,sysdate,sysdate,0,0)"
-				+ "into sns_id values(member_seq.nextval,?,?) " + "select * from dual";
+				+ "into sns_id values(member_seq.nextval,?,?) " + "into create_group_payment values(member_seq.nextval,?,'n')"+"select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
 
@@ -294,8 +306,8 @@ public class MemberDAO {
 
 		// sns_id 테이블에 들어갈 값
 		ps.setString(3, sDTO.getKakao_id());// kakaoId
-		ps.setString(4, sDTO.getKakao_nickname());// 카카오 닉네임
-
+		ps.setString(4, sDTO.getKakao_nickName());// 카카오 닉네임
+		ps.setString(5, mDTO.getMember_email());
 		int result = ps.executeUpdate();
 		System.out.println("/InptEmailtoAccnt 성공? = 1 이상은 성공 : " + result);
 
@@ -326,9 +338,9 @@ public class MemberDAO {
 			String inputKakaoId = dto.getKakao_id();
 			String dbKakaoId = rs.getString("kakao_id");
 
-			con.close();
-			ps.close();
 			rs.close();
+			ps.close();
+			con.close();
 
 			System.out.println("inputKakaoId : " + inputKakaoId + " / dbKakaoId : " + dbKakaoId);
 
@@ -602,9 +614,9 @@ public class MemberDAO {
 
 		System.out.println(dbKakaoId + "/" + loginKakaoId);
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		if (dbKakaoId.equals(loginKakaoId)) {
 			return true; // 아이디 db 내에 존재 : 통과 시킬 true 값 보내기
@@ -631,9 +643,9 @@ public class MemberDAO {
 			result = false;
 		}
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		return result;
 
@@ -670,6 +682,10 @@ public class MemberDAO {
 				+ "'null',"// 11:ggname
 				+ "'null',"// 12:ggimgUrl
 				+ "'null')"// 13:ggEmail
+				+ "into create_group_payment values(" 
+				+ "member_seq.nextval," + 
+				"?," 
+				+ "'n')" 
 				+ "select * from dual";
 
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -694,8 +710,8 @@ public class MemberDAO {
 		}
 
 		con.commit();
-		con.close();
 		ps.close();
+		con.close();
 
 		if (result > 0) {
 			return true;
@@ -715,9 +731,9 @@ public class MemberDAO {
 
 		boolean result = rs.next();
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		if (result) {
 			return true; // 해당 페북 uid 로 아이디 존재함 > signUpWithFaceBook.co 로 결과값 보내기
@@ -760,6 +776,7 @@ public class MemberDAO {
 					+ "?,"// 11:ggname
 					+ "?,"// 12:ggimgUrl
 					+ "?)"// 13:ggEmail
+					+ "into create_group_payment values(" + "member_seq.nextval," + "?," + "'n')"
 					+ "select * from dual";
 
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -771,9 +788,8 @@ public class MemberDAO {
 			ps.setString(5, sDTO.getGgname());
 			ps.setString(6, sDTO.getGgimgUrl());
 			ps.setString(7, sDTO.getGgEmail());
-
-			insertTrial = ps.executeUpdate();
-
+			ps.setString(8, sDTO.getGgEmail());
+			int insertTrial = ps.executeUpdate();
 			System.out.println("/signUpWithGoogle result :" + insertTrial);
 
 			con.commit();
@@ -815,9 +831,9 @@ public class MemberDAO {
 			result = false; // 없음
 		}
 
-		con.close();
-		ps.close();
 		rs.close();
+		ps.close();
+		con.close();
 
 		return result;
 
@@ -844,14 +860,63 @@ public class MemberDAO {
 		}
 	}
 
-	// public boolean kakaoEmailUpdate(String kakaoId) {
-	//
+	public boolean isMyGroup(String email) throws Exception {
+
+		Connection con = DBUtils.getConnection();
+		String sql = "select member_email from mygroup";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+
+		if (rs.next()) {
+			con.close();
+			return true;
+		} else {
+			con.close();
+			return false;
+
+		}
+	}
+	
+	public String memberName(String email) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select member_name from member where member_email=?";
+		
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setString(1, email);
+		ResultSet rs = pstat.executeQuery();
+		rs.next();
+		String name=rs.getString("member_name");
+		
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return name;
+	}
+	
+	
+
+	// public String getProfilePhoto(MemberDTO dto) throws Exception {
 	// Connection con = DBUtils.getConnection();
-	// String sql = "update table member"
+	// String sql = "select kakao_photo,fb_photourl,ggimgurl from sns_id where
+	// member_seq = ?";
 	// PreparedStatement ps = con.prepareStatement(sql);
+	// ps.setInt(1, dto.getMember_seq());
+	//
+	// ResultSet rs = ps.executeQuery();
+	//
+	// String kakaoPhotoUrl;
+	// String fbPhotoUrl;
+	// String ggImgUrl;
+	//
+	// if (rs.next()) {
+	//
+	// kakaoPhotoUrl = rs.getString("kakao_photo");
+	// fbPhotoUrl = rs.getString("fb_photourl");
+	// ggImgUrl = rs.getString("ggimgurl");
 	//
 	//
 	//
-	// return false;
 	// }
+
 }

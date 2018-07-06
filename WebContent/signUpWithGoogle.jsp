@@ -3,6 +3,12 @@
 
 
 
+<!-- <script src="code.jquery.com/jquery-1.12.0.min.js"></script> -->
+<!-- <script src="code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+<!-- <script src="www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> -->
+<!-- <script src="../firebase/init.js"></script> -->
+<!-- <script src="js/index.js"></script> -->
+<!-- <script src="https:www.gstatic.com/firebasejs/5.2.0/firebase.js"></script> -->
 
 <script>
    //Initialize Firebase
