@@ -298,7 +298,7 @@
 				<div id="group-pic">
 					<div id="photo-top">
 						<div id="group-member-count">
-							<span>사진(6장)</span> <span id="all-member"><a href="">모두보기</a></span>
+							<span>사진(${groupPagePicCount }장)</span> <span id="all-member"><a href="">모두보기</a></span>
 						</div>
 					</div>
 					<div id="photo-pics">
@@ -326,8 +326,14 @@
 						</span>
 					</c:forEach>
 				</div>
+				
 				<div id="pre-meetup-div" >
+					
 					<c:forEach var="preMeeting" items="${preMeeting }">
+					<div id="noPremeetup" onclick="location.href='meeting.meet?seq=${preMeeting.meeting_seq }';">
+					<p style="padding-left: 5px; padding-top: 5px;">예정된 Meetup이 없습니다.</p>
+					</div>
+				
 						<div id="premeetup" onclick="location.href='meeting.meet?seq=${preMeeting.meeting_seq }';">
 
 							<time class="icon">
@@ -432,11 +438,17 @@
 
 				<c:if test="${fn:length(preMeeting)<=0}">
 					<script>
-						$("#pre-meetup-top").remove();
-						$("#pre-meetup-div").remove();
+						
+						$("#premeetup").remove();
 					</script>
 				</c:if>
 
+				<c:if test="${fn:length(preMeeting)>0}">
+					<script>
+						
+						$("#noPremeetup").remove();
+					</script>
+				</c:if>
 			</div>
 		</c:forEach>
 	</div>
