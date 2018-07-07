@@ -1,5 +1,6 @@
 package kh.web.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class MeetingDTO {
@@ -16,6 +17,8 @@ public class MeetingDTO {
 	private String meeting_lat;
 	private String meeting_lng;
 	private String member_email;
+	
+
 
 	public MeetingDTO() {
 		super();
@@ -143,6 +146,9 @@ public class MeetingDTO {
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
+
+	
+	
 
 	
 	

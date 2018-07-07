@@ -38,7 +38,7 @@
 			</script>
 
 
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
+			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				class="animated wobble" style="height: 50px; width: 150px;"></a>
 
 			<ul id=nav-ul style="width: 200px;">
@@ -60,7 +60,7 @@
 	<c:when test="${sessionScope.loginId == null }">
 
 		<nav>
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
+			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				class="animated fadeInLeft" style="height: 50px; width: 150px;"></a>
 
 			<ul id=nav-ul class="fadeInRight animated" style="width: 290px;">

@@ -119,11 +119,12 @@ body {
       <div class="carousel slide media-carousel" id="media">
         <div class="carousel-inner">
           
-          <c:forEach var="items" items="${result}" varStatus="status" >
+          <c:forEach var="items" begin="1" end="6" items="${result}" varStatus="status" >
+          
           
           	   <c:choose>
       				<c:when test="${status.count==1}">
-      					<div class="item  active">
+      					<div class="item active">
             			<div class="row">
       				</c:when>
       				<c:when test="${status.count!=1 && status.count%3==1}">
@@ -140,23 +141,20 @@ body {
                   </time>
                   <a class="img-card" href="meeting.meet?seq=${items.meeting_seq}"><img src="files/${items.meeting_picture}"> </a>
                   <div class="card-content">
-                     <div class="" style="color:#8b96a8;" >
+                     <div class="" style="color:#8b96a8;" > &nbsp;
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="M"/>월
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="dd"/>일 
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="E"/>요일 
-                        <fmt:formatDate value="${items.meeting_start_time}" pattern="a"/> 
-                        <fmt:formatDate value="${items.meeting_start_time}" pattern="hh"/>시
-                        <fmt:formatDate value="${items.meeting_start_time}" pattern="mm"/>분 
                      </div>
                      <br>
                      <h2 class="card-title">
                         <p><a href="meeting.meet?seq=${items.meeting_seq}"> ${items.meeting_title} </a></p>
                      </h2>
                      <p class="img-member">
-                        <img style="width: 60px; height: 60px; border-radius: 50%; outline: none; margin : 0 10px 20px 0;" class="pull-left" src="./image/manse.jpeg" alt="Focus Lab">
+                        <img style="width: 60px; height: 60px; border-radius: 50%; outline: none; margin : 0 10px 20px 0;" class="pull-left" src="./image/default_member.png" alt="Focus Lab">
                      </p>
                      <div class="">주최자 : ${items.group_leader}</div>
-                     <div class="">주최그룹 : ${items.group_name}</p></div>
+                     <div class="">주최그룹 : ${items.group_name}</div>
                      
                   </div>
                </div>

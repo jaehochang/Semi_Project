@@ -3,6 +3,7 @@ package kh.web.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class MeetingController extends HttpServlet {
          boolean isRedirect = true;
          String dst = null;
          boolean isajax = false;
+         
+         
          if (command.equals("/main.meet")) {
             List<MeetingDTO> result = mdao.getMeetingData();
             request.setAttribute("result", result);
@@ -70,6 +73,8 @@ public class MeetingController extends HttpServlet {
 
             int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+            String getMeetingStartTime = mdao.getMeetingStartTime(meeting_seq);
+            String getMeetingEndTime = mdao.getMeetingEndTime(meeting_seq);
 
             boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
             boolean checkMeetingDate = adao.checkMeetingDate(meeting_seq);
@@ -78,7 +83,8 @@ public class MeetingController extends HttpServlet {
             request.setAttribute("result_attend", result_attend);
             request.setAttribute("result_countAttendMembers", result_countAttendMembers + result_countWithPeople);
             request.setAttribute("result_areYouAttend", result_areYouAttend);
-            request.setAttribute("checkMeetingDate", checkMeetingDate);
+            request.setAttribute("getMeetingStartTime", getMeetingStartTime);
+            request.setAttribute("getMeetingEndTime", getMeetingEndTime);
             isRedirect = false;
             dst = "meeting.jsp";
 
@@ -175,6 +181,8 @@ public class MeetingController extends HttpServlet {
 
             isRedirect = false;
             dst = "meeting.meet?seq=" + meeting_seq;
+            
+            
          } else if (command.equals("/attendCancel.meet")) {
             int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
             String member_email = (String) request.getSession().getAttribute("loginId");

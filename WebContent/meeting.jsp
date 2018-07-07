@@ -74,16 +74,17 @@ body {
             value="${result.meeting_start_time}" pattern="dd" /></span> </time>
       <div class="meeting-info">
          <div class="" style="color: #8b96a8;">
+         <fmt:parseDate value="${getMeetingStartTime}" var="stime" pattern="yyyy-MM-dd HH:mm:ss"/>
             <fmt:formatDate value="${result.meeting_start_time}" pattern="M" />
             월
-            <fmt:formatDate value="${result.meeting_start_time}" pattern="dd" />
+            <fmt:formatDate value="${result.meeting_start_time}" pattern="dd"/>
             일
-            <fmt:formatDate value="${result.meeting_start_time}" pattern="E" />
+            <fmt:formatDate value="${result.meeting_start_time}" pattern="E"/>
             요일
-            <fmt:formatDate value="${result.meeting_start_time}" pattern="a" />
-            <fmt:formatDate value="${result.meeting_start_time}" pattern="hh" />
-            시
-            <fmt:formatDate value="${result.meeting_start_time}" pattern="mm" />
+            <fmt:formatDate value="${stime}" pattern="a" />
+            <fmt:formatDate value="${stime}" pattern="h"/>시
+            
+            <fmt:formatDate value="${stime}" pattern="m"/>
             분
          </div>
          <h2>
@@ -93,8 +94,9 @@ body {
             주최자 : <a href="">${result.group_leader }</a>
          </h5>
          <h5>
-            <a href="groupMain.group?group_seq=${result.group_seq}&page=info"">${result.group_name}</a>에서 주최
+            <a href="groupMain.group?group_seq=${result.group_seq}&page=info">${result.group_name}</a>에서 주최
          </h5>
+         
       </div>
       <div class="ask-attend">
             <c:choose>
@@ -133,17 +135,18 @@ body {
    <nav>
    <div class="navi-info">
       <div class="navi-meeting-time" style="color: #8b96a8;">
+      <fmt:parseDate value="${getMeetingStartTime}" var="stime" pattern="yyyy-MM-dd HH:mm:ss"/>
          <fmt:formatDate value="${result.meeting_start_time}" pattern="M" />
          월
          <fmt:formatDate value="${result.meeting_start_time}" pattern="dd" />
          일
          <fmt:formatDate value="${result.meeting_start_time}" pattern="E" />
          요일
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="a" />
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="hh" />
-         시
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="mm" />
-         분
+         <fmt:formatDate value="${stime}" pattern="a" />
+            <fmt:formatDate value="${stime}" pattern="h"/>시
+            
+            <fmt:formatDate value="${stime}" pattern="m"/>
+            분
       </div>
       <div>
          <h2>
@@ -178,28 +181,26 @@ body {
    <div class="fixed-bar" style="color: #8b96a8;">
       <div class="fixed-bar-contents">
          <span class="glyphicon glyphicon-time"></span><Br>
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="M" />
-         월
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="dd" />
-         일
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="E" />
-         요일
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="a" />
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="hh" />
-         시
-         <fmt:formatDate value="${result.meeting_start_time}" pattern="mm" />
-         분 </br> ~
+         <fmt:parseDate value="${getMeetingStartTime}" var="stime" pattern="yyyy-MM-dd HH:mm:ss"/>
+         <fmt:formatDate value="${result.meeting_start_time}" pattern="M" />월
+         <fmt:formatDate value="${result.meeting_start_time}" pattern="dd" /> 일
+         <fmt:formatDate value="${result.meeting_start_time}" pattern="E" /> 요일
+         <fmt:formatDate value="${stime}" pattern="a" />
+         <fmt:formatDate value="${stime}" pattern="h"/>시
+         <fmt:formatDate value="${stime}" pattern="m"/>분 
+         <br> ~
+            
+            <fmt:parseDate value="${getMeetingEndTime}" var="etime" pattern="yyyy-MM-dd HH:mm:ss"/>
          <fmt:formatDate value="${result.meeting_end_time}" pattern="M" />
          월
          <fmt:formatDate value="${result.meeting_end_time}" pattern="dd" />
          일
          <fmt:formatDate value="${result.meeting_end_time}" pattern="E" />
          요일
-         <fmt:formatDate value="${result.meeting_end_time}" pattern="a" />
-         <fmt:formatDate value="${result.meeting_end_time}" pattern="hh" />
-         시
-         <fmt:formatDate value="${result.meeting_end_time}" pattern="mm" />
-         분 <Br> <br> <span class="glyphicon glyphicon-map-marker"></span><Br>
+         <fmt:formatDate value="${etime}" pattern="a" />
+            <fmt:formatDate value="${etime}" pattern="h"/>시
+            <fmt:formatDate value="${etime}" pattern="m"/>분 
+            <Br> <br> <span class="glyphicon glyphicon-map-marker"></span><Br>
          <p>${result.meeting_location }</p>
       </div>
       <div class="daumMap-wrapper">
@@ -238,7 +239,7 @@ body {
                </div>
             <c:forEach var="items" items="${result_attend}">
                <div class="col-md-3">
-                  <img src="files/${items.member_picture}">
+                  <img src="files/${items.meeting_picture}">
                   <div class="member-info">
                      <p>
                         <b>${items.member_name}</b>

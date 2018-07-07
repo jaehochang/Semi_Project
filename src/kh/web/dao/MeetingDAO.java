@@ -1,11 +1,14 @@
 package kh.web.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
+import java.util.Iterator;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.ListIterator;
 
 import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupMemberDTO;
@@ -55,19 +58,20 @@ public class MeetingDAO {
       MeetingDTO dto = new MeetingDTO();
       
       while(rs.next()) {
-         dto.setMeeting_seq(rs.getInt("meeting_seq"));
-         dto.setGroup_seq(rs.getInt("group_seq"));
-         dto.setGroup_name(rs.getString("group_name"));
-         dto.setGroup_leader(rs.getString("group_leader"));
-         dto.setMeeting_title(rs.getString("meeting_title"));
-         dto.setMeeting_contents(rs.getString("meeting_contents"));
-         dto.setMeeting_start_time(rs.getDate("meeting_start_time"));
-         dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
-         dto.setMeeting_location(rs.getString("meeting_location"));
-         dto.setMeeting_picture(rs.getString("meeting_picture"));
-         dto.setMeeting_lat(rs.getString("meeting_lat"));
-         dto.setMeeting_lng(rs.getString("meeting_lng"));
-         dto.setMember_email(rs.getString("member_email"));
+          dto.setMeeting_seq(rs.getInt("meeting_seq"));
+          dto.setGroup_seq(rs.getInt("group_seq"));
+          dto.setGroup_name(rs.getString("group_name"));
+          dto.setGroup_leader(rs.getString("group_leader"));
+          dto.setMeeting_title(rs.getString("meeting_title"));
+          dto.setMeeting_contents(rs.getString("meeting_contents"));
+          dto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+          dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
+          dto.setMeeting_location(rs.getString("meeting_location"));
+          dto.setMeeting_picture(rs.getString("meeting_picture"));
+          dto.setMeeting_lat(rs.getString("meeting_lat"));
+          dto.setMeeting_lng(rs.getString("meeting_lng"));
+          dto.setMember_email(rs.getString("member_email"));
+          
          
       }
       rs.close();
@@ -75,6 +79,43 @@ public class MeetingDAO {
       con.close();
       return dto;
    }
+   
+   public String getMeetingStartTime(int meeting_seq) throws Exception {
+	      Connection con = DBUtils.getConnection();
+	      String sql = "select to_char(meeting_start_time, 'yyyy-MM-dd hh24:mi:ss') time from meeting where meeting_seq = ?";
+	      PreparedStatement pstat = con.prepareStatement(sql);
+	      pstat.setInt(1, meeting_seq);
+	      ResultSet rs = pstat.executeQuery();
+	      rs.next();
+	      
+	      String result = rs.getString("time");
+	      
+	      rs.close();
+	      pstat.close();
+	      con.close();
+	      
+	      return result;
+	      
+	}
+   
+   
+   public String getMeetingEndTime(int meeting_seq) throws Exception {
+	      Connection con = DBUtils.getConnection();
+	      String sql = "select to_char(meeting_end_time, 'yyyy-MM-dd hh24:mi:ss') time from meeting where meeting_seq = ?";
+	      PreparedStatement pstat = con.prepareStatement(sql);
+	      pstat.setInt(1, meeting_seq);
+	      ResultSet rs = pstat.executeQuery();
+	      rs.next();
+	      
+	      String result = rs.getString("time");
+	      
+	      rs.close();
+	      pstat.close();
+	      con.close();
+	      
+	      return result;
+	      
+	}
    
    public int countAttendMembers(int meeting_seq) throws Exception {
       Connection con = DBUtils.getConnection();

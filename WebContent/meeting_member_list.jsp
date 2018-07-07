@@ -39,11 +39,16 @@ body {
 				type:"get",
 				data:{meeting_seq:meeting_seq},
 				success:function(resp) {
+					$("#response").html("");
+// 					var output;
 					for(var i=0; i<resp.length; i++) {
 						var member_name = resp[i].member_name;
 						var name = member_name.indexOf(search);
 						if(name != -1) {
 							$("#response").text(member_name);
+// 							output += "<tr>";
+// 							output += "<td>" + member_name + "</td>"
+// 							output += "</tr>";
 						}
 						
 						
@@ -67,7 +72,7 @@ body {
 	 <div class ="back-header"></div>
 	 <div class="wrapper">
 	 	<div class="title"> 
-	 		<a href=""><span class="glyphicon glyphicon-menu-left"></span></a>
+	 		<a href="meeting.meet?seq=${meeting_seq}"><span class="glyphicon glyphicon-menu-left"></span></a>
 	 		<div class="group-info">
 	 			참석자 <br>
 	 			<br>
@@ -102,7 +107,7 @@ body {
 		 		</div>
 	 		</c:forEach>
 	 	</div>
-<!-- 	 	<p id="response"></p> -->
+<!-- 	 	<div id="response"></div> -->
 	 </div>
 
 </body>

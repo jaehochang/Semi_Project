@@ -84,7 +84,7 @@ public class GroupController extends HttpServlet {
 	               isRedirect = false;
 	               dst="loginview.jsp";
 			} else if(command.equals("/groupMain.group")) {
-           String member_email = request.getSession().getAttribute("loginId").toString();
+			String member_email = request.getSession().getAttribute("loginId").toString();
             
             String page = request.getParameter("page");
             String group_seq = request.getParameter("group_seq");
