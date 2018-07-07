@@ -294,6 +294,8 @@
 					</div>
 				</form>
 
+
+<!-- sns login -->
 				<br>
 				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
