@@ -277,7 +277,7 @@ background-color: red;
 					      for (var b = 0; b < response.distSearchCount.length; b++) {
 							alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-							$("#distrow").append("<h4 class=group_title1 style='line-height:5'>"+a[b].split(":")[3]+"</h4>").trigger("create");
+							$("#distrow").append("<h4 class=group_title1 style='line-height:5; left:10px'>"+a[b].split(":")[3]+"</h4>").trigger("create");
 						    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 						   					
 															
