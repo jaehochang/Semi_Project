@@ -1,6 +1,6 @@
 package kh.web.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MeetingDTO {
 	private int meeting_seq;
@@ -37,7 +37,8 @@ public class MeetingDTO {
 		this.meeting_picture = meeting_picture;
 	}
 
-   public MeetingDTO(int meeting_seq, int group_seq, String group_name, String group_leader, String meeting_title,
+  
+public MeetingDTO(int meeting_seq, int group_seq, String group_name, String group_leader, String meeting_title,
          String meeting_contents, Date meeting_start_time, Date meeting_end_time, String meeting_location,
          String meeting_picture, String meeting_lat, String meeting_lng, String member_email) {
       super();
@@ -55,6 +56,9 @@ public class MeetingDTO {
       this.meeting_lng = meeting_lng;
       this.member_email = member_email;
    }
+	public String getMeeting_picture() {
+	return meeting_picture;
+}
 
    public int getMeeting_seq() {
       return meeting_seq;

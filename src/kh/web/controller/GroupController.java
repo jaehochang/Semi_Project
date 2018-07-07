@@ -59,10 +59,33 @@ public class GroupController extends HttpServlet {
 
 			if (command.equals("/list.group")) {
 
-				String member_email = request.getSession().getAttribute("loginId").toString();
-
-		            isRedirect = false;
-		            dst="loginview.jsp";
+	            String member_email = request.getSession().getAttribute("loginId").toString();
+	               
+	               List<GroupDTO> groupList = dao.allgroups();
+	               List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
+	               List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
+	               List<MemberCountDTO> memberCount =  new ArrayList<>();
+	               
+	               
+	               if(myGroupList.size() != 0) {
+	                  for(int i=0 ; i<myGroupList.size() ; i++) {
+	                     MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
+	                     
+	                     memberCount.add(dto);
+	                  }
+	               }
+	               
+	               System.out.println("MemberCount"  + memberCount.size());
+	               
+	               request.setAttribute("groupList", groupList);
+	               request.setAttribute("groupPicList", groupPicList);
+	               request.setAttribute("myGroupList", myGroupList);
+	               request.setAttribute("memberCount", memberCount);
+	               
+	               
+//	               System.out.println("컨트롤러 : "+memberCount.size());
+	               isRedirect = false;
+	               dst="loginview.jsp";
 		            	
 			}else if(command.equals("/groupMain.group")) {
            String member_email = request.getSession().getAttribute("loginId").toString();
@@ -297,14 +320,23 @@ public class GroupController extends HttpServlet {
 			} else if(command.equals("/distanceKm.group")) {
 				
 				ajax_dist = "ajax_dist";
-				String fiveKm = request.getParameter("value");
+				String val = request.getParameter("value");
 				String dist = request.getParameter("distance");
-				System.out.println(dist);
-				String lat = fiveKm.split(":")[0];
-				String lng = fiveKm.split(":")[1];
-				System.out.println(lat);
-				System.out.println(lng);
-				distResult = dao.DistanceSearch(lat, lng, dist);
+				String loc = request.getParameter("location");
+				String word = request.getParameter("word");
+				
+				System.out.println("value 값  : " + val + "dist 값  : " + dist + "location 값  : " + loc);
+				String lat = val.split(":")[0];
+				String lng = val.split(":")[1];
+				String city = loc;
+				
+				System.out.println("lat 값  : " + lat + "lng 값  : " + lng + "city 값  : " + city + "word 값" + word);
+				
+				
+				distResult = dao.DistanceSearch(lat, lng, dist, city, word);
+				for(int j=0; j<distResult.size(); j++) {
+				System.out.println(distResult);
+				}
 				distSearchCount = dao.distSearchCount(distResult);
 				for(int i=0; i<distSearchCount.size(); i++) {
 					
@@ -319,8 +351,11 @@ public class GroupController extends HttpServlet {
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 				String group_name = request.getParameter("group_name");
+				String member_name = dao1.memberName(member_email);
 
-				int joinGroup = dao.joinGroup(member_email, group_seq, group_name);
+
+				int joinGroup = dao.joinMyGroup(member_email, group_seq, group_name);
+				int addGroupMember = dao.addGroupMember(member_email, group_seq, member_name);
 
 				System.out.println("email: " + member_email + "seq : " + groupSeq + "/ group_name :" + group_name);
 
@@ -344,10 +379,11 @@ public class GroupController extends HttpServlet {
 				String groupSeq = request.getParameter("group_seq");
 				int group_seq = Integer.parseInt(groupSeq);
 
-				int result = dao.groupMemberOut(group_seq, member_email);
+				int result = dao.MygroupOut(group_seq, member_email);
+				int removeGroupMember = dao.removeGroupMember(member_email);
 
 				isRedirect = false;
-				dst = "groupInfo.jsp";
+				dst = "groupMain.group?group_seq="+groupSeq+"&page=info";
 			}
 
 			if (isRedirect == false) {

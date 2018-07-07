@@ -16,6 +16,10 @@ public class GroupDTO {
    private int group_isblocked;
    private int group_alarm;
    
+   //인형이 위도, 경도
+   private String group_lat;
+   private String group_lng;
+   
    public String getGroup_latitude() {
 	return group_latitude;
 }
@@ -38,7 +42,7 @@ public void setGroup_longitude(String group_longitude) {
 	this.group_longitude = group_longitude;
 }
 
-private String group_createdate;
+   private String group_createdate;
    private int group_betweendate;
    private String member_email;
 
@@ -65,8 +69,7 @@ private String group_createdate;
 		this.group_alarm = group_alarm;
 		this.group_createdate = group_createdate;
 		this.group_betweendate = group_betweendate;
-		this.group_lat = group_lat;
-		this.group_lng = group_lng;
+
 	}
 
 	public GroupDTO(int group_seq, String group_leader, String group_name, String group_location,

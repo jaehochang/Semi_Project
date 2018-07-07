@@ -1,7 +1,7 @@
 package kh.web.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -238,13 +238,17 @@ public class MeetingDAO {
    
    public List<ShowMeetingDTO> selectMeet(Date bigindate) throws Exception {
 	      Connection con = DBUtils.getConnection();
+	      System.out.println(bigindate);
 	      String sql = "select to_char(meeting_start_time,'yyyy\"년\"mm\"월\"dd\"일\" day'),to_char(meeting_start_time,'HH24:mi'),group_name,meeting_title ,meeting_location "
 	            + "from (select * from MEETING where meeting_start_time >= SYSDATE) where meeting_start_time >= TO_char(?,'YYYYMMDD') order by meeting_start_time";
 	      PreparedStatement pstat = con.prepareStatement(sql);
 	      pstat.setDate(1, new java.sql.Date(bigindate.getTime()));
+	      System.out.println(new java.sql.Date(bigindate.getTime()));
 	      ResultSet rs = pstat.executeQuery();
 	      List<ShowMeetingDTO> list = new ArrayList<>();
+	      System.out.println(rs.next());
 	      while(rs.next()) {
+	    	 
 	         ShowMeetingDTO smdto = new ShowMeetingDTO();
 	         smdto.setDat_month(rs.getString(1));
 	         smdto.setHour_minut(rs.getString(2));
@@ -253,6 +257,7 @@ public class MeetingDAO {
 	         smdto.setMeeting_location(rs.getString(5));
 	         list.add(smdto);
 	      }
+	      System.out.println(list);
 	      rs.close();
 	      pstat.close();
 	      con.close();

@@ -128,26 +128,35 @@ public class GroupDAO {
 		return dto;
 
 	}
-	public List<String> DistanceSearch(String lat, String lng, String distance) throws Exception{
+	public List<String> DistanceSearch(String lat, String lng, String distance, String city, String word) throws Exception{
 
 		Connection con = DBUtils.getConnection();
-		
+		String sql = null;
 		double latitude = Double.parseDouble(lat);
-		
+		PreparedStatement pstat = null;
 		double longitude =Double.parseDouble(lng);
-		
-		String sql = 
-		"select group_seq, group_name,group_lat,group_lng,group_picture from create_group";
-		
-		PreparedStatement pstat = con.prepareStatement(sql);
+		if(word.equals("")) {
+		sql = 
+		"select group_seq, group_name,group_lat,group_lng,group_picture from create_group where group_location like ?";
+		pstat = con.prepareStatement(sql);
+		pstat.setString(1, "%" + city + "%");
+		}else {
+			sql = 
+		"select group_seq, group_name,group_lat,group_lng,group_picture from create_group where group_location like ? and group_interests like ?";
+		pstat = con.prepareStatement(sql);
+		pstat.setString(1, "%" + city + "%");
+		pstat.setString(2, word);
+		}
 		
 		ResultSet rs = pstat.executeQuery();
+		
 		List<String> fiveList = new ArrayList<>();
 		List<String> tenList = new ArrayList<>();
 		List<String> fifteenList = new ArrayList<>();
 		List<String> allList = new ArrayList<>();
 
 		while(rs.next()) {
+			
 			int dbGroupSeq = rs.getInt("group_seq");
 			String dbGroupName = rs.getString("group_name");
 			double dbGroupLat = Double.parseDouble(rs.getString("group_lat"));
@@ -179,27 +188,28 @@ public class GroupDAO {
 			
 			}
 			if(dist != 0) {
-				allList.add(dbGroupName);
+				allList.add(dbGroupSeq+":"+dbGroupName +":"+ dbGroupPicture);
 			}
 			
 		}
 		
-		if(distance.equals("5")) {
+		if(distance.equals("5") || distance.equals("5km")){
 			System.out.println("거리가 5km 인 그룹 : " + fiveList);
 			con.close();
 			pstat.close();
 			return fiveList;
-		}else if(distance.equals("10")) {
+		}else if(distance.equals("10") || distance.equals("10km")){
 			System.out.println("거리가 10km 인 그룹 : " + tenList);
 			con.close();
 			pstat.close();
 			return tenList;
-		}else if(distance.equals("15")) {
+		}else if(distance.equals("15") || distance.equals("15km")){
 			con.close();
 			pstat.close();
 			return fifteenList;
 		}
 		else {
+			System.out.println("모든거리 인 그룹" + allList);
 			con.close();
 			pstat.close();
 			return allList;
@@ -661,8 +671,8 @@ public class GroupDAO {
 			gdto.setGroup_isblocked(rs.getInt("group_isblocked"));
 			gdto.setGroup_createdate(rs.getString("group_createdate"));
 			gdto.setGroup_alarm(rs.getInt("group_alarm"));
-			gdto.setGroup_lat(rs.getString("group_lat"));
-			gdto.setGroup_lng(rs.getString("group_lng"));
+			gdto.setGroup_latitude(rs.getString("group_lat"));
+			gdto.setGroup_longitude(rs.getString("group_lng"));
 			if (rs.getString("bdate") != null) {
 				gdto.setGroup_betweendate(rs.getInt("bdate"));
 			}
