@@ -181,8 +181,7 @@ public class MeetingController extends HttpServlet {
 				}
 				isRedirect = false;
 				dst = "meeting.meet?seq=" + meeting_seq;
-
-			} else if (command.equals("/calendarchoice.meet")) {
+			}else if (command.equals("/calendarchoice.meet")) {
 				 try {
 		               JSONArray jarray =new JSONArray();
 		               response.setCharacterEncoding("utf8");
