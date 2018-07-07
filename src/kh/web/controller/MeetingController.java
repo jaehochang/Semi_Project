@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import kh.web.dao.AttendDAO;
 import kh.web.dao.MeetingDAO;
 import kh.web.dto.AttendDTO;
+import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.ShowMeetingDTO;
 
@@ -66,9 +67,41 @@ public class MeetingController extends HttpServlet {
             isRedirect = false;
             dst = "meeting.jsp";
          } else if (command.equals("/attend.meet")) {
-            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-            String member_email = (String) request.getSession().getAttribute("loginId");
-            int result = adao.addAttendMember(meeting_seq, member_email);
+        	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+            // String result_group_name = mdao.groupName(meeting_seq);
+            // List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+             
+             int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+             // int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+             
+              // 그룹 이름
+            // request.setAttribute("result_group_name", result_group_name);
+             // 참석하는 명단 받아오는 list
+            // request.setAttribute("result", result);
+             // 총 참석자 (참석인 + 데리고오는 사람)
+            // request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+             // meeting_seq
+             request.setAttribute("meeting_seq", meeting_seq);
+             
+             isRedirect = false;
+             dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
+          
+          } else if (command.equals("/search_member.meet")) {
+             // meeting.jsp에서 group member를 찾는 query
+             int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+             //int group_seq = mdao.groupSeq(meeting_seq);
+             //List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+             
+             String search = request.getParameter("search");
+             
+             
+             
+             response.setCharacterEncoding("utf8");
+             response.setContentType("application/json");
+             
+            // new Gson().toJson(result,response.getWriter());
+             
+             isajax=true;
          }else if(command.equals("/calendarchoice.meet")) {
 				try {
 					JSONArray jarray =new JSONArray();
@@ -157,13 +190,71 @@ public class MeetingController extends HttpServlet {
 				JSONArray jarray =new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				String value = request.getParameter("val"); 
+				System.out.println(value);
+				String[] datecase = value.split("/");
+				String alldata = null;
+				for(int i=0;i<datecase.length;i++) {
+					if(i==0) {
+						alldata = datecase[i];
+					}else {
+						alldata += datecase[i];
+					}
+				}
+				Date tempDate = simpleDateFormat.parse(alldata);
+				System.out.println(tempDate);
+				List<ShowMeetingDTO> showlist = mdao.selectMyMeet(tempDate, member_email);
+				isajax = true;
+				for(int i=0;i<showlist.size();i++) {
+					JSONObject json = new JSONObject();
+					json.put("date", showlist.get(i).getDat_month());
+					json.put("hour", showlist.get(i).getHour_minut());
+					json.put("groupName", showlist.get(i).getGroup_name());
+					json.put("groupTitle", showlist.get(i).getMeeting_title());
+					json.put("location", showlist.get(i).getMeeting_location());
+					jarray.add(json);
+				}
+
+				//request.setAttribute("showlist", showlist);
+				//System.out.println(jarray);
+				System.out.println(jarray);
+				new Gson().toJson(jarray,response.getWriter());
 				
 			}else if(command.equals("/checkup.meet")) {
 				JSONArray jarray =new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
-			}else if(command.equals("/updatebasic.meet")) {
-				
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				String value = request.getParameter("val"); 
+				System.out.println(value);
+				String[] datecase = value.split("/");
+				String alldata = null;
+				for(int i=0;i<datecase.length;i++) {
+					if(i==0) {
+						alldata = datecase[i];
+					}else {
+						alldata += datecase[i];
+					}
+				}
+				Date tempDate = simpleDateFormat.parse(alldata);
+				System.out.println(tempDate);
+				List<ShowMeetingDTO> showlist = mdao.selectMeetCheck(tempDate, member_email);
+				isajax = true;
+				for(int i=0;i<showlist.size();i++) {
+					JSONObject json = new JSONObject();
+					json.put("date", showlist.get(i).getDat_month());
+					json.put("hour", showlist.get(i).getHour_minut());
+					json.put("groupName", showlist.get(i).getGroup_name());
+					json.put("groupTitle", showlist.get(i).getMeeting_title());
+					json.put("location", showlist.get(i).getMeeting_location());
+					jarray.add(json);
+				}
+
+				//request.setAttribute("showlist", showlist);
+				//System.out.println(jarray);
+				System.out.println(jarray);
+				new Gson().toJson(jarray,response.getWriter());
 			}
          
          if(isajax) {

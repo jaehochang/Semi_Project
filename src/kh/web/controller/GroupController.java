@@ -55,50 +55,34 @@ public class GroupController extends HttpServlet {
 			
          if (command.equals("/list.group")) {
             
-           String member_email = request.getSession().getAttribute("loginId").toString();
-            
-        
-            
-			List<GroupDTO> groupList = dao.allgroups();
-			List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
-//			List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
-			List<MemberCountDTO> memberCount =  new ArrayList<>();
+             String member_email = request.getSession().getAttribute("loginId").toString();
+             
+             List<GroupDTO> groupList = dao.allgroups();
+             List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
+             List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
+             List<MemberCountDTO> memberCount =  new ArrayList<>();
+             
+             
+             if(myGroupList.size() != 0) {
+                for(int i=0 ; i<myGroupList.size() ; i++) {
+                   MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
+                   
+                   memberCount.add(dto);
+                }
+             }
+             
+             System.out.println("MemberCount"  + memberCount.size());
+             
+             request.setAttribute("groupList", groupList);
+             request.setAttribute("groupPicList", groupPicList);
+             request.setAttribute("myGroupList", myGroupList);
+             request.setAttribute("memberCount", memberCount);
+             
+             
+//             System.out.println("컨트롤러 : "+memberCount.size());
+             isRedirect = false;
+             dst="loginview.jsp";
 			
-			boolean isMyGroup = dao1.isMyGroup(member_email);
-			
-			if(isMyGroup) {
-				List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
-			
-            
-            
-            if(myGroupList.size() != 0) {
-               for(int i=0 ; i<myGroupList.size() ; i++) {
-                  MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
-                  
-                  memberCount.add(dto);
-               }
-            }
-            
-            System.out.println("MemberCount"  + memberCount.size());
-            
-            request.setAttribute("groupList", groupList);
-            request.setAttribute("groupPicList", groupPicList);
-            request.setAttribute("myGroupList", myGroupList);
-            request.setAttribute("memberCount", memberCount);
-            request.setAttribute("isMyGroup", isMyGroup);
-
-            isRedirect = false;
-            dst="loginview.jsp";
-			
-			}else {
-				
-				    request.setAttribute("groupList", groupList);		            
-		            request.setAttribute("isMyGroup", isMyGroup);
-
-		            isRedirect = false;
-		            dst="loginview.jsp";
-		            	
-			}
             
          }else if(command.equals("/groupMain.group")) {
            String member_email = request.getSession().getAttribute("loginId").toString();

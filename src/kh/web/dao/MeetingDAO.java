@@ -64,6 +64,7 @@ public class MeetingDAO {
          dto.setMeeting_picture(rs.getString("meeting_picture"));
          
       }
+      rs.close();
       con.close();
       pstat.close();
       return dto;
@@ -114,6 +115,61 @@ public class MeetingDAO {
       
    }
    // select * from attend where MEMBER_EMAIL in (select MEMBER_EMAIL from MEETING where member_email = 'abc@abc.com');
+   
+   public List<ShowMeetingDTO> selectMeetCheck(Date bigindate , String loginId) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select to_char(meeting_start_time,'yyyy\"년\"mm\"월\"dd\"일\" day'),to_char(meeting_start_time,'HH24:mi'),group_name,meeting_title ,meeting_location "
+				+ "from (select * from MEETING where meeting_start_time >= SYSDATE) where meeting_start_time >= TO_char(?,'YYYYMMDD') and "
+				+ "MEETING_SEQ IN (select MEETING_SEQ from attend where MEMBER_EMAIL in (select MEMBER_EMAIL from member where member_email = ? ))"
+				+ "order by meeting_start_time";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setDate(1, new java.sql.Date(bigindate.getTime()));
+		pstat.setString(2, loginId);
+		ResultSet rs = pstat.executeQuery();
+		List<ShowMeetingDTO> list = new ArrayList<>();
+		while(rs.next()) {
+			ShowMeetingDTO smdto = new ShowMeetingDTO();
+			smdto.setDat_month(rs.getString(1));
+			smdto.setHour_minut(rs.getString(2));
+			smdto.setGroup_name(rs.getString(3));
+			smdto.setMeeting_title(rs.getString(4));
+			smdto.setMeeting_location(rs.getString(5));
+			list.add(smdto);
+		}
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return list;
+	}
+   
+   
+   public List<ShowMeetingDTO> selectMyMeet(Date bigindate , String loginId) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select to_char(meeting_start_time,'yyyy\"년\"mm\"월\"dd\"일\" day'),to_char(meeting_start_time,'HH24:mi'),group_name,meeting_title ,meeting_location "
+				+ "from (select * from MEETING where meeting_start_time >= SYSDATE) where meeting_start_time >= TO_char(?,'YYYYMMDD') and "
+				+ "member_email IN (select member_email from member where MEMBER_EMAIL in (select MEMBER_EMAIL from member where member_email = ? ))"
+				+ "order by meeting_start_time";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setDate(1, new java.sql.Date(bigindate.getTime()));
+		pstat.setString(2, loginId);
+		ResultSet rs = pstat.executeQuery();
+		List<ShowMeetingDTO> list = new ArrayList<>();
+		while(rs.next()) {
+			ShowMeetingDTO smdto = new ShowMeetingDTO();
+			smdto.setDat_month(rs.getString(1));
+			smdto.setHour_minut(rs.getString(2));
+			smdto.setGroup_name(rs.getString(3));
+			smdto.setMeeting_title(rs.getString(4));
+			smdto.setMeeting_location(rs.getString(5));
+			list.add(smdto);
+		}
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return list;
+	}
    
    
    
