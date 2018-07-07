@@ -4,7 +4,6 @@ package kh.web.controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -24,6 +23,7 @@ import kh.web.dao.GroupDAO;
 import kh.web.dao.MeetingDAO;
 import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupDTO;
+import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.ShowMeetingDTO;
 
@@ -72,11 +72,13 @@ public class MeetingController extends HttpServlet {
             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
 
             boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
+            boolean checkMeetingDate = adao.checkMeetingDate(meeting_seq);
 
             request.setAttribute("result", result);
             request.setAttribute("result_attend", result_attend);
             request.setAttribute("result_countAttendMembers", result_countAttendMembers + result_countWithPeople);
             request.setAttribute("result_areYouAttend", result_areYouAttend);
+            request.setAttribute("checkMeetingDate", checkMeetingDate);
             isRedirect = false;
             dst = "meeting.jsp";
 
@@ -277,7 +279,44 @@ public class MeetingController extends HttpServlet {
             response.setContentType("application/json");
          }else if(command.equals("/updatebasic.meet")) {
             
+         } else if (command.equals("/attendMember.meet")) {
+        	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+        	 String result_group_name = mdao.groupName(meeting_seq);
+        	 List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+        	 
+        	 int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+        	 
+             // 그룹 이름
+        	 request.setAttribute("result_group_name", result_group_name);
+        	 // 참석하는 명단 받아오는 list
+        	 request.setAttribute("result", result);
+        	 // 총 참석자 (참석인 + 데리고오는 사람)
+        	 request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+        	 // meeting_seq
+        	 request.setAttribute("meeting_seq", meeting_seq);
+        	 
+        	 isRedirect = false;
+        	 dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
+         
+         } else if (command.equals("/search_member.meet")) {
+        	 // meeting.jsp에서 group member를 찾는 query
+        	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+        	 int group_seq = mdao.groupSeq(meeting_seq);
+        	 List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+        	 
+        	 String search = request.getParameter("search");
+        	 
+        	 
+        	 
+        	 response.setCharacterEncoding("utf8");
+        	 response.setContentType("application/json");
+        	 
+        	 new Gson().toJson(result,response.getWriter());
+        	 
+        	 isajax=true;
          }
+
 
          if (isajax) {
 

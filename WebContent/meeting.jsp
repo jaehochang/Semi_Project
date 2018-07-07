@@ -98,6 +98,9 @@ body {
       </div>
       <div class="ask-attend">
             <c:choose>
+            	<c:when test="${checkMeetingDate==false}">
+            		<p>지난 모임입니다. </p>
+            	</c:when>
                <c:when test="${result_areYouAttend}">
                   <p>참석 예정입니다. </p>
                   <button type="button" class="btn btn-primary btn-lg" style="width: 150px; background-color: pink; color: white; border:0;"></a><span class="glyphicon glyphicon-ok"></span>
@@ -112,6 +115,7 @@ body {
                  <button type="button" class="btn btn-primary btn-lg" style="width: 150px; background-color: pink; color: white; border:0;"><span class="glyphicon glyphicon-remove"></span>
                   </button>
                </c:otherwise>
+               
             </c:choose>
          <br>
          
@@ -149,6 +153,9 @@ body {
    </div>
    <div class="navi-buttons">
             <c:choose>
+            	<c:when test="${checkMeetingDate==false}">
+            		<p>지난 모임입니다. </p>
+            	</c:when>
                <c:when test="${result_areYouAttend}">
                   <p>참석 예정입니다. </p>
                   <button type="button" class="btn btn-primary btn-lg" style="width: 100px; height:35px; background-color: pink; color: white; border:0;"></a><span class="glyphicon glyphicon-ok"></span>
