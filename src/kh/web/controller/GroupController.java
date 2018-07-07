@@ -2,6 +2,7 @@ package kh.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -55,12 +56,34 @@ public class GroupController extends HttpServlet {
 
 			if (command.equals("/list.group")) {
 
-				String member_email = request.getSession().getAttribute("loginId").toString();
-
-		            isRedirect = false;
-		            dst="loginview.jsp";
-		            	
-			}else if(command.equals("/groupMain.group")) {
+	            String member_email = request.getSession().getAttribute("loginId").toString();
+	               
+	               List<GroupDTO> groupList = dao.allgroups();
+	               List<GroupPicDTO> groupPicList = dao.allgroupsPictures();
+	               List<MygroupDTO> myGroupList = dao.myGroupList(member_email);
+	               List<MemberCountDTO> memberCount =  new ArrayList<>();
+	               
+	               
+	               if(myGroupList.size() != 0) {
+	                  for(int i=0 ; i<myGroupList.size() ; i++) {
+	                     MemberCountDTO dto = dao.MemberCount(myGroupList.get(i).getGroup_seq());
+	                     
+	                     memberCount.add(dto);
+	                  }
+	               }
+	               
+	               System.out.println("MemberCount"  + memberCount.size());
+	               
+	               request.setAttribute("groupList", groupList);
+	               request.setAttribute("groupPicList", groupPicList);
+	               request.setAttribute("myGroupList", myGroupList);
+	               request.setAttribute("memberCount", memberCount);
+	               
+	               
+//	               System.out.println("컨트롤러 : "+memberCount.size());
+	               isRedirect = false;
+	               dst="loginview.jsp";
+			} else if(command.equals("/groupMain.group")) {
            String member_email = request.getSession().getAttribute("loginId").toString();
             
             String page = request.getParameter("page");
