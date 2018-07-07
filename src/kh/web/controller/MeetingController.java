@@ -23,6 +23,7 @@ import kh.web.dao.GroupDAO;
 import kh.web.dao.MeetingDAO;
 import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupDTO;
+import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.ShowMeetingDTO;
 
@@ -104,8 +105,10 @@ public class MeetingController extends HttpServlet {
 				String meeting_start_time = request.getParameter("start");
 				String meeting_end_time = request.getParameter("end");
 				// 지혜야 그림파일 넣어라
-				String meeting_picture = "default.jpg";
-
+				String meeting_picture = request.getParameter("meetingPic");
+				if(meeting_picture.equals("")) {
+					meeting_picture = "default.jpg";
+				}
 				System.out.println("newmeeting.meet:");
 				System.out.println(meeting_title);
 				System.out.println(meeting_contents);
@@ -276,7 +279,43 @@ public class MeetingController extends HttpServlet {
 				response.setContentType("application/json");
 			}else if(command.equals("/updatebasic.meet")) {
 				
-			}
+			}else if (command.equals("/attendMember.meet")) {
+	            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+	            String result_group_name = mdao.groupName(meeting_seq);
+	            List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+	            
+	            int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+	             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+	            
+	             // 그룹 이름
+	            request.setAttribute("result_group_name", result_group_name);
+	            // 참석하는 명단 받아오는 list
+	            request.setAttribute("result", result);
+	            // 총 참석자 (참석인 + 데리고오는 사람)
+	            request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+	            // meeting_seq
+	            request.setAttribute("meeting_seq", meeting_seq);
+	            
+	            isRedirect = false;
+	            dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
+	         
+	         } else if (command.equals("/search_member.meet")) {
+	            // meeting.jsp에서 group member를 찾는 query
+	            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+	            int group_seq = mdao.groupSeq(meeting_seq);
+	            List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+	            
+	            String search = request.getParameter("search");
+	            
+	            
+	            
+	            response.setCharacterEncoding("utf8");
+	            response.setContentType("application/json");
+	            
+	            new Gson().toJson(result,response.getWriter());
+	            
+	            isajax=true;
+	         }
 
 			if (isajax) {
 

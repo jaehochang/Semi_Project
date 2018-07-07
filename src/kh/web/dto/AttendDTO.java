@@ -12,8 +12,22 @@ public class AttendDTO {
    private String member_name;
    private String member_picture;
    private Date attend_time;
+   
+   private int count;
 
-   public AttendDTO () {}
+   public int getCount() {
+	return count;
+}
+
+
+
+public void setCount(int count) {
+	this.count = count;
+}
+
+
+
+public AttendDTO () {}
    
    
 
@@ -32,6 +46,7 @@ public class AttendDTO {
       
    }
 
+ 
 
 public int getAttend_seq() {
       return attend_seq;
