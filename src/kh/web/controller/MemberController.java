@@ -149,7 +149,7 @@ public class MemberController extends HttpServlet {
 
             String memberEmail = (String) request.getParameter("member_email");
             String pwd = (String) request.getParameter("pwd");
-
+            
             MemberDAO mDAO = new MemberDAO();
             MemberDTO mDTO = new MemberDTO();
 
@@ -168,8 +168,10 @@ public class MemberController extends HttpServlet {
 						System.out.println("membercontroller 값 : "+isMyGroup);
 						dst = "list.group";
 				} else {
-					request.setAttribute("loginResult", result);
+					
+						request.setAttribute("loginResult", result);
 					dst = "login.jsp";
+					
 				}
 
 			} else if (command.equals("/mypage.co")) {

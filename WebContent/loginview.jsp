@@ -8,8 +8,39 @@
 <html lang="en">
 <head>
 <style>
+#gro:visited {
+	background: gray;
+	color: white;
+}
 
+#gro {
+	background: black;
+	color: white;
+	font-size: 18px;
+	line-height: 1.5;
+	position: relative;
+	top: 6px;
+	width: 100px;
+}
+
+#cal:visited {
+	background: gray;
+	color: white;
+}
+
+#cal {
+	background: black;
+	color: white;
+	font-size: 18px;
+	line-height: 1.5;
+	position: relative;
+	top: 6px;
+	width: 100px;
+}
+#search li:hover{
+background-color: red;
 	
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -108,7 +139,7 @@
 									alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
 									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
-								    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+								    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 								   														
 								}
 						}else{
@@ -154,7 +185,7 @@
 							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
-						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+							$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 						   														
 						}
 					}else{
@@ -201,7 +232,7 @@
 										alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
 										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
-									    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+										$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 									
 									}	
 							}else{
@@ -246,8 +277,8 @@
 					      for (var b = 0; b < response.distSearchCount.length; b++) {
 							alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
-						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+							$("#distrow").append("<h4 class=group_title1 style='line-height:5'>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 						   					
 															
 						}
@@ -297,7 +328,7 @@
 						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
-					    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");									
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
 					}
 					}else{
 						alert("결과값이 없습니다.")
@@ -362,7 +393,7 @@
 						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
-					    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 					   					
 														
 					}
@@ -414,7 +445,7 @@
 						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
-					    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");									
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
 					}
 					}else{
 						alert("결과값이 없습니다.")
@@ -456,15 +487,33 @@
 		</div>
 	</div>
 
-	<div id="search" style="left: 0px">
+	<div id="search" style="left: 0px; z-index: 10">
 		<div class="col-xs-4">
-				<a data-toggle="dropdown" aria-expanded="false"  font-size: medium; padding-left: 3"><input id="search-input" type="text" placeholder="전체 Meetup 이벤트" style="width: 270px; height: 34px;  border-radius: 5px;"></a>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" id="eatout">외식</a></li>
-				<li><a href="#" id="family">가족</a></li>
-				<li><a href="#" id="fifteen_km">15km</a></li>
-				<li><a href="#" id="all_km">모든거리</a></li>
+		  <a data-toggle="dropdown" aria-expanded="false"  font-size: medium; padding-left: 3"><input id="search-input" type="text" placeholder="전체 Meetup 이벤트" style="width: 270px; height: 34px;  border-radius: 5px;"></a>
+			<ul class="dropdown-menu" role="menu" style="position: absolute; z-index: 150; width: 900px">
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="eatout">외식</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="family">가족</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">친척</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">asdasd</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
 			</ul>
+			
+			
 
 	
 
@@ -504,9 +553,9 @@
 		<h5 id="location-text2">의</h5>
 
 		<div class="btn-group" role="group" id="search-check"
-			style="position: absolute; bottom: 15px; left: 750px;">
-			<button type="button" class="btn btn-default" id="gro">그룹들</button>
-			<button type="button" class="btn btn-default" id="cal">달력</button>
+			style="position: absolute; bottom: 15px; left: 680px; width: 250px">
+			<button type="button" class="btn btn-default" id="gro">그룹</button>
+			<button type="button" class="btn btn-default" id="cal">캘린더</button>
 		</div>
 	</div>
 
@@ -550,6 +599,7 @@
 								</div>
 							</div>
 							<h4 class="group_title" id="group_title2">${item.group_name}</h4>
+							<h5 id=searchCount></h5>
 						</div>
 					</c:forEach>
 
@@ -574,6 +624,7 @@
 								</div>
 							</div>
 							<h4 class="group_title">${item.group_name}</h4>
+							<h5 id="searchCount"></h5>
 						</div>
 						
 				</div>
