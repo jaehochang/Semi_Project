@@ -96,7 +96,7 @@
 							<button class="btn btn-success btn-block" data-dismiss="modal"
 								data-dismiss="modal" style="background-color: grey;"
 								style="background-color:grey;"
-								onclick="$(this).modal('toggle');">둘러보기</button>
+								onclick="window.location.href='index.jsp'">둘러보기</button>
 
 						</div>
 					</div>
