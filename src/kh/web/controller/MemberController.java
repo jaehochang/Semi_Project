@@ -1,8 +1,6 @@
 package kh.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -291,11 +289,13 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("userName", accntInfo.getMember_name());
 				request.setAttribute("userEmail", accntInfo.getMember_email());
 				request.setAttribute("userLocation", accntInfo.getMember_location());
-
+				request.setAttribute("userGender", accntInfo.getMember_gender());
+				request.setAttribute("userAge", accntInfo.getMember_age());
 				System.out.println(7);
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userInterests", accntInfo.getMember_interests());
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+
 				isRedirect = false;
 				dst = "mypage.jsp";
 				System.out.println("---------------------------------------------------------");
@@ -461,7 +461,7 @@ public class MemberController extends HttpServlet {
 				if (ggDupleResult) { // 중복되는 아이디가 이미 있는 경우
 					// 아니 바로 로그인 시켜버리기
 					System.out.println(2);
-					isRedirect=false;
+					isRedirect = false;
 					request.getSession().setAttribute("loginId", ggEmail);
 					request.getSession().setAttribute("snsId", ggId);
 					request.setAttribute("loginSuccess", true);
@@ -509,57 +509,49 @@ public class MemberController extends HttpServlet {
 			//
 			// }
 
-			else if (command.equals("/infoModify.co")) {
+			else if (command.equals("/updateUserInfo.co")) {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
 				String snsId = (String) request.getSession().getAttribute("snsId");
 
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
-				MemberDAO mDAO = new MemberDAO();
-
-				MemberDTO accntInfo = mDAO.getAccountInfo(loginId, snsId);
 				System.out.println(1);
+				String member_name = request.getParameter("member_name");
+				String member_location = request.getParameter("member_location");
+				String member_gender = request.getParameter("member_gender");
+				String member_age = request.getParameter("member_age");
 
-				// if (accntInfo == null) {
-				// isRedirect = true;
-				// dst = "login.jsp";
-				// System.out.println(2);
-				// }
+				System.out.println(2);
+				System.out.println("============================================");
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+				System.out.println("/mypage.co 의 session snsId : " + snsId);
+				System.out.println(member_name);
+				System.out.println(member_location);
+				System.out.println(member_gender);
+				System.out.println(member_age);
+				System.out.println("============================================");
 
-				try {
-					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
+				MemberDAO mDAO = new MemberDAO();
+				MemberDTO mDTO = new MemberDTO();
 
-					if ((accntInfo.getMember_picture().equals("null")) || (accntInfo.getMember_picture() == null)) {
-						System.out.println(3);
-						accntInfo.setMember_picture("img/default_member.png");
-						System.out.println(4);
-					}
+				System.out.println(3);
+				mDTO.setMember_name(member_name);
+				mDTO.setMember_location(member_location);
+				mDTO.setMember_gender(member_gender);
+				mDTO.setMember_age(member_age);
+				System.out.println(4);
 
-				} catch (Exception e) {
-					if (e.getMessage().contains("Null")) {
-						isRedirect = false;
-						request.setAttribute("Null", true);
-						dst = "Oops.jsp";
-						System.out.println(5);
-					}
-				}
-
-				System.out.println(6 + accntInfo.getMember_picture() + "?!");
-
-				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userName", accntInfo.getMember_name());
-				request.setAttribute("userEmail", accntInfo.getMember_email());
-				request.setAttribute("userLocation", accntInfo.getMember_location());
-				request.setAttribute("userGender", accntInfo.getMember_gender());
-				request.setAttribute("userAge", accntInfo.getMember_age());
-				System.out.println(7);
-				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userInterests", accntInfo.getMember_interests());
-				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
-
+				int result = mDAO.updateUserInfo(loginId, snsId, mDTO);
+				System.out.println("updateUserInfo / result : " + result);
 				isRedirect = false;
-				dst = "mypage-modify.jsp";
-
+				if (result > 0) {
+					System.out.println(5);
+					request.setAttribute("infoUpdateSuccess", true);
+					dst = "mypage.co";
+				} else {
+					System.out.println(6);
+					request.setAttribute("infoUpdateSuccess", false);
+					dst = "mypage.co";
+				}
 			}
 			if (isRedirect == false) {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);

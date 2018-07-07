@@ -902,6 +902,37 @@ public class MemberDAO {
 		return name;
 	}
 
+	public int updateUserInfo(String loginId, String snsId, MemberDTO mDTO) throws Exception {
+
+		System.out.println("[memberDAO - updateUserInfo]");
+		Connection con = DBUtils.getConnection();
+		String sql = 
+				"update member set member_name=?, member_location=?,member_age=?,member_gender=? where member_email=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+	
+		System.out.println("====================");
+		System.out.println(mDTO.getMember_name());
+		System.out.println(mDTO.getMember_location());
+		System.out.println(mDTO.getMember_age());
+		System.out.println(mDTO.getMember_gender());
+		System.out.println(loginId);
+		System.out.println("=====================");
+		
+		ps.setString(1, mDTO.getMember_name());
+		ps.setString(2, mDTO.getMember_location());
+		ps.setString(3, mDTO.getMember_age());
+		ps.setString(4, mDTO.getMember_gender());
+		ps.setString(5, loginId);
+
+		int result = ps.executeUpdate();
+
+		con.commit();
+		con.close();
+		ps.close();
+
+		return result;
+	}
+
 	// public String getProfilePhoto(MemberDTO dto) throws Exception {
 	// Connection con = DBUtils.getConnection();
 	// String sql = "select kakao_photo,fb_photourl,ggimgurl from sns_id where
