@@ -52,7 +52,7 @@ $('#formid').submit(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel">가입하기</h4>
                </div>
-               <div class="modal-body"><h2>참석이 최종 확인되었습니다!!</h2>
+               <div class="modal-body" style="background-color : pink;"><h2>참석이 최종 확인되었습니다</h2>
                </div>
                <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" >참석 확인</button>

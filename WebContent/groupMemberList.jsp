@@ -3,7 +3,7 @@
 <%@ include file="include/group/top.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" type="text/css" href="css/groupMember-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupMember-style.css?ver=2">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
 
 <div id="navi-div">
@@ -155,45 +155,71 @@
 	
 	
 </div>
-
-<div id="contents">
-	<div id="wrapper">
-		<div id="memberSearch">
-			<div style="margin-bottom: 10px;">
-			<input type="text" class="form-control" id="search-input"
-				placeholder="회원 찾기" style="width:300px;">
-			<button type="button" class="btn btn-default" aria-label="Left Align" id="search-bt">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-			</button>
-			</div>
-		</div>
-		<div id="tab">
-			<c:forEach var="item" items="${result }">
-			<a href="groupMain.group?group_seq=${item.group_seq}&page=member">모든회원</a>
-			<a href="groupMain.group?group_seq=${item.group_seq}&page=leader">주최자</a>
-			</c:forEach>
-		</div>
-		<div id="memberList">
-			<c:forEach var="memberList" items="${memberList }">
-			<hr>
-			<div class="member">
-				<div class="mem-img">
-					<img src="files/${memberList.member_picture }" class="member-photo">
+	<!-- modalmodal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">이름</h4>
 				</div>
-				<div class="mem-info">
-					<h4>${memberList.member_name }</h4>
-					<fmt:parseDate value="${memberList.join_date}" var="time"  pattern="yyyy-MM-dd HH:mm:ss"/>
-					<fmt:formatDate value="${time}" pattern="M"/>월  
-                    <fmt:formatDate value="${time}" pattern="dd"/>일      
-                    <fmt:formatDate value="${time}" pattern="E"/>요일  <br>
+				<div class="modal-body" style="width:1000px; height:500px;">
+					
+					<div style="border: 1px black solid; width:500px;">
+						<div><label>위치:</label><span></span></div>
+						<div><label>부터 멤버:</label><span></span></div>
+						<div><label>가입그룹:</label><span></span></div>
+						<div><label>관심사:</label><span></span></div>
+						<button type="button" id="reportbtn" class="btn btn-default btn-xs" >신고하기</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-			</c:forEach>
 		</div>
 	</div>
+
+<div id="contents">
+	
+	<div class="wrapper-member" style="">
+       <div class="title-member"> 
+          <a href=""><span class="glyphicon glyphicon-menu-left" style="font-size: 20px; float : left;"></span></a>
+          <div class="group-info-member">
+             회원 목록 
+          </div>
+       </div>
+       <div class="search-member">
+          <div class="box-member">
+           <div class="container-3">
+               <span class="icon"><i class="fa fa-search"></i></span>
+               <input type="search" id="search" placeholder="회원 찾기" />
+           </div>
+         </div>
+       </div>
+       <div class="attend-member">
+       <div class="count-attend-member">총${count } 명</div>
+          <c:forEach var="memberList" items="${memberList}">
+             <div class="member-mem">
+					<img src="files/${memberList.member_picture}">
+					<div class="member-info-mem">
+						<div class="member-name">
+							<B>${memberList.member_name}</B>
+						</div>
+							<div>가입 날짜:</div>
+						<div class="attend-date">${memberList.join_date}</div>
+					</div>
+				</div>
+          </c:forEach>
+       </div>
+       <P id="response"></P>
+    </div>
 		
 </div>
-
 
 <footer>
 	<%@ include file="include/bottom.jsp"%>

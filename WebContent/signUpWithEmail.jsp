@@ -59,10 +59,10 @@
 				<div class="well panel-body">
 					<form action="signUpApply.co" method="post">
 						<div class="form-group">
-							<label for="name"> 이름</label> <input id=name pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+" title="한글만 입력 가능, 영어도 가능하게 해야하나?" placeholder="한글만 입력 가능" name=member_name
+							<label for="name"> 이름</label> <input id=name  title="한글만 입력 가능, 영어도 가능하게 해야하나?" placeholder="한글만 입력 가능" name=member_name
 								type=text class=form-control max=20 required>
 						</div>
-
+<!--  pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+" title="한글만 입력 가능, 영어도 가능하게 해야하나?" -->
 
 						<div class="form-group">
 							<label for="email"> 이메일</label> <input id=email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name=member_email placeholder="example@gmail.com"

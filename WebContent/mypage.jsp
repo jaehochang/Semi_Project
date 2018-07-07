@@ -220,30 +220,21 @@ if(${requestScope.infoUpdateSuccess==true}){
 							<i class="fa fa-transgender prefix grey-text" aria-hidden="true"></i>
 
 
-							<input type="text" id="form24" class="form-control validate"
-								name=member_gender> <label data-error="올바른 입력이 아닙니다."
-								data-success="O.K" for="form24">성별</label>
-						</div>
-						<div class="md-form mb-5">
-							<i class="fa fa-birthday-cake prefix grey-text"
-								aria-hidden="true"></i> <input type="number" id="form32"
-								class="form-control validate" name=member_age> <label
-								data-error="올바른 입력이 아닙니다. 숫자만 입력해주세요." data-success="O.K"
-								for="form32">나이</label>
-						</div>
+		<!-- aside 시작 -->
+		<div class="panel panel-default" id=profileaside>
+			<img src="files/${userPicture }" id="memPic" style="height: 150px; width: 150px; display: block; margin: 0 auto; border-radius: 150px">
+			<form action="upload.file?group_seq=0&page=mypage" method="post" id="writeForm" enctype="multipart/form-data">
+				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
+				<button type="button" class="btn btn-secondary"
+					style="width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
+			</form>
 
-
-					</div>
-					<div class="modal-footer d-flex justify-content-center">
-						<button id=info-change-btn
-							class="btn btn-unique rgba-purple-strong">
-							바꾸기<i class="fa fa-paper-plane-o ml-1"></i>
-						</button>
-
-					</div>
-				</form>
-
+			<div id=interestbox>
+				<h2>관심사</h2>
+<!-- 				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a> -->
 			</div>
+			<div id=interests>${requestScope.getUserInterests }</div>
 		</div>
 	</div>
 
@@ -255,38 +246,38 @@ if(${requestScope.infoUpdateSuccess==true}){
 			style="background-color: #b831d9;">회원정보 수정</a>
 	</div>
 
+	<script>
+		$("#btn-upload").click(function(e) {
+			e.preventDefault();
+			$('#file').click();
+		});
+	</script>
 
-	<!-- <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-	<!--     <div class="modal-dialog" role="document"> -->
-	<!--         <div class="modal-content"> -->
-	<!--             <div class="modal-header text-center"> -->
-	<!--                 <h4 class="modal-title w-100 font-weight-bold">Subscribe</h4> -->
-	<!--                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-	<!--                     <span aria-hidden="true">&times;</span> -->
-	<!--                 </button> -->
-	<!--             </div> -->
-	<!--             <div class="modal-body mx-3"> -->
-	<!--                 <div class="md-form mb-5"> -->
-	<!--                     <i class="fa fa-user prefix grey-text"></i> -->
-	<!--                     <input type="text" id="form3" class="form-control validate"> -->
-	<!--                     <label data-error="wrong" data-success="right" for="form3">Your name</label> -->
-	<!--                 </div> -->
+	<c:if test="${fileResult >=1 }">
+		<script>
+			var val = "${systemName}";
+			
+			$.ajax({
+				url : "test.file",
+				type : "get",
+				data : {value : val},
+				success : function(resp) {
 
-	<!--                 <div class="md-form mb-4"> -->
-	<!--                     <i class="fa fa-envelope prefix grey-text"></i> -->
-	<!--                     <input type="email" id="form2" class="form-control validate"> -->
-	<!--                     <label data-error="wrong" data-success="right" for="form2">Your email</label> -->
-	<!--                 </div> -->
-
-	<!--             </div> -->
-	<!--             <div class="modal-footer d-flex justify-content-center"> -->
-	<!--                 <button class="btn btn-indigo">Send <i class="fa fa-paper-plane-o ml-1"></i></button> -->
-	<!--             </div> -->
-	<!--         </div> -->
-	<!--     </div> -->
-	<!-- </div> -->
-
-
+					var contents = resp.html;
+					
+					console.log(contents);
+				},
+				error : function(request, status, error) {
+					console
+							.log(request.status + " : " + status + " : "
+									+ error);
+				},
+				complate : function() {
+					console.log("ajax 종료");
+				}
+			});
+		</script>
+	</c:if>
 
 	<!-- 	footer -->
 	<%@ include file="include/bottom.jsp"%>
