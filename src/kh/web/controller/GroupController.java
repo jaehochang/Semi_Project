@@ -2,7 +2,6 @@ package kh.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,13 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.web.dao.AdminDAO;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
-import org.json.simple.JSONObject;
-
+import kh.web.dao.AdminDAO;
 import kh.web.dao.GroupDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.GroupDTO;
