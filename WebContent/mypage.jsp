@@ -13,7 +13,7 @@
 
 
 <!-- mdb -->
-<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 <!-- mdb -->
 <title>My Page</title>
 
@@ -50,28 +50,23 @@
 <!-- Jquery CDN -->
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
+<!-- <!-- fontawesome --> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" -->
+<!-- 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" -->
+<!-- 	crossorigin="anonymous"> -->
 
 
 
 
 
 <!-- mdb -->
-
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-<!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="css/mdb.min.css" rel="stylesheet">
-
-<!-- mdb error removal -->
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<!-- BS JavaScript -->
-<script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -259,33 +254,61 @@ if(${requestScope.infoUpdateSuccess==true}){
 			style="background-color: #b831d9;">회원정보 수정</a>
 	</div>
 
+<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Subscribe</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form3">Your name</label>
+                </div>
 
+                <div class="md-form mb-4">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="email" id="form2" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form2">Your email</label>
+                </div>
 
-	<!-- modal -->
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-indigo">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-
+<div class="text-center">
+    <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalSubscriptionForm">Launch Modal Subscription Form</a>
+</div>
 
 
 	<!-- 	footer -->
 	<%@ include file="include/bottom.jsp"%>
 
+<!-- 	<script -->
+<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+<!-- 	<script src="./resources/docs/dist/js/bootstrap.min.js"></script> -->
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script
 		src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
-
-	<!-- mdb -->
-	<!-- JQuery -->
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="js/popper.min.js"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="js/mdb.min.js"></script>
-
-	<!-- mdb -->
-
-
-
+		
+		
+<!-- 		mdb -->
+		   <!-- JQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- 		mdb -->
 </body>
 </html>
