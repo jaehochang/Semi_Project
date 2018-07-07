@@ -104,7 +104,8 @@
 						
 						for (var b = 0; b < response.distSearchCount.length; b++) {
 							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
+							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
+							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
 						   					
 															
@@ -147,7 +148,7 @@
 															
 									for (var b = 0; b < response.distSearchCount.length; b++) {
 										alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
+										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");								
 									    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
 									   					
 																		
@@ -189,7 +190,7 @@
 						
 					      for (var b = 0; b < response.distSearchCount.length; b++) {
 							alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
+							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");								
 						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
 						   					
 															

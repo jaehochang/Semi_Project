@@ -213,27 +213,33 @@ public class GroupDAO {
 	public List<String> distSearchCount(List<String> distResult) throws Exception{
 		
 		List<String> distt = new ArrayList<>();
-		int j=0;
+		int j = 0;
 		Connection con = DBUtils.getConnection();
-	    String sql = "select case when group_seq = ? then count(*) as membercount when group_seq != ? then nvl(count(*), 0) as membercount from group_member group by group_seq";
+	    String sql = "select count(*) as membercount from group_member where group_seq=? group by group_seq";
 	    PreparedStatement pstat = con.prepareStatement(sql);
 	    for(int i=0; i<distResult.size(); i++) {
 	    	
-	    	
+	    
 	    pstat.setInt(1, Integer.parseInt(distResult.get(i).split(":")[0]));
 	    ResultSet rs = pstat.executeQuery();
 	    
 	    
-	    while(rs.next()) {
+	    if(rs.next()) {
 	    	
 	    	String count = rs.getString("membercount");
 	    	if(!(count.equals(""))) {
 	    	distt.add(distResult.get(i) + ":" + count);
+	    	System.out.println(i +"번째"+count);
 	    	
 	    	}
-	    	
+	    }else {
+	    		distt.add(distResult.get(i)+":"+0);
+	    		System.out.println(i +"번째째"+0);
 	    }
 	    }
+	    con.close();
+	    pstat.close();
+	    
 	    return distt;
 		
 	}
