@@ -91,7 +91,7 @@ body {
 					class="img-responsive img-rounded">
 			</div>
 
-			<form action="upload.file?group_seq=${item.group_seq }" method="post" id="writeForm" enctype="multipart/form-data">
+			<form action="upload.file?group_seq=${item.group_seq }&page=group" method="post" id="writeForm" enctype="multipart/form-data">
 				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
 				<button type="button" class="btn btn-secondary"
 					style="width: 150px; background-color: #f7f7f7; color: black;"
@@ -119,8 +119,7 @@ body {
 
 							var contents = resp.html;
 
-							$("#top-contents-img").empty();
-							$("#top-contents-img").html(contents);
+							$("#group-main-img").attr("src","contents");
 						},
 						error : function(request, status, error) {
 							console.log(request.status + " : " + status + " : "

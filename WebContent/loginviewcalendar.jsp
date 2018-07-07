@@ -72,6 +72,29 @@
 			font-style: italic;
 			font-family: sans-serif;
 		}
+		#myList{
+			margin-top: 10px;
+		}
+		#datepicker{
+			margin-top: 37px;
+		}
+		#today{
+			margin-top: 10px;
+			margin-right: 100px;
+		}
+
+		#printlist{
+			margin-top: 10px;
+			margin-left: 125px;
+			width: 300px;
+		}
+		#myList{
+			margin-right: 70px;
+		}
+		.list-group{
+			margin-left: 13px;
+			width: 255px;
+		}
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
@@ -146,29 +169,28 @@
 
 <div class="container">
 	<div class="row">
-		<div class="list-group" id="myList" role="tablist">
+	    <div class="col-md-8 " id="printlist" ></div>
+		<div class="col-md-4 pull-right" id="myList" role="tablist">
+		<div class="list-group" id="choice" >
   		<a class="list-group-item list-group-item-action active" data-toggle="list" href="#printlist" role="tab" id="alllist" data-value="all">All</a>
   		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="recolist" data-value="recommend">Recommend</a>
 		<a class="list-group-item list-group-item-action " data-toggle="list" href="#printlist" role="tab" id="mymeet" data-value="mymeet">My meet 들</a>
   		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="come" data-value="check">참석하는 Meet</a>
+  		</div>
+	 	<button type="button" id="today" class="pull-right">today</button>
+		<div class="col-md-4" id="datepicker"></div>
 		</div>
 	</div>
 </div>
 
 	<div class="container">
 	<div class="row">
-	 <button type="button" id="today">today</button>
 	</div>
 		<div class="row">
-			<div class="col-md-8"></div>
-			<div class="col-md-4 ml-auto" id="datepicker"></div>
 		</div>
 	</div>
 <div class="container">
-	<div class="tab-content">
-		<div class="tab-pane active" id="printlist" role="tabpanel"></div>
-		<div class="tab-pane " id="print" role="tabpanel"></div>
-	</div>
+		
 </div>
 
 
@@ -459,7 +481,7 @@
 	});
 	
 	$('#gro').click(function(e) {
-		location.href = 'loginview.jsp';
+		location.href = 'list.group';
 	});
 	
 	

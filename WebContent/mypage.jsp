@@ -249,6 +249,22 @@ if(${requestScope.infoUpdateSuccess==true}){
 
 			</div>
 		</div>
+		<!-- aside 시작 -->
+		<div class="panel panel-default" id=profileaside>
+			<img src="files/${userPicture }" id="memPic" style="height: 150px; width: 150px; display: block; margin: 0 auto; border-radius: 150px">
+			<form action="upload.file?group_seq=0&page=mypage" method="post" id="writeForm" enctype="multipart/form-data">
+				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
+				<button type="button" class="btn btn-secondary"
+					style="width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
+			</form>
+
+			<div id=interestbox>
+				<h2>관심사</h2>
+<!-- 				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a> -->
+			</div>
+			<div id=interests>${requestScope.getUserInterests }</div>
+		</div>
 	</div>
 
 	<!-- modal btn -->
@@ -259,13 +275,38 @@ if(${requestScope.infoUpdateSuccess==true}){
 			style="background-color: #b831d9;">회원정보 수정</a>
 	</div>
 
+	<script>
+		$("#btn-upload").click(function(e) {
+			e.preventDefault();
+			$('#file').click();
+		});
+	</script>
 
+	<c:if test="${fileResult >=1 }">
+		<script>
+			var val = "${systemName}";
+			
+			$.ajax({
+				url : "test.file",
+				type : "get",
+				data : {value : val},
+				success : function(resp) {
 
-	<!-- modal -->
-
-
-
-
+					var contents = resp.html;
+					
+					console.log(contents);
+				},
+				error : function(request, status, error) {
+					console
+							.log(request.status + " : " + status + " : "
+									+ error);
+				},
+				complate : function() {
+					console.log("ajax 종료");
+				}
+			});
+		</script>
+	</c:if>
 
 	<!-- 	footer -->
 	<%@ include file="include/bottom.jsp"%>

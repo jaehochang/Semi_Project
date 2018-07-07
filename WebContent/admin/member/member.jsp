@@ -5,10 +5,17 @@
 <div id="member_wrapper">
 	<div style="margin: 150px auto; width: 1000px;">
 		<div>
-			<select name="subject" id="subject">
-				<option value="member_email">이메일</option>
-				<option value="member_name">이름</option>
-			</select> <input type="search" id="search">
+			<form action="member.ao" action="get">
+				<select name="subject" id="subject" class="subject">
+					<option value="member_email" selected="selected">이메일</option>
+					<option value="member_name">이름</option>
+					<option value="member_gender">성별</option>
+					<option value="member_location">위치</option>
+				</select>
+				 <input type="search" id="search" class="search" name="text">
+				<button>검색</button>
+			</form>
+			<div id="searchbot" style="border: 1px black solid"></div>
 		</div>
 		<table class="table table-condensed">
 			<thead class="thead-dark">
@@ -17,7 +24,6 @@
 					<th scope="col">이름</th>
 					<th scope="col">성별</th>
 					<th scope="col">위치</th>
-					<th scope="col">알림</th>
 				</tr>
 			</thead>
 
@@ -31,29 +37,26 @@
 					<c:when test="${not empty list }">
 						<c:forEach var="mdto" items="${list }">
 							<tr>
-								<td id="member_email">
-								<a href="memberpage.ao?member_email=${mdto.member_email }">${mdto.member_email }</a></td>
+								<td id="member_email"><a
+									href="memberpage.ao?member_email=${mdto.member_email }">${mdto.member_email }</a></td>
 								<td>${mdto.member_name }</td>
 								<td>${mdto.member_gender }</td>
 								<td>${mdto.member_location }</td>
 								<c:if test="${mdto.member_alarm > 0 }">
 									<td class="badge" style="background-color: red;">${mdto.member_alarm }</td>
 								</c:if>
-								<c:if test="${mdto.member_alarm == 0 }">
-								<td></td>
-								</c:if>
 							</tr>
 						</c:forEach>
 					</c:when>
 				</c:choose>
-
-				<tr>
-					<td colspan=5 align=center>${page }</td>
-				</tr>
 			</tbody>
 		</table>
+		<nav style="margin: 0 auto;" align="center">
+			<ul id="pageul" class="pagination">${page }</ul>
+		</nav>
 	</div>
 </div>
+
 <script>
 	var subject = $("#subject option:selected").val();
 	console.log("subject: " + subject);
@@ -63,61 +66,52 @@
 		console.log(subject);
 	});
 
-	$('#search').keydown(
-			function() {
-				var text = $('#search').val();
-				var value = {
-					text : text,
-					subject : subject
-				}
-				$.ajax({
-					url : "search.ao",
-					type : "get",
-					data : value,
-					success : function(resp) {
-						var output;
+	// 	var distinction = "member";
+	// 	$('#search').keydown(function() {
+	// 				var text = $('#search').val();
 
-						if (resp.length == 0) {
-							output += "<tr>";
-							output += "</tr>";
-							$("tbody").html("찾는 결과가 없습니다.");
-						} else {
-							for (var i = 0; i < resp.length; i++) {
-								console.log("길이:" + resp.length);
-								console.log("susccess : "
-										+ resp[i].member_email);
-								console
-										.log("susccess : "
-												+ resp[i].member_name);
-								console.log("susccess : "
-										+ resp[i].member_joindate);
-								console.log("susccess : "
-										+ resp[i].member_warningnumber);
-								console.log("susccess : "
-										+ resp[i].member_warningdate);
-								console.log("susccess : "
-										+ resp[i].member_expiredate);
-								
-								output += "<tr>";
-								output += "<td><a href='memberpage.ao?member_email="+resp[i].member_email+"'>'" + resp[i].member_email + "'</a></td>";
-								output += "<td>'" + resp[i].member_name + "'</td>";
-								output += "<td>'" + resp[i].member_gender + "'</td>";
-								output += "<td>'" + resp[i].member_location + "'</td>";
-								if(resp[i].member_alarm>0){
-									output += "<td class='badge'>'" + resp[i].member_alarm + "'</td>";
-								}
-								output += "</tr>";
-								/* output += "<tr>";
-								output += "<td>'" + resp[i].page + "'</td>";
-								output += "<tr>"; */
-							}
-							$('tbody').html(output);
-						}
-					}
+	// 				$.ajax({
+	// 					url : "search.ao",
+	// 					type : "get",
+	// 					data : {
+	// 						distinction,
+	// 						text,
+	// 						subject
+	// 					},
+	// 					success : function(resp) {
+	// 						console.log("resp:"+resp);
+	// 						console.log(resp.mlist);
+	// 						console.log(resp.page);
+	// 						var output;
+	// 						var page;
 
-				})
-			})
+	// 						if (resp.mlist.length == 0) {
+	// 							output += "<tr>";
+	// 							output += "</tr>";
+	// 							$("tbody").html("찾는 결과가 없습니다.");
+	// 						} else {
+	// 							for (var i = 0; i < resp.mlist.length; i++) {
+	// 								console.log("길이:" + resp.mlist.length);
+	// 								console.log("susccess : "
+	// 										+ resp.mlist[i].member_email);
+	// 								output += "<tr>";
+	// 								output += "<td><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></td>";
+	// 								output += "<td>'" + resp.mlist[i].member_name + "'</td>";
+	// 								output += "<td>'" + resp.mlist[i].member_gender + "'</td>";
+	// 								output += "<td>'" + resp.mlist[i].member_location + "'</td>";
+	// 								output += "</tr>"; 
+	// // 								output += "<div><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></div>"
+	// // 								output += "<div>'" + resp.mlist[i].member_name + "'</div>";
+	// 							}
+	// // 							$('#searchbot').html(output);
+	// 							$('tbody').html(output);
+	// 							$('#pageul').html(resp.page);
+	// 						}
+	// 					}
+	// 				})
+	// 			})
 </script>
+<%@include file="../include/footer.jsp"%>
 
 </body>
 </html>
