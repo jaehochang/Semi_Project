@@ -43,10 +43,10 @@
 
 <c:forEach var="result" items="${result }">
 	<div class="row">
-		<a href="#">← 설정으로 돌아가기</a>
+		<a href="#">← 설정으로 돌아가기 </a>
 	</div>
 	<div class="row">
-		<h3>기본내용</h3>
+		<h3>기본내용 수정하기 </h3>
 	</div>
 	
 	<div class="row">
@@ -55,10 +55,12 @@
 	<div class="row">
 		<input type="text" id="groups" name="groupname" size="40" maxLength="200" value="${result.group_name }">
 	</div>
-	<div>
-		<button type="button" id="duple">중복체크</button>
-		
+	<div class="row">
 	</div>
+		<button type="button" id="duple">중복체크</button>
+	<div class="row">
+		<input type="text" id="isok" size="15" readonly="readonly">
+	</div>	
 	<!-- head line 삭제  -->
 	
 	<div class="row">
@@ -70,10 +72,13 @@
 	<div class="row">
 		<input type="text" id="aboutgroup" name="description" size="40"   value="${result.group_info }">
 	</div>
-	<div>
+	<div class="row">
+		<h4>Where</h4>
+	</div>
+	<div class="row" >
 		<input type="text" id ="local" name="location" size="40" value="${result.group_location }">
 	</div>
-	
+	<div class="row"></div>
 </c:forEach>	
 	<button type="button" id="update">저장하기</button>
 </form>	
@@ -85,10 +90,44 @@
 </footer>
 
 <script >
-$('#update').click(function(e) {
-	$('#basicupdate').submit();
+$('#duple').click(function(e) {
+	var nowdata = $("#groups").val();
+	$.ajax({
+		url:"duplecheck.group",
+		type:"post",
+		data:{val:nowdata},
+		dataType : "json",
+		success:function(response){
+			console.log("AJAX Request 성공 ");
+			console.log(response);
+			var check = response.names;
+			if(check==true){
+				$("#isok").val("ok");
+			}else{
+				$("#isok").val("no");
+			}
+		},
+		error:function(request,status,error){
+			console.log(request.status+":"+status.responseText+":"+ error);
+		},
+		complete:function(){
+			console.log("성공이건 실패건 어찌되었든 ajax 종료");
+		}
+	});
 });
 
+
+$('#update').click(function(e) {
+	var isthat = $("#isok").val();
+	if(isthat=="ok"){
+		$('#basicupdate').submit();
+	}else if(isthat=="no"){
+		alert("중복되는 이름이 있습니다.");
+	}else{
+		alert("먼저 중복체크부터 해주세요");
+	}
+	
+});
 
 </script>
 </body>

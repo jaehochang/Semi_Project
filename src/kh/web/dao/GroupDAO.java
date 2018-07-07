@@ -465,6 +465,27 @@ public class GroupDAO {
 	   }
 	   
 	
+	   public boolean duplecheckGroup(String newName) throws Exception {
+		   Connection con = DBUtils.getConnection();
+		   String sql = "select * from CREATE_GROUP where GROUP_NAME in ?";
+		   PreparedStatement pstat = con.prepareStatement(sql);
+		   pstat.setString(1, newName);
+		   ResultSet rs = pstat.executeQuery();
+		   if(rs.next()) {
+			   rs.close();
+			   pstat.close();
+			   con.close();
+			   return false;
+		   }else {
+			   rs.close();
+			   pstat.close();
+			   con.close();
+			   return true;
+		   }
+
+	   }
+	   
+	   
 	
 }
 

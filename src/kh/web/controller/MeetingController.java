@@ -68,6 +68,7 @@ public class MeetingController extends HttpServlet {
             dst = "meeting.jsp";
          } else if (command.equals("/attend.meet")) {
         	 int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+        	 //캘린더에서 불러오는 과정에서 여기서 오류나서 일부 주석처리함 
             // String result_group_name = mdao.groupName(meeting_seq);
             // List<AttendDTO> result = mdao.getAttendData(meeting_seq);
              

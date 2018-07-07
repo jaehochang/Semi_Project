@@ -354,6 +354,20 @@ public class GroupController extends HttpServlet {
 					dst="list.group";
 				}
 				
+			}else if(command.equals("/duplecheck.group")) {
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				String newname = request.getParameter("val");
+				System.out.println(newname);
+				boolean duplechk = dao.duplecheckGroup(newname);
+				System.out.println(duplechk);
+				ajax_dist = "ajax_dist";
+				JSONObject json = new JSONObject();
+				json.put("names", duplechk);
+				
+				response.getWriter().print(json);
+				response.getWriter().flush();
+				response.getWriter().close();
 			}
 			
 			
