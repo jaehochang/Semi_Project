@@ -133,7 +133,7 @@ if(${requestScope.infoUpdateSuccess==true}){
 	<div id="profilebox">
 
 		<div id=profilebody class="animated fadeInLeft">
-			<span id="profile-title">프로필</span>
+			<span class=title>프로필</span>
 			<div id=boxbody>
 				<div class="md-form mb-3">
 					<i class="fa fa-user prefix grey-text"></i> <input
@@ -166,8 +166,6 @@ if(${requestScope.infoUpdateSuccess==true}){
 						class="form-control validate disabled"
 						placeholder=" ${requestScope.userEmail}">
 				</div>
-
-
 			</div>
 		</div>
 
@@ -181,7 +179,7 @@ if(${requestScope.infoUpdateSuccess==true}){
 
 		<div id=interestbox>
 
-			<h2>관심사</h2>
+			<span class=title>관심사</span>
 
 			<div id=interests>${requestScope.getUserInterests}</div>
 		</div>

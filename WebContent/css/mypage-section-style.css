@@ -11,7 +11,7 @@ snsBts * {
 	vertical-align: middle;
 	display: inline-block;
 	height: 500px;
-	width: 40%;
+	width: 350px;
 	padding: 10px;
 	border-radius: 5px;
 	box-shadow: 1px 1px 3px grey;
@@ -54,9 +54,9 @@ h1, h2, h3, h4 {
 	left: 30px;
 }
 
-#profile-title {
+.title {
 	text-align: center;
 	margin: 0 auto;
-	font-weight: 550;
-	font-size: 32px;
+	font-weight: 600;
+	font-size: 28px;
 }
