@@ -17,6 +17,13 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
 	rel="stylesheet" />
 <!---------------------------------  -->
+ 
+<!--  animate css -->
+   <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+  integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw"
+  crossorigin="anonymous">
+
 <!-- Jquery CDN -->
 <script src="https://code.jquery.com/jquery-3.3.1.js"
 	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -395,6 +402,27 @@ left:178px;
 .error{
 color: red;
 }
+
+input[type=checkbox]:checked + .check-box,
+.check-box.checked { border-color: #34b93d; }
+
+input[type=checkbox]:checked + .check-box::after,
+.check-box.checked::after {
+  height: 50px;
+  -moz-animation: dothabottomcheck 0.2s ease 0s forwards;
+  -o-animation: dothabottomcheck 0.2s ease 0s forwards;
+  -webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
+  animation: dothabottomcheck 0.2s ease 0s forwards;
+}
+
+input[type=checkbox]:checked + .check-box::before,
+.check-box.checked::before {
+  height: 120px;
+  -moz-animation: dothatopcheck 0.4s ease 0s forwards;
+  -o-animation: dothatopcheck 0.4s ease 0s forwards;
+  -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
+  animation: dothatopcheck 0.4s ease 0s forwards;
+}
 </style>
 <script>
 
@@ -481,6 +509,9 @@ $('#nextBt').click(function(){
 															term : term
 														},
 														success : function(response) {
+
+															
+															if(response==null){$('#printTerm1').html("검색 결과가 없습니다.");}
 															
 															uncheckStr= $.unique(response.uncheckedList);
 															checkStr= $.unique(response.checkedList);
@@ -489,11 +520,11 @@ $('#nextBt').click(function(){
 															if (uncheckStr.length > 0|| checkStr.length > 0) {
 
 																for (var j = 0; j < checkStr.length; j++) {
-																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0;font-weight:bold\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox\" name=\"checkbox\" value=\""+ checkStr[j] + "\"   checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm animated wobble\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0;font-weight:bold\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox animated jello\" name=\"checkbox\" value=\""+ checkStr[j] + "\"   checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge animated jello\">&check;</span></label></span>&nbsp;");
 																}
 
 																for (var i = 0; i < uncheckStr.length; i++) {
-																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox\" name=\"checkbox\" value=\""+ uncheckStr[i] + "\">"+ uncheckStr[i]+ "&nbsp;<span class=\"badge\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm animated wobble\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox animated jello\" name=\"checkbox\" value=\""+ uncheckStr[i] + "\">"+ uncheckStr[i]+ "&nbsp;<span class=\"badge animated jello\">&check;</span></label></span>&nbsp;");
 
 																}
 
@@ -519,6 +550,7 @@ $('#nextBt').click(function(){
 							if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
+								$('#eventText').addClass('animated shake');
 							}else{
 								$('#showText').html("");
 							}
@@ -536,6 +568,7 @@ $('#nextBt').click(function(){
 								if(response.length>0){
 									$("#showText").html(response);
 									$('#showText').css("color", "red");
+									$('#eventText').addClass('animated shake');
 								    $('#eventText').val("");
 									
 								}
@@ -555,6 +588,7 @@ $('#nextBt').click(function(){
 							if (!$('#contents').val()) {
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
+								$('#contents').addClass('animated shake');
 								
 							}else{
 								$('#textAreaWarning').text("");
@@ -578,12 +612,45 @@ $('#nextBt').click(function(){
 							alert($("#hiddenLat").val());
 							 var cntEPT = $('input:checkbox[name=checkbox]:checked').length;
 						
-
+							 while(items.length>0){
+								   items.pop();
+								   
+							   }
+								$('input[type=checkbox]:checked').each(function() {
+									items.push($(this).val());
+									console.log(items);
+									$("#hiddenTag").val(items);
+									
+								})
+								
+								
+	                              if(cntEPT<1){
+									
+									$('#printTerm2').html("태그 선택은 1개이상 선택하셔야합니다.")
+									$('#printTerm2').focus();
+									$('#printTerm2').css("color", "red");
+									$('#printTerm2').css("border-color", "red");
+									 $('#printTerm2').addClass('animated shake');
+									return false;
+									
+								}
+								
+								if(cntEPT>10){
+									alert("태그 선택은 10개 까지 선택 가능합니다.");
+									console.log(items.length);
+									$('#printTerm2').html("태그 선택은 10개 까지 선택 가능합니다.")
+									$('#printTerm2').focus();
+									$('#printTerm2').css("color", "red");
+									$('#printTerm2').css("border-color", "red");
+									$('#printTerm2').addClass('animated shake');
+									return false;
+								} 
 
 							 if (!$('#eventText').val()) {
 								$('#showText').html("이름에 힌트를 좀 더 추가해 보세요");
 								$('#showText').css("color", "red");
 								$('#eventText').css("border-color", "red");
+								$('#eventText').addClass('animated shake');
 								$('#eventText').focus();
 								console.log("event text validation")
 								return false;
@@ -594,20 +661,24 @@ $('#nextBt').click(function(){
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
 								$('#contents').css("border-color", "red");
+								$('#contents').addClass('animated shake');
 								$('#contents').focus();
 								
 								console.log("contents validation")
 								return false;
 							}else if($('#contents').val().length<51){
-								console.log("50개 미만 노노");
+								
 								$('#textAreaWarning').html("최소 50자 이상 입력하세요");
 								$('#textAreaWarning').css("color", "red");
 								$('#contents').css("border-color", "red");
+								$('#contents').addClass('animated shake');
 								$('#contents').focus();
 								
 								return false;
-							}else if($('#contents').val().length>4000){
-								 alert("글자수는 영문4000, 한글2000자로 제한됩니다.!");  
+							}else if($('#contents').val().length>3000){
+								$('#textAreaWarning').html("최대 3000자까지만 입력가능합니다");
+								$('#textAreaWarning').css("color", "red");
+								 $('#contents').addClass('animated shake');
 								 $('#contents').focus();
 								 return false;
 							}else{
@@ -615,39 +686,18 @@ $('#nextBt').click(function(){
 								/* return true; */
 							}
 
-						   while(items.length>0){
-							   items.pop();
-							   
-						   }
-							$('input[type=checkbox]:checked').each(function() {
-								items.push($(this).val());
-								console.log(items);
-								$("#hiddenTag").val(items);
-								
-							})
-							
-							
-                              if(!$("#hiddenTag").val()){
-								
-								$('#printTerm2').html("태그 선택은 1개이상 선택하셔야합니다.")
-								$('#printTerm2').focus();
-								$('#printTerm2').css("color", "red");
-								$('#printTerm2').css("border-color", "red");
-								return false;
-								
-							}
-							
-							if(cntEPT>10){
-								alert("태그 선택은 10개 까지 선택 가능합니다.");
-								console.log(items.length);
-								$('#printTerm2').html("태그 선택은 10개 까지 선택 가능합니다.")
-								$('#printTerm2').focus();
-								$('#printTerm2').css("color", "red");
-								$('#printTerm2').css("border-color", "red");
-								return false;
-							}
-
-							
+						 
+						  $.ajaxSettings.traditional = true;
+							 $.ajax({
+									url : "unchecked.autocomplete",
+									data : {removeallTerm : items},
+									success : function(response) {
+										
+									},
+									fail : function() {
+										
+									}
+								})
 							
 							
 							$("#create").submit();
@@ -666,7 +716,7 @@ $('#nextBt').click(function(){
 
 	<nav>
 
-		<ul id=nav-ul>
+		<ul id=nav-ul >
 			<li><a href="main.jsp"><img
 					src="https://i.imgur.com/axIYcKj.png"
 					style="height: 50px; width: 150px;"></a>

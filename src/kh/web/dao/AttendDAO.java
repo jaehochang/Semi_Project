@@ -29,6 +29,7 @@ public class AttendDAO {
          dto.setMember_email(rs.getString("member_email"));
          dto.setMember_name(rs.getString("member_name"));
          dto.setMember_picture(rs.getString("member_picture"));
+         dto.setAttend_time(rs.getDate("attend_time"));
          result.add(dto);
       }
       
@@ -86,4 +87,6 @@ public class AttendDAO {
       con.close();
       return result;
    }
+   
+   
 }

@@ -1,0 +1,10 @@
+
+#snsLoginBtns {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+html {
+	overflow-y: scroll;
+}
