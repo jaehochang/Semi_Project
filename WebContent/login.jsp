@@ -294,23 +294,120 @@
 					</div>
 				</form>
 
+<!-- SNS 로그인 시작 -->
 				<br>
 				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
 				<div id=snsLoginBtns style="margin: 0 auto; width: 100%;">
-				
-				
-				
-				
+
+
+
+
 					<div>
 						<%@ include file="signUpWithKakao.jsp"%>
 						<%@ include file="signUpWithFaceBook.jsp"%>
 						<%@ include file="signUpWithGoogle.jsp"%>
 
 					</div>
+
+
+
+					<!-- 이메일로 회원가입 -->
+
+					<button id="kakao-signUp-btn-main"
+						class="btn btn-warning btn-block">🗨 카카오 로그인</button>
+					<button id=fbLoginBtn class="btn btn-primary btn-block"
+						onclick="javascript:signIn()">f 페이스북 로그인</button>
+					<button id=ggLoginBtn class="btn btn-success btn-block"
+						onclick="javascript:google_login_in()">g 구글 로그인</button>
+
+					<script>
+						$("#kakao-signUp-btn-main")
+								.click(
+										function() {
+
+											Kakao
+													.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
+
+											Kakao.Auth
+													.loginForm({
+
+														success : function(
+																authObj) {
+
+															Kakao.API
+																	.request({
+																		url : '/v1/user/me',
+																		success : function(
+																				res) {
+
+																			var kakaoEmail = prompt(
+																					"카카오톡으로 진행시 이메일 입력이 필요합니다.",
+																					"");
+
+																			var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+																			if (regex
+																					.test(kakaoEmail)) {
+
+																				console
+																						.log(res.properties)
+																				console
+																						.log(res.kaccount_email);
+																				console
+																						.log(res.id);
+																				console
+																						.log(res.properties['nickname']);
+																				console
+																						.log(res.properties['profile_image']);
+
+																				var kakaoId = res.id;
+																				var kakaoNickName = res.properties['nickname'];
+																				var kakaoPhoto = res.properties['profile_image'];
+
+																				console
+																						.log("kakaoEmail : "
+																								+ kakaoEmail);
+
+																				document
+																						.getElementById("hiddenKakaoId").value = kakaoId;
+																				document
+																						.getElementById("hiddenKakaoNickName").value = kakaoNickName;
+																				document
+																						.getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
+
+																				document
+																						.getElementById("hiddenKakaoEmail").value = kakaoEmail;
+
+																				document.forms["sendkakaoIdToController"]
+																						.submit();
+
+																				var valCheck = document
+																						.getElementById("hiddenKakaoId").value;
+
+																			} else {
+																				alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
+																				location
+																						.reload();
+																			}
+																		}
+																	});
+														},
+														fail : function(
+																errorObj) {
+															console
+																	.log(authObj)
+														},
+														persistAccessToken : true,
+														persistRefreshToken : false
+													});
+										});
+					</script>
+				</div>
 			</div>
 		</div>
 	</div>
+	<!-- SNS 로그인 API 밑 버튼 끝  -->
 
 
 
@@ -374,19 +471,6 @@
 <!-- 		</div> -->
 <!-- 	</div> -->
 
-	<!-- SNS 로그인 API  -->
-
-
-	<div>
-		<%@ include file="logInWithKakao.jsp"%>
-		<%@ include file="signUpWithFaceBook.jsp"%>
-		<%@ include file="signUpWithGoogle.jsp"%>
-
-	</div>
-
-	</div>
-
-	<!-- footer -->
 
 	<script>
 
@@ -427,6 +511,8 @@
 	</script>
 
 
+
+	<!-- footer -->
 
 		<%@ include file="include/bottom.jsp"%>
 

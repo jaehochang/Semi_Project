@@ -71,7 +71,7 @@
 				<li><a href="login.jsp">로그인</a> <!-- 클릭시 idTypeQuestion 라는 모달 띄움 -->
 				<li><a onclick="displayData(11,1,0,'A')" onmouseover="" style="cursor: pointer;" 
 				><i data-target="#idTypeQuestions"
-					data-toggle="modal" class="fa fa-user" aria-hidden="true"></i></a>
+					data-toggle="modal" class="fa fa-user" aria-hidden="true"></i> 가입하기</a>
 			</ul>
 
 
