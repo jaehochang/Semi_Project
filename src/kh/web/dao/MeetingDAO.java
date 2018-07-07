@@ -236,12 +236,12 @@ public class MeetingDAO {
 	   return result;
    }
    
-   public List<ShowMeetingDTO> selectMeet(Date bigindate) throws Exception {
+   public List<ShowMeetingDTO> selectMeet(java.util.Date tempDate) throws Exception {
 	      Connection con = DBUtils.getConnection();
 	      String sql = "select to_char(meeting_start_time,'yyyy\"년\"mm\"월\"dd\"일\" day'),to_char(meeting_start_time,'HH24:mi'),group_name,meeting_title ,meeting_location "
 	            + "from (select * from MEETING where meeting_start_time >= SYSDATE) where meeting_start_time >= TO_char(?,'YYYYMMDD') order by meeting_start_time";
 	      PreparedStatement pstat = con.prepareStatement(sql);
-	      pstat.setDate(1, new java.sql.Date(bigindate.getTime()));
+	      pstat.setDate(1, new java.sql.Date(tempDate.getTime()));
 	      ResultSet rs = pstat.executeQuery();
 	      List<ShowMeetingDTO> list = new ArrayList<>();
 	      while(rs.next()) {
@@ -259,5 +259,6 @@ public class MeetingDAO {
 	      
 	      return list;
 	   }
+
    
 }

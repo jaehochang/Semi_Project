@@ -8,7 +8,7 @@
 	<div>
 		<p style="padding-left: 40px;">
 			<a href="createRequest.group" class="cool-link"
-				style="color: white; text-decoration: none;"> 새 그룹 시작하기</a>
+				style="color: white; text-decoration: none;">새 그룹 시작하기</a>
 		</p>
 	</div>
 

@@ -853,7 +853,7 @@ public class MemberDAO {
 
 		boolean result = false;
 		if (rs.next()) {
-			result = true; // 아이디 중복 검사 결과, 이미 회원가입한 페이스북 id가 있음
+			result = true; // 아이디 중복 검사 결과, 이미 회원가입한 구글 아이디가 있음
 		} else {
 			result = false; // 없음
 		}
