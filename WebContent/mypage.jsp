@@ -94,6 +94,11 @@
 			<!-- Central Modal Medium Success-->
 
 			<!-- cetral modal initialzing syntax 뒤에 있어야 밑의 scripts 작동함 -->
+
+
+
+
+
 			<script>
 
 if(${requestScope.infoUpdateSuccess==true}){
@@ -105,12 +110,17 @@ if(${requestScope.infoUpdateSuccess==true}){
 	
 	
 }
+			
+			
 </script>
 
 		</c:when>
 		<c:when test="${requestScope.infoUpdateSuccess==false}">
 			<!-- 담당자에게 문의하세요 -->
+			<script>
+location.href="Oops.jsp";
 
+</script>
 		</c:when>
 	</c:choose>
 
@@ -125,7 +135,7 @@ if(${requestScope.infoUpdateSuccess==true}){
 	<div id="profilebox">
 
 		<div id=profilebody class="animated fadeInLeft">
-			<span class=title>프로필</span>
+			<div class=title>프로필</div>
 			<div id=boxbody>
 				<div class="md-form mb-3">
 					<i class="fa fa-user prefix grey-text"></i> <input type="text"
@@ -158,28 +168,62 @@ if(${requestScope.infoUpdateSuccess==true}){
 						class="form-control validate disabled"
 						placeholder=" ${requestScope.userEmail}">
 				</div>
+
+			</div>
+
+			<!-- 회원정보 수정 버튼 -->
+			<div id="profile-footer">
+				<button 
+					class="btn btn-secondary"
+					data-toggle="modal" data-target="#modalContactForm"
+					style="background-color: #b831d9;">
+<i class="fa fa-address-book" aria-hidden="true"></i>
+<i class="fa fa-address-card" aria-hidden="true"></i>
+					회원정보 수정</button>
 			</div>
 		</div>
 
 
 
 		<!-- aside 시작 -->
-		<div id=profileaside
-			class="animated fadeInRight mask rgba-white-slight"
+		<div id=profileaside class="animated fadeInUp mask rgba-white-slight"
 			style="padding: 0px;">
-			<img id="profile-photo" src="${requestScope.userPicture}">
+			<div class=title>사진</div>
+			
+			
+			<%-- 			<img id="profile-photo" src="${requestScope.userPicture}"> --%>
+			<!-- 			id="memPic" -->
+			<img src="files/${userPicture }" id="profile-photo">
 
-			<div id=interestbox>
 
-				<span class=title>관심사</span>
 
-				<div id=interests>${requestScope.getUserInterests}</div>
+			<!-- 사진 변경 버튼 -->
+			<div>
+				<form action="upload.file?group_seq=0&page=mypage" method="post"
+					id="writeForm" enctype="multipart/form-data">
+
+
+					<input type="file" id="file" name="file"
+						onchange="this.form.submit()" style="display: none;" />
+					<button type="button" class="btn btn-secondary"
+						style="width: 150px; background-color: #f7f7f7; color: black;"
+						id="btn-upload">
+				<i class="fa fa-photo" aria-hidden="true"></i>		사진변경
+					</button>
+				</form>
 			</div>
+
 
 		</div>
 
 
+		<div id=interestbox class="animated fadeInRight">
+			<div class=title>관심사</div>
+			<div id=interests>${requestScope.getUserInterests}</div>
+		</div>
 	</div>
+
+
 	<!-- 	modal -->
 	<div class="modal fade" id="modalContactForm" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -193,90 +237,70 @@ if(${requestScope.infoUpdateSuccess==true}){
 					</button>
 				</div>
 
+				<form action="updateUserInfo.co" method=post>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-5">
+							<i class="fa fa-user prefix grey-text"></i> <input type="text"
+								id="form34" class="form-control validate" name="member_name">
+							<label data-error="한글만 입력해주세요." data-success="O.K" for="form34">이름</label>
+						</div>
+
+						<div class="md-form mb-5">
+							<i class="fa fa-location-arrow prefix grey-text"
+								aria-hidden="true"></i> <input type="text" id="form29"
+								class="form-control validate" name=member_location> <label
+								data-error="올바른 선택이 아닙니다." data-success="O.K" for="form29">지역</label>
+						</div>
+
+						<div class="md-form mb-5">
+							<i class="fa fa-transgender prefix grey-text" aria-hidden="true"></i>
+
+
+							<input type="text" id="form24" class="form-control validate"
+								name=member_gender> <label data-error="올바른 입력이 아닙니다."
+								data-success="O.K" for="form24">성별</label>
+						</div>
+						<div class="md-form mb-5">
+							<i class="fa fa-birthday-cake prefix grey-text"
+								aria-hidden="true"></i> <input type="number" id="form32"
+								class="form-control validate" name=member_age> <label
+								data-error="올바른 입력이 아닙니다. 숫자만 입력해주세요." data-success="O.K"
+								for="form32">나이</label>
+						</div>
+
+
+
+					</div>
+					<div class="modal-footer d-flex justify-content-center">
+						<button id=info-change-btn
+							class="btn btn-secondary btn-rounded mb-4 rgba-purple-strong waves-effect waves-light">
+							바꾸기<i class="fa fa-paper-plane-o ml-1"></i>
+						</button>
+
+					</div>
+				</form>
+
 			</div>
 		</div>
 	</div>
 
 
-	<form action="updateUserInfo.co" method=post>
-		<div class="modal-body mx-3">
-			<div class="md-form mb-5">
-				<i class="fa fa-user prefix grey-text"></i> <input type="text"
-					id="form34" class="form-control validate" name="member_name">
-				<label data-error="한글만 입력해주세요." data-success="O.K" for="form34">이름</label>
-			</div>
 
-			<div class="md-form mb-5">
-				<i class="fa fa-location-arrow prefix grey-text" aria-hidden="true"></i>
-				<input type="text" id="form29" class="form-control validate"
-					name=member_location> <label data-error="올바른 선택이 아닙니다."
-					data-success="O.K" for="form29">지역</label>
-			</div>
-
-			<div class="md-form mb-5">
-				<i class="fa fa-transgender prefix grey-text" aria-hidden="true"></i>
-			</div>
+	<!-- modal btn -->
 
 
 
 
 
-			<!-- aside 시작 -->
-			<div class="panel panel-default" id=profileaside>
-
-
-				<img src="files/${userPicture }" id="memPic"
-					style="height: 150px; width: 150px; display: block; margin: 0 auto; border-radius: 150px">
-
-
-				<form action="upload.file?group_seq=0&page=mypage" method="post"
-					id="writeForm" enctype="multipart/form-data">
-
-
-					<input type="file" id="file" name="file"
-						onchange="this.form.submit()" style="display: none;" />
-					<button type="button" class="btn btn-secondary"
-						style="width: 150px; background-color: #f7f7f7; color: black;"
-						id="btn-upload">
-						<img src="img/photo.png" style="width: 23px; padding-right: 3px;">사진
-						변경
-					</button>
-				</form>
-
-
-
-
-				<div id=interestbox>
-					<h2>관심사</h2>
-					<!-- 				<a href="#">프로필에서 관심사 숨기기</a> <a href="#">편집</a> -->
-				</div>
-				<div id=interests>${requestScope.getUserInterests }</div>
-			</div>
-		</div>
-
-
-
-		<!-- modal btn -->
-		<div class="text-center">
-			<a href=""
-				class="btn btn-secondary btn-rounded mb-4 rgba-purple-strong"
-				data-toggle="modal" data-target="#modalContactForm"
-				style="background-color: #b831d9;">회원정보 수정</a>
-		</div>
-
-
-
-
-
-		<script>
+	<script>
 		$("#btn-upload").click(function(e) {
 			e.preventDefault();
 			$('#file').click();
 		});
 	</script>
 
-		<c:if test="${fileResult >=1 }">
-			<script>
+	<c:if test="${fileResult >=1 }">
+		<script>
 			var val = "${systemName}";
 			
 			$.ajax({
@@ -299,24 +323,24 @@ if(${requestScope.infoUpdateSuccess==true}){
 				}
 			});
 		</script>
-		</c:if>
+	</c:if>
 
-		<!-- 	footer -->
-		<%@ include file="include/bottom.jsp"%>
+	<!-- 	footer -->
+	<%@ include file="include/bottom.jsp"%>
 
-		<script
-			src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+	<script
+		src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
 
 
-		<!-- 		mdb -->
-		<!-- JQuery -->
-		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-		<!-- Bootstrap tooltips -->
-		<script type="text/javascript" src="js/umd/popper.min.js"></script>
-		<!-- Bootstrap core JavaScript -->
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<!-- MDB core JavaScript -->
-		<script type="text/javascript" src="js/mdb.min.js"></script>
-		<!-- ---------------------------------------- -->
+	<!-- 		mdb -->
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/umd/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<!-- ---------------------------------------- -->
 </body>
 </html>

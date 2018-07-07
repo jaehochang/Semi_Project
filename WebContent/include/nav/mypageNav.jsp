@@ -19,11 +19,12 @@
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list class="dropdown active"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <i
-						class="fa fa-user" aria-hidden="true"></i> 
+						class="fa fa-user" aria-hidden="true"></i>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
-						<li style="margin-left:20px;"><a href="LogoutController.co" >로그아웃 </a></li>
-						<li style="margin-left:20px;"><a href="mypage.co">프로필</a></li>
+						<li style="margin-left: 20px;"><a href="LogoutController.co">로그아웃
+						</a></li>
+						<li style="margin-left: 20px;"><a href="mypage.co">프로필</a></li>
 					</ul>
 			</ul>
 		</nav>
@@ -68,15 +69,9 @@
 			<ul id=nav-ul class="fadeInRight animated" style="width: 290px;">
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li><a href="login.jsp">로그인</a> <!-- 클릭시 idTypeQuestion 라는 모달 띄움 -->
-				<li>
-
-
-
-
-					<button type="button" class="btn btn-purple" data-toggle="modal"
-						data-target="#idTypeQuestions">
-						<i class="fa fa-user" aria-hidden="true"></i>
-					</button>
+				<li><a onclick="displayData(11,1,0,'A')" onmouseover="" style="cursor: pointer;" 
+				><i data-target="#idTypeQuestions"
+					data-toggle="modal" class="fa fa-user" aria-hidden="true"></i></a>
 			</ul>
 
 

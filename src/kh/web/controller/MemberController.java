@@ -28,6 +28,7 @@ public class MemberController extends HttpServlet {
 			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
 
+			System.out.println("-------------------------------------");
 			System.out.println(command);
 			MemberDAO dao = new MemberDAO();
 			boolean isRedirect = true;
@@ -68,7 +69,7 @@ public class MemberController extends HttpServlet {
 					request.getSession().setAttribute("loginId", fbId);
 					dst = "main.jsp"; // 그냥 해당 아이디로 로그인 시켜버리기
 				} else {
-					response.getWriter().print(result);
+					dst = "Oops.jsp";
 				}
 
 			} else if (command.equals("/kakaoIdDplCheck.co")) {
@@ -93,7 +94,8 @@ public class MemberController extends HttpServlet {
 
 				if (dplChck) {
 					request.getSession().setAttribute("loginId", kakao_id); // 세션 담기
-					dst = "main.jsp";
+
+					dst = "login.jsp";
 
 				} else {
 					request.setAttribute("kakaoSecretNumId", kakao_id);
@@ -109,9 +111,10 @@ public class MemberController extends HttpServlet {
 
 				System.out.println("/kakaoId : " + kakaoId);
 				System.out.println("/kakaoNickName : " + kakaoNickName);
-				System.out.println("/kakaoEmail : " + kakaoNickName);
-				System.out.println("/kakaoPhoto : " + kakaoPhoto);
+				System.out.println("/kakaoEmail : " + kakaoEmail);
+				System.out.println("/kakaoPhoto : " + kakaoPhoto); // 잘됨 나옴
 
+				System.out.println(1);
 				MemberDAO mDAO = new MemberDAO();
 				SnsDTO sDTO = new SnsDTO();
 
@@ -120,28 +123,57 @@ public class MemberController extends HttpServlet {
 				sDTO.setKakao_email(kakaoEmail);
 				sDTO.setKakao_photo(kakaoPhoto);
 
+				System.out.println(2);
 				boolean dplChck = mDAO.kakaoDplChck(sDTO);
-				if (dplChck) {// 카톡 아이디 중복체크, true면 존재 > main page로
 
-					isRedirect = true;
+				if (dplChck) {// 카톡 아이디 중복체크, true면 존재 > index page로
+
+					System.out.println(kakaoId + " : 해당 카톡 아이디가 있어 그냥 로그인 됩니다.");
+					isRedirect = false;
 					request.getSession().setAttribute("loginId", kakaoEmail);
-					dst = "main.jsp";
+					request.getSession().setAttribute("snsId", kakaoId);
+					request.setAttribute("kakaoIdAlreadyExist", true);
+					dst = "login.jsp";
+					System.out.println(3);
 
-				} else { // true가 아니면, 없음 -> 회원가입 > main.jsp 로 세션 담아 보내기
+				} else { // true가 아니면, 없음 -> 회원가입 > index.jsp 로 세션 담아 보내기, 또는 해당 이메일로 가입된 아이디가 이미 있음
+					try {
 
-					boolean result = mDAO.signUpWithKakao(sDTO);
-					System.out.println(result);
+						SnsDTO sDTOrebirth = new SnsDTO();
+						sDTOrebirth.setKakao_id(kakaoId);
+						sDTOrebirth.setKakao_nickname(kakaoNickName);
+						sDTOrebirth.setKakao_email(kakaoEmail);
+						sDTOrebirth.setKakao_photo(kakaoPhoto);
+						System.out.println(4);
+						System.out.println(kakaoPhoto);
 
-					if (result) {
+						boolean result = mDAO.signUpWithKakao(sDTOrebirth);
 
-						isRedirect = false;
-						request.getSession().setAttribute("loginId", kakaoEmail);
-						request.setAttribute("result", result);
-						dst = "main.jsp";
-					} else {
-						dst = "error.html";
+						System.out.println(result);
+
+						if (result) { // 최초 가입 성공시 - index로 세션 담아 보내주기
+
+							isRedirect = false;
+							request.getSession().setAttribute("loginId", kakaoEmail);
+							request.getSession().setAttribute("snsId", kakaoId);
+
+							request.setAttribute("loginSuccess", true);
+							dst = "login.jsp";
+
+							System.out.println(5);
+						}
+
+					} catch (Exception e) {
+						if (e.getMessage().contains("unique")) { // DB서 email Unique 에러가 발생할 경우
+							isRedirect = false;
+							request.setAttribute("emailExist", true); // emailExist라는 변수에 true를 담아 보낸다
+							dst = "login.jsp";
+							System.out.println(6);
+						} else {
+							dst = "error.jsp";
+						}
+
 					}
-
 				}
 
 			} else if (command.equals("/login.co")) {
@@ -165,6 +197,7 @@ public class MemberController extends HttpServlet {
 
 					request.setAttribute("isMyGroup", isMyGroup);
 					System.out.println("membercontroller 값 : " + isMyGroup);
+
 					dst = "list.group";
 				} else {
 					request.setAttribute("loginResult", result);
@@ -223,25 +256,6 @@ public class MemberController extends HttpServlet {
 
 				isRedirect = false;
 				dst = "mypage.jsp";
-				System.out.println("---------------------------------------------------------");
-				System.out.println(" ");
-			} else if (command.equals("/signUpApply.co")) {
-
-				String loginId = (String) request.getSession().getAttribute("loginId");
-				String snsId = (String) request.getSession().getAttribute("snsId");
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
-				MemberDAO mDAO = new MemberDAO();
-
-				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
-
-				request.setAttribute("userName", accntInfo.getMember_name());
-				request.setAttribute("userEmail", accntInfo.getMember_email());
-				request.setAttribute("userLocation", accntInfo.getMember_location());
-				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userInterests", accntInfo.getMember_interests());
-				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
-				isRedirect = false;
-				dst = "mypage.jsp";
 
 			} else if (command.equals("/signUpApply.co")) {
 
@@ -258,12 +272,13 @@ public class MemberController extends HttpServlet {
 				dto.setMember_email(memberEmail);
 				dto.setMember_pwd(pwd);
 
+				isRedirect = false;
 				boolean emailDplRslt = mDAO.isThisEmailExist(dto.getMember_email());// 이메일 중복 검사 실시
 
 				if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
 
-					request.setAttribute("emailDplRslt", emailDplRslt);
-					dst = "main.jsp";
+					request.setAttribute("emailExist", true);
+					dst = "login.jsp";
 
 				} else { // 없는 경우 signUp 시키기
 
@@ -271,15 +286,11 @@ public class MemberController extends HttpServlet {
 
 					if (result) {
 
-						isRedirect = false;
 						request.setAttribute("loginId", memberEmail);
-						dst = "main.jsp";
+						request.setAttribute("signUpSuccess", true);
+						dst = "login.jsp";
 
-						dst = "index.jsp";
-						System.out.println(dst);
-						System.out.println("------------------------------------------------------");
-
-						isRedirect = true;
+					} else {
 						dst = "signUpFailure.jsp";
 
 					}
@@ -287,10 +298,15 @@ public class MemberController extends HttpServlet {
 				}
 
 			} else if (command.equals("/LogoutController.co")) {
-				request.getSession().removeAttribute("loginId");
 
+				request.getSession().removeAttribute("loginId");
+				request.getSession().removeAttribute("snsId");
 				isRedirect = true;
+
 				dst = "index.jsp";
+				System.out.println(dst);
+				System.out.println("------------------------------------------------------");
+
 			} else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");
 
@@ -358,7 +374,7 @@ public class MemberController extends HttpServlet {
 
 				}
 
-			}  else if (command.equals("/ggAccntProc.co")) {
+			} else if (command.equals("/ggAccntProc.co")) {
 
 				// https://developers.google.com/identity/sign-in/web/backend-auth
 
@@ -412,7 +428,7 @@ public class MemberController extends HttpServlet {
 
 				}
 
-			}  else if (command.equals("/updateUserInfo.co")) {
+			} else if (command.equals("/updateUserInfo.co")) {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
 				String snsId = (String) request.getSession().getAttribute("snsId");
@@ -468,7 +484,7 @@ public class MemberController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("에러 발생");
-			response.sendRedirect("error.html");
+			response.sendRedirect("Oops.jsp");
 		}
 
 	}

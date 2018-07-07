@@ -298,106 +298,81 @@
 				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
 				<div id=snsLoginBtns style="margin: 0 auto; width: 100%;">
-
-
-
-
+				
+				
+				
+				
 					<div>
 						<%@ include file="signUpWithKakao.jsp"%>
 						<%@ include file="signUpWithFaceBook.jsp"%>
 						<%@ include file="signUpWithGoogle.jsp"%>
 
 					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	-->
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div id=loginheader style="border-bottom: 1px sold grey;">
-				<h2>로그인</h2>
-				<p>아직 등록하지 않으셨나요?</p>
-				<a href="signUpPage.jsp">가입하기</a>
-			</div>
-			<div id=loginbody>
-				<form action="login.co" method=post id="lsubmit">
-
-					<div class=form-group>
-						<label for=member_email>이메일 주소</label> <input class=form-control
-							type=text id=member_email name=member_email>
-					</div>
-					<div class=form-group>
-						<label for=pwd>비밀번호</label> <span><a href="#">비밀번호를
-								잊으셨나요?</a></span> <input id=pwd type=password max=13 name=pwd
-							class=form-control> <input type=checkbox>로그인 상태
-						유지
-						<button type="button" id="loginbtn" class="btn btn-default">로그인</button>
-					</div>
-				</form>
 			</div>
 		</div>
 	</div>
 
-	<!-- 아이디 비밀번호입력칸 공백일때 뜨는 모달창 -->
-	<div class="modal fade" id="emptyinput">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">로그인</h4>
-				</div>
-				<div class="modal-body" style="text-align: center;">
-					<p>아이디와 비밀번호를 입력해주세요.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="modal fade" id="loginblock">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">로그인</h4>
-				</div>
-				<div class="modal-body" style="text-align: center;">
-					<p>아이디와 비밀번호를 입력해주세요.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="blockid">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">정지당한 아이디입니다.</h4>
-				</div>
-				<div class="modal-body" style="text-align: center;">
-					<p id="modaltext">신고로 인해 정지당한 아이디입니다.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
+<!-- 	<!-- 아이디 비밀번호입력칸 공백일때 뜨는 모달창 --> 
+<!-- 	<div class="modal fade" id="emptyinput"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 					<h4 class="modal-title">로그인</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body" style="text-align: center;"> -->
+<!-- 					<p>아이디와 비밀번호를 입력해주세요.</p> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+<!-- 	<div class="modal fade" id="loginblock"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 					<h4 class="modal-title">로그인</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body" style="text-align: center;"> -->
+<!-- 					<p>아이디와 비밀번호를 입력해주세요.</p> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<div class="modal fade" id="blockid"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 					<h4 class="modal-title">정지당한 아이디입니다.</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body" style="text-align: center;"> -->
+<!-- 					<p id="modaltext">신고로 인해 정지당한 아이디입니다.</p> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 	<!-- SNS 로그인 API  -->
 
@@ -406,7 +381,6 @@
 		<%@ include file="logInWithKakao.jsp"%>
 		<%@ include file="signUpWithFaceBook.jsp"%>
 		<%@ include file="signUpWithGoogle.jsp"%>
-		if (id == "" || pw == "") { $("#emptyinput").modal(); }
 
 	</div>
 
@@ -415,6 +389,9 @@
 	<!-- footer -->
 
 	<script>
+
+	if (id == "" || pw == "") { $("#emptyinput").modal(); }
+
 		$("#loginbtn").click(function() {
 			var id = $("#member_email").val();
 			var pw = $("#pwd").val();
@@ -451,7 +428,6 @@
 
 
 
-	<footer>
 		<%@ include file="include/bottom.jsp"%>
 
 

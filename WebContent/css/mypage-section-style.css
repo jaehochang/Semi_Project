@@ -7,16 +7,26 @@ snsBts * {
 	justify-content: center;
 }
 
-#profilebody, #profileaside {
+#profilebody {
 	vertical-align: middle;
 	display: inline-block;
-	height: 500px;
+	height: 550x;
 	width: 350px;
 	padding: 10px;
 	border-radius: 5px;
-	box-shadow: 1px 1px 3px grey;
 	margin: 5px;
-	margin-top: 30px;
+}
+
+#profileaside {
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	height: 550px;
+	width: 350px;
+	padding: 10px;
+	border-radius: 5px;
+	margin: 5px;
+	vertical-align: middle;
 }
 
 h1, h2, h3, h4 {
@@ -35,23 +45,24 @@ h1, h2, h3, h4 {
 
 #interestBox {
 	text-align: center;
-	margin: 0 auto
+	border-radius: 5px;
+	width: 350px;
+	height: 550px;
+	display: inline-block;
+	
 }
-/* #profile-photo:hover { */
-/* 	transition: 2s; */
-/* 	opacity: 5px; */
-/* 	box-shadow:3px 3px 3px grey; */
-/* } */
+#profile-photo:hover {
+	transition: 2s;
+	opacity: 5px;
+}
 #profile-photo {
 	height: 250px;
 	width: 250px;
-	margin: 0 auto;
+	margin:15px;
 	text-align: center;
 	border-radius: 10px;
-	box-shadow: 3px 3px 3px grey;
+	box-shadow: 1px 1px 3px grey;
 	position: relative;
-	top: -20px;
-	left: 30px;
 }
 
 .title {
@@ -60,3 +71,10 @@ h1, h2, h3, h4 {
 	font-weight: 600;
 	font-size: 28px;
 }
+
+#profile-footer{
+	text-align:center;
+}
+
+
+
