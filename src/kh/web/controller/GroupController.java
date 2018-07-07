@@ -337,9 +337,12 @@ public class GroupController extends HttpServlet {
 				System.out.println(groupName);
 				String groupDescripton = request.getParameter("description");
 				System.out.println(groupDescripton);
+				String location = request.getParameter("location");
+				System.out.println(groupDescripton);
 				GroupDTO dto = new GroupDTO();
 				dto.setGroup_name(groupName);
 				dto.setGroup_info(groupDescripton);
+				dto.setGroup_location(location);
 				int result = dao.updateMettingBasic(dto, groupseq);
 				System.out.println(result);
 				

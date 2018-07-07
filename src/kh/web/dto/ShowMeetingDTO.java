@@ -4,6 +4,7 @@ package kh.web.dto;
  * 
  * */
 public class ShowMeetingDTO {
+	private int meetseq;
 	private String dat_month;
 	private String hour_minut;
 	private String group_name;
@@ -14,8 +15,9 @@ public class ShowMeetingDTO {
 		super();
 	}
 
-	public ShowMeetingDTO(String dat_month, String hour_minut, String group_name, String meeting_title,
+	public ShowMeetingDTO(int meetseq ,String dat_month, String hour_minut, String group_name, String meeting_title,
 			String meeting_location) {
+		this.meetseq = meetseq;
 		this.dat_month = dat_month;
 		this.hour_minut = hour_minut;
 		this.group_name = group_name;
@@ -23,6 +25,16 @@ public class ShowMeetingDTO {
 		this.meeting_location = meeting_location;
 	}
 	
+	
+	
+	public int getMeetseq() {
+		return meetseq;
+	}
+
+	public void setMeetseq(int meetseq) {
+		this.meetseq = meetseq;
+	}
+
 	public String getDat_month() {
 		return dat_month;
 	}

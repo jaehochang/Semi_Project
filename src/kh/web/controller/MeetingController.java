@@ -127,6 +127,7 @@ public class MeetingController extends HttpServlet {
 					isajax = true;
 					for(int i=0;i<showlist.size();i++) {
 						JSONObject json = new JSONObject();
+						json.put("groseq", showlist.get(i).getMeetseq());
 						json.put("date", showlist.get(i).getDat_month());
 						json.put("hour", showlist.get(i).getHour_minut());
 						json.put("groupName", showlist.get(i).getGroup_name());
@@ -169,6 +170,7 @@ public class MeetingController extends HttpServlet {
 				isajax = true;
 				for(int i=0;i<showlist.size();i++) {
 					JSONObject json = new JSONObject();
+					json.put("groseq", showlist.get(i).getMeetseq());
 					json.put("date", showlist.get(i).getDat_month());
 					json.put("hour", showlist.get(i).getHour_minut());
 					json.put("groupName", showlist.get(i).getGroup_name());
@@ -208,6 +210,7 @@ public class MeetingController extends HttpServlet {
 				isajax = true;
 				for(int i=0;i<showlist.size();i++) {
 					JSONObject json = new JSONObject();
+					json.put("groseq", showlist.get(i).getMeetseq());
 					json.put("date", showlist.get(i).getDat_month());
 					json.put("hour", showlist.get(i).getHour_minut());
 					json.put("groupName", showlist.get(i).getGroup_name());
@@ -243,6 +246,7 @@ public class MeetingController extends HttpServlet {
 				isajax = true;
 				for(int i=0;i<showlist.size();i++) {
 					JSONObject json = new JSONObject();
+					json.put("groseq", showlist.get(i).getMeetseq());
 					json.put("date", showlist.get(i).getDat_month());
 					json.put("hour", showlist.get(i).getHour_minut());
 					json.put("groupName", showlist.get(i).getGroup_name());

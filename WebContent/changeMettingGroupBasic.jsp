@@ -70,6 +70,10 @@
 	<div class="row">
 		<input type="text" id="aboutgroup" name="description" size="40"   value="${result.group_info }">
 	</div>
+	<div>
+		<input type="text" id ="local" name="location" size="40" value="${result.group_location }">
+	</div>
+	
 </c:forEach>	
 	<button type="button" id="update">저장하기</button>
 </form>	
