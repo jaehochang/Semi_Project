@@ -37,6 +37,7 @@
 			</li>
 		</ul>
 		<form method="get" id=groupCreateConfirm action="groupMain.group">
+		<input type="hidden" id="page" value="info" name="page">
 		<input type="hidden" id="group_seq" value="${group_seq}" name="group_seq">
 		<input type="submit" id="nextBt" class="btn btn-button default" value="시작할까요!"
 		style="background-color: #b831d9; color: white; font-size: 15px; font-weight: bold"/></form>

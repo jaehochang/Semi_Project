@@ -38,24 +38,35 @@
    });
    
 </script>
+
+<!-- 다음지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72bc28de313df7398364bb8371a65642"></script>
+<style>
+#daumMap {
+            width: 100%;
+            height: 130px;
+            margin: auto;
+            margin-right: 50PX;
+            border-bottom-left-radius: 20px;
+  			border-bottom-right-radius: 20px;
+        }
+</style>
 <STYLE>
+
 
 /* 나눔고딕 */
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
 
-/* 제주고딕 */
-@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
-
-/* Noto Sans KR */
-@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
 body {
-/*    font-family: 'Jeju Gothic', serif; */
    font-family: 'Nanum Gothic', serif; 
 }
+
 </STYLE>
+
 </head>
 <body>
+
+
    <header> <%@ include file="include/nav/mypageNav.jsp"%>
    <div class="jumbotron" style="background-color:#f7f2fc;">
       <time class="icon"> <strong><fmt:formatDate
@@ -155,7 +166,8 @@ body {
             </c:choose>
    </div>
    </nav> 
-   </header>   
+   </header>  
+    
    <div class="fixed-bar" style="color: #8b96a8;">
       <div class="fixed-bar-contents">
          <span class="glyphicon glyphicon-time"></span><Br>
@@ -183,8 +195,11 @@ body {
          분 <Br> <br> <span class="glyphicon glyphicon-map-marker"></span><Br>
          <p>${result.meeting_location }</p>
       </div>
-      <div class="fixed-bar-location-image">
-         <img src="files/default.jpg">
+      <div class="daumMap-wrapper">
+      
+<!--          <img src="files/default.jpg"> -->
+      </div>
+      <div id="daumMap">
       </div>
    </div>
    
@@ -201,7 +216,7 @@ body {
       <div class="meeting-member-wrapper">
          <div class="meeting-member-title">
             <p class="pull-left">참석자</p>
-            (${result_countAttendMembers}) <a href="" class="pull-right">모두보기</a><br>
+            (${result_countAttendMembers}) <a href="attendMember.meet?meeting_seq=${result.meeting_seq}" class="pull-right">모두보기</a><br>
          </div>
          <br>
          <div class="row">
@@ -228,6 +243,17 @@ body {
          </div>
       </div>
    </div>
+   
+	<script>
+	var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new daum.maps.LatLng(37.3595704, 127.105399), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};
+	
+	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+	var map = new daum.maps.Map(mapContainer, mapOption);
+	</script>
 
    
          <div>

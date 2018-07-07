@@ -10,8 +10,8 @@
 			<a href="createRequest.group" class="cool-link"
 				style="color: white; text-decoration: none;"> 새 그룹 시작하기</a>
 		</p>
-
 	</div>
+
 
 	<div style="padding-left: 40px; padding-right: 40px;">
 		<hr class=style-six>

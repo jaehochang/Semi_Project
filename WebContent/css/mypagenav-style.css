@@ -9,7 +9,7 @@ nav {
 	list-style: none ;
 	padding: 0; 
 	margin: 0;
-	width: 350px;
+	width: 200px;
 	display: inline-block;
 	float: right;
 	margin-top: 10px;
@@ -38,12 +38,6 @@ nav {
 	border-right: 0.5px solid;
 }
 
-.sns-login-btn a{
-	border-radius:5px;
-	border:1px solid;
-	text-decoration:none;
-	
-}
 .sns-login-btn:hover a{
 	transition-duration:1.5s;
 }
