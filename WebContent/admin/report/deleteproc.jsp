@@ -21,8 +21,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-			</tr>
+			<c:forEach items="${rlist1 }" var="rlist1" varStatus="status">
+				<tr>
+					<td>${rlist1.report_calleemember }</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>

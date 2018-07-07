@@ -268,10 +268,10 @@ public class AdminController extends HttpServlet {
 					List<ReportDTO> rlist1 = new ArrayList<>();
 					List<ReportDTO> rlist2 = new ArrayList<>();
 					rlist1 = adao.getDeleteProcMember();
-					// rlist2 = adao.getDeleteProcGroup();
+					rlist2 = adao.getDeleteProcGroup();
 
 					request.setAttribute("rlist1", rlist1);
-					// request.setAttribute("rlist2", rlist2);
+					request.setAttribute("rlist2", rlist2);
 
 					isAjax = false;
 					isRedirect = false;

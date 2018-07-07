@@ -1,7 +1,7 @@
 package kh.web.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -255,6 +255,7 @@ public class MeetingDAO {
 	      }
 	      rs.close();
 	      pstat.close();
+	      con.close();
 	      
 		return list;
    }

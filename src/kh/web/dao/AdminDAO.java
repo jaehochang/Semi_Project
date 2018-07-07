@@ -1099,8 +1099,8 @@ public class AdminDAO {
 
 	public List<ReportDTO> getDeleteProcMember() throws Exception {
 		Connection con = DBUtils.getConnection();
-		String sql = "select distinct member_seq, m.*,r.report_caller,r.report_reason,r.report_etcreason"+
-				" ,r.report_calleemember, r.report_date,r.report_type from member m, report r"+ 
+		String sql = "select distinct member_seq, m.*,r.report_caller,r.report_reason,r.report_etcreason,"+
+				"r.report_calleemember, r.report_date,r.report_type from member m, report r"+ 
 				" where m.member_email = r.report_calleemember and m.member_warningnumber = 2";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		ResultSet rs = pstat.executeQuery();
@@ -1129,36 +1129,35 @@ public class AdminDAO {
 		return rlist;
 	}
 
-//	public List<ReportDTO> getDeleteProcGroup() throws Exception {
-//		Connection con = DBUtils.getConnection();
-//		String sql = "select distinct group_seq, g.*, r.report_caller,r.report_reason,r.report_etcreason"+ 
-//		" r.report_calleegroup, r.report_date,r.report_type from create_group g, report r where g.group_name = r.report_calleegroup and g.group_warningnumber = 2";
-//		PreparedStatement pstat = con.prepareStatement(sql);
-//		ResultSet rs = pstat.executeQuery();
-//		List<ReportDTO> rlist = new ArrayList<>();
-//
-//		while (rs.next()) {
-//			ReportDTO rdto = new ReportDTO();
-//			rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
-//			rdto.setReport_caller(rs.getString("report_caller"));
-//			rdto.setReport_date(rs.getString("report_date"));
-//			rdto.setReport_reason(rs.getString("report_reason"));
-//			rdto.setReport_etcreason(rs.getString("report_etcreason"));
-//			rdto.setReport_type(rs.getInt("report_type"));
-//			rdto.setWarningnumber(rs.getInt("group_warningnumber"));
-//			rdto.setCallee(rs.getString("group_leader"));
-//			rdto.setWarningdate(rs.getString("group_warningdate"));
-//			rdto.setExpiredate(rs.getString("group_expiredate"));
-//			rdto.setSeq(rs.getInt("group_seq"));
-//			rlist.add(rdto);
-//		}
-//
-//		rs.close();
-//		pstat.close();
-//		con.close();
-//
-//		return rlist;
-//	}
+	public List<ReportDTO> getDeleteProcGroup() throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql = "select distinct group_seq, g.*, r.report_caller,r.report_reason,r.report_etcreason, r.report_calleegroup, r.report_date,r.report_type from create_group g, report r where g.group_name = r.report_calleegroup and g.group_warningnumber = 2";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		ResultSet rs = pstat.executeQuery();
+		List<ReportDTO> rlist = new ArrayList<>();
+
+		while (rs.next()) {
+			ReportDTO rdto = new ReportDTO();
+			rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
+			rdto.setReport_caller(rs.getString("report_caller"));
+			rdto.setReport_date(rs.getString("report_date"));
+			rdto.setReport_reason(rs.getString("report_reason"));
+			rdto.setReport_etcreason(rs.getString("report_etcreason"));
+			rdto.setReport_type(rs.getInt("report_type"));
+			rdto.setWarningnumber(rs.getInt("group_warningnumber"));
+			rdto.setCallee(rs.getString("group_leader"));
+			rdto.setWarningdate(rs.getString("group_warningdate"));
+			rdto.setExpiredate(rs.getString("group_expiredate"));
+			rdto.setSeq(rs.getInt("group_seq"));
+			rlist.add(rdto);
+		}
+
+		rs.close();
+		pstat.close();
+		con.close();
+
+		return rlist;
+	}
 
 	public List<ReportDTO> getAllReport(String distinc) throws Exception {
 		Connection con = DBUtils.getConnection();

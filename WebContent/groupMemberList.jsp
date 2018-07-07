@@ -216,7 +216,10 @@
        <div class="count-attend-member">총${count } 명</div>
           <c:forEach var="memberList" items="${memberList}">
              <div class="member-mem">
+             
+			<a href="#myModal" data-toggle="modal" id="myModal" onclick="modal(${memberList.member_email})">
 					<img src="files/${memberList.member_picture}">
+			</a>		
 					<div class="member-info-mem">
 						<div class="member-name">
 							<B>${memberList.member_name}</B>
