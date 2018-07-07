@@ -59,6 +59,8 @@
 
 
 
+
+
 </head>
 
 
@@ -413,10 +415,10 @@ body {
 		</div>
 
 
-   <footer>
       <%@ include file="include/bottom.jsp"%>
 
-   </footer>
+   
+   
 </body>
 
 </html>

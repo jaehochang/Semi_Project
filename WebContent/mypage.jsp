@@ -13,9 +13,9 @@
 
 
 <!-- mdb -->
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 <!-- mdb -->
-<title>My Page</title>
+<title>프로필 | MeetNow</title>
 
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
@@ -35,50 +35,29 @@
 
 
 
-<!-- //밑에 CDN 순서 맞지 않으면 오류 발생// -->
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-
-
-
-<!-- 부가적인 테마 -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-
-
-<!-- Jquery CDN -->
-
-
-<!-- <!-- fontawesome --> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" -->
-<!-- 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" -->
-<!-- 	crossorigin="anonymous"> -->
-
-
-
-
 
 <!-- mdb -->
-  <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="css/mdb.min.css" rel="stylesheet">
+
+
+<!-- error catching jQuery -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- BS JavaScript -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
 
 </head>
 <body>
-
 	<c:choose>
 		<c:when test="${requestScope.infoUpdateSuccess==true}">
-
-					
-
 			<!-- 성공 모달 -->
-
-
 			<!-- Central Modal Medium Success -->
 			<div class="modal fade" id="centralModalSuccess" tabindex="-1"
 				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -105,8 +84,8 @@
 
 						<!--Footer-->
 						<div class="modal-footer justify-content-center">
-							<a id=info-success-update-close-btn type="button" data-dismiss="modal"
-								class="btn btn-success" class=close>OK</a>
+							<a id=info-success-update-close-btn type="button"
+								data-dismiss="modal" class="btn btn-success" class=close>OK</a>
 						</div>
 					</div>
 					<!--/.Content-->
@@ -114,23 +93,20 @@
 			</div>
 			<!-- Central Modal Medium Success-->
 
-
-
-<script>
+			<!-- cetral modal initialzing syntax 뒤에 있어야 밑의 scripts 작동함 -->
+			<script>
 
 if(${requestScope.infoUpdateSuccess==true}){
 
 	$('#centralModalSuccess').modal('show');
 	
-	
 }else{
+
+	
 	
 }
-
-
-
-
 </script>
+
 		</c:when>
 		<c:when test="${requestScope.infoUpdateSuccess==false}">
 			<!-- 담당자에게 문의하세요 -->
@@ -142,51 +118,78 @@ if(${requestScope.infoUpdateSuccess==true}){
 
 	<!-- 이 줄 밑으로 my page 구현하기 -->
 
+
+
+
+
+
+
+
+
+
+	<!-- 옛날 버전 -->
+
+
 	<div id="profilebox">
 
 		<div id=profilebody class="animated fadeInLeft">
-
-			<div id=boxheader>
-				<h3>${requestScope.userName}</h3>
-				<p>이메일 : ${requestScope.userEmail}</p>
-				<p>지역 : ${requestScope.userLocation}</p>
-				<p>성별 : ${requestScope.userGender}</p>
-				<p>나이 : ${requestScope.userAge}</p>
-				<p>가입 날짜 : ${requestScope.userJoinDate}</p>
-
-			</div>
-
-
-
-			<div id="meetnow">
-				<h1>${requestScope.joinedMeetnowCounts}모임참여중</h1>
-				<!-- 				모임 몇개 참여하는 중인지 수정 요망 -->
-			</div>
-
-			<div id=joinedgroup-list>
-				<div id="group-titles">
-					<h4>${requestScope.joinedGroupNames}</h4>
+			<span id="profile-title">프로필</span>
+			<div id=boxbody>
+				<div class="md-form mb-3">
+					<i class="fa fa-user prefix grey-text"></i> <input
+						type="text" id="form34" class="form-control validate  disabled"
+						placeholder="${requestScope.userName}">
 				</div>
+
+				<div class="md-form mb-3">
+					<i class="fa fa-location-arrow prefix grey-text "
+						aria-hidden="true"></i> <input type="text" id="form29"
+						class="form-control validate  disabled"
+						placeholder="${requestScope.userLocation}">
+				</div>
+				<div class="md-form mb-3">
+
+					<i class="fa fa-transgender prefix grey-text " aria-hidden="true"></i>
+					<input type="text" id="form24"
+						class="form-control validate disabled" name=member_gender
+						placeholder="${requestScope.userGender}">
+				</div>
+				<div class="md-form mb-3">
+					<i class="fa fa-birthday-cake prefix grey-text " aria-hidden="true"></i>
+					<input type="text" id="form32"
+						placeholder="${requestScope.userAge}"
+						class="form-control validate disabled">
+				</div>
+				<div class="md-form mb-3">
+					<i class="fa fa-envelope-o prefix grey-text" aria-hidden="true"></i>
+					<input type="text" id="form32"
+						class="form-control validate disabled"
+						placeholder=" ${requestScope.userEmail}">
+				</div>
+
+
 			</div>
-
-
 		</div>
 
-		<!-- aside 시작 -->
-		<div id=profileaside class="animated fadeInRight">
-			<img src="${requestScope.userPicture}"
-				style="border-radius: 150px; height: 150px; width: 150px; display: block; margin: 0 auto;">
 
 
-			<div id=interestbox>
-				<h2>관심사</h2>
+	<!-- aside 시작 -->
+	<div id=profileaside
+		class="animated fadeInRight mask rgba-white-slight"
+		style="padding: 0px;">
+		<img id="profile-photo" src="${requestScope.userPicture}">
 
-				<div id=interests>${requestScope.getUserInterests}</div>
-			</div>
+		<div id=interestbox>
 
+			<h2>관심사</h2>
+
+			<div id=interests>${requestScope.getUserInterests}</div>
 		</div>
+
 	</div>
 
+
+	</div>
 	<!-- 	modal -->
 	<div class="modal fade" id="modalContactForm" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -254,61 +257,56 @@ if(${requestScope.infoUpdateSuccess==true}){
 			style="background-color: #b831d9;">회원정보 수정</a>
 	</div>
 
-<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Subscribe</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-                <div class="md-form mb-5">
-                    <i class="fa fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form3">Your name</label>
-                </div>
 
-                <div class="md-form mb-4">
-                    <i class="fa fa-envelope prefix grey-text"></i>
-                    <input type="email" id="form2" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form2">Your email</label>
-                </div>
+	<!-- <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
+	<!--     <div class="modal-dialog" role="document"> -->
+	<!--         <div class="modal-content"> -->
+	<!--             <div class="modal-header text-center"> -->
+	<!--                 <h4 class="modal-title w-100 font-weight-bold">Subscribe</h4> -->
+	<!--                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+	<!--                     <span aria-hidden="true">&times;</span> -->
+	<!--                 </button> -->
+	<!--             </div> -->
+	<!--             <div class="modal-body mx-3"> -->
+	<!--                 <div class="md-form mb-5"> -->
+	<!--                     <i class="fa fa-user prefix grey-text"></i> -->
+	<!--                     <input type="text" id="form3" class="form-control validate"> -->
+	<!--                     <label data-error="wrong" data-success="right" for="form3">Your name</label> -->
+	<!--                 </div> -->
 
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-indigo">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
-            </div>
-        </div>
-    </div>
-</div>
+	<!--                 <div class="md-form mb-4"> -->
+	<!--                     <i class="fa fa-envelope prefix grey-text"></i> -->
+	<!--                     <input type="email" id="form2" class="form-control validate"> -->
+	<!--                     <label data-error="wrong" data-success="right" for="form2">Your email</label> -->
+	<!--                 </div> -->
 
-<div class="text-center">
-    <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalSubscriptionForm">Launch Modal Subscription Form</a>
-</div>
+	<!--             </div> -->
+	<!--             <div class="modal-footer d-flex justify-content-center"> -->
+	<!--                 <button class="btn btn-indigo">Send <i class="fa fa-paper-plane-o ml-1"></i></button> -->
+	<!--             </div> -->
+	<!--         </div> -->
+	<!--     </div> -->
+	<!-- </div> -->
+
 
 
 	<!-- 	footer -->
 	<%@ include file="include/bottom.jsp"%>
 
-<!-- 	<script -->
-<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
-<!-- 	<script src="./resources/docs/dist/js/bootstrap.min.js"></script> -->
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script
 		src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
-		
-		
-<!-- 		mdb -->
-		   <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-<!-- 		mdb -->
+
+
+	<!-- 		mdb -->
+	<!-- JQuery -->
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="js/umd/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="js/mdb.min.js"></script>
+	<!-- ---------------------------------------- -->
+
 </body>
 </html>

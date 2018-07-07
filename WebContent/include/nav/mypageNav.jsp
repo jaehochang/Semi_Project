@@ -18,14 +18,19 @@
 			<ul id=nav-ul style="width: 200px;">
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list class="dropdown active"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"><i
-						class="fas fa-user"></i></a>
+					class="dropdown-toggle" data-toggle="dropdown"> <i
+						class="fa fa-user" aria-hidden="true"></i> 
+				</a>
 					<ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
-						<li><a href="LogoutController.co">로그아웃 </a></li>
-						<li><a href="mypage.co">마이페이지 </a></li>
+						<li style="margin-left:20px;"><a href="LogoutController.co" >로그아웃 </a></li>
+						<li style="margin-left:20px;"><a href="mypage.co">프로필</a></li>
 					</ul>
 			</ul>
 		</nav>
+
+
+
+
 
 	</c:when>
 
@@ -33,10 +38,6 @@
 		test="${(sessionScope.loginId != null) && (sessionScope.idAlreadyExist == true) }">
 
 		<nav>
-			<script>
-				alert("해당 SNS 계정으로 회원가입한 기록이 있어, 해당 계정으로 로그인 됩니다.");
-			</script>
-
 
 			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				class="animated wobble" style="height: 50px; width: 150px;"></a>
@@ -45,8 +46,9 @@
 
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list class="dropdown active"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"><i
-						class="fas fa-user"></i></a>
+					class="dropdown-toggle" data-toggle="dropdown"> <i
+						class="fa fa-user" aria-hidden="true"></i>
+				</a>
 
 					<ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
 						<li><a href="LogoutController.co">로그아웃 </a></li>
@@ -65,10 +67,18 @@
 
 			<ul id=nav-ul class="fadeInRight animated" style="width: 290px;">
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
-				<li><a href="login.jsp">로그인</a> 
-				<li><button type="button" class="btn btn-default"
-						data-toggle="modal" data-target="#idTypeQuestions">가입하기</button> <!-- 클릭시 idTypeQuestion 라는 모달 띄움 -->
+				<li><a href="login.jsp">로그인</a> <!-- 클릭시 idTypeQuestion 라는 모달 띄움 -->
+				<li>
+
+
+
+
+					<button type="button" class="btn btn-purple" data-toggle="modal"
+						data-target="#idTypeQuestions">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</button>
 			</ul>
+
 
 
 			<!-- Modal -->
