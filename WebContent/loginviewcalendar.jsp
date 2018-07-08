@@ -87,6 +87,7 @@
 			margin-top: 10px;
 			margin-left: 125px;
 			width: 300px;
+			background-color: gray;
 		}
 		#myList{
 			margin-right: 70px;
@@ -169,8 +170,8 @@
 
 <div class="container">
 	<div class="row">
-	    <div class="col-md-8 " id="printlist" ></div>
-		<div class="col-md-4 pull-right" id="myList" role="tablist">
+	    <div class="col-8 col-md-8 col-sm-8" id="printlist" ></div>
+		<div class="col-4 col-md-4 col-sm-4 pull-right" id="myList" role="tablist">
 		<div class="list-group" id="choice" >
   		<a class="list-group-item list-group-item-action active" data-toggle="list" href="#printlist" role="tab" id="alllist" data-value="all">All</a>
   		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="recolist" data-value="recommend">Recommend</a>
@@ -178,7 +179,7 @@
   		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="comein" data-value="check">참석하는 Meet</a>
   		</div>
 	 	<button type="button" id="today" class="pull-right">today</button>
-		<div class="col-md-4" id="datepicker"></div>
+		<div class="col-4 col-md-4 col-sm-4 " id="datepicker"></div>
 		</div>
 	</div>
 </div>
