@@ -398,48 +398,6 @@ public class GroupController extends HttpServlet {
 					
 					System.out.println(distSearchCount.get(i));
 				}
-				
-				
-			}else if(command.equals("/join.group")) {
-				
-			String member_email = request.getSession().getAttribute("loginId").toString();
-
-				String groupSeq = request.getParameter("group_seq");
-				int group_seq = Integer.parseInt(groupSeq);
-				String group_name = request.getParameter("group_name");
-				String member_name = dao1.memberName(member_email);
-
-
-				int joinGroup = dao.joinMyGroup(member_email, group_seq, group_name);
-				int addGroupMember = dao.addGroupMember(member_email, group_seq, member_name);
-
-				System.out.println("email: " + member_email + "seq : " + groupSeq + "/ group_name :" + group_name);
-
-				JSONObject json = new JSONObject();
-
-				json.put("name", "회원입니다.");
-
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-
-				response.getWriter().print(json);
-				response.getWriter().flush();
-				response.getWriter().close();
-
-				isRedirect = false;
-				dst = "groupInfo.jsp";
-
-			} else if (command.equals("/out.group")) {
-
-				String member_email = request.getSession().getAttribute("loginId").toString();
-				String groupSeq = request.getParameter("group_seq");
-				int group_seq = Integer.parseInt(groupSeq);
-
-				int result = dao.MygroupOut(group_seq, member_email);
-				int removeGroupMember = dao.removeGroupMember(member_email);
-
-				isRedirect = false;
-				dst = "groupMain.group?group_seq="+groupSeq+"&page=info";
 			}else if(command.equals("/toupdate.group")) {
 				String groseq = request.getParameter("groupSeq");
 				 List<GroupDTO> result = dao.groupInfo(groseq);

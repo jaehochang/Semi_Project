@@ -42,29 +42,6 @@ public class MeetingDTO {
 		this.member_email = member_email;
 	}
 
-  
-public MeetingDTO(int meeting_seq, int group_seq, String group_name, String group_leader, String meeting_title,
-         String meeting_contents, Date meeting_start_time, Date meeting_end_time, String meeting_location,
-         String meeting_picture, String meeting_lat, String meeting_lng, String member_email) {
-      super();
-      this.meeting_seq = meeting_seq;
-      this.group_seq = group_seq;
-      this.group_name = group_name;
-      this.group_leader = group_leader;
-      this.meeting_title = meeting_title;
-      this.meeting_contents = meeting_contents;
-      this.meeting_start_time = meeting_start_time;
-      this.meeting_end_time = meeting_end_time;
-      this.meeting_location = meeting_location;
-      this.meeting_picture = meeting_picture;
-      this.meeting_lat = meeting_lat;
-      this.meeting_lng = meeting_lng;
-      this.member_email = member_email;
-   }
-	public String getMeeting_picture() {
-	return meeting_picture;
-}
-
 
 	public int getMeeting_seq() {
 		return meeting_seq;

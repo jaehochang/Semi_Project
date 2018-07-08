@@ -100,12 +100,18 @@ public class MeetingController extends HttpServlet {
 				System.out.println(group_seq);
 				String meeting_title = request.getParameter("sub2_textarea");
 				String meeting_contents = request.getParameter("sub5_textarea");
+				System.out.println("안녕3");
 				String meeting_location = request.getParameter("loc");
+				System.out.println("안녕1");
 				String meeting_latlng = request.getParameter("latlng");
+				System.out.println("안녕2"+meeting_latlng);
 				String meeting_start_time = request.getParameter("start");
+				System.out.println("안녕4");
 				String meeting_end_time = request.getParameter("end");
+				System.out.println("안녕5");
 				// 지혜야 그림파일 넣어라
 				String meeting_picture = request.getParameter("meetingPic");
+				System.out.println("안녕6");
 				if(meeting_picture.equals("")) {
 					meeting_picture = "default.jpg";
 				}
@@ -119,6 +125,7 @@ public class MeetingController extends HttpServlet {
 
 				
 				String meeting_lat = meeting_latlng.split(",")[0];
+				System.out.println(meeting_lat);
 				String meeting_lng = meeting_latlng.split(",")[1];
 				meeting_lat = meeting_lat.substring(1);
 				meeting_lng=meeting_lng.substring(1, 11);

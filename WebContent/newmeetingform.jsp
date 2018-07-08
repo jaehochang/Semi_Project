@@ -390,7 +390,7 @@ p {
 		
 	</form>
 
-	<c:if test="${fileResult >=1 }">
+	<c:if test="${fileResult>=1 }">
 				<script>
 					var val = "${systemName}";
 					$.ajax({
@@ -417,6 +417,7 @@ p {
 					});
 				</script>
 			</c:if>
+			
 
 	<script>
 		$("#btn-upload").click(function(e){
@@ -491,7 +492,7 @@ p {
 			document.msubmit.latlng.value = latlng;
 		} 
 		
-	<!-- 구글맵 스크립트 -->
+			<!-- 구글맵 스크립트 -->
 		function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'), {
 				zoom : 15,

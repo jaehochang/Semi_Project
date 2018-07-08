@@ -120,7 +120,7 @@ public class FileController extends HttpServlet {
             
          }else if(command.equals("/test.file")) {
         	 String systemName = request.getParameter("value");
-        	System.out.println(systemName);
+        	System.out.println(systemName +"file 컨트롤 ");
         	
         	
 			String realPath = request.getServletContext().getRealPath("files");
