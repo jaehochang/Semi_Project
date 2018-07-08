@@ -122,9 +122,9 @@ public class GroupController extends HttpServlet {
             
             //meeting 내용
             
-            List<MeetingDTO> nextMeeting = dao.nextMeetup(groupSeq,0,"one");
+            List<MeetingDTO> nextMeeting = dao.nextMeetup(groupSeq);
             List<MeetingDTO> lastMeeting = dao.lastMeeting(groupSeq);
-            List<MeetingDTO> nextAllMeeting = dao.nextMeetup(groupSeq,0,"all");
+            List<MeetingDTO> nextAllMeeting = dao.nextAllMeeting(groupSeq);
             
             int meeting_seq = 0;
             
@@ -132,11 +132,12 @@ public class GroupController extends HttpServlet {
                meeting_seq = nextMeeting.get(0).getMeeting_seq();
             }
             
-            List<MeetingDTO> preMeeting = dao.nextMeetup(groupSeq, meeting_seq,"pre");
+            List<MeetingDTO> preMeeting = dao.preMeeting(groupSeq, meeting_seq);
             
             System.out.println("다음미팅 시퀀스  : "+ meeting_seq);
             System.out.println("지난 미팅"+lastMeeting.size());
             System.out.println("예정미팅"+preMeeting.size());
+            System.out.println("다음전체미팅"+nextAllMeeting.size());
             // 세션에  그룹 시퀀스값 저장
             request.getSession().setAttribute("groupSeq", groupSeq);
             //  페이지 들어갈때가마다 그룹시퀀스 값 변경되어 글어감

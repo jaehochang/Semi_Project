@@ -174,8 +174,8 @@
 		
 		
 		<div id="preMeetingList">
-			<div id="meetup-plan-contents">
 				<c:forEach var="nextAllMeeting" items="${nextAllMeeting}">
+			<div id="meetup-plan-contents" style="margin-bottom: 30px;">
 					<div style="width: 70%; hegith: 100%; float: left">
 						<time class="icon">
 							<strong><fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="M" />월</strong>
@@ -234,8 +234,8 @@
 
 					</div>
 
-				</c:forEach>
 			</div>
+			</c:forEach>
 		</div>
 		
 		<c:if test="${fn:length(nextAllMeeting)>0}">
