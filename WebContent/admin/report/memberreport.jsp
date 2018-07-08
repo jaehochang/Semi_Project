@@ -6,9 +6,8 @@
 </style>
 <div style="margin: 150px auto; width: 1000px;">
 	<ul class="nav nav-tabs">
-		<li role="presentation" class="active"><a href="memberreport.ao">회원신고</a></li>
-		<li role="presentation"><a href="groupreport.ao">그룹신고</a></li>
-		<li role="presentation"><a href="deleteproc.ao">휴지통</a></li>
+		<li role="presentation" class="active"><a href="memberreport.ao?subject=report_caller&text=">회원신고</a></li>
+		<li role="presentation"><a href="groupreport.ao?subject=report_calleegroup&text=">그룹신고</a></li>
 	</ul>
 	<table class="table table-condensed"
 		style="margin: 0 auto; margin-top: 50px; width: 800px;">
@@ -26,83 +25,82 @@
 				int cnt = 0;
 			%>
 			<c:forEach var="rdto" items="${list }">
-				<c:if test="${rdto.warningnumber ne 2 }">
 
-					<%
-						cnt = cnt + 1;
-					%>
-					<tr>
-						<c:if test="${rdto.report_state == 0}">
-							<td id="notread<%=cnt%>">읽지않음</td>
-						</c:if>
-						<c:if test="${rdto.report_state == 1}">
-							<td id="read">읽음</td>
-						</c:if>
-						<td><a
-							href="memberpage.ao?member_email=${rdto.report_calleemember }">${rdto.report_calleemember }</a></td>
-						<td><a
-							href="memberpage.ao?member_email=${rdto.report_caller }">${rdto.report_caller }</a></td>
-						<td>${rdto.report_date }</td>
-						<td><a href="#myModal" data-toggle="modal" id="myModal"
-							onclick="show<%=cnt %>(${rdto.report_seq})">${rdto.report_reason }</a></td>
-					</tr>
+				<%
+					cnt = cnt + 1;
+				%>
+				<tr>
+					<c:if test="${rdto.report_state == 0}">
+						<td id="notread<%=cnt%>">읽지않음</td>
+					</c:if>
+					<c:if test="${rdto.report_state == 1}">
+						<td id="read">읽음</td>
+					</c:if>
+					<td><a
+						href="memberpage.ao?member_email=${rdto.report_calleemember }">${rdto.report_calleemember }</a></td>
+					<td><a
+						href="memberpage.ao?member_email=${rdto.report_caller }">${rdto.report_caller }</a></td>
+					<td>${rdto.report_date }</td>
+					<td><a href="#myModal<%=cnt %>" data-toggle="modal"
+						id="myModal" onclick="show<%=cnt %>(${rdto.report_seq})">${rdto.report_reason }</a></td>
+				</tr>
 
-					<!-- mymodal -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title" id="myModalLabel">신고신고</h4>
-								</div>
-								<div class="modal-body">
-									<div>
-										<label>신고일시:</label><span id="date">${rdto.report_date}</span><br>
-										<label>신고자:</label><span id="caller">${rdto.report_caller }</span><br>
-										<label>신고당한사람:</label><span id="callee">${rdto.report_calleemember }</span><br>
-										<c:if test="${rdto.report_reason ne null}">
-											<label>신고내용:</label>
-											<span id="reason">${rdto.report_reason }</span>
-											<br>
-										</c:if>
-										<c:if test="${rdto.report_etcreason ne null}">
-											<label>기타신고내용:</label>
-											<span id="reason">${rdto.report_etcreason }</span>
-											<br>
-										</c:if>
+				<!-- mymodal -->
+				<div class="modal fade" id="myModal<%=cnt%>" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">신고</h4>
+							</div>
+							<div class="modal-body">
+								<div>
+									<label>신고일시:</label><span id="date">${rdto.report_date}</span><br>
+									<label>신고자:</label><span id="caller">${rdto.report_caller }</span><br>
+									<label>신고당한사람:</label><span id="callee">${rdto.report_calleemember }</span><br>
+									<c:if test="${rdto.report_reason ne null}">
+										<label>신고내용:</label>
+										<span id="reason">${rdto.report_reason }</span>
+										<br>
+									</c:if>
+									<c:if test="${rdto.report_etcreason ne null}">
+										<label>기타신고내용:</label>
+										<span id="reason">${rdto.report_etcreason }</span>
+										<br>
+									</c:if>
 
-										<label>블락:</label>
-										<c:if test="${rdto.warningnumber == 0 }">
-											<span>
-												<button class="btn btn-warning btn-sm" id="block<%=cnt%>">블락</button>
-											</span>
-										</c:if>
-										<c:if test="${rdto.warningnumber == 1 }">
-											<span>
-												<button class="btn btn-warning btn-sm" id="block<%=cnt%>">영구정지</button>
-											</span>
-										</c:if>
-										<c:if test="${rdto.warningnumber == 2 }">
-											<span>
-												<button class="btn btn-danger btn-sm" disabled
-													id="delete<%=cnt%>">삭제중</button>
-											</span>
-										</c:if>
-									</div>
+									<label>블락:</label>
+									<c:if test="${rdto.warningnumber == 0 }">
+										<span>
+											<button class="btn btn-warning btn-sm" id="block<%=cnt%>">블락</button>
+										</span>
+									</c:if>
+									<c:if test="${rdto.warningnumber == 1 }">
+										<span>
+											<button class="btn btn-warning btn-sm" id="block<%=cnt%>">영구정지</button>
+										</span>
+									</c:if>
+									<c:if test="${rdto.warningnumber == 2 }">
+										<span>
+											<button class="btn btn-danger btn-sm" disabled
+												id="delete<%=cnt%>">삭제중</button>
+										</span>
+									</c:if>
 								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Close</button>
-								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<script>
+				<script>
 				function show<%=cnt%>(str){
 					var report_seq = str;
 					var distinction = "member";
@@ -124,7 +122,7 @@
 								console.log(resp.date);
 								console.log(resp.caller);
 								
-								$("#read<%=cnt%>").text("읽음");
+								$("#notread<%=cnt%>").text("읽음");
 								
 								if(resp.warningnumber ==  0){  
 									$('#block<%=cnt%>').text("블락");
@@ -132,7 +130,7 @@
 									$('#block<%=cnt%>').text("영구정지");
 								}else if(resp.warningnumber == 2){
 									$('#delete<%=cnt%>').text("삭제중");
-								}   
+								}     
 							}
 						});
 				}
@@ -195,12 +193,17 @@
 				}
 			})
 		})
+		
+		
 	 
  
 </script>
-				</c:if>
 			</c:forEach>
+
 		</tbody>
 	</table>
+	<nav style="margin: 0 auto;" align="center">
+		<ul id="pageul" class="pagination">${page }</ul>
+	</nav>
 </div>
 

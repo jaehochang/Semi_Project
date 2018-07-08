@@ -75,6 +75,16 @@
 
    <c:choose>
 
+		<c:when test="${requestScope.isIdBlocked eq true }">
+			<script>
+				alert("넌 블럭 ㅋ ㅃㅃ");
+				location.href = "Oops.jsp";
+			</script>
+		</c:when>
+
+
+
+		<c:when test="${requestScope.kakaoIdAlreadyExist==true}">
 
 
 
@@ -275,6 +285,13 @@
       <%@ include file="include/nav/mypageNav.jsp"%>
    </nav>
 
+					<div id=btns style="margin-top: 10px;">
+						<button id=loginCheck data-toggle="modal"
+							class="btn btn-default btn-block" style="font-size: 15px;">로그인</button>
+						<button id=emailFind class="btn btn-default btn-block"
+							style="font-size: 15px;">이메일 찾기</button>
+						<button id=pwFind class="btn btn-default btn-block"
+							style="font-size: 15px;">비밀번호 찾기</button>
 
    <div class="panel panel-default" style="width: 100%; margin: 0;">
       <div class="panel-body" style="width: 50%; margin: 0 auto;">
@@ -312,6 +329,29 @@
 
                <!-- Modal -->
 
+
+		<!-- 블락된 아이디 모달 -->
+		<div class="modal fade" id="blockid">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">로그인 정지</h4>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+						<p>신고로 인해 정지된 아이디입니다.</p>
+						<p id="modaltext"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
                <div class="modal fade" id="idInputModal" tabindex="-1"
                   role="dialog" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
@@ -324,20 +364,61 @@
                               <span aria-hidden="true">&times;</span>
                            </button>
                         </div>
+		<script>
+// 			$("#loginCheck").click(
+// 					function(e) {
+// 						var id = $("#member_email").val();
+// 						var pw = $("#pwd").val();
+// 						console.log(id);
+// 						console.log(pw)
 
                         <form method=post action="pwFinder.co">
                            <div class="modal-body">
+// 						$.ajax({
+// 							url : "logincheck.co",
+// 							type : "post",
+// 							data : {
+// 								id : id,
+// 								pw : pw
+// 							},
+// 							success : function(resp) {
+// 								//boolean이 true일때 로그인 안되는 모달창
+// 								//boolean이 false일때 로그인 성공
+// 								console.log("성공")
+// 								console.log(resp.result);
+// 								console.log(resp.expiredate);
+// 								if (resp.result) {
+// 									alert("신고당한 아이디임" + resp.expiredate
+// 											+ "부터 쓸수있음");
 
                               <label for=email-input>입력한 메일로 비밀번호가 전송 됩니다.</label> <input
                                  id="email-input" class=form-control name=finder-email placeholder="example@email.com">
                            </div>
+// 									$("#blockid").modal();
+// 									$("#modaltext").text(
+// 											"이 계정은" + resp.expiredate
+// 													+ " 이후부터 사용이 가능합니다.");
+// 									return false;
+// 								} else {
+// 									document.getElementById("login_submit")
+// 											.submit();
+// 								}
+// 							},
+// 							error : function(status) {
+// 								console.log("에러발생");
+// 								console.log(status);
+// 							}
+// 						})
+// 					})
+		</script>
 
+		<!-- SNS 로그인 API  -->
+		<div>
+			<%@ include file="logInWithKakao.jsp"%>
+			<%@ include file="signUpWithFaceBook.jsp"%>
+			<%@ include file="signUpWithGoogle.jsp"%>
 
-                           <div class="modal-footer">
-                              <button type="submit" class="btn btn-secondary"
-                                 data-dismiss="modal">확인</button>
-                           </div>
-                        </form>
+		</div>
 
                      </div>
                   </div>
@@ -571,5 +652,7 @@
    <%@ include file="include/bottom.jsp"%>
 
 
+	<footer>
+		<%@ include file="include/bottom.jsp"%>
 </body>
 </html>

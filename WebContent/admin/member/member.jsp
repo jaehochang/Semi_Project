@@ -6,16 +6,18 @@
 	<div style="margin: 150px auto; width: 1000px;">
 		<div>
 			<form action="member.ao" action="get">
-				<select name="subject" id="subject" class="subject">
+				<select name="subject" id="subject" class="subject" style="width:80px;height:34px;float:left;">
 					<option value="member_email" selected="selected">이메일</option>
 					<option value="member_name">이름</option>
 					<option value="member_gender">성별</option>
 					<option value="member_location">위치</option>
-				</select>
-				 <input type="search" id="search" class="search" name="text">
-				<button>검색</button>
+				</select> 
+				<span>
+					<input type="search" id="search" class="form-control" name="text" style="width:300px; float: left;">
+					<button class="btn btn-default" style="float:left;">검색</button>
+				</span>
+				
 			</form>
-			<div id="searchbot" style="border: 1px black solid"></div>
 		</div>
 		<table class="table table-condensed">
 			<thead class="thead-dark">

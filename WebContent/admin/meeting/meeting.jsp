@@ -5,10 +5,14 @@
 <div id="meepup_wrapper">
 	<div style="margin: 150px auto; width: 1000px;">
 		<div>
-			<select name="subject" id="subject">
-				<option value="meeting_title">Meeting제목</option>
-				<option value="meeting_location">Meeting 위치</option>
-			</select> <input type="search" id="search">
+			<select name="subject" id="subject"  style="width: 120px; height: 34px; float: left;">
+				<option value="meeting_title">Meetup 제목</option>
+				<option value="meeting_location">Meetup 위치</option>
+			</select>
+			<span> 
+				<input type="search" id="search" class="form-control" name="text" style="width: 300px; float: left;">
+				<button class="btn btn-default" style="float: left;">검색</button>
+			</span>
 		</div>
 		<table class="table table-condensed">
 			<thead class="thead-dark">
@@ -78,6 +82,7 @@ $('#search').keydown(function() {
 							output += "<tr>";
 							output += "</tr>";
 							$("tbody").html("찾는 결과가 없습니다.");
+							$('#pageul').html("");
 						} else {
 							for (var i = 0; i < resp.mlist.length; i++) {
 								console.log("길이:" + resp.mlist.length);
@@ -92,9 +97,9 @@ $('#search').keydown(function() {
 										+ resp.mlist[i].meeting_location);
 								
 								output += "<tr>";
+								output += "<td>'" + resp.mlist[i].meeting_title + "'</td>";
 								output += "<td><a href='grouppage.ao?group_seq="+resp.mlist[i].group_seq+"'>'" + resp.mlist[i].group_name + "'</a></td>";
 								output += "<td><a href='memberpage.ao?member_email="+resp.mlist[i].group_leader+"'>'" + resp.mlist[i].group_leader + "'</a></td>";
-								output += "<td>'" + resp.mlist[i].meeting_title + "'</td>";
 								output += "<td>'" + resp.mlist[i].meeting_location + "'</td>";
 								output += "</tr>";  
 							}

@@ -66,8 +66,8 @@ FusionCharts.ready(function () {
     var revenueChart = new FusionCharts({
         type: 'scrollColumn2d',
         renderAt: 'chart-container2',
-        width: '550',
-        height: '350',
+        width: '600',
+        height: '400',
         dataFormat: 'json',
         dataSource: {
             "chart": {

@@ -4,10 +4,14 @@
 <div id="member_wrapper">
 	<div style="margin: 150px auto; width: 1000px;">
 		<div>
-			<select name="subject" id="subject" class="subject">
+			<select name="subject" id="subject" class="subject" style="width: 80px; height: 34px; float: left;">
 				<option value="group_name">그룹명</option>
-				<option value="group_name">그룹위치</option>
-			</select> <input type="search" id="search" class="search">
+				<option value="group_location">그룹위치</option>
+			</select> 
+			<span> 
+				<input type="search" id="search" class="form-control" name="text" style="width: 300px; float: left;">
+				<button class="btn btn-default" style="float: left;">검색</button>
+			</span>
 		</div>
 		<table class="table table-condensed">
 			<thead class="thead-dark">
@@ -70,10 +74,11 @@
 						var page;
 						console.log(resp.page);
 						
-						if (resp.length == 0) {
+						if (resp.glist.length == 0) {
 							output += "<tr>";
 							output += "</tr>";
 							$("tbody").html("찾는 결과가 없습니다.");
+							$('#pageul').html("");
 						} else {
 							for (var i = 0; i < resp.glist.length; i++) {
 								console.log("길이:" + resp.glist.length);

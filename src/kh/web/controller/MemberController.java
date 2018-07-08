@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import kh.web.dao.AdminDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
@@ -28,9 +31,10 @@ public class MemberController extends HttpServlet {
 			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
 
-			System.out.println("-------------------------------------");
 			System.out.println(command);
+			AdminDAO adao = new AdminDAO();
 			MemberDAO dao = new MemberDAO();
+			boolean isAjax = false;
 			boolean isRedirect = true;
 			String dst = null;
 
@@ -190,6 +194,17 @@ public class MemberController extends HttpServlet {
 				boolean result = mDAO.login(mDTO);
 
 				isRedirect = false;
+				boolean isBoolean = dao.singin(memberEmail, pwd);
+				boolean isIdBlocked = false;
+				
+				boolean result = mDAO.login(mDTO);
+				isRedirect = false;
+				
+				if (isBoolean) {
+					isIdBlocked=true;
+					request.setAttribute("isIdBlocked", isIdBlocked);
+					dst = "login.jsp";
+				} else {
 
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
@@ -261,12 +276,25 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/signUpApply.co")) {
 
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String snsId = (String) request.getSession().getAttribute("snsId");
+				System.out.println("/mypage.co 의 session Login Id : " + loginId);
+				MemberDAO mDAO = new MemberDAO();
 				String memberName = (String) request.getParameter("member_name");
 				String memberEmail = (String) request.getParameter("member_email");
 				String pwd = (String) request.getParameter("pwd");
 
+				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
 				System.out.println(memberName + memberEmail + pwd);
 
+				request.setAttribute("userName", accntInfo.getMember_name());
+				request.setAttribute("userEmail", accntInfo.getMember_email());
+				request.setAttribute("userLocation", accntInfo.getMember_location());
+				request.setAttribute("userPicture", accntInfo.getMember_picture());
+				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+				isRedirect = false;
+				dst = "mypage.jsp";
 				MemberDAO mDAO = new MemberDAO();
 				MemberDTO dto = new MemberDTO();
 
@@ -305,9 +333,20 @@ public class MemberController extends HttpServlet {
 				request.getSession().removeAttribute("snsId");
 				isRedirect = true;
 
+						isRedirect = true;
+						dst = "signUpFailure.jsp";
+
+					}
+
+				}
+
+			} else if (command.equals("/LogoutController.co")) {
+				request.getSession().removeAttribute("loginId");
+
+				isRedirect = true;
 				dst = "index.jsp";
-				System.out.println(dst);
-				System.out.println("------------------------------------------------------");
+			} else if (command.equals("/isThisKakaoIdExist.co")) {
+				String loginKakaoId = request.getParameter("kakaoId");
 
 			} else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");

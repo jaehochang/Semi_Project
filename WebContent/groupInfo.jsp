@@ -8,6 +8,12 @@
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
 	
+	<c:if test="${requestScope.isBlockedGroup eq true }">
+		<script>
+			alert("그룹이 정지당했습니다. 당분간 사용하실수 없습니다.");
+			location.href=history.back();
+		</script>
+	</c:if>
 <div id="navi-div">
 
 	<ul class="nav nav-tabs">
@@ -121,7 +127,9 @@
 					aria-hidden="true"></span> <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="groupreport.group?group_seq=${group_seq }">그룹 신고</a></li>
+				<c:forEach var="result" items="${result}">
+					<li><a href="groupreport.group?group_seq=${result.group_seq }">그룹 신고</a></li>
+				</c:forEach>
 			</ul>
 		</div>
 

@@ -44,6 +44,7 @@ public class MeetingController extends HttpServlet {
 			System.out.println(command);
 
 			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("utf8");
 			GroupDAO gdao = new GroupDAO();
 			MeetingDAO dao = new MeetingDAO();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
