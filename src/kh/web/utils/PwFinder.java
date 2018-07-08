@@ -17,15 +17,15 @@ import javax.mail.internet.InternetAddress;
 
 import javax.mail.internet.MimeMessage;
 
-public class EmailFinder {
+public class PwFinder {
 
-		public boolean emailFinder(String finderEmail, String finderPwd) {
+		public boolean PwFinder(String finderEmail, String finderPwd) {
 	         
 	        Properties p = System.getProperties();
 	        p.put("mail.smtp.starttls.enable", "true");     // gmail은 무조건 true 고정
 	        p.put("mail.smtp.host", "smtp.gmail.com");      // smtp 서버 주소
 	        p.put("mail.smtp.auth","true");                 // gmail은 무조건 true 고정
-	        p.put("mail.smtp.port", "465");                 // gmail 포트
+	        p.put("mail.smtp.port", "587");                 // gmail 포트
 	           
 	        
 	        System.out.println("finderEmail : "+ finderEmail);
