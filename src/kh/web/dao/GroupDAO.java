@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.sun.javafx.css.PseudoClassState;
 
+import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
@@ -549,6 +550,7 @@ public class GroupDAO {
 			dto.setJoin_date(rs.getDate("join_date"));
 			dto.setMember_picture(rs.getString("member_picture"));
 			dto.setGroup_leader(rs.getString("group_leader"));
+			dto.setMember_email(rs.getString("member_email"));
 			
 			result.add(dto);
 		}
@@ -746,6 +748,59 @@ public class GroupDAO {
 	   
 	   
 
+    public List<AttendDTO> attendMemberPic(int meeting_seq) throws Exception{
+    	Connection con = DBUtils.getConnection();
+    	String sql = "select a.meeting_seq,m.member_picture,(select count(*) from attend where meeting_seq=?)"
+    			+ "from attend a,member m where meeting_seq=? and a.member_seq=m.member_seq";
+    	PreparedStatement pstat = con.prepareStatement(sql);
+    	pstat.setInt(1, meeting_seq);
+    	pstat.setInt(2, meeting_seq);
+    	
+    	ResultSet rs = pstat.executeQuery();
+    	List<AttendDTO> result = new ArrayList<>();
+    	
+    	while(rs.next()) {
+    		AttendDTO dto = new AttendDTO();
+    		
+    		dto.setMeeting_seq(rs.getInt("meeting_seq"));
+    		dto.setMember_picture(rs.getString("member_picture"));
+    		dto.setCount(rs.getInt(3));
+    		
+    		result.add(dto);
+    	}
+    	
+    	rs.close();
+    	pstat.close();
+    	con.close();
+    	
+    	return result;
+    }
+    
+    public List<MemberDTO> LeaderInfo(String member_email) throws Exception{
+    	Connection con = DBUtils.getConnection();
+    	String sql = "select * from member where member_email=?";
+    	PreparedStatement pstat = con.prepareStatement(sql);
+    	pstat.setString(1, member_email);
+    	
+    	ResultSet rs = pstat.executeQuery();
+    	List<MemberDTO> result = new ArrayList<>();
+    	
+    	if(rs.next()) {
+    		MemberDTO dto = new MemberDTO();
+    		
+    		dto.setMember_email(rs.getString("member_email"));
+    		dto.setMember_name(rs.getString("member_name"));
+    		dto.setMember_picture(rs.getString("member_picture"));
+    		
+    		result.add(dto);
+    	}
+    	
+    	rs.close();
+    	pstat.close();
+    	con.close();
+    	
+    	return result;
+    }
 }
 
 

@@ -150,13 +150,15 @@ body {
 
 				</div>
 				<div id="info-leader" style="margin-top: 10px;">
+				<c:forEach var="leaderInfo" items="${leaderInfo }">
 					<div id="leader-pic">
-						<img src="img/10.jpg" class="leader-img">
+						<img src="files/${leaderInfo.member_picture }" class="leader-img">
 					</div>
 					<div id="leader-name">
 						<h6>주최자 :</h6>
-						<h4>${item.group_leader }</h4>
+						<h4>${leaderInfo.member_name }</h4>
 					</div>
+				</c:forEach>
 				</div>
 				<div id="info-sns">
 					<span id="sns">공유 : <a href=""><img src="img/kakao.png"></a> 

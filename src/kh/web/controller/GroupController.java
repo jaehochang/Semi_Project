@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.web.dao.AdminDAO;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 
-import org.json.simple.JSONObject;
-
+import kh.web.dao.AdminDAO;
 import kh.web.dao.GroupDAO;
 import kh.web.dao.MemberDAO;
+import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.GroupPicDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberCountDTO;
+import kh.web.dto.MemberDTO;
 import kh.web.dto.MygroupDTO;
 
 @WebServlet("*.group")
@@ -47,7 +47,7 @@ public class GroupController extends HttpServlet {
 			GroupDAO dao = new GroupDAO();
 			boolean isRedirect = true;
 			String dst = null;
-			String ajax = null;
+			String ajax_group= null;
 			String ajax_dist = null;
 			String ajax_nameCheck = null;
 			String ajax_pay = null;
@@ -129,6 +129,9 @@ public class GroupController extends HttpServlet {
             MemberCountDTO dto = dao.MemberCount(groupSeq);
             boolean isGroupMember = dao.isGroupMember(groupSeq, member_email);
             
+            String leader_email = result.get(0).getMember_email();
+            List<MemberDTO> leaderInfo = dao.LeaderInfo(leader_email);
+            
             int count = 0;
             
             if(dto != null) {
@@ -137,6 +140,7 @@ public class GroupController extends HttpServlet {
             
             
             String originName = result.get(0).getGroup_name();
+            
             
             List<GroupPicDTO> groupPagePic = dao.groupPagePic(groupSeq);
             int groupPagePicCount = dao.groupPicCount(groupSeq);
@@ -168,10 +172,9 @@ public class GroupController extends HttpServlet {
             request.getSession().setAttribute("groupSeq", groupSeq);
             //  페이지 들어갈때가마다 그룹시퀀스 값 변경되어 글어감
             
-            
             //member 내용
-            
             List<GroupMemberDTO> memberList = dao.memberList(groupSeq);
+            
             
             System.out.println("멤버리스트 사이즈 : "+memberList.size());
             
@@ -185,6 +188,8 @@ public class GroupController extends HttpServlet {
             request.setAttribute("isGroupMember", isGroupMember);
             request.setAttribute("nextAllMeeting", nextAllMeeting);
             request.setAttribute("memberList", memberList);
+            request.setAttribute("leader_email", leader_email);
+            request.setAttribute("leaderInfo", leaderInfo);
             
             if(page.equals("info")) {
                System.out.println("info");
@@ -214,6 +219,26 @@ public class GroupController extends HttpServlet {
             
             
             
+         }else if(command.equals("/attendMem.group")) {
+        	 
+        	 String meetingSep = request.getParameter("meetingSep");
+        	 int meeting_seq = Integer.parseInt(meetingSep);
+        	 System.out.println(meetingSep);
+
+        	 List<AttendDTO> attendMemberPic = dao.attendMemberPic(meeting_seq);
+
+        	 System.out.println(attendMemberPic.size());
+        	 
+        	 response.setCharacterEncoding("utf8");
+        	 response.setContentType("application/json");
+
+        	 new Gson().toJson(attendMemberPic, response.getWriter());
+
+        	 ajax_dist = "null";
+        	 ajax_pay = "null";
+        	 ajax_nameCheck = "null";
+        	 ajax_group = "group";
+        	 
          }else if(command.equals("/join.group")) {
              
              String member_email = request.getSession().getAttribute("loginId").toString();
@@ -238,9 +263,10 @@ public class GroupController extends HttpServlet {
              response.getWriter().flush();
              response.getWriter().close();
              
-             
-             isRedirect = false;
-             dst="groupInfo.jsp";
+            ajax_dist = "null";
+			ajax_pay = "null";
+			ajax_nameCheck = "null";
+            ajax_group = "group";
              
              
           }else if(command.equals("/out.group")) {
@@ -467,7 +493,9 @@ public class GroupController extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher(dst);
 				rd.forward(request, response);
 
-			} else if (ajax_dist.equals("ajax_dist")) {
+			}else if(ajax_group.equals("group")) {
+				
+			}else if (ajax_dist.equals("ajax_dist")) {
 
 				JSONObject json = new JSONObject();
 				json.put("distSearchCount", distSearchCount);

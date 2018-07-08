@@ -38,7 +38,7 @@ div{
 
 #meetup-plan-contents{
   	width:100%;
-  	height:310px;
+  	height:320px;
   	background-color: white;
   	border-radius: 10px;
   	
@@ -369,18 +369,43 @@ div{
 	width:350px;
 }
    
+
  
  	#lastmeetup-attend{
  		width:250px;
- 		height:30px;
+ 		height:40px;
  		background-color: #f4f6f7;
  		border-radius: 100px;
- 		margin-top: 20px;
+ 		margin-top: 7px;
  		margin-left: 50px;
  	}
-   
-   
-   #last-title{
+ 	
+ 	#attend-pic{
+ 		float:left;
+ 		width:55%;
+ 		height:100%;
+ 	}
+ 	
+ 	#attend-text{
+ 		float:left;
+ 		width:45%;
+ 		height:100%;
+ 	}
+#attend-col-2 {
+	width: 20px;
+	height: 20px;
+	margin-left: 5px;
+	padding: 0;
+}
+
+.attend-col-img{
+	width: 35px;
+	height: 35px;
+	border-radius: 150px;
+	border: 2px solid white;
+}
+
+#last-title{
    	display: inline-block;
 	width: 240px;
 	white-space: nowrap;

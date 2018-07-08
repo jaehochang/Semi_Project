@@ -94,6 +94,14 @@ public class FileController extends HttpServlet {
                     		 
                     		 System.out.println("fileResult"+fileResult);
                     		 dst="mypage.co";
+                    	 }else if(page.equals("newMeeting")) {
+                    		 request.setAttribute("systemName", systemName);
+                    		 fileResult=1;
+                    		 dst="newmeetingform.meet?group_seq="+groupSeq;
+                    	 }else if(page.equals("photo")) {
+                    		 fileResult = filesDAO.addGroupPic(new GroupPicDTO(0,group_seq,originalName,systemName));
+                    		 
+                    		 dst="groupMain.group?group_seq="+groupSeq+"&page=photo";
                     	 }
                         
                      } catch (Exception e) {
@@ -103,7 +111,7 @@ public class FileController extends HttpServlet {
                }
             }
             
-            System.out.println("테이블에 들어감?"+GroupPicResult);
+            
             
             request.setAttribute("fileResult", fileResult);
             

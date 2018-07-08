@@ -105,8 +105,10 @@ public class MeetingController extends HttpServlet {
 				String meeting_start_time = request.getParameter("start");
 				String meeting_end_time = request.getParameter("end");
 				// 지혜야 그림파일 넣어라
-				String meeting_picture = "default.jpg";
-
+				String meeting_picture = request.getParameter("meetingPic");
+				if(meeting_picture.equals("")) {
+					meeting_picture = "default.jpg";
+				}
 				System.out.println("newmeeting.meet:");
 				System.out.println(meeting_title);
 				System.out.println(meeting_contents);
@@ -218,8 +220,7 @@ public class MeetingController extends HttpServlet {
 				}
 				isRedirect = false;
 				dst = "meeting.meet?seq=" + meeting_seq;
-
-			} else if (command.equals("/calendarchoice.meet")) {
+			}else if (command.equals("/calendarchoice.meet")) {
 				 try {
 		               JSONArray jarray =new JSONArray();
 		               response.setCharacterEncoding("utf8");

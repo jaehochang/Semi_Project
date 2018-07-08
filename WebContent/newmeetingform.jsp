@@ -357,7 +357,14 @@ p {
 					<p>이 Meetup을 가장 잘 나타내는 사진을 선택합니다.
 					
 					<div style="width: 600px; height: 200px;">
-						<img src="img/10.jpg" style="width: 100%; height: 100%;" id="meetimg" name="meetimg">
+						<button type="button" class="btn btn-secondary"
+			style="width: 150px; background-color: #f7f7f7; color: black; position: absolute;"
+			id="btn-upload">
+			<img src="img/photo.png" style="width: 23px; padding-right: 3px;">사진
+			변경
+		</button>
+						<img src="img/default" style="width: 100%; height: 100%;" id="meetimg">
+						<input type="hidden" id="meetingPic" name="meetingPic" value="">
 					</div>
 					<p style="margin-top: 30px;">설명 참석자에게 이벤트 목표, 준비물, 찾는 방법, 기타
 						필요한 사항을 설명해주세요.</p>
@@ -374,7 +381,51 @@ p {
 				게재하기</button>
 		</div>
 		<input type="hidden" name="group_seq" value="${group_seq }">
+		
 </form>
+	<form action="upload.file?group_seq=${group_seq }&page=newMeeting"
+		method="post" id="writeForm" enctype="multipart/form-data">
+		<input type="file" id="file" name="file" onchange="this.form.submit()"
+			style="display: none;" />
+		
+	</form>
+
+	<c:if test="${fileResult >=1 }">
+				<script>
+					var val = "${systemName}";
+					$.ajax({
+						url : "test.file",
+						type : "post",
+						data : {
+							value : val
+						},
+						success : function(resp) {
+
+							var contents = resp.html;
+
+							$("#meetimg").attr("src",contents);
+							$("#meetingPic").attr("value",val);
+							$("#sub5_textarea").focus();
+						},
+						error : function(request, status, error) {
+							console.log(request.status + " : " + status + " : "
+									+ error);
+						},
+						complate : function() {
+							console.log("ajax 종료");
+						}
+					});
+				</script>
+			</c:if>
+
+	<script>
+		$("#btn-upload").click(function(e){
+			e.preventDefault();
+			$('#file').click();
+		});
+		
+		
+	</script>
 	<script>	
 		var loc;
 		var latlng;
