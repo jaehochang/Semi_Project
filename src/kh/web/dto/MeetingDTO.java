@@ -56,9 +56,6 @@ public MeetingDTO(int meeting_seq, int group_seq, String group_name, String grou
       this.meeting_lng = meeting_lng;
       this.member_email = member_email;
    }
-	public String getMeeting_picture() {
-	return meeting_picture;
-}
 
 public int getMeeting_seq() {
    return meeting_seq;
