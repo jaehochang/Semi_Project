@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" type="text/css"
-	href="css/groupInfo-style.css?ver=3">
+	href="css/groupInfo-style.css?ver=2">
 <link rel="stylesheet" type="text/css"
 	href="css/main-calender-style.css">
 	
@@ -39,7 +39,8 @@
 			style="position: absolute; right: 430px; top: 475px;">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
-				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" style="margin-left: 10px;" class="btn btn-default">Meetup 계획</button>
+				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
+	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
 				<li><a href="#">그룹 신고</a></li>
@@ -56,7 +57,7 @@
 			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
 		<ul class="dropdown-menu" role="menu">
 		<c:forEach var="result" items="${result }">
-			<li><a href="#">그룹 내용 수정</a></li>
+			<li><a href="toupdate.group?groupSeq=${result.group_seq}">그룹 내용 수정</a></li>
 			<li><a href="#">그룹 흥미 수정</a></li>
 		</c:forEach>
 		</ul>
@@ -64,15 +65,8 @@
 	
 	
 	
-	   <!-- 임시로 수정버튼을 지정해준거니 추후 GroupLeader.jsp 에 이동하면 됨 -->
-   <c:forEach var="result" items="${result }">
-      <button type="button" onclick="window.location.href='toupdate.group?groupSeq=${result.group_seq}'">수정(임시방편)</button>      
-   </c:forEach>
-	
-	
-	<!-- 밋업 관리 -->
-	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
-	
+	 
+
 	
 	
 	<c:if test="${isGroupMember eq true }">
@@ -89,28 +83,6 @@
 	
 	
 
-	
-	
-			
-			
-
-	<c:if test="${isGroupMember eq false }">
-		<!-- Single button -->
-		<div class="btn-group"
-			style="position: absolute; right: 430px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="test">
-				<span class="glyphicon glyphicon-option-horizontal"
-					aria-hidden="true"></span> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">그룹 신고</a></li>
-			</ul>
-		</div>
-
-	</c:if>
-	
-	
 	
 	
 	
@@ -144,9 +116,9 @@
 	<c:if test="${isGroupMember eq false }">
 		<!-- Single button -->
 		<div class="btn-group"
-			style="position: absolute; right: 430px; top: 475px;">
+			style="position: absolute; right: 430px; top: 475px;" id="check">
 			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false">
+				data-toggle="dropdown" aria-expanded="false" id="test">
 				<span class="glyphicon glyphicon-option-horizontal"
 					aria-hidden="true"></span> <span class="caret"></span>
 			</button>
@@ -172,12 +144,9 @@
 					</span>
 				</div>
 			</c:forEach>
-
-
-			
 			
 				<c:forEach var="nextMeeting" items="${nextMeeting}">
-				<div id="meetup-plan-contents" onclick="location.href='meeting.meet?seq=${nextMeeting.meeting_seq }';">
+				<div id="meetup-plan-contents">
 				
 					<div style="width: 70%; hegith: 100%; float: left">
 						<time class="icon">
@@ -185,7 +154,7 @@
 									value="${nextMeeting.meeting_start_time}" pattern="M" />월</strong> <span><fmt:formatDate
 									value="${nextMeeting.meeting_start_time}" pattern="dd" /></span>
 						</time>
-						<div class="meeting-info"
+						<div class="meeting-info"  onclick="location.href='meeting.meet?seq=${nextMeeting.meeting_seq }';"
 							style="padding-left: 150px; padding-top: 30px;">
 							<div class="" style="color: #8b96a8;">
 								<fmt:formatDate value="${nextMeeting.meeting_start_time}"
@@ -212,15 +181,17 @@
 								</p>
 							</h2>
 							<div id="meetup-leader">
+							<c:forEach var="leaderInfo" items="${leaderInfo }">
 								<div style="width: 20%; hegiht: 60px; float: left;">
-									<img src="img/10.jpg"
+									<img src="files/${leaderInfo.member_picture }"
 										style="width: 50px; height: 50px; border-radius: 150px;">
 								</div>
 								<div style="width: 80%; hegiht: 60px; float: left;">
 									<h5 style="padding-top: 20px;">
-										주최자 : <a href="">${nextMeeting.group_leader }</a>
+										주최자 : <a href="">${leaderInfo.member_name }</a>
 									</h5>
 								</div>
+							</c:forEach>
 							</div>
 
 							<h5>
@@ -251,11 +222,11 @@
 						</div>
 						<div id="meetup-location">
 							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"
-								style="color: gray;"></span> 당산역<br>
+								style="color: gray;"></span> ${nextMeeting.meeting_location }<br>
 						</div>
 
 					</div>
-					</div>
+					
 				</c:forEach>
 		</div>
 		
@@ -281,14 +252,15 @@
 						</span>
 					</div>
 					<div id="groupleader-info">
+						<c:forEach var="leaderInfo" items="${leaderInfo }">
 						<div id="groupleader-info-img">
-							<img src="img/10.jpg">
+							<img src="files/${leaderInfo.member_picture }">
 						</div>
 						<div id="groupleader-info-name">
 							<h6>주최자 :</h6>
-							<h4>${item2.group_leader }</h4>
+							<h4>${leaderInfo.member_name }</h4>
 						</div>
-
+						</c:forEach>
 					</div>
 
 					<div id="group-member-list">
@@ -301,7 +273,15 @@
 										<p>
 											<b>${items.member_name}</b>
 										</p>
-										<p>회원</p>
+										
+										<c:choose>
+											<c:when test="${items.member_email eq leader_email}">
+												<p>주최자</p>
+											</c:when>
+											<c:otherwise>
+												<p>회원</p>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								</c:if>
@@ -360,7 +340,7 @@
 					
 					<c:forEach var="preMeeting" items="${preMeeting }">
 				
-						<div id="premeetup" onclick="location.href='meeting.meet?seq=${preMeeting.meeting_seq }';">
+						<div id="premeetup" >
 
 							<time class="icon">
 								<strong><fmt:formatDate
@@ -368,7 +348,7 @@
 										value="${preMeeting.meeting_start_time}" pattern="dd" /></span>
 							</time>
 
-							<div id="lastmeetup-title">
+							<div id="lastmeetup-title" onclick="location.href='meeting.meet?seq=${preMeeting.meeting_seq }';">
 								<div class="" style="color: #8b96a8;">
 									<fmt:formatDate value="${preMeeting.meeting_start_time}"
 										pattern="M" />
@@ -392,12 +372,20 @@
 									<b id="last-title">${preMeeting.meeting_title }</b>
 								</h4>
 							</div>
-							<div id="lastmeetup-attend">
-								
-							</div>
 							<button type="button" class="btn btn-secondary"
 								style="width: 200px; background-color: #b831d9;
-								color: white; margin-left: 90px; margin-top: 25px;">참석</button>
+								color: white; margin-left: 90px; margin-top: 25px;" id="joinMeetupBT2">참석</button>
+								
+							<div class="btn-group" style="width: 200px;" id="editMeetupBT" >
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown" aria-expanded="false" id="editMeetupBT2">
+									주최자 도구
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Meetup 편집</a></li>
+									<li><a href="#">Meetup 삭제</a></li>
+								</ul>
+							</div>
 						</div>
 					</c:forEach>
 				</div>
@@ -415,14 +403,14 @@
 				</div>
 				<div id="last-meetup-div">
 					<c:forEach var="lastMeeting" items="${lastMeeting }">
-						<div id="lastmeetup" onclick="location.href='meeting.meet?seq=${lastMeeting.meeting_seq }';">
+						<div id="lastmeetup" >
 							<time class="icon">
 								<strong><fmt:formatDate
 										value="${lastMeeting.meeting_start_time}" pattern="M" />월</strong> <span><fmt:formatDate
 										value="${lastMeeting.meeting_start_time}" pattern="dd" /></span>
 							</time>
 
-							<div id="lastmeetup-title">
+							<div id="lastmeetup-title" onclick="location.href='meeting.meet?seq=${lastMeeting.meeting_seq }';">
 								<div class="" style="color: #8b96a8;">
 									<fmt:formatDate value="${lastMeeting.meeting_start_time}"
 										pattern="M" />
@@ -446,7 +434,48 @@
 									<b id="last-title">${lastMeeting.meeting_title }</b>
 								</h4>
 							</div>
-							<div id="lastmeetup-attend"></div>
+							<div id="lastmeetup-attend">
+								<div id="attend-pic">
+									<div class="row" id="attend-row">
+										
+										
+
+
+									</div>
+								</div>
+								<div id="attend-text">
+								</div>
+								<script>
+											var meetingSep = ${lastMeeting.meeting_seq}
+
+											$.ajax({
+												url : "attendMem.group",
+												type : "post",
+												data : {meetingSep : meetingSep},
+												success : function(resp) {
+													
+													if(resp.length <0){
+														$("#lastmeetup-attend").remove();
+													}
+													
+													for (var i = 0; i < resp.length; i++) {
+														var picture = resp[i].member_picture;
+														var count = resp[i].count;
+														console.log("dd");
+														console.log(picture);
+														$("#attend-row").after(
+																"<div class='col-md-2' id='attend-col-2'><img src='files/"+picture+"' class='attend-col-img'></div>"
+																);
+														
+														$("#attend-text").html("<p style='color:gray; padding-top:8px; padding-left:5px;'>"+count+"명 참석했음</p>");
+													}
+													
+													
+													
+												}
+											})
+										</script>
+							</div>
 						</div>
 					</c:forEach>
 				</div>
@@ -472,7 +501,13 @@
 					</script>
 				</c:if>
 
+				
 				<c:if test="${fn:length(nextMeeting)>0}">
+					<c:if test="${fn:length(preMeeting)<=0}">
+						<script>
+							$("#pre-meetup-top").remove();
+						</script>
+					</c:if>
 					<script>
 						$("#noPremeetup").remove();
 					</script>
@@ -493,9 +528,11 @@
 			<input type="hidden" id="group_name" value="${result.group_name }">
 			
 			<c:choose>
-				<c:when test="${result.member_email eq  sessionScope.loginId}">
+				<c:when test="${leader_email eq  sessionScope.loginId}">
 					<script>
+						$("#check").hide();
 						$("#joinMeetupBT").hide();
+						$("#joinMeetupBT2").hide();
 						$("#joinGroupBT").hide();
 						$("#memberBT").hide();
 						$("#test").remove();
@@ -503,6 +540,7 @@
 				</c:when>
 				<c:otherwise>
 					<script>
+						$("#editMeetupBT2").hide();
 						$("#editMeetupBT").hide();
 						$("#newMeetingBT").hide();
 						$("#groupSettingBT").hide();

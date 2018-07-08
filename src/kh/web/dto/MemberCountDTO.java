@@ -4,6 +4,7 @@ public class MemberCountDTO {
 	private int group_seq;
 	private int count;
 	
+	
 	public MemberCountDTO() {
 		super();
 	}
