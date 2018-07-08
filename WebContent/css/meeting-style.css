@@ -4,7 +4,7 @@
 time.icon
 {
   float : left;
-  margin-left : 400px;
+  margin-left : 300px;
   margin-top : 10px;
   font-size: 1em; /* change icon size */
   display: BLOCK;
@@ -55,7 +55,7 @@ time.icon span
 }
 
 .meeting-info {
-   margin-left: 500px;
+   margin-left: 400px;
    width : 700px;
    float : left;
 }

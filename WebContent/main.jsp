@@ -18,7 +18,8 @@
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css">
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=3">
+
 
 <link rel="stylesheet" type="text/css" href="css/main-card-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
@@ -107,7 +108,10 @@ body {
 			<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
 			<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
 			<p>
-				<a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
+				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 150px; color: white; border:0;">가입하기&raquo;</span>
+                  </button>
+<!-- 				<a class="btn btn-primary btn-lg" href="" role="button">가입하기&raquo;</a> -->
+				<%@ include file="include/modal/signup.jsp"%>
 			</p>
 		</div>
 	</div>
@@ -311,10 +315,10 @@ body {
    </div> 
 
 
-   <footer>
+<!--    <footer> -->
       <%@ include file="include/bottom.jsp"%>
 
-   </footer>
+<!--    </footer> -->
 </body>
 
 </html>

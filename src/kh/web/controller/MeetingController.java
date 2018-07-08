@@ -59,9 +59,11 @@ public class MeetingController extends HttpServlet {
             isRedirect = false;
 
             if (request.getSession().getAttribute("loginId") != null) {
-               dst = "list.group";
+               System.out.println(1);
+            	dst = "list.group"; // 로그인이 되어 있을때 gruop
             } else {
-               dst = "main.jsp";
+            	System.out.println(2);
+               dst = "main.jsp"; // 로그인이 안되어있을때 meeting
             }
 
          } else if (command.equals("/meeting.meet")) {
