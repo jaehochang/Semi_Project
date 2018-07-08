@@ -41,6 +41,7 @@ public class MeetingController extends HttpServlet {
 			System.out.println(command);
 
 			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("utf8");
 			GroupDAO gdao = new GroupDAO();
 			MeetingDAO dao = new MeetingDAO();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -49,6 +50,7 @@ public class MeetingController extends HttpServlet {
 			boolean isRedirect = true;
 			String dst = null;
 			boolean isajax = false;
+			
 			if (command.equals("/main.meet")) {
 				List<MeetingDTO> result = mdao.getMeetingData();
 				request.setAttribute("result", result);

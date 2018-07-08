@@ -63,150 +63,227 @@
 
 
 <script>
-	$(document).ready(function() {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				pos = {
-						lat : position.coords.latitude,
-						lng : position.coords.longitude
+	$(document)
+			.ready(
+					function() {
+						navigator.geolocation
+								.getCurrentPosition(function(position) {
+									pos = {
+										lat : position.coords.latitude,
+										lng : position.coords.longitude
 
-					  };
-						alert("나의 위도 : " + pos.lat + " 나의 경도 : "+ pos.lng);
-					});
+									};
+									alert("나의 위도 : " + pos.lat + " 나의 경도 : "
+											+ pos.lng);
+								});
 
-				$("#search-bt").click(function() {
+						$("#search-bt").click(function() {
 							alert("검색");
-				})
-				$("#five_km").click(function() {
-
-						alert("5km 입니다.");
-			      $("#distance-default").html("5km <span class=caret></span>");
-					var val = pos.lat + ":" + pos.lng;
-			        var dist = 5;
-			        
-			        $("#distrow").html("");
-					$(".img_size").html("");
-					$(".col-md4").html("");
-					$(".img_div").html("");
-					$("#distSearch2").html("");
-			        $.ajax({
-								url : "distanceKm.group",
-								type : "get",
-								data : {
-										value : val,
-										distance : dist
-										},
-					success : function(response) {
-						var a = response.distResult.toString().split(",");
-						
-						for (var b = 0; b < response.distResult.length; b++) {
-							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
-						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
-						   					
-															
-						}
-						
-							},
-							error : function() {
-								console.log("에러 발생!");
-							},
-								complete : function() {
-								console.log("성공이건 실패건 어찌되었든 ajax 종료");
-						}
-
-						});
-					})
-					$("#ten_km").click(function() {
-						alert("10km 입니다.");
-						$("#distance-default").html("10km <span class=caret></span>");
-						var val = pos.lat + ":" + pos.lng;
-						var dist = 10;
-						
-						$("#distrow").html("");
-						$(".img_size").html("");
-						$(".col-md4").html("");
-						$(".img_div").html("");
-						$("#distSearch2").html("");
-						
-						$.ajax({
-								url : "distanceKm.group",
-								type : "get",
-								data : {
-							      		value : val,
-										distance : dist
-									   },
-														
-						success : function(response) {
-									var a = response.distResult.toString().split(",");
-															
-									
-															
-									for (var b = 0; b < response.distResult.length; b++) {
-										alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
-									    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
-									   					
-																		
-									}							
-														
-
-					    },
-						error : function() {
-
-							console.log("에러 발생!");
-						},
-						complete : function() {
-								console.log("성공이건 실패건 어찌되었든 ajax 종료");
-						}
-
-						});
-					})
-					$("#fifteen_km").click(function() {
-							alert("15km 입니다.");
-							$("#distance-default").html("15km <span class=caret></span>");
-							var val = pos.lat + ":" + pos.lng;
-							var dist = 15;
-							
-							$("#distrow").html("");
-							$(".img_size").html("");
-							$(".col-md4").html("");
-							$(".img_div").html("");
-							$("#distSearch2").html("");
-							$.ajax({
-									url : "distanceKm.group",
-								    type : "get",
-									data : {
-									   value : val,
-									   distance : dist
-									},
-									success : function(response) {
-															
-									var a = response.distResult.toString().split(",");
-						
-					      for (var b = 0; b < response.distResult.length; b++) {
-							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[0]+"</h4>").trigger("create");								
-						    $("#distrow").append("<img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
-						   					
-															
-						}
-							
-					},
-					error : function() {
-
-						console.log("에러 발생!");
-					},
-					complete : function() {
-						console.log("성공이건 실패건 어찌되었든 ajax 종료");
-					}
-
-				    });
-					})
-					$("#all_km").click(
-						function() {
-						 alert("모든거리 입니다.");
-						$("#distance-default").html("모든거리 <span class=caret></span>");
 						})
+						$("#five_km")
+								.click(
+										function() {
+
+											alert("5km 입니다.");
+											$("#distance-default")
+													.html(
+															"5km <span class=caret></span>");
+											var val = pos.lat + ":" + pos.lng;
+											var dist = 5;
+
+											$("#distrow").html("");
+											$(".img_size").html("");
+											$(".col-md4").html("");
+											$(".img_div").html("");
+											$("#distSearch2").html("");
+											$
+													.ajax({
+														url : "distanceKm.group",
+														type : "get",
+														data : {
+															value : val,
+															distance : dist
+														},
+														success : function(
+																response) {
+															var a = response.distResult
+																	.toString()
+																	.split(",");
+
+															for (var b = 0; b < response.distResult.length; b++) {
+																alert(a[b]
+																		.split(":")[0]
+																		+ "의 거리 "
+																		+ a[b]
+																				.split(":")[2]);
+																$("#distrow")
+																		.append(
+																				"<h4 class=group_title1>"
+																						+ a[b]
+																								.split(":")[0]
+																						+ "</h4>")
+																		.trigger(
+																				"create");
+																$("#distrow")
+																		.append(
+																				"<img src=files/"
+																						+ a[b]
+																								.split(":")[2]
+																						+ " id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+
+															}
+
+														},
+														error : function() {
+															console
+																	.log("에러 발생!");
+														},
+														complete : function() {
+															console
+																	.log("성공이건 실패건 어찌되었든 ajax 종료");
+														}
+
+													});
+										})
+						$("#ten_km")
+								.click(
+										function() {
+											alert("10km 입니다.");
+											$("#distance-default")
+													.html(
+															"10km <span class=caret></span>");
+											var val = pos.lat + ":" + pos.lng;
+											var dist = 10;
+
+											$("#distrow").html("");
+											$(".img_size").html("");
+											$(".col-md4").html("");
+											$(".img_div").html("");
+											$("#distSearch2").html("");
+
+											$
+													.ajax({
+														url : "distanceKm.group",
+														type : "get",
+														data : {
+															value : val,
+															distance : dist
+														},
+
+														success : function(
+																response) {
+															var a = response.distResult
+																	.toString()
+																	.split(",");
+
+															for (var b = 0; b < response.distResult.length; b++) {
+																alert(a[b]
+																		.split(":")[0]
+																		+ "의 거리 "
+																		+ a[b]
+																				.split(":")[2]);
+																$("#distrow")
+																		.append(
+																				"<h4 class=group_title1>"
+																						+ a[b]
+																								.split(":")[0]
+																						+ "</h4>")
+																		.trigger(
+																				"create");
+																$("#distrow")
+																		.append(
+																				"<img src=files/"
+																						+ a[b]
+																								.split(":")[2]
+																						+ " id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+
+															}
+
+														},
+														error : function() {
+
+															console
+																	.log("에러 발생!");
+														},
+														complete : function() {
+															console
+																	.log("성공이건 실패건 어찌되었든 ajax 종료");
+														}
+
+													});
+										})
+						$("#fifteen_km")
+								.click(
+										function() {
+											alert("15km 입니다.");
+											$("#distance-default")
+													.html(
+															"15km <span class=caret></span>");
+											var val = pos.lat + ":" + pos.lng;
+											var dist = 15;
+
+											$("#distrow").html("");
+											$(".img_size").html("");
+											$(".col-md4").html("");
+											$(".img_div").html("");
+											$("#distSearch2").html("");
+											$
+													.ajax({
+														url : "distanceKm.group",
+														type : "get",
+														data : {
+															value : val,
+															distance : dist
+														},
+														success : function(
+																response) {
+
+															var a = response.distResult
+																	.toString()
+																	.split(",");
+
+															for (var b = 0; b < response.distResult.length; b++) {
+																alert(a[b]
+																		.split(":")[0]
+																		+ "의 거리 "
+																		+ a[b]
+																				.split(":")[2]);
+																$("#distrow")
+																		.append(
+																				"<h4 class=group_title1>"
+																						+ a[b]
+																								.split(":")[0]
+																						+ "</h4>")
+																		.trigger(
+																				"create");
+																$("#distrow")
+																		.append(
+																				"<img src=files/"
+																						+ a[b]
+																								.split(":")[2]
+																						+ " id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
+
+															}
+
+														},
+														error : function() {
+
+															console
+																	.log("에러 발생!");
+														},
+														complete : function() {
+															console
+																	.log("성공이건 실패건 어찌되었든 ajax 종료");
+														}
+
+													});
+										})
+						$("#all_km").click(
+								function() {
+									alert("모든거리 입니다.");
+									$("#distance-default").html(
+											"모든거리 <span class=caret></span>");
+								})
 					})
 </script>
 
@@ -215,7 +292,7 @@
 
 <body>
 
-		<%@ include file="include/nav/mypageNav.jsp"%>
+	<%@ include file="include/nav/mypageNav.jsp"%>
 
 	<div class="jumbotron" style="background-color: #d07de8">
 		<div class="container">
@@ -285,19 +362,19 @@
 				<div class="row" id="myMeet_row">
 					<c:forEach var="item" items="${myGroupList}" varStatus="status">
 						<c:if test="${status.count < 9}">
-						<div class="col-md-3" style="padding: 10px;">
-							<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
-								<div class="over-img" id="distSearch">
-									<img src="files/${item.group_picture}" class="img_size">
-								</div>
-								<h4 class="group_title">${item.group_name }</h4>
-								<c:forEach var="item2" items="${memberCount }">
-									<c:if test="${item.group_seq eq item2.group_seq }">
-										<h5 class="group_count">${item2.count}명의회원</h5>
-									</c:if>
-								</c:forEach>
-							</a>
-						</div>
+							<div class="col-md-3" style="padding: 10px;">
+								<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
+									<div class="over-img" id="distSearch">
+										<img src="files/${item.group_picture}" class="img_size">
+									</div>
+									<h4 class="group_title">${item.group_name }</h4> <c:forEach
+										var="item2" items="${memberCount }">
+										<c:if test="${item.group_seq eq item2.group_seq }">
+											<h5 class="group_count">${item2.count}명의회원</h5>
+										</c:if>
+									</c:forEach>
+								</a>
+							</div>
 						</c:if>
 					</c:forEach>
 				</div>
@@ -310,13 +387,14 @@
 				<div class="row" id="distrow">
 					<c:forEach var="item" items="${groupList}">
 						<div class="col-md-4" id="distTitle">
-						<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
-							<div class="img_div"  id="imgSearch2">
-								<div class="over-img" id="distSearch2">
-									<img src="img/${item.group_picture}" id=recoImg class="img_size">
+							<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
+								<div class="img_div" id="imgSearch2">
+									<div class="over-img" id="distSearch2">
+										<img src="img/${item.group_picture}" id=recoImg
+											class="img_size">
+									</div>
 								</div>
-							</div>
-							<h4 class="group_title" id="group_title2">${item.group_name}</h4>
+								<h4 class="group_title" id="group_title2">${item.group_name}</h4>
 						</div>
 					</c:forEach>
 
@@ -334,17 +412,20 @@
 
 					<c:forEach var="item" items="${groupList}">
 						<div class="col-md-4" id="distTitle">
-						<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
-							<div class="img_div" id="imgSearch2">
-								<div class="over-img" id="distSearch2">
-									<img src="img/${item.group_picture}" id=recoImg class="img_size">
+							<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
+								<div class="img_div" id="imgSearch2">
+									<div class="over-img" id="distSearch2">
+										<img src="img/${item.group_picture}" id=recoImg
+											class="img_size">
+									</div>
 								</div>
-							</div>
-							<h4 class="group_title">${item.group_name}</h4>
+								<h4 class="group_title">${item.group_name}</h4>
 						</div>
-						
+						<script>
+							
+						</script>
+					</c:forEach>
 				</div>
-			</c:forEach>
 			</div>
 
 		</c:otherwise>
@@ -356,13 +437,13 @@
 	<p id=asd></p>
 
 
-		<%@ include file="include/bottom.jsp"%>
+	<%@ include file="include/bottom.jsp"%>
 
-<script type="text/javascript">
-	$('#cal').click(function(e) {
-		location.href = 'loginviewcalendar.jsp';
-	});
-</script>
+	<script type="text/javascript">
+		$('#cal').click(function(e) {
+			location.href = 'loginviewcalendar.jsp';
+		});
+	</script>
 
 
 </body>

@@ -969,5 +969,7 @@ public class MemberDAO {
 
 		return bool;
 	}
+	
+
 
 }

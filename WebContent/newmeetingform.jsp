@@ -40,12 +40,20 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <!--SJ 꺼 -->
-<link rel="stylesheet" type="text/css" href="css/mypagenav-style.css ">
+<link rel="stylesheet" type="text/css" href="css/mypagenav-style.css?ver=1">
 <link rel="stylesheet" type="text/css" href="css/bottom-style.css ">
 <link rel="stylesheet" type="text/css"
 	href="css/mypage-section-style.css ">
 <!--SJ 꺼 -->
 
+<style>
+/* 나눔고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+
+body {
+	
+}
+</style>
 <!-- 구글맵 스타일 -->
 <style>
 /* Always set the map height explicitly to define the size of the div
@@ -59,6 +67,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	
 }
 
 #description {
@@ -179,7 +188,6 @@ html, body {
 }
 
 #wrapper-sub4-title {
-	border: 1px solid black;
 	width: 600px;
 	height: 500px;
 	margin: 0 auto;
@@ -252,7 +260,7 @@ p {
 	})
 </script>
 </head>
-<body>
+<body style="font-family: 'Nanum Gothic', serif;">
 	<form action="newmeeting.meet" method="post" id="msubmit"
 		name="msubmit">
 		<nav>
@@ -260,7 +268,7 @@ p {
 		</nav>
 		<div id="wrapper">
 			<div id="wrapper-sub1">
-				<h2>Meetup 일정 만들기</h2>
+				<h2 style="font-family: 'Nanum Gothic', serif;">Meetup 일정 만들기</h2>
 				<p style="margin: 0px; padding: 0px">
 				<h4 style="margin: 0px; padding: 0px">4조 B4A3</h4>
 				</p>
@@ -268,10 +276,10 @@ p {
 			<div id="wrapper-sub2">
 				<div id="wrapper-sub2-title">
 					<p>
-					<h4>Meetup 제목</h4>
+					<h4 style="font-family: 'Nanum Gothic', serif;">Meetup 제목</h4>
 					</p>
 					<p>짧고 명료하게 설명해야 합니다.</p>
-					<textarea rows="3" cols="80" id="sub2_textarea"
+					<textarea rows="5" cols="80" id="sub2_textarea"
 						name="sub2_textarea"></textarea>
 					<span id="textCount">0</span>/2000
 					<div id="sub2_field"></div>
@@ -279,14 +287,14 @@ p {
 				</div>
 			</div>
 
-			<div id="wrapper-sub3">
+			<div id="wrapper-sub3" >
 				<div id="wrapper-sub3-title">
 					<p>
 					<h4>날짜</h4>
 					</p>
 					<!-- <form id="insert" method="get" action="timesector.do"> -->
 					<div class="container well"
-						style="margin: 0 auto; width: 400px; height: 350px; border: 1px solid black;">
+						style="margin: 0 auto; width: 600px; height: 350px; border: 1px solid black;">
 						<div class="row">
 							<div class="col-md-6"></div>
 						</div>
@@ -318,11 +326,6 @@ p {
 						</div>
 					</div>
 					<br>
-					<div id="sub3_field"
-						style="margin: 0 auto; border: 1px solid black; width: 400px;">필수 필드입니다.</div>
-					<!-- 						<button id="input" type="button">inputtest</button> -->
-					<!-- 					</form> -->
-
 
 				</div>
 			</div>
@@ -332,7 +335,7 @@ p {
 						<h4>장소</h4>
 					</p>
 					<div>장소정하기</div>
-					<div style="border: 1px solid red">
+					<div>
 						<input id="pac-input" class="controls" type="text"
 							placeholder="Search Box">
 						<button type="button" id="submit" class="btn btn-default"
@@ -361,18 +364,19 @@ p {
 					</div>
 					<p style="margin-top: 30px;">설명 참석자에게 이벤트 목표, 준비물, 찾는 방법, 기타
 						필요한 사항을 설명해주세요.</p>
-					<textarea rows="6" cols="88" id="sub5_textarea"
+					<textarea rows="5" cols="80" id="sub5_textarea"
 						name="sub5_textarea"></textarea>
 					<span id="textCount_sub5">0</span>/2000
 					<div id="sub5_field"></div>
 				</div>
 			</div>
-		</div>
-		<div
-			style="background-color: #f4f6f7; text-align: center; margin-top: -150px;">
-			<button id="confirm" class="btn btn-default btn-lg">meetup
+			<div
+			style="text-align: center;">
+			<button id="confirm" class="btn btn-primary btn-lg">meetup
 				게재하기</button>
 		</div>
+		</div>
+		
 		<input type="hidden" name="group_seq" value="${group_seq }">
 </form>
 	<script>	

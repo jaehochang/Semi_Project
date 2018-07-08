@@ -52,13 +52,13 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="member.ao?subject=member_email&text=">회원</a></li>
 							<li><a href="group.ao?subject=group_name&text=">그룹</a></li>
-							<li><a href="meeting.ao">meetup</a></li>
+							<li><a href="meeting.ao?subject=meeting_title&text=">meetup</a></li>
 							<!--<li class="divider"></li> -->
 							<!--<li class="dropdown-header">Nav header</li> -->
 							<!--<li><a href="#">Separated link</a></li> -->
 							<!--<li><a href="#">One more separated link</a></li> -->
 						</ul></li>
-					<li><a href="report.ao">신고</a></li>
+					<li><a href="memberreport.ao?subject=report_calleemember&text=">신고</a></li>
 					<li><a href="stats.ao">통계</a></li>
 
 

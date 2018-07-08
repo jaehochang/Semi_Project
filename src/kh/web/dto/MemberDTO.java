@@ -18,8 +18,8 @@ public class MemberDTO {
 	private int member_alarm;
 	private int member_isblocked;
 	private int member_betweendate;
-	
-
+	private String join_date;
+	private String group_name;
 	
 	public String getMember_age() {
 		return member_age;
@@ -154,6 +154,26 @@ public class MemberDTO {
 
 	public void setMember_betweendate(int member_betweendate) {
 		this.member_betweendate = member_betweendate;
+	}
+
+
+	public String getJoin_date() {
+		return join_date;
+	}
+
+
+	public void setJoin_date(String join_date) {
+		this.join_date = join_date;
+	}
+
+
+	public String getGroup_name() {
+		return group_name;
+	}
+
+
+	public void setGroup_name(String group_name) {
+		this.group_name = group_name;
 	}
 
 }

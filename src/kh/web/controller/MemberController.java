@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import kh.web.dao.AdminDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
@@ -29,7 +32,9 @@ public class MemberController extends HttpServlet {
 			response.setCharacterEncoding("utf8");
 
 			System.out.println(command);
+			AdminDAO adao = new AdminDAO();
 			MemberDAO dao = new MemberDAO();
+			boolean isAjax = false;
 			boolean isRedirect = true;
 			String dst = null;
 
@@ -155,20 +160,30 @@ public class MemberController extends HttpServlet {
 				mDTO.setMember_email(memberEmail);
 				mDTO.setMember_pwd(pwd);
 
+				boolean isBoolean = dao.singin(memberEmail, pwd);
+				boolean isIdBlocked = false;
+				
 				boolean result = mDAO.login(mDTO);
-
 				isRedirect = false;
-
-				if (result) {
-					request.getSession().setAttribute("loginId", memberEmail);
-					boolean isMyGroup = mDAO.isMyGroup(memberEmail);
-
-					request.setAttribute("isMyGroup", isMyGroup);
-					System.out.println("membercontroller 값 : " + isMyGroup);
-					dst = "list.group";
-				} else {
-					request.setAttribute("loginResult", result);
+				
+				if (isBoolean) {
+					isIdBlocked=true;
+					request.setAttribute("isIdBlocked", isIdBlocked);
 					dst = "login.jsp";
+				} else {
+
+					if (result) {
+						request.getSession().setAttribute("loginId", memberEmail);
+						boolean isMyGroup = mDAO.isMyGroup(memberEmail);
+
+						request.setAttribute("isMyGroup", isMyGroup);
+						System.out.println("membercontroller 값 : " + isMyGroup);
+						dst = "list.group";
+
+					} else {
+						request.setAttribute("loginResult", result);
+						dst = "login.jsp";
+					}
 				}
 
 			} else if (command.equals("/mypage.co")) {
@@ -415,21 +430,43 @@ public class MemberController extends HttpServlet {
 				String pw = request.getParameter("pw");
 				System.out.println(member_email);
 				System.out.println(pw);
-				
+
 				Boolean result = dao.singin(member_email, pw);
-				
-				
+				MemberDTO mdto = adao.getMember(member_email);
+				System.out.println("보내기전 데이터");
+				System.out.println(result);
+				System.out.println(mdto.getMember_betweendate());
+				System.out.println(mdto.getMember_expiredate());
+
+				JSONObject json = new JSONObject();
+
+				json.put("expiredate", mdto.getMember_expiredate());
+				json.put("result", result);
+
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("application/json");
+
+				response.getWriter().print(json);
+				response.getWriter().flush();
+				response.getWriter().close();
+
+				isAjax = true;
 			}
 
-			if (isRedirect) {
-				response.sendRedirect(dst);
+			if (isAjax) {
+
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher(dst);
-				rd.forward(request, response);
-
+				if (isRedirect) {
+					response.sendRedirect(dst);
+				} else {
+					RequestDispatcher rd = request.getRequestDispatcher(dst);
+					rd.forward(request, response);
+				}
 			}
 
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 			System.out.println("에러 발생");
 			response.sendRedirect("error.html");

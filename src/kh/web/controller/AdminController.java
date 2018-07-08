@@ -2,6 +2,9 @@ package kh.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +30,14 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 
 import kh.web.dao.AdminDAO;
+import kh.web.dao.ReportDAO;
+import kh.web.dto.AgeGraphDTO;
 import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.ReportDTO;
+import kh.web.utils.DBUtils;
 
 @WebServlet("*.ao")
 public class AdminController extends HttpServlet {
@@ -42,13 +48,14 @@ public class AdminController extends HttpServlet {
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length());
 
+			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
 			PrintWriter out = response.getWriter();
 
 			System.out.println("get : " + command);
 
 			AdminDAO adao = new AdminDAO();
-
+			ReportDAO rdao = new ReportDAO();
 			boolean isAjax = false;
 			boolean isRedirect = false;
 			String dst = null;
@@ -71,8 +78,8 @@ public class AdminController extends HttpServlet {
 					isRedirect = false;
 					dst = "login.ao";
 				} else if (command.equals("/admin/main.ao")) {
-					int reportAll = adao.getReportCount("all");
-					int reportToday = adao.getReportCount("today");
+					int reportAll = rdao.getReportCount("all");
+					int reportToday = rdao.getReportCount("today");
 					int memberAll = adao.getMemberCount("all");
 					int memberToday = adao.getMemberCount("today");
 					int groupAll = adao.getGroupCount("all");
@@ -200,7 +207,7 @@ public class AdminController extends HttpServlet {
 					int size = list.size();
 					System.out.println("groupmember_size: " + list.size());
 
-					ReportDTO rdto = adao.reportGroupJoin(group_seq);
+					ReportDTO rdto = rdao.reportGroupJoin(group_seq);
 
 					request.setAttribute("size", size);
 					request.setAttribute("gdto", gdto);
@@ -215,9 +222,28 @@ public class AdminController extends HttpServlet {
 					dst = "memberreport.ao";
 
 				} else if (command.equals("/admin/memberreport.ao")) {
-					List<ReportDTO> list = new ArrayList<>();
-					list = adao.getAllReport("member");
+					String text = request.getParameter("text");
+					String subject = request.getParameter("subject");
+
+					System.out.println("controller-text: " + text);
+					System.out.println("controller-subject: " + subject);
+					int currentPage = 0;
+					String currentPageString = request.getParameter("currentPage");
+					if (currentPageString == null) {
+						currentPage = 1;
+					} else {
+						currentPage = Integer.parseInt(currentPageString);
+					}
+
+					List<ReportDTO> list = rdao.memberReportList(currentPage * 10 - 9, currentPage * 10, subject, text);
+					String page = rdao.memberReportPageNavi(currentPage, subject, text);
+
 					request.setAttribute("list", list);
+					request.setAttribute("page", page);
+
+					// List<ReportDTO> list = new ArrayList<>();
+					// list = rdao.getAllReport("member");
+					// request.setAttribute("list", list);
 					isAjax = false;
 					isRedirect = false;
 					dst = "report/memberreport.jsp";
@@ -239,11 +265,11 @@ public class AdminController extends HttpServlet {
 					GroupDTO gdto = new GroupDTO();
 
 					if (distinction.equals("member")) {
-						adao.modifyMemberReportState(member_email, report_seq);
+						rdao.modifyMemberReportState(member_email, report_seq);
 
 					} else {
 						System.out.println("modal.ao-group:" + group_name + "," + report_seq);
-						adao.modifyGroupReportState(group_name, report_seq);
+						rdao.modifyGroupReportState(group_name, report_seq);
 					}
 
 					response.setCharacterEncoding("UTF-8");
@@ -256,26 +282,28 @@ public class AdminController extends HttpServlet {
 					isAjax = true;
 
 				} else if (command.equals("/admin/groupreport.ao")) {
-					List<ReportDTO> rlist = new ArrayList<>();
-					rlist = adao.getAllReport("group");
+					String text = request.getParameter("text");
+					String subject = request.getParameter("subject");
 
-					request.setAttribute("rlist", rlist);
+					System.out.println("controller-text: " + text);
+					System.out.println("controller-subject: " + subject);
+					int currentPage = 0;
+					String currentPageString = request.getParameter("currentPage");
+					if (currentPageString == null) {
+						currentPage = 1;
+					} else {
+						currentPage = Integer.parseInt(currentPageString);
+					}
+
+					List<ReportDTO> list = rdao.groupReportList(currentPage * 10 - 9, currentPage * 10, subject, text);
+					String page = rdao.groupReportPageNavi(currentPage, subject, text);
+
+					request.setAttribute("list", list);
+					request.setAttribute("page", page);
+
 					isAjax = false;
 					isRedirect = false;
 					dst = "report/groupreport.jsp";
-
-				} else if (command.equals("/admin/deleteproc.ao")) {
-					List<ReportDTO> rlist1 = new ArrayList<>();
-					List<ReportDTO> rlist2 = new ArrayList<>();
-					rlist1 = adao.getDeleteProcMember();
-					rlist2 = adao.getDeleteProcGroup();
-
-					request.setAttribute("rlist1", rlist1);
-					request.setAttribute("rlist2", rlist2);
-
-					isAjax = false;
-					isRedirect = false;
-					dst = "report/deleteproc.jsp";
 
 				} else if (command.equals("/admin/warning.ao")) {
 					JSONObject json = new JSONObject();
@@ -351,12 +379,7 @@ public class AdminController extends HttpServlet {
 						System.out.println("currentpage: " + currentPage);
 						System.out.println("currentpageString: " + currentPageString);
 
-						if (text.equals("") || text.equals(null)) {
-							mlist = adao.memberList(currentPage * 10 - 9, currentPage * 10, subject, text);
-						} else {
-							// mlist = adao.searchMemberList(currentPage * 10 - 9, currentPage * 10,
-							// subject, text);
-						}
+						mlist = adao.memberList(currentPage * 10 - 9, currentPage * 10, subject, text);
 
 						System.out.println("list.size(): " + mlist.size());
 						String page = adao.getMemberPageNavi(currentPage, subject, text);
@@ -375,9 +398,9 @@ public class AdminController extends HttpServlet {
 						new Gson().toJson(map, response.getWriter());
 
 						isAjax = true;
-						
+
 					} else if (request.getParameter("distinction").equals("group")) {
-						
+
 						int currentPage = 0;
 						String currentPageString = request.getParameter("currentPage");
 
@@ -389,11 +412,7 @@ public class AdminController extends HttpServlet {
 						System.out.println("currentpage: " + currentPage);
 						System.out.println("currentpageString: " + currentPageString);
 
-						if (text.equals("") || text.equals(null)) {
-							glist = adao.allGroupList(currentPage * 10 - 9, currentPage * 10, subject, text);
-						} else {
-							glist = adao.searchGroupList(currentPage * 10 - 9, currentPage * 10, subject, text);
-						}
+						glist = adao.allGroupList(currentPage * 10 - 9, currentPage * 10, subject, text);
 
 						System.out.println("list.size(): " + mlist.size());
 						String page = adao.getGroupPageNavi(currentPage, subject, text);
@@ -426,11 +445,7 @@ public class AdminController extends HttpServlet {
 						System.out.println("currentpage: " + currentPage);
 						System.out.println("currentpageString: " + currentPageString);
 
-						if (text.equals("")) {
-							meetlist = adao.allMeetingList(currentPage * 10 - 9, currentPage * 10, subject, text);
-						} else {
-							meetlist = adao.searchMeetingList(currentPage * 10 - 9, currentPage * 10, subject, text);
-						}
+						meetlist = adao.allMeetingList(currentPage * 10 - 9, currentPage * 10, subject, text);
 
 						System.out.println("list.size(): " + mlist.size());
 						String page = adao.getMeetingPageNavi(currentPage, subject, text);
@@ -508,7 +523,11 @@ public class AdminController extends HttpServlet {
 					}
 					isAjax = true;
 				} else if (command.equals("/admin/stats.ao")) {
-					// 연령(파이), 동호회카테고리별(파이), 신고내용별(막대) 방문자수(막대)
+					// 동호회카테고리별(파이), 신고내용별(막대) 방문자수(막대)
+					AgeGraphDTO adto = adao.memberAgeGraph();
+					
+					request.setAttribute("adto", adto);
+					
 					isAjax = false;
 					isRedirect = false;
 					dst = "stats/stats.jsp";
@@ -527,19 +546,19 @@ public class AdminController extends HttpServlet {
 					GroupDTO gdto = new GroupDTO();
 
 					if (distinction.equals("member")) {
-						mdto = adao.memReportJoin(report_seq);
+						mdto = rdao.memReportJoin(report_seq);
 						json.put("warningnumber", String.valueOf(mdto.getMember_warningnumber()));
 						System.out.println("warning_mdto, " + mdto.getMember_email() + " warningnumber:"
 								+ mdto.getMember_warningnumber());
 
 					} else {
-						gdto = adao.groupReportJoin(report_seq);
+						gdto = rdao.groupReportJoin(report_seq);
 						json.put("warningnumber", String.valueOf(gdto.getGroup_warningnumber()));
 						System.out.println("warning_gdto :" + gdto.getGroup_name() + " warningnumber:"
 								+ mdto.getMember_warningnumber());
 					}
 
-					rdto = adao.getReportData(report_seq);
+					rdto = rdao.getReportData(report_seq);
 					json.put("date", rdto.getReport_date());
 					json.put("caller", rdto.getReport_caller());
 					json.put("callee", rdto.getReport_calleemember());
@@ -593,6 +612,7 @@ public class AdminController extends HttpServlet {
 
 			System.out.println("post : " + command);
 
+			ReportDAO rdao = new ReportDAO();
 			AdminDAO adao = new AdminDAO();
 			boolean isRedirect = true;
 			String dst = null;
@@ -608,8 +628,8 @@ public class AdminController extends HttpServlet {
 				if (result) {
 					request.getSession().setAttribute("adminId", id);
 
-					int reportAll = adao.getReportCount("all");
-					int reportToday = adao.getReportCount("today");
+					int reportAll = rdao.getReportCount("all");
+					int reportToday = rdao.getReportCount("today");
 					int memberAll = adao.getMemberCount("all");
 					int memberToday = adao.getMemberCount("today");
 					int groupAll = adao.getGroupCount("all");
@@ -647,5 +667,7 @@ public class AdminController extends HttpServlet {
 		}
 
 	}
+	
+	
 
 }

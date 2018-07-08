@@ -74,6 +74,15 @@
 
 	<c:choose>
 
+		<c:when test="${requestScope.isIdBlocked eq true }">
+			<script>
+				alert("넌 블럭 ㅋ ㅃㅃ");
+				location.href = "Oops.jsp";
+			</script>
+		</c:when>
+
+
+
 		<c:when test="${requestScope.kakaoIdAlreadyExist==true}">
 
 
@@ -236,8 +245,9 @@
 						<div class="modal-body text-center">
 							<h1>실패!</h1>
 							<p>회원정보가 올바르지 않습니다!</p>
-							<button class="btn btn-success btn-block" data-dismiss="modal"
-								onclick="$(this).modal('toggle');">다시 로그인</button>
+							<button type="button" class="btn btn-success btn-block"
+								data-dismiss="modal" onclick="$(this).modal('toggle');">다시
+								로그인</button>
 
 						</div>
 					</div>
@@ -268,8 +278,8 @@
 				<form action="login.co" method=post id="login_submit">
 
 					<div class="form-group animated fadeIn">
-						<label for=member_email>이메일 주소</label> 
-						<input class=form-control type=email id=member_email
+						<label for=member_email>이메일 주소</label> <input class=form-control
+							type=email id=member_email
 							pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
 							title="이메일 형태로 입력하셔야 합니다." placeholder="example@gmail.com"
 							required name=member_email max=50 width=auto>
@@ -281,7 +291,7 @@
 					</div>
 
 					<div id=btns style="margin-top: 10px;">
-						<button id=loginCheck data-toggle="modal" data-target="#emptyinput"
+						<button id=loginCheck data-toggle="modal"
 							class="btn btn-default btn-block" style="font-size: 15px;">로그인</button>
 						<button id=emailFind class="btn btn-default btn-block"
 							style="font-size: 15px;">이메일 찾기</button>
@@ -310,7 +320,7 @@
 		</div>
 
 
-		
+
 		<!-- 블락된 아이디 모달 -->
 		<div class="modal fade" id="blockid">
 			<div class="modal-dialog">
@@ -320,10 +330,11 @@
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">정지당한 아이디입니다.</h4>
+						<h4 class="modal-title">로그인 정지</h4>
 					</div>
 					<div class="modal-body" style="text-align: center;">
-						<p id="modaltext">신고로 인해 정지당한 아이디입니다.</p>
+						<p>신고로 인해 정지된 아이디입니다.</p>
+						<p id="modaltext"></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -333,71 +344,47 @@
 		</div>
 
 		<script>
-			$("#loginCheck").click(function() {
-						var id = $("#member_email").val();
-						var pw = $("#pwd").val();
-						console.log(id);
-						console.log(pw)
+// 			$("#loginCheck").click(
+// 					function(e) {
+// 						var id = $("#member_email").val();
+// 						var pw = $("#pwd").val();
+// 						console.log(id);
+// 						console.log(pw)
 
-						$.ajax({
-							url : "logincheck.co",
-							type : "post",
-							data : {
-								id : id,
-								pw : pw
-							},
-							success : function(resp) {
-								//boolean이 true일때 로그인 안되는 모달창
-								//boolean이 false일때 로그인 성공
-								// 					var bool = resp.bool;
-								console.log("성공")
-								console.log(resp.id);
-								console.log(resp.pw);
-								console.log(resp.bool);
-								console.log(resp.bdate)
-								if (resp.bool) {
-									$("#blockid").modal();
-									$("#modaltext").text(
-											"사용까지" + resp.bdate + "일 남았습니다.");
-									location.href = "CIHLogin.co?member_email="
-											+ resp.id;
-								} else {
-									document.getElementById("login_submit")
-											.submit();
-								}
-							},
-							error : function() {
-								console.log("에러발생");
-							}
-						})
-					})
+// 						$.ajax({
+// 							url : "logincheck.co",
+// 							type : "post",
+// 							data : {
+// 								id : id,
+// 								pw : pw
+// 							},
+// 							success : function(resp) {
+// 								//boolean이 true일때 로그인 안되는 모달창
+// 								//boolean이 false일때 로그인 성공
+// 								console.log("성공")
+// 								console.log(resp.result);
+// 								console.log(resp.expiredate);
+// 								if (resp.result) {
+// 									alert("신고당한 아이디임" + resp.expiredate
+// 											+ "부터 쓸수있음");
+
+// 									$("#blockid").modal();
+// 									$("#modaltext").text(
+// 											"이 계정은" + resp.expiredate
+// 													+ " 이후부터 사용이 가능합니다.");
+// 									return false;
+// 								} else {
+// 									document.getElementById("login_submit")
+// 											.submit();
+// 								}
+// 							},
+// 							error : function(status) {
+// 								console.log("에러발생");
+// 								console.log(status);
+// 							}
+// 						})
+// 					})
 		</script>
-
-		<!-- 		<div class="panel panel-default"> -->
-		<!-- 		<div class="panel-body"> -->
-		<!-- 			<div id=loginheader style="border-bottom: 1px sold grey;"> -->
-		<!-- 				<h2>로그인</h2> -->
-		<!-- 				<p>아직 등록하지 않으셨나요?</p> -->
-		<!-- 				<a href="signUpPage.jsp">가입하기</a> -->
-		<!-- 			</div> -->
-		<!-- 			<div id=loginbody> -->
-		<!-- 				<form action="login.co" method=post id="lsubmit"> -->
-
-		<!-- 					<div class=form-group> -->
-		<!-- 						<label for=member_email>이메일 주소</label> <input class=form-control -->
-		<!-- 							type=text id=member_email name=member_email> -->
-		<!-- 					</div> -->
-		<!-- 					<div class=form-group> -->
-		<!-- 						<label for=pwd>비밀번호</label> <span><a href="#">비밀번호를 -->
-		<!-- 								잊으셨나요?</a></span> <input id=pwd type=password max=13 name=pwd -->
-		<!-- 							class=form-control> <input type=checkbox>로그인 상태 -->
-		<!-- 						유지 -->
-		<!-- 						<button type="button" id="loginbtn" class="btn btn-default">로그인</button> -->
-		<!-- 					</div> -->
-		<!-- 				</form> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
-		<!-- 	</div>  -->
 
 		<!-- SNS 로그인 API  -->
 		<div>

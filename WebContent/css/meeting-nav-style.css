@@ -4,6 +4,7 @@ nav {
     width: 100%;
     height : auto;
     background: #f7f2fc;
+/* 	background-color : white; */
     postion: fixed;
     float : top;
     z-index: 10;
