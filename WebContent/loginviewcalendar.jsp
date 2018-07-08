@@ -373,6 +373,55 @@
 		
 		}else if(showtypes == "recommend"){
 			
+			$.ajax({
+				url:"recommend.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+					  if(response.length > 0){
+						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+							 );
+					  	   }
+					  	   
+							}
+					  	  }else{
+					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+							 );
+					  	  }
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
+			
 		}else if(showtypes == "mymeet"){
 			$.ajax({
 				url:"mymeet.meet",
@@ -539,6 +588,55 @@
 				}
 			});
 		}else if(showtypes == "recommend"){
+			
+			$.ajax({
+				url:"recommend.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+					  if(response.length > 0){
+						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+							 );
+					  	   }
+					  	   
+							}
+					  	  }else{
+					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+							 );
+					  	  }
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
 			
 		}else if(showtypes == "mymeet"){
 			$.ajax({
@@ -812,7 +910,59 @@
 		});
 	})
 	
-	$('#gro').click(function(e) {
+	$("#recolist").click(function() {
+		var nowdata = $("#datepicker").val();
+		$.ajax({
+			url:"recommend.meet",
+			type:"post",
+			data:{val:nowdata},
+			dataType : "json",
+			success:function(response){
+				console.log("AJAX Request 성공 ");
+				console.log(response);
+				$("#printlist").text('');
+				  if(response.length > 0){
+					for(var i=0;i<response.length;i++){
+						var seq = response[i].groseq;
+						var day = response[i].date;
+						var hour = response[i].hour;
+						var group = response[i].groupName;
+						var title =  response[i].groupTitle;
+				  	   var location = response[i].location;
+				  	   
+				  	   if(i>0){
+					  	   if(response[i].date == response[i-1].date){
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	 );
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+				  	   }else{
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						 );
+				  	   }
+				  	   
+						}
+				  	  }else{
+				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+						 );
+				  	  }
+			},
+			error:function(request,status,error){
+				console.log(request.status+":"+status.responseText+":"+ error);
+			},
+			complete:function(){
+				console.log("성공이건 실패건 어찌되었든 ajax 종료");
+			}
+		});
+	})
+	
+	$('#gro').click(function() {
 		location.href = 'list.group';
 	});
 	

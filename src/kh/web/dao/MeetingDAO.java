@@ -14,6 +14,7 @@ import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.ShowMeetingDTO;
+import kh.web.dto.ShowMeetingDamnDTO;
 import kh.web.utils.DBUtils;
 
 public class MeetingDAO {
@@ -222,6 +223,51 @@ public class MeetingDAO {
 		return list;
 	}
    
+   
+   public List<ShowMeetingDamnDTO> selectMeetRecommend(Date bigindate , String type) throws Exception {
+		Connection con = DBUtils.getConnection();
+		String sql ="select MEETING_SEQ,to_char(meeting_start_time,'yyyy\"년\"mm\"월\"dd\"일\" day'),to_char(meeting_start_time,'HH24:mi'),group_name,meeting_title ,meeting_location,member_interests "
+				+ "from (select * from MEETING where meeting_start_time >= SYSDATE )m INNER join (select member_email,member_interests from member) e on m.member_email = e.member_email "
+				+ "where meeting_start_time >= TO_char(?,'YYYYMMDD') and member_interests like ? order by meeting_start_time";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setDate(1, new java.sql.Date(bigindate.getTime()));
+		pstat.setString(2, "%"+type+"%");
+		ResultSet rs = pstat.executeQuery();
+		List<ShowMeetingDamnDTO> list = new ArrayList<>();
+		while(rs.next()) {
+			ShowMeetingDamnDTO smdto = new ShowMeetingDamnDTO();
+			smdto.setMeetseq(rs.getInt(1));
+			smdto.setDat_month(rs.getString(2));
+			smdto.setHour_minut(rs.getString(3));
+			smdto.setGroup_name(rs.getString(4));
+			smdto.setMeeting_title(rs.getString(5));
+			smdto.setMeeting_location(rs.getString(6));
+			smdto.setMember_interests(rs.getString(7));
+			list.add(smdto);
+		}
+		rs.close();
+		pstat.close();
+		con.close();
+		
+		return list;
+	}
+   
+   public List<String> lnterestlist(String loginid) throws Exception {
+	   Connection con = DBUtils.getConnection();
+	   String sql = "select member_interests from member where member_email = ?";
+	   PreparedStatement pstat = con.prepareStatement(sql);
+	   pstat.setString(1, loginid);
+	   ResultSet rs = pstat.executeQuery();
+	   List<String> list = new ArrayList<>();
+	   while(rs.next()) {
+		   String value = rs.getString(1);
+		   list.add(value);
+	   }
+	   rs.close();
+	   pstat.close();
+	   con.close();
+	   return list;
+   }
    
    
    /* 더미 값   혹시 모르니 삭제 하시지 마시길 바랍니다

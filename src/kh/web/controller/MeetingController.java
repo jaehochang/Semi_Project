@@ -27,6 +27,7 @@ import kh.web.dto.GroupDTO;
 import kh.web.dto.GroupMemberDTO;
 import kh.web.dto.MeetingDTO;
 import kh.web.dto.ShowMeetingDTO;
+import kh.web.dto.ShowMeetingDamnDTO;
 
 /**
  * Servlet implementation class GroupController
@@ -337,7 +338,50 @@ public class MeetingController extends HttpServlet {
 				JSONArray jarray = new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				String value = request.getParameter("val"); 
+				System.out.println(value);
+				String[] datecase = value.split("/");
+				String alldata = null;
+				for(int i=0;i<datecase.length;i++) {
+					if(i==0) {
+						alldata = datecase[i];
+					}else {
+						alldata += datecase[i];
+					}
+				}
+				Date tempDate = simpleDateFormat.parse(alldata);
+				System.out.println(tempDate);
+				isajax = true;
+				List<ShowMeetingDamnDTO> list = new ArrayList<>();
+				List<String> slist = mdao.lnterestlist(member_email);
+				for(int i=0;i<slist.size();i++) {
+					list = mdao.selectMeetRecommend(tempDate, slist.get(i));
+				}
+				
+				List<ShowMeetingDamnDTO> newlist = new ArrayList<>();
+				 for(int ii = 0 ; ii <list.size(); ii++){
+				      if(!newlist.contains(list.get(ii))){
+				    	  newlist.add(list.get(ii));
+				      }
+				 }  
+				 
+				 for(int i=0;i<newlist.size();i++) {
+						JSONObject json = new JSONObject();
+						json.put("groseq", newlist.get(i).getMeetseq());
+						json.put("date", newlist.get(i).getDat_month());
+						json.put("hour", newlist.get(i).getHour_minut());
+						json.put("groupName", newlist.get(i).getGroup_name());
+						json.put("groupTitle", newlist.get(i).getMeeting_title());
+						json.put("location", newlist.get(i).getMeeting_location());
+						jarray.add(json);
+					}
 
+					//request.setAttribute("showlist", showlist);
+					//System.out.println(jarray);
+					System.out.println(jarray);
+					new Gson().toJson(jarray,response.getWriter());
+				
 			} else if (command.equals("/mymeet.meet")) {
 				JSONArray jarray = new JSONArray();
 				response.setCharacterEncoding("utf8");
