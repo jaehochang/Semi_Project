@@ -3,25 +3,25 @@ package kh.web.dto;
 import java.util.Date;
 
 public class MeetingDTO {
-   private int meeting_seq;
-   private int group_seq;
-   private String group_name;
-   private String group_leader;
-   private String meeting_title;
-   private String meeting_contents;
-   private Date meeting_start_time;
-   private Date meeting_end_time;
-   private String meeting_location;
-   private String meeting_picture;
-   private String meeting_lat;
-   private String meeting_lng;
-   private String member_email;
+	private int meeting_seq;
+	private int group_seq;
+	private String group_name;
+	private String group_leader;
+	private String meeting_title;
+	private String meeting_contents;
+	private Date meeting_start_time;
+	private Date meeting_end_time;
+	private String meeting_location;
+	private String meeting_picture;
+	private String meeting_lat;
+	private String meeting_lng;
+	private String member_email;
 
 	public MeetingDTO() {
 		super();
 	}
-	
-	
+
+
 
 	public MeetingDTO(int meeting_seq, int group_seq, String group_name, String group_leader, String meeting_title,
 			String meeting_contents, Date meeting_start_time, Date meeting_end_time, String meeting_location,
@@ -41,7 +41,7 @@ public class MeetingDTO {
 		this.member_email = member_email;
 	}
 
-		super();
+
 
 
 	public int getMeeting_seq() {
@@ -124,34 +124,31 @@ public class MeetingDTO {
 		this.meeting_picture = meeting_picture;
 	}
 
-public void setMeeting_picture(String meeting_picture) {
-   this.meeting_picture = meeting_picture;
-}
+	public String getMeeting_lat() {
+		return meeting_lat;
+	}
 
-public String getMeeting_lat() {
-   return meeting_lat;
-}
+	public void setMeeting_lat(String meeting_lat) {
+		this.meeting_lat = meeting_lat;
+	}
 
-public void setMeeting_lat(String meeting_lat) {
-   this.meeting_lat = meeting_lat;
-}
+	public String getMeeting_lng() {
+		return meeting_lng;
+	}
 
-public String getMeeting_lng() {
-   return meeting_lng;
-}
+	public void setMeeting_lng(String meeting_lng) {
+		this.meeting_lng = meeting_lng;
+	}
 
-public void setMeeting_lng(String meeting_lng) {
-   this.meeting_lng = meeting_lng;
-}
+	public String getMember_email() {
+		return member_email;
+	}
 
-public String getMember_email() {
-   return member_email;
-}
-
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
 	
-
 }
 
- 
 
-}
+
