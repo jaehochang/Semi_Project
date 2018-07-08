@@ -23,7 +23,7 @@ $('#formid').submit(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel" style="color:#6e7776;">참가신청 완료하기</h4>
                </div>
-               <div class="modal-body" style="background-color:#c9f2ee; color:#6e7776; text-align : center;">
+               <div class="modal-body" style="background-color:#dcebed; color:#6e7776; text-align : center;">
                   <bR><p style="text-align : center; size:100px;"> 다른 사람과 함께 오시나요?  
                  <select id="people_option" name="people" required style="color:#909b9a;">
                    <option>0</option>
@@ -35,7 +35,7 @@ $('#formid').submit(function() {
                  </select> </p>
                </div>
                <div class="modal-footer">
-                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary" style="background-color:#68e2d6; border:0; outline:0;">참석하기</a>
+                   <a data-toggle="modal" href="#myModal2" class="btn btn-primary" style="background-color:#cce5e8; border:0; outline:0;">참석하기</a>
                </div>
             </div>
          </div>
@@ -52,10 +52,10 @@ $('#formid').submit(function() {
                   </button>
                   <h4 class="modal-title" id="myModalLabel"><Br></h4>
                </div>
-               <div class="modal-body" style="background-color:#68e2d6; color:white; text-align : center;"><span class="glyphicon glyphicon-ok-sign" style="font-size: 50px;"></span><h2>참석이 최종 확인되었습니다</h2>
+               <div class="modal-body" style="background-color:#99d6db; color:white; text-align : center;"><span class="glyphicon glyphicon-ok-sign" style="font-size: 50px;"></span><h2>참석이 최종 확인되었습니다</h2>
                </div>
                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" style="background-color:#68e2d6; border:0; outline:0;">참석 확인</button>
+                  <button type="submit" class="btn btn-primary" style="background-color:#99d6db; border:0; outline:0;">참석 확인</button>
                </div>
             </div>
          </div>

@@ -239,7 +239,7 @@ body {
                </div>
             <c:forEach var="items" items="${result_attend}">
                <div class="col-md-3">
-                  <img src="files/${items.meeting_picture}">
+                  <img src="files/${items.member_picture}">
                   <div class="member-info">
                      <p>
                         <b>${items.member_name}</b>
@@ -247,15 +247,21 @@ body {
                      <p>회원</p>
                   </div>
                </div>
+               <script>
+	              
+               </script>
             </c:forEach>
          </div>
       </div>
    </div>
-   
+  
 	<script>
+	var lat = ${result.meeting_lat};
+	var lng = ${result.meeting_lng};
 	var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
 	mapOption = {
-	    center: new daum.maps.LatLng(37.3595704, 127.105399), // 지도의 중심좌표
+// 	    center: new daum.maps.LatLng(37.3595704, 127.105399), // 지도의 중심좌표
+	    center: new daum.maps.LatLng(lat, lng), // 지도의 중심좌표
 	    level: 3 // 지도의 확대 레벨
 	};
 	
