@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css"
 	href="css/groupInfo-style.css?ver=3">
 	
-<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=3">
+<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=2">
 
 	<div id="navi-div">
 		<ul class="nav nav-tabs">
@@ -30,7 +30,7 @@
 	
 	<c:forEach var="result" items="${result }">
 		<div class="btn-group" 
-			style="position: absolute; transform: translate(400%, -140%);">  
+			style="position: absolute; transform: translate(600%, -140%);">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
 			<ul class="dropdown-menu" role="menu">
@@ -129,55 +129,51 @@
 
 
 <div id="contents">
-	<div id="wrapper" style="height:auto; ">
-		
-		<div class="wrapper">
-			<div class="row" style="margin:0 auto;">
-			<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
-			<div class="col-md-4" 
-                  style="padding-left:0px;
-                  margin:0 10px 50px 0; width:300px; height:200px">
-			
-			<div class="item">
-				<div class="polaroid">
-				
-				 <a class="example-image-link" href="files/${groupPagePic.system_name }" data-lightbox="example-set" >
-                  <img class="example-image" src="files/${groupPagePic.system_name }"id="pola-img"/></a>
-				
-				</div>
-			</div>
-			</div>
+	<div id="wrapper" style="height: auto;">
+		<div style="margin: 0 auto;">
+			<c:forEach var="result" items="${result}">
+				<form id="photoForm"
+					action="upload1.file?group_seq=${result.group_seq }&page=group"
+					method="post" enctype="multipart/form-data">
+					<input type="file" id="file2" name="file"
+						onchange="photoForm.submit()" style="display: none;" />
+					<img src="img/plus.jpg" style="width: 50px"  id="up" />사진 추가
+				</form>
 			</c:forEach>
-				<div class="col-md-4" 
-                  style="padding-left:0px;
-                  margin:0 10px 50px 0; width:300px; height:200px">
-			
-			
-				<div class="up" style="border:1px solid balck;">
-					<c:forEach var="result" items="${result}">
-							<form
-								action="upload.file?group_seq=${result.group_seq }&page=photo"
-								method="post" id="writeForm" enctype="multipart/form-data">
-								<input type="file" id="file" name="file"
-									onchange="this.form.submit()" style="display: none;" />
-							<img src="img/plus.jpg"id="pola-img-plus" style="border:1px dashed black;"/>
-                  			
+			<div>
+				<div class="wrapper">
+					<div class="row" style="margin: 0 auto;">
+						<c:forEach var="groupPagePic" items="${groupPagePic }"
+							varStatus="status">
+							<div class="col-md-4"
+								style="padding-left: 0px; margin: 0 10px 50px 0; width: 300px; height: 200px">
 
-						</form>
-					</c:forEach>
+								<div class="item">
+									<div class="polaroid">
+
+										<a class="example-image-link"
+											href="files/${groupPagePic.system_name }"
+											data-lightbox="example-set"> <img class="example-image"
+											src="files/${groupPagePic.system_name }" id="pola-img" /></a>
+
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						
+					</div>
 				</div>
-			
-			</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-				$("#pola-img-plus").click(function(e){
+				$("#up").click(function(e){
 					e.preventDefault();
-					$('#file').click();
+					$('#file2').click();
 				});
+				
 			</script>
 
 <script src="photo/js/lightbox-plus-jquery.min.js"></script>

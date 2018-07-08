@@ -390,7 +390,7 @@ p {
 		
 	</form>
 
-	<c:if test="${fileResult >=1 }">
+	<c:if test="${newMeetingResult >=1 }">
 				<script>
 					var val = "${systemName}";
 					$.ajax({

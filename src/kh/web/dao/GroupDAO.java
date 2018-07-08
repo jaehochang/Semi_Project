@@ -388,6 +388,7 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
+			dto.setMember_email(rs.getString("member_email"));
 
 			result.add(dto);
 		}
@@ -424,6 +425,7 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
+			dto.setMember_email(rs.getString("member_email"));
 
 			result.add(dto);
 		}
@@ -456,6 +458,7 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
+			dto.setMember_email(rs.getString("member_email"));
 
 			result.add(dto);
 		}

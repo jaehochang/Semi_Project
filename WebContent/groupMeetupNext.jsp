@@ -32,7 +32,7 @@
 	
 	<c:forEach var="result" items="${result }">
 		<div class="btn-group" 
-			style="position: absolute; transform: translate(400%, -140%);">  
+			style="position: absolute; transform: translate(600%, -140%);">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
 			<ul class="dropdown-menu" role="menu">
@@ -146,9 +146,15 @@
 		
 		
 		<div id="preMeetingList">
-				<c:forEach var="nextAllMeeting" items="${nextAllMeeting}">
-			<div id="meetup-plan-contents" style="margin-bottom: 30px;">
-					<div style="width: 70%; hegith: 100%; float: left">
+			<%
+				int cnt = 0;
+			%>
+			<c:forEach var="nextAllMeeting" items="${nextAllMeeting}">
+				<%
+					cnt = cnt + 1;
+				%>
+				<div id="meetup-plan-contents" style="margin-bottom: 30px;">
+					<div style="width: 70%; hegith: 100%; float: left" onclick="location.href='meeting.meet?seq=${nextAllMeeting.meeting_seq }';">
 						<time class="icon">
 							<strong><fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="M" />월</strong>
 							<span><fmt:formatDate value="${nextAllMeeting.meeting_start_time}" pattern="dd" /></span>
@@ -174,8 +180,10 @@
 								</p>
 							</h2>
 							<div id="meetup-leader">
+								
 								<c:forEach var="leaderInfo" items="${leaderInfo }">
-								<div style="width: 20%; hegiht: 60px; float: left;">
+									
+									<div style="width: 20%; hegiht: 60px; float: left;">
 									<img src="files/${leaderInfo.member_picture }"
 										style="width: 50px; height: 50px; border-radius: 150px;">
 								</div>
@@ -199,11 +207,37 @@
 
 						<div id="meetup-btn">
 							<button type="button" class="btn btn-secondary"
-								style="width: 200px; background-color: #b831d9; color: white;">참석</button>
+								style="width: 200px; background-color: #b831d9; color: white;" id="joinMeetupBT<%=cnt%>">참석</button>
+						
+							<div class="btn-group" style="width: 200px; " id="editMeetupBT<%=cnt%>" >
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown" aria-expanded="false" style="width: 200px; ">
+									주최자 도구
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Meetup 편집</a></li>
+									<li><a href="#">Meetup 삭제</a></li>
+								</ul>
+							</div>
+							
+						
 						</div>
+							<c:choose>
+								<c:when test="${nextAllMeeting.member_email eq  sessionScope.loginId}">
+									<script>
+										$("#joinMeetupBT<%=cnt%>").hide();
+									</script>
+								</c:when>
+								<c:otherwise>
+									<script>
+										$("#editMeetupBT<%=cnt%>").hide();
+									</script>
+								</c:otherwise>
+							</c:choose>
+							
 						<div id="meetup-location">
 							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"
-								style="color: gray;"></span> 당산역<br>
+								style="color: gray;"></span> ${nextAllMeeting.meeting_location }<br>
 						</div>
 
 					</div>
@@ -220,8 +254,6 @@
 				<c:when test="${leader_email eq  sessionScope.loginId}">
 					<script>
 						$("#check").hide();
-						$("#joinMeetupBT").hide();
-						$("#joinMeetupBT2").hide();
 						$("#joinGroupBT").hide();
 						$("#memberBT").hide();
 						$("#test").remove();
@@ -229,8 +261,6 @@
 				</c:when>
 				<c:otherwise>
 					<script>
-						$("#editMeetupBT2").hide();
-						$("#editMeetupBT").hide();
 						$("#newMeetingBT").hide();
 						$("#groupSettingBT").hide();
 					</script>

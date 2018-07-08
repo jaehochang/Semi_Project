@@ -41,10 +41,14 @@ div{
   height: 200px;
 }
 #pola-img-plus{
-	width:240px;
-  height: 160px;
+	width:260px;
+  height: 190px;
+  margin-left: 10px;
 }
 
+#up:hover{
+	cursor:pointer;
+}
 
 
 .wrapper {

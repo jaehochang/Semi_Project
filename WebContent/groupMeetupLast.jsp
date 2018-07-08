@@ -32,7 +32,7 @@
 	
 	<c:forEach var="result" items="${result }">
 		<div class="btn-group" 
-			style="position: absolute; transform: translate(400%, -140%);">  
+			style="position: absolute; transform: translate(600%, -140%);">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
 			<ul class="dropdown-menu" role="menu">
@@ -156,7 +156,8 @@
 							<span><fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="dd" /></span>
 						</time>
 						<div class="meeting-info"
-							style="padding-left: 150px; padding-top: 30px;">
+							style="padding-left: 150px; padding-top: 30px;" 
+							onclick="location.href='meeting.meet?seq=${lastMeeting.meeting_seq }';">
 							<div class="" style="color: #8b96a8;">
 								<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="M" />
 								월
@@ -199,9 +200,9 @@
 							<img src="files/${lastMeeting.meeting_picture }">
 						</div>
 
-						<div id="meetup-location">
+						<div id="meetup-location" style="padding-top: 30px;">
 							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"
-								style="color: gray;"></span> 당산역<br>
+								style="color: gray;"></span>${lastMeeting.meeting_location }<br>
 						</div>
 
 					</div>

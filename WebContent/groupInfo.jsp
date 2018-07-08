@@ -34,7 +34,7 @@
 	
 	<c:forEach var="result" items="${result }">
 		<div class="btn-group" 
-			style="position: absolute; transform: translate(400%, -140%);">  
+			style="position: absolute; transform: translate(600%, -140%);">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
 			<ul class="dropdown-menu" role="menu">
@@ -206,9 +206,9 @@
 								style="width: 200px; background-color: #b831d9; color: white;" id="joinMeetupBT">참석</button>
 						
 
-							<div class="btn-group" style="width: 200px;" id="editMeetupBT" >
+							<div class="btn-group" style="width: 200px; " id="editMeetupBT" >
 								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false" id="editMeetupBT">
+									data-toggle="dropdown" aria-expanded="false" style="width: 200px; " id="editMeetupBT">
 									주최자 도구
 								</button>
 								<ul class="dropdown-menu" role="menu">
@@ -228,11 +228,7 @@
 				</c:forEach>
 		</div>
 		
-		<script>
-			$("#editMeetupBT").click(function(){
-				
-			})
-		</script>
+		
 
 		<c:forEach var="item2" items="${result }">
 			<div id="group-contents">
@@ -374,9 +370,9 @@
 								style="width: 200px; background-color: #b831d9;
 								color: white; margin-left: 90px; margin-top: 25px;" id="joinMeetupBT2">참석</button>
 								
-							<div class="btn-group" style="width: 200px;" id="editMeetupBT" >
+							<div class="btn-group"  id="editMeetupBT" style="transform: translate(50%, 0%);">
 								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false" id="editMeetupBT2">
+									data-toggle="dropdown" aria-expanded="false" style="width: 200px; " id="editMeetupBT2">
 									주최자 도구
 								</button>
 								<ul class="dropdown-menu" role="menu">

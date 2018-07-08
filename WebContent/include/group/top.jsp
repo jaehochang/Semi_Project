@@ -96,7 +96,7 @@ body {
 			</div>
 
 			<form action="upload.file?group_seq=${item.group_seq }&page=group" method="post" id="writeForm" enctype="multipart/form-data">
-				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
+				<input type="file" id="file" name="file" onchange="writeForm.submit()" style="display:none;"/>
 				
 			</form>
 			
@@ -164,7 +164,7 @@ body {
 				</div>
 				<div id="info-sns">
 					<span id="sns">공유 : <img src="img/kakao.png" id="kakaoShare">
-					<a href=""><img src="img/facebook.png"></a></span>
+					<img src="img/facebook.png"></a></span>
 				</div>
 			</div>
 			<input type="hidden" id="groupTitle" value="${item.group_name }">
@@ -176,38 +176,15 @@ body {
 	<hr>
 	
 		<script>
-			$("#kakaoShare").click(function(){
-				
-				var title = $("#groupTitle").val();
-				var info = $("#groupInfo").val();
-				var seq = $("#groupSeq").val();
-				
-				// // 사용할 앱의 JavaScript 키를 설정해 주세요.
-			    Kakao.init('767925735aa3c3cbed5da5abc25740ee');
-			    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-			    Kakao.Link.createDefaultButton({
-			      container: '#kakaoShare',
-			      objectType: 'feed',
-			      content: {
-			        title: title,
-			        description: info,
-			        imageUrl: 'https://goo.gl/LP6PfT',
-			        link: {
-			          mobileWebUrl: "http://192.168.1.249:8080/0619/groupMain?group_seq=1&page=info",
-			          webUrl: "http://192.168.1.249:8080/0619/groupMain?group_seq=1&page=info"
-			        }
-			      },
-			      buttons: [
-			        {
-			          title: '웹으로 보기',
-			          link: {
-			            mobileWebUrl: "http://192.168.1.249:8080/0619/groupMain?group_seq=1&page=info",
-			            webUrl: "http://192.168.1.249:8080/0619/groupMain?group_seq=1&page=info"
-			          }
-			        }
-			      ]
-			    });
+			$("#info-sns").click(function(){
+				alert("준비중 입니다!");
 			})
 		</script>
+		
+		<c:if test="${leader_email ne  sessionScope.loginId}">
+			<script>
+				$("#btn-upload").hide();
+			</script>
+		</c:if>
 		
 			
