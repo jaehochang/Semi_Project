@@ -11,6 +11,11 @@ nav {
     display:none;
 }
 
+header nav {
+	visibility : visible;
+	background-color : white;
+}
+
 nav div {
     visibility: hidden;
     display:none;

@@ -18,7 +18,8 @@
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css">
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=3">
+
 
 <link rel="stylesheet" type="text/css" href="css/main-card-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
@@ -109,7 +110,10 @@ body {
 			<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
 			<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
 			<p>
-				<a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
+				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 150px; color: white; border:0;">가입하기&raquo;</span>
+                  </button>
+<!-- 				<a class="btn btn-primary btn-lg" href="" role="button">가입하기&raquo;</a> -->
+				<%@ include file="include/modal/signup.jsp"%>
 			</p>
 		</div>
 	</div>
@@ -314,31 +318,10 @@ body {
 
       
 
-		<div class="col">
-			<div class="col-xs-12 col-sm-4">
-				<div class="card">
-					<a class="img-card" href="http://www.fostrap.com/"> <img
-						src="./image/Tulips.jpg" />
-					</a> <br />
-					<div class="card-content">
-						<h4 class="card-title">
-							<a href="http://www.fostrap.com/"> Your title card </a>
-						</h4>
-						<div class="">Your description card!!</div>
-					</div>
-					<div class="card-read-more">
-						<a class="btn btn-link btn-block" href="http://www.fostrap.com/">
-							Read More </a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
+<!--    <footer> -->
       <%@ include file="include/bottom.jsp"%>
 
-   
-   
+<!--    </footer> -->
 </body>
 
 </html>

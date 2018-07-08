@@ -12,10 +12,10 @@
 <link href="./resources/docs/examples/jumbotron/jumbotron.css" rel="stylesheet">
 <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
 
-<link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/meeting-style.css?ver=6">
-<link rel="stylesheet" type="text/css" href="css/meeting-nav-style.css?ver=1">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/meeting-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/meeting-nav-style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="css/mypagenav-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=3">
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
 
 <script>
    $(window).scroll(function() {
@@ -67,7 +69,9 @@ body {
 <body>
 
 
-   <header> <%@ include file="include/nav/mypageNav.jsp"%>
+   <header>
+      <%@ include file="include/nav/mypageNav.jsp"%>
+   </header>
    <div class="jumbotron" style="background-color:#f7f2fc;">
       <time class="icon"> <strong><fmt:formatDate
             value="${result.meeting_start_time}" pattern="M" />월</strong> <span><fmt:formatDate
@@ -124,10 +128,12 @@ body {
          
          <c:choose>
          <c:when test="${sessionScope.loginId != null}">
-            <%@ include file="include/modal/attend_login.jsp"%>
+         	<%@ include file="include/modal/attend_login.jsp"%>
+            
          </c:when>
          <c:when test="${sessionScope.loginId == null}">
-            <%@ include file="include/modal/attend_logout.jsp"%>
+            <%@ include file="include/modal/signup.jsp"%>
+			
          </c:when>
          </c:choose>
       </div>
@@ -176,7 +182,7 @@ body {
             </c:choose>
    </div>
    </nav> 
-   </header>  
+  
     
    <div class="fixed-bar" style="color: #8b96a8;">
       <div class="fixed-bar-contents">
