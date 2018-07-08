@@ -286,6 +286,7 @@ public class MeetingController extends HttpServlet {
 				isajax = true;
 				for (int i = 0; i < showlist.size(); i++) {
 					JSONObject json = new JSONObject();
+					json.put("groseq", showlist.get(i).getMeetseq());
 					json.put("date", showlist.get(i).getDat_month());
 					json.put("hour", showlist.get(i).getHour_minut());
 					json.put("groupName", showlist.get(i).getGroup_name());
@@ -307,13 +308,73 @@ public class MeetingController extends HttpServlet {
 				JSONArray jarray = new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				String value = request.getParameter("val"); 
+				System.out.println(value);
+				String[] datecase = value.split("/");
+				String alldata = null;
+				for(int i=0;i<datecase.length;i++) {
+					if(i==0) {
+						alldata = datecase[i];
+					}else {
+						alldata += datecase[i];
+					}
+				}
+				Date tempDate = simpleDateFormat.parse(alldata);
+				System.out.println(tempDate);
+				List<ShowMeetingDTO> showlist = mdao.selectMyMeet(tempDate, member_email);
+				isajax = true;
+				for(int i=0;i<showlist.size();i++) {
+					JSONObject json = new JSONObject();
+					json.put("groseq", showlist.get(i).getMeetseq());
+					json.put("date", showlist.get(i).getDat_month());
+					json.put("hour", showlist.get(i).getHour_minut());
+					json.put("groupName", showlist.get(i).getGroup_name());
+					json.put("groupTitle", showlist.get(i).getMeeting_title());
+					json.put("location", showlist.get(i).getMeeting_location());
+					jarray.add(json);
+				}
 
-			} else if (command.equals("/checkup.meet")) {
-				JSONArray jarray = new JSONArray();
+				//request.setAttribute("showlist", showlist);
+				//System.out.println(jarray);
+				System.out.println(jarray);
+				new Gson().toJson(jarray,response.getWriter());
+				
+			}else if(command.equals("/checkup.meet")) {
+				JSONArray jarray =new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
-			}else if(command.equals("/updatebasic.meet")) {
-				
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				String value = request.getParameter("val"); 
+				System.out.println(value);
+				String[] datecase = value.split("/");
+				String alldata = null;
+				for(int i=0;i<datecase.length;i++) {
+					if(i==0) {
+						alldata = datecase[i];
+					}else {
+						alldata += datecase[i];
+					}
+				}
+				Date tempDate = simpleDateFormat.parse(alldata);
+				System.out.println(tempDate);
+				List<ShowMeetingDTO> showlist = mdao.selectMeetCheck(tempDate, member_email);
+				isajax = true;
+				for(int i=0;i<showlist.size();i++) {
+					JSONObject json = new JSONObject();
+					json.put("groseq", showlist.get(i).getMeetseq());
+					json.put("date", showlist.get(i).getDat_month());
+					json.put("hour", showlist.get(i).getHour_minut());
+					json.put("groupName", showlist.get(i).getGroup_name());
+					json.put("groupTitle", showlist.get(i).getMeeting_title());
+					json.put("location", showlist.get(i).getMeeting_location());
+					jarray.add(json);
+				}
+
+				//request.setAttribute("showlist", showlist);
+				//System.out.println(jarray);
+				System.out.println(jarray);
+				new Gson().toJson(jarray,response.getWriter());
 			}
 
 			if (isajax) {

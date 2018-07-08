@@ -174,8 +174,8 @@
 		<div class="list-group" id="choice" >
   		<a class="list-group-item list-group-item-action active" data-toggle="list" href="#printlist" role="tab" id="alllist" data-value="all">All</a>
   		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="recolist" data-value="recommend">Recommend</a>
-		<a class="list-group-item list-group-item-action " data-toggle="list" href="#printlist" role="tab" id="mymeet" data-value="mymeet">My meet 들</a>
-  		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="come" data-value="check">참석하는 Meet</a>
+		<a class="list-group-item list-group-item-action " data-toggle="list" href="#printlist" role="tab" id="mymeetnow" data-value="mymeet">My meet 들</a>
+  		<a class="list-group-item list-group-item-action" data-toggle="list" href="#printlist" role="tab" id="comein" data-value="check">참석하는 Meet</a>
   		</div>
 	 	<button type="button" id="today" class="pull-right">today</button>
 		<div class="col-md-4" id="datepicker"></div>
@@ -274,6 +274,7 @@
 				console.log("AJAX Request 성공 ");
 				$("#printlist").text('');
 					for(var i=0;i<response.length;i++){
+						var seq = response[i].groseq;
 						var day = response[i].date;
 						var hour = response[i].hour;
 						var group = response[i].groupName;
@@ -285,16 +286,16 @@
 						  	
 						  	   if(response[i].date == response[i-1].date){
 						  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }else{
 						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }
 						  	   }else{
 						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }
 						 
@@ -331,6 +332,7 @@
 				console.log(response);
 				$("#printlist").text('');
 					for(var i=0;i<response.length;i++){
+						var seq = response[i].groseq;
 						var day = response[i].date;
 						var hour = response[i].hour;
 						var group = response[i].groupName;
@@ -341,16 +343,16 @@
 				  	
 					  	   if(response[i].date == response[i-1].date){
 					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
 					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
 				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
 				  	
@@ -367,12 +369,96 @@
 		}else if(showtypes == "recommend"){
 			
 		}else if(showtypes == "mymeet"){
+			$.ajax({
+				url:"mymeet.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+					  	
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+					  	
+						}
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
 			
 		}else if(showtypes == "check"){
-			
+			$.ajax({
+				url:"checkup.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+					  	
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+					  	
+						}
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
 		}
-		
-		
+			
 	}
 	//datawhat = $("#datepicker").val();
 	//alert(datawhat);
@@ -391,6 +477,7 @@
 					console.log(response);
 					$("#printlist").text('');
 						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
 							var day = response[i].date;
 							var hour = response[i].hour;
 							var group = response[i].groupName;
@@ -401,16 +488,16 @@
 					  	
 						  	   if(response[i].date == response[i-1].date){
 						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
 						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
 					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 					  	
@@ -426,9 +513,94 @@
 		}else if(showtypes == "recommend"){
 			
 		}else if(showtypes == "mymeet"){
+			$.ajax({
+				url:"mymeet.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+					  	
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+					  	
+						}
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
 			
 		}else if(showtypes == "check"){
-			
+			$.ajax({
+				url:"checkup.meet",
+				type:"post",
+				data:{val:date},
+				dataType : "json",
+				success:function(response){
+					console.log("AJAX Request 성공 ");
+					console.log(response);
+					$("#printlist").text('');
+						for(var i=0;i<response.length;i++){
+							var seq = response[i].groseq;
+							var day = response[i].date;
+							var hour = response[i].hour;
+							var group = response[i].groupName;
+							var title =  response[i].groupTitle;
+					  	   var location = response[i].location;
+					  	   
+					  	   if(i>0){
+					  	
+						  	   if(response[i].date == response[i-1].date){
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+										  	 );
+						  	   }else{
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+									  	 );
+						  	   }
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+					  	
+						}
+				},
+				error:function(request,status,error){
+					console.log(request.status+":"+status.responseText+":"+ error);
+				},
+				complete:function(){
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+			});
 		}
 		
 		
@@ -446,6 +618,7 @@
 				console.log(response);
 				$("#printlist").text('');
 					for(var i=0;i<response.length;i++){
+						var seq = response[i].groseq;
 						var day = response[i].date;
 						var hour = response[i].hour;
 						var group = response[i].groupName;
@@ -456,16 +629,16 @@
 				  	
 					  	   if(response[i].date == response[i-1].date){
 					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
 					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
 				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=#>"+group+"</a>"+"</div>"+"<div>"+"<a href=#>"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
 				  	
@@ -479,6 +652,100 @@
 			}
 		});
 	});
+	
+	$("#comein").click(function() {
+		var nowdata = $("#datepicker").val();
+		$.ajax({
+			url:"checkup.meet",
+			type:"post",
+			data:{val:nowdata},
+			dataType : "json",
+			success:function(response){
+				console.log("AJAX Request 성공 ");
+				console.log(response);
+				$("#printlist").text('');
+					for(var i=0;i<response.length;i++){
+						var seq = response[i].groseq;
+						var day = response[i].date;
+						var hour = response[i].hour;
+						var group = response[i].groupName;
+						var title =  response[i].groupTitle;
+				  	   var location = response[i].location;
+				  	   
+				  	   if(i>0){
+				  	
+					  	   if(response[i].date == response[i-1].date){
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	 );
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+				  	   }else{
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+							  	 );
+				  	   }
+				  	
+					}
+			},
+			error:function(request,status,error){
+				console.log(request.status+":"+status.responseText+":"+ error);
+			},
+			complete:function(){
+				console.log("성공이건 실패건 어찌되었든 ajax 종료");
+			}
+		});
+	});
+	
+	$("#mymeetnow").click(function() {
+		var nowdata = $("#datepicker").val();
+		$.ajax({
+			url:"mymeet.meet",
+			type:"post",
+			data:{val:nowdata},
+			dataType : "json",
+			success:function(response){
+				console.log("AJAX Request 성공 ");
+				console.log(response);
+				$("#printlist").text('');
+					for(var i=0;i<response.length;i++){
+						var seq = response[i].groseq;
+						var day = response[i].date;
+						var hour = response[i].hour;
+						var group = response[i].groupName;
+						var title =  response[i].groupTitle;
+				  	   var location = response[i].location;
+				  	   
+				  	   if(i>0){
+				  	
+					  	   if(response[i].date == response[i-1].date){
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
+									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+									  	 );
+					  	   }else{
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
+					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+								  	 );
+					  	   }
+				  	   }else{
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+							  	 );
+				  	   }
+				  	
+					}
+			},
+			error:function(request,status,error){
+				console.log(request.status+":"+status.responseText+":"+ error);
+			},
+			complete:function(){
+				console.log("성공이건 실패건 어찌되었든 ajax 종료");
+			}
+		});
+	})
 	
 	$('#gro').click(function(e) {
 		location.href = 'list.group';

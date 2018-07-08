@@ -414,6 +414,52 @@ public class GroupController extends HttpServlet {
 
 				isRedirect = false;
 				dst = "groupMain.group?group_seq="+groupSeq+"&page=info";
+			}else if(command.equals("/toupdate.group")) {
+				String groseq = request.getParameter("groupSeq");
+				 List<GroupDTO> result = dao.groupInfo(groseq);
+				 request.setAttribute("result", result);
+				isRedirect = false;
+				dst="changeMettingGroupBasic.jsp";
+			}else if(command.equals("/updatebasic.group")){
+				String group_seq = request.getSession().getAttribute("groupSeq").toString();
+				int groupseq = Integer.parseInt(group_seq);
+				System.out.println(groupseq);
+
+				String groupName = request.getParameter("groupname");
+				System.out.println(groupName);
+				String groupDescripton = request.getParameter("description");
+				System.out.println(groupDescripton);
+				String location = request.getParameter("location");
+				System.out.println(groupDescripton);
+				GroupDTO dto = new GroupDTO();
+				dto.setGroup_name(groupName);
+				dto.setGroup_info(groupDescripton);
+				dto.setGroup_location(location);
+				int result = dao.updateMettingBasic(dto, groupseq);
+				System.out.println(result);
+				
+				if(result > 0) {
+					isRedirect = false;
+					dst="list.group";
+				}else {
+					isRedirect = true;
+					dst="list.group";
+				}
+				
+			}else if(command.equals("/duplecheck.group")) {
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				String newname = request.getParameter("val");
+				System.out.println(newname);
+				boolean duplechk = dao.duplecheckGroup(newname);
+				System.out.println(duplechk);
+				ajax_dist = "ajax_dist";
+				JSONObject json = new JSONObject();
+				json.put("names", duplechk);
+				
+				response.getWriter().flush();
+				response.getWriter().close();
+				response.getWriter().print(json);
 			}
 
 			if (isRedirect == false) {
