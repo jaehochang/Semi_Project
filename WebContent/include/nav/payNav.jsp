@@ -305,9 +305,9 @@ top:40px;
 			<li><a href="main.jsp"><img
 					src="https://i.imgur.com/axIYcKj.png"
 					style="height: 50px; width: 150px;"></a>
-			<li><a href="#">탐색</a>
+
 			<li><a href="#">메시지</a>
-			<li><a href="#">알림</a>
+
 			<li><a href="#"><span class="glyphicon glyphicon-user"
 					aria-hidden="true"></span></a>
 		</ul>

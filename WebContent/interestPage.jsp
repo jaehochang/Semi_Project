@@ -22,36 +22,32 @@
 <script>
 
 $(document).ready(function(e){
-	
+	var cntEPT = $('input:checkbox[name=checkbox]:checked').length;
 	var checked=new Array;
 	
 	$(".img-check").click(function(){
 		$(this).toggleClass("check");
-		 var $widget = $(this),
-         $button = $widget.find('button'),
-         $checkbox = $widget.find('input:checkbox'),
-         color = $button.data('color'),
-         settings = {
-             on: {
-                 icon: 'icon icon-check'
-             },
-             off: {
-                 icon: 'icon icon-unchecked'
-             }
-         };
+		 
 	});
 	
 	
 	
 	$('#nextBt').click(function(){
+		
+		
 		$('input[type=checkbox]:checked').each(function() {
 			checked.push($(this).val());
 			
 			$("#hiddenTag").val(checked);
-			alert($("#hiddenTag").val());
+			
 		})
 		
+		 if(!$("#hiddenTag").val()){
+				alert("관심사 선택은 1개이상 선택하셔야합니다.")
+				return false;
+			}
 		
+		$("#nextBt").submit();
 		
 	})
 	
@@ -62,10 +58,10 @@ $(document).ready(function(e){
 <body>
 	<div class="container" style="height:100%">
 	<div class="row">
-		<form method="get" action="#">
+		<form method="get" action="insertInterest.co">
 		<div class="form-group">
 		<br>
-		<h1 style="text-align:center">관심사를 몇 개 골라보세요!</h1>
+		<h1 style="text-align:center;font-weight:bold">관심사를 몇 개 골라보세요!</h1>
 		<br><br>	
 		<div class="col-md-3"><label class="btn btn-default" style="border:transparent"><img src="./interests/기술.PNG" class="img-rounded img-check" style="width:100%;height:100%"><input type="checkbox" name="chk1" id="item4" value="기술" class="hidden" autocomplete="off"></label><label>기술</label></div>
 		<div class="col-md-3"><label class="btn btn-default" style="border:transparent"><img src="./interests/가족.PNG" class="img-rounded img-check" style="width:100%;height:100%"><input type="checkbox" name="chk2" id="item4" value="가족" class="hidden" autocomplete="off"></label><label>가족</label></div>
@@ -102,7 +98,7 @@ $(document).ready(function(e){
 		<br><h4 style="color:white">MeetNow</h4>
 		</div>
 		
-		<input type="hidden" id="hiddenTag">
+		<input type="hidden" name="interests" id="hiddenTag">
 		<input type="submit" id="nextBt" value="다음" class="btn btn-block btn-default" style="background-color:#b831d9; color:white; font-weight:bold">
 		<br>
 		</form>

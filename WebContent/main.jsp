@@ -58,10 +58,7 @@
    crossorigin="anonymous">
 
 
-
 </head>
-
-
 
 <script>
    $(document).ready(function() {
@@ -101,8 +98,9 @@ body {
       <link rel="stylesheet" type="text/css" href="css/groupstyle.css">
    </header>
 
-   <div class="jumbotron" style="background-color: #b548d0">
-      <div class="container">
+   <div id="video" class="jumbotron">
+      <!--비디오 사이즈 줄여서 넣기  -->
+      <div class="container" id="jumbovidtext">
 
 			<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
 			<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
