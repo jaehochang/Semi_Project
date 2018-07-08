@@ -95,6 +95,7 @@ public class FileController extends HttpServlet {
                     		 System.out.println("fileResult"+fileResult);
                     		 dst="mypage.co";
                     	 }else if(page.equals("newMeeting")) {
+                    		 System.out.println("뉴미팅!!");
                     		 request.setAttribute("systemName", systemName);
                     		 fileResult=1;
                     		 dst="newmeetingform.meet?group_seq="+groupSeq;
