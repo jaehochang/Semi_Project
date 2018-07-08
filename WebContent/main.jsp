@@ -114,71 +114,6 @@ body {
 		</div>
 	</div>
 
-
-	<div class="container">
-		<h2 style="color: #5e5568;">
-			<b>주변의 인기 Meet Up</b>
-		</h2>
-		<div class='row'>
-			<div class='col-md-12'>
-				<div class="carousel slide media-carousel" id="media">
-					<div class="carousel-inner">
-						<div class="item  active">
-							<div class="row">
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="./image/manse.jpeg"></a>
-								</div>
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="./image/manse.jpeg"></a>
-								</div>
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="row">
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="row">
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-								<div class="col-md-4">
-									<a class="thumbnail" href="#"><img alt=""
-										src="http://placehold.it/150x150"></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<a data-slide="prev" href="#media" class="left carousel-control">‹</a>
-					<a data-slide="next" href="#media" class="right carousel-control">›</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
 <div class="container">
   <h2 style="color:#5e5568;"><b>주변의 인기 Meet Up</b></h2></br>
     <div class='row'>
@@ -186,11 +121,12 @@ body {
       <div class="carousel slide media-carousel" id="media">
         <div class="carousel-inner">
           
-          <c:forEach var="items" items="${result}" varStatus="status" >
+          <c:forEach var="items" begin="1" end="6" items="${result}" varStatus="status" >
+          
           
           	   <c:choose>
       				<c:when test="${status.count==1}">
-      					<div class="item  active">
+      					<div class="item active">
             			<div class="row">
       				</c:when>
       				<c:when test="${status.count!=1 && status.count%3==1}">
@@ -207,23 +143,20 @@ body {
                   </time>
                   <a class="img-card" href="meeting.meet?seq=${items.meeting_seq}"><img src="files/${items.meeting_picture}"> </a>
                   <div class="card-content">
-                     <div class="" style="color:#8b96a8;" >
+                     <div class="" style="color:#8b96a8;" > &nbsp;
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="M"/>월
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="dd"/>일 
                         <fmt:formatDate value="${items.meeting_start_time}" pattern="E"/>요일 
-                        <fmt:formatDate value="${items.meeting_start_time}" pattern="a"/> 
-                        <fmt:formatDate value="${items.meeting_start_time}" pattern="hh"/>시
-                        <fmt:formatDate value="${items.meeting_start_time}" pattern="mm"/>분 
                      </div>
                      <br>
                      <h2 class="card-title">
                         <p><a href="meeting.meet?seq=${items.meeting_seq}"> ${items.meeting_title} </a></p>
                      </h2>
                      <p class="img-member">
-                        <img style="width: 60px; height: 60px; border-radius: 50%; outline: none; margin : 0 10px 20px 0;" class="pull-left" src="./image/manse.jpeg" alt="Focus Lab">
+                        <img style="width: 60px; height: 60px; border-radius: 50%; outline: none; margin : 0 10px 20px 0;" class="pull-left" src="./image/default_member.png" alt="Focus Lab">
                      </p>
                      <div class="">주최자 : ${items.group_leader}</div>
-                     <div class="">주최그룹 : ${items.group_name}</p></div>
+                     <div class="">주최그룹 : ${items.group_name}</div>
                      
                   </div>
                </div>
@@ -252,126 +185,126 @@ body {
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/야외활동.JPG"></a> <br />
-               <p class="interest-name">야외활동</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/tech.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/기술.PNG"></a> <br />
                <p class="interest-name">기술</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/가족.PNG"></a> <br />
                <p class="interest-name">가족</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/건강과웰빙.PNG"></a> <br />
                <p class="interest-name">건강과 웰빙</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/스포츠피트니스.PNG"></a> <br />
+               <p class="interest-name">스포츠 / 피트니스</p>
             </div>
          </div>
       </div>
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">스포츠 / 피트니스</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">학습</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/사진촬영.PNG"></a> <br />
                <p class="interest-name">사진촬영</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/음식.PNG"></a> <br />
                <p class="interest-name">음식</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/학습.PNG"></a> <br />
+               <p class="interest-name">학습</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/사회운동.PNG"></a> <br />
+               <p class="interest-name">사회운동</p>
             </div>
          </div>
       </div>
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">글쓰기</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">언어와 문화</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">음악</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/영화.PNG"></a> <br />
                <p class="interest-name">영화</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/공상과학게임.PNG"></a> <br />
                <p class="interest-name">공상과학 / 게임</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/예술.PNG"></a> <br />
                <p class="interest-name">예술</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/북클럽.PNG"></a> <br />
                <p class="interest-name">북클럽</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/춤.PNG"></a> <br />
                <p class="interest-name">춤</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
+                 <a class="interest-img" href=""><img src="./interests/취미와공예.PNG"></a> <br />
+               <p class="interest-name">취미와공예</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/패션과스타일.PNG"></a> <br />
+               <p class="interest-name">패션과스타일</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/비즈니스.PNG"></a> <br />
+               <p class="interest-name">비즈니스</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/글쓰기.PNG"></a> <br />
+               <p class="interest-name">글쓰기</p>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="interest-card">
+                 <a class="interest-img" href=""><img src="./interests/반려동물.PNG"></a> <br />
                <p class="interest-name">반려동물</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">취미와 공예</p>
+                 <a class="interest-img" href=""><img src="./interests/언어와문화.PNG"></a> <br />
+               <p class="interest-name">언어와문화</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">패션과 스타일</p>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="interest-card">
-                 <a class="interest-img" href="http://www.fostrap.com/"><img src="./image/Tulips.jpg"></a> <br />
-               <p class="interest-name">비지니스</p>
+                 <a class="interest-img" href=""><img src="./interests/음악.PNG"></a> <br />
+               <p class="interest-name">음악</p>
             </div>
          </div>
          

@@ -16,6 +16,8 @@ public class MeetingDTO {
 	private String meeting_lat;
 	private String meeting_lng;
 	private String member_email;
+	
+
 
 	public MeetingDTO() {
 		super();
