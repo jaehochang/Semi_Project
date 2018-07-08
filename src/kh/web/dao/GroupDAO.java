@@ -705,19 +705,46 @@ public class GroupDAO {
 		return seq;
 	}
 	
+  
+    
+    
     public int updateMettingBasic(GroupDTO gdto , int groupseq) throws Exception {
-        Connection con = DBUtils.getConnection();
-        String sql = "update create_group set GROUP_NAME = ? , GROUP_INFO = ? where GROUP_SEQ = ?";
-        PreparedStatement pstat = con.prepareStatement(sql);
-        pstat.setString(1, gdto.getGroup_name());
-        pstat.setString(2, gdto.getGroup_info());
-        pstat.setInt(3, groupseq);
-        int result = pstat.executeUpdate();
-        con.commit();
-        pstat.close();
-        con.close();
-        return result;
-     }
+		   Connection con = DBUtils.getConnection();
+		   String sql = "update create_group set GROUP_NAME = ? , GROUP_INFO = ? , GROUP_LOCATION = ?  where GROUP_SEQ = ?";
+		   PreparedStatement pstat = con.prepareStatement(sql);
+		   pstat.setString(1, gdto.getGroup_name());
+		   pstat.setString(2, gdto.getGroup_info());
+		   pstat.setString(3, gdto.getGroup_location());
+		   pstat.setInt(4, groupseq);
+		   int result = pstat.executeUpdate();
+		   con.commit();
+		   pstat.close();
+		   con.close();
+		   return result;
+	   }
+	   
+	
+	   public boolean duplecheckGroup(String newName) throws Exception {
+		   Connection con = DBUtils.getConnection();
+		   String sql = "select * from CREATE_GROUP where GROUP_NAME in ?";
+		   PreparedStatement pstat = con.prepareStatement(sql);
+		   pstat.setString(1, newName);
+		   ResultSet rs = pstat.executeQuery();
+		   if(rs.next()) {
+			   rs.close();
+			   pstat.close();
+			   con.close();
+			   return false;
+		   }else {
+			   rs.close();
+			   pstat.close();
+			   con.close();
+			   return true;
+		   }
+
+	   }
+	   
+	   
 
 }
 

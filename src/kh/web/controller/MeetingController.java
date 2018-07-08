@@ -293,6 +293,8 @@ public class MeetingController extends HttpServlet {
 					json.put("groupTitle", showlist.get(i).getMeeting_title());
 					json.put("location", showlist.get(i).getMeeting_location());
 					jarray.add(json);
+					
+					System.out.println(json.get(i));
 				}
 
 				// request.setAttribute("showlist", showlist);
