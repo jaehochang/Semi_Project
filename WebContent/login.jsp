@@ -362,8 +362,9 @@
 						style="font-size: 15px;">로그인</button>
 				</form>
 
-
-				<div id=btns style="margin-top: 10px;">
+<!-- SNS 로그인 시작 -->
+				<br>
+				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
 					<!-- 					<button id=emailFind class="btn btn-default btn-block" -->
 					<!-- 						style="font-size: 15px;">이메일 찾기</button> -->
