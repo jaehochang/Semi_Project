@@ -50,6 +50,8 @@ public class MeetingController extends HttpServlet {
 			boolean isRedirect = true;
 			String dst = null;
 			boolean isajax = false;
+			String ajax_dist_meet = null;
+			List<String> distResult_meet =null;
 			if (command.equals("/main.meet")) {
 				List<MeetingDTO> result = mdao.getMeetingData();
 				request.setAttribute("result", result);
@@ -385,8 +387,35 @@ public class MeetingController extends HttpServlet {
 				//System.out.println(jarray);
 				System.out.println(jarray);
 				new Gson().toJson(jarray,response.getWriter());
+			}else if(command.equals("/distanceKm.meet")) {
+				
+				ajax_dist_meet = "ajax_dist_meet";
+				String val = request.getParameter("value");
+				String dist = request.getParameter("distance");
+				String loc = request.getParameter("location");
+				String word = request.getParameter("word");
+				
+				
+				String day = request.getParameter("day");
+				
+				System.out.println("value 값  : " + val + "dist 값  : " + dist + "location 값  : " + loc + "오늘 날짜  :" + day );
+				String lat = val.split(":")[0];
+				String lng = val.split(":")[1];
+				String city = loc;
+				
+				System.out.println("lat 값  : " + lat + "lng 값  : " + lng + "city 값  : " + city + "word 값" + word);
+				
+				
+				distResult_meet = dao.DistanceSearchMeet(lat, lng, dist, city, word, day);
+				for(int j=0; j<distResult_meet.size(); j++) {
+				System.out.println(distResult_meet);
+				}
+//				distSearchCount = dao.distSearchCount(distResult);
+//				for(int i=0; i<distSearchCount.size(); i++) {
+//					
+//					System.out.println(distSearchCount.get(i));
+//				}
 			}
-
 			if (isajax) {
 
 			} else {
@@ -400,7 +429,7 @@ public class MeetingController extends HttpServlet {
 				// response.getWriter().append("Served at: ").append(request.getContextPath());
 
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 
