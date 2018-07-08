@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,9 +13,9 @@
 <script src="./resources/docs/assets/js/ie-emulation-modes-warning.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/meeting-style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="css/meeting-style.css?ver=6">
 <link rel="stylesheet" type="text/css" href="css/meeting-nav-style.css?ver=1">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
@@ -28,6 +29,7 @@
       if ($(window).scrollTop() >= 300) {
          $('nav').addClass('fixed-header');
          $('nav div').addClass('visible-title');
+         $('fixed-var').addClass('moved');
 
       } else {
          $('nav').removeClass('fixed-header');
@@ -37,10 +39,36 @@
    
 </script>
 
+<!-- 다음지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72bc28de313df7398364bb8371a65642"></script>
+<style>
+#daumMap {
+            width: 100%;
+            height: 130px;
+            margin: auto;
+            margin-right: 50PX;
+            border-bottom-left-radius: 20px;
+  			border-bottom-right-radius: 20px;
+        }
+</style>
+<STYLE>
+
+
+/* 나눔고딕 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css); 
+
+body {
+   font-family: 'Nanum Gothic', serif; 
+}
+
+</STYLE>
+
 </head>
 <body>
+
+
    <header> <%@ include file="include/nav/mypageNav.jsp"%>
-   <div class="jumbotron">
+   <div class="jumbotron" style="background-color:#f7f2fc;">
       <time class="icon"> <strong><fmt:formatDate
             value="${result.meeting_start_time}" pattern="M" />월</strong> <span><fmt:formatDate
             value="${result.meeting_start_time}" pattern="dd" /></span> </time>
@@ -65,17 +93,29 @@
             주최자 : <a href="">${result.group_leader }</a>
          </h5>
          <h5>
-            <a href="">${result.group_name}</a>에서 주최
+            <a href="groupMain.group?group_seq=${result.group_seq}&page=info"">${result.group_name}</a>에서 주최
          </h5>
       </div>
       <div class="ask-attend">
-         <p>참석하시겠습니까?</p>
+            <c:choose>
+               <c:when test="${result_areYouAttend}">
+                  <p>참석 예정입니다. </p>
+                  <button type="button" class="btn btn-primary btn-lg" style="width: 150px; background-color: pink; color: white; border:0;"></a><span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                  <a href="attendCancel.meet?meeting_seq=${result.meeting_seq}"><button type="button" class="btn btn-primary btn-lg" style="width: 150px; background-color: pink; color: white; border:0;"><span class="glyphicon glyphicon-remove"></span>
+                 </button></a>
+               </c:when>
+               <c:otherwise>
+                  <p>참석하시겠습니까?</p>
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 150px; background-color: pink; color: white; border:0;"></a><span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                 <button type="button" class="btn btn-primary btn-lg" style="width: 150px; background-color: pink; color: white; border:0;"><span class="glyphicon glyphicon-remove"></span>
+                  </button>
+               </c:otherwise>
+            </c:choose>
          <br>
          
-         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 150px; background-color: pink; color: white; border:0;"><span class="glyphicon glyphicon-ok"></span>
-         </button></button>
-         <button type="button" class="btn" style="width: 150px; background-color: pink; color: white;"><span class="glyphicon glyphicon-remove"></span>
-         </button>
+         
          <c:choose>
          <c:when test="${sessionScope.loginId != null}">
             <%@ include file="include/modal/attend_login.jsp"%>
@@ -108,17 +148,26 @@
       </div>
    </div>
    <div class="navi-buttons">
-      <button type="button" class="btn"
-         style="width: 100px; background-color: pink; color: white;">
-         <span class="glyphicon glyphicon-ok"></span>
-      </button>
-      <button type="button" class="btn"
-         style="width: 100px; background-color: pink; color: white;">
-         <span class="glyphicon glyphicon-remove"></span>
-      </button>
+            <c:choose>
+               <c:when test="${result_areYouAttend}">
+                  <p>참석 예정입니다. </p>
+                  <button type="button" class="btn btn-primary btn-lg" style="width: 100px; height:35px; background-color: pink; color: white; border:0;"></a><span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                  <a href="attendCancel.meet?meeting_seq=${result.meeting_seq}"><button type="button" class="btn btn-primary btn-lg" style="width: 100px; height:35px; background-color: pink; color: white; border:0;"><span class="glyphicon glyphicon-remove"></span>
+                 </button></a>
+               </c:when>
+               <c:otherwise>
+                  <p>참석하시겠습니까?</p>
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 100px; height:35px; background-color: pink; color: white; border:0;"></a><span class="glyphicon glyphicon-ok"></span>
+                  </button>
+                 <button type="button" class="btn btn-primary btn-lg" style="width: 100px; height:35px; background-color: pink; color: white; border:0;"><span class="glyphicon glyphicon-remove"></span>
+                  </button>
+               </c:otherwise>
+            </c:choose>
    </div>
-   </nav> </header>
-
+   </nav> 
+   </header>  
+    
    <div class="fixed-bar" style="color: #8b96a8;">
       <div class="fixed-bar-contents">
          <span class="glyphicon glyphicon-time"></span><Br>
@@ -146,11 +195,14 @@
          분 <Br> <br> <span class="glyphicon glyphicon-map-marker"></span><Br>
          <p>${result.meeting_location }</p>
       </div>
-      <div class="fixed-bar-location-image">
-         <img src="files/default.jpg">
+      <div class="daumMap-wrapper">
+      
+<!--          <img src="files/default.jpg"> -->
       </div>
-
+      <div id="daumMap">
+      </div>
    </div>
+   
    <div class="meeting-contents-wrapper">
       <div class="meeting-picture">
          <img src="files/default.jpg">
@@ -164,10 +216,19 @@
       <div class="meeting-member-wrapper">
          <div class="meeting-member-title">
             <p class="pull-left">참석자</p>
-            (${result_countAttendMembers}) <a href="" class="pull-right">모두보기</a><br>
+            (${result_countAttendMembers}) <a href="attendMember.meet?meeting_seq=${result.meeting_seq}" class="pull-right">모두보기</a><br>
          </div>
          <br>
          <div class="row">
+               <div class="col-md-3">
+                  <img src="files/${result.meeting_picture}">
+                  <div class="member-info">
+                     <p>
+                        <b>${result.group_leader}</b>
+                     </p>
+                     <p>주최자</p>
+                  </div>
+               </div>
             <c:forEach var="items" items="${result_attend}">
                <div class="col-md-3">
                   <img src="files/${items.member_picture}">
@@ -182,6 +243,17 @@
          </div>
       </div>
    </div>
+   
+	<script>
+	var mapContainer = document.getElementById('daumMap'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new daum.maps.LatLng(37.3595704, 127.105399), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};
+	
+	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+	var map = new daum.maps.Map(mapContainer, mapOption);
+	</script>
 
    
          <div>
