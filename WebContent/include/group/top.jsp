@@ -14,14 +14,14 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=3">
 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 
 <!-- SJ 꺼 -->
-<link rel="stylesheet" type="text/css" href="./css/mypagenav-style.css">
+<link rel="stylesheet" type="text/css" href="./css/mypagenav-style.css?ver=1">
 <link rel="stylesheet" type="text/css" href="./css/bottom-style.css">
 <link rel="stylesheet" type="text/css" href="./css/mypage-section-style.css">
 <!-- SJ 꺼 -->
@@ -60,7 +60,7 @@
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 	
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
 
@@ -74,6 +74,7 @@
 body {
 /*    font-family: 'Jeju Gothic', serif; */
    font-family: 'Nanum Gothic', serif;
+   padding-top: 0px;
 }
 </STYLE>
 </head>
@@ -89,13 +90,14 @@ body {
 			<div id="top-contents-img">
 				<img src="files/${item.group_picture }" id="group-main-img"
 					class="img-responsive img-rounded">
+					<button type="button" class="btn btn-secondary"
+					style="position: absolute; width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
 			</div>
 
 			<form action="upload.file?group_seq=${item.group_seq }&page=group" method="post" id="writeForm" enctype="multipart/form-data">
-				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
-				<button type="button" class="btn btn-secondary"
-					style="width: 150px; background-color: #f7f7f7; color: black;"
-					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
+				<input type="file" id="file" name="file" onchange="writeForm.submit()" style="display:none;"/>
+				
 			</form>
 			
 			<script>
@@ -161,14 +163,28 @@ body {
 				</c:forEach>
 				</div>
 				<div id="info-sns">
-					<span id="sns">공유 : <a href=""><img src="img/kakao.png"></a> 
-					<a href=""><img src="img/facebook.png"></a></span>
+					<span id="sns">공유 : <img src="img/kakao.png" id="kakaoShare">
+					<img src="img/facebook.png"></a></span>
 				</div>
 			</div>
+			<input type="hidden" id="groupTitle" value="${item.group_name }">
+			<input type="hidden" id="groupInfo" value="${item.group_info }">
+			<input type="hidden" id="groupSeq" value="${item.group_seq }">
 		</c:forEach>
 	</div>
 
 	<hr>
-
+	
+		<script>
+			$("#info-sns").click(function(){
+				alert("준비중 입니다!");
+			})
+		</script>
+		
+		<c:if test="${leader_email ne  sessionScope.loginId}">
+			<script>
+				$("#btn-upload").hide();
+			</script>
+		</c:if>
 		
 			

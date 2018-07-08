@@ -362,24 +362,83 @@ public class GroupDAO {
 		
 		
 	}
-	public List<MeetingDTO> nextMeetup(int groupSeq,int meeting_seq,String msg) throws Exception{
+	
+	public List<MeetingDTO> preMeeting(int group_seq, int meeting_Seq) throws Exception{
 		Connection con = DBUtils.getConnection();
-		PreparedStatement pstat = null;
-		if(meeting_seq == 0 && msg.equals("one")) {
-			String sql = "select *from (select meeting.*, row_number()over(partition by group_seq order by meeting_start_time asc) rn "
-					+ "from meeting where group_seq=? and meeting_start_time > sysdate) where rn = 1";
-			pstat = con.prepareStatement(sql);
-			pstat.setInt(1, groupSeq);
-		}else if(msg.equals("pre")) {
-	         String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate and meeting_seq != ?";
-	         pstat = con.prepareStatement(sql);
-	         pstat.setInt(1, groupSeq);
-	         pstat.setInt(2, meeting_seq);
-		}else if(msg.equals("all")){
-			String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate";
-			pstat = con.prepareStatement(sql);
-			pstat.setInt(1, groupSeq);
+		String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate and meeting_seq != ? order by meeting_start_time asc";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		pstat.setInt(2, meeting_Seq);
+		
+		ResultSet rs = pstat.executeQuery();
+		List<MeetingDTO> result = new ArrayList<>();
+		if (rs.next()) {
+			MeetingDTO dto = new MeetingDTO();
+
+			dto.setMeeting_seq(rs.getInt("meeting_seq"));
+			dto.setGroup_seq(rs.getInt("group_seq"));
+			dto.setGroup_name(rs.getString("group_name"));
+			dto.setGroup_leader(rs.getString("group_leader"));
+			dto.setMeeting_title(rs.getString("meeting_title"));
+			dto.setMeeting_contents(rs.getString("meeting_contents"));
+			dto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
+			dto.setMeeting_location(rs.getString("meeting_location"));
+			dto.setMeeting_picture(rs.getString("meeting_picture"));
+
+			result.add(dto);
 		}
+
+		con.close();
+		pstat.close();
+		rs.close();
+
+		return result;
+		
+		
+	}
+	
+	public List<MeetingDTO> nextAllMeeting(int group_seq) throws Exception{
+		Connection con = DBUtils.getConnection();
+		String sql = "select * from meeting where group_seq=? and meeting_start_time > sysdate";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, group_seq);
+		
+		ResultSet rs = pstat.executeQuery();
+		List<MeetingDTO> result = new ArrayList<>();
+		while (rs.next()) {
+			MeetingDTO dto = new MeetingDTO();
+
+			dto.setMeeting_seq(rs.getInt("meeting_seq"));
+			dto.setGroup_seq(rs.getInt("group_seq"));
+			dto.setGroup_name(rs.getString("group_name"));
+			dto.setGroup_leader(rs.getString("group_leader"));
+			dto.setMeeting_title(rs.getString("meeting_title"));
+			dto.setMeeting_contents(rs.getString("meeting_contents"));
+			dto.setMeeting_start_time(rs.getDate("meeting_start_time"));
+			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
+			dto.setMeeting_location(rs.getString("meeting_location"));
+			dto.setMeeting_picture(rs.getString("meeting_picture"));
+			dto.setMember_email(rs.getString("member_email"));
+
+			result.add(dto);
+		}
+
+		con.close();
+		pstat.close();
+		rs.close();
+
+		return result;
+		
+	}
+	
+	public List<MeetingDTO> nextMeetup(int groupSeq) throws Exception{
+		Connection con = DBUtils.getConnection();
+
+		String sql = "select *from (select meeting.*, row_number()over(partition by group_seq order by meeting_start_time asc) rn "
+				+ "from meeting where group_seq=? and meeting_start_time > sysdate) where rn = 1";
+		PreparedStatement pstat = con.prepareStatement(sql);
+		pstat.setInt(1, groupSeq);
 
 		ResultSet rs = pstat.executeQuery();
 
@@ -397,6 +456,7 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
+			dto.setMember_email(rs.getString("member_email"));
 
 			result.add(dto);
 		}
@@ -429,6 +489,7 @@ public class GroupDAO {
 			dto.setMeeting_end_time(rs.getDate("meeting_end_time"));
 			dto.setMeeting_location(rs.getString("meeting_location"));
 			dto.setMeeting_picture(rs.getString("meeting_picture"));
+			dto.setMember_email(rs.getString("member_email"));
 
 			result.add(dto);
 		}

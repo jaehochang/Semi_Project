@@ -299,7 +299,7 @@ location.href="Oops.jsp";
 		});
 	</script>
 
-	<c:if test="${fileResult >=1 }">
+	<c:if test="${mypageResult >=1 }">
 		<script>
 			var val = "${systemName}";
 			

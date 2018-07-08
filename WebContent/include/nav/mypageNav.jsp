@@ -15,7 +15,7 @@
 			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				style="height: 50px; width: 150px;"></a>
 
-			<ul id=nav-ul style="width: 200px;">
+			<ul id=nav-ul style="width: 500px;">
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list class="dropdown active"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <i
@@ -43,7 +43,7 @@
 			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
 				class="animated wobble" style="height: 50px; width: 150px;"></a>
 
-			<ul id=nav-ul style="width: 200px;">
+			<ul id=nav-ul style="width: 500px;">
 
 				<li><a href="createRequest.group">새 그룹 시작하기</a>
 				<li id=snd-list class="dropdown active"><a href="#"

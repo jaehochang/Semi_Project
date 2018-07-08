@@ -363,8 +363,8 @@ p {
 			<img src="img/photo.png" style="width: 23px; padding-right: 3px;">사진
 			변경
 		</button>
-						<img src="img/default" style="width: 100%; height: 100%;" id="meetimg">
-						<input type="hidden" id="meetingPic" name="meetingPic" value="">
+						<img src="img/default.jpg" style="width: 100%; height: 100%;" id="meetimg">
+						<input type="hidden" id="meetingPic" name="meetingPic" value="${systemName}">
 					</div>
 					<p style="margin-top: 30px;">설명 참석자에게 이벤트 목표, 준비물, 찾는 방법, 기타
 						필요한 사항을 설명해주세요.</p>
@@ -390,7 +390,7 @@ p {
 		
 	</form>
 
-	<c:if test="${fileResult>=1 }">
+	<c:if test="${newMeetingResult >=1 }">
 				<script>
 					var val = "${systemName}";
 					$.ajax({
@@ -404,7 +404,6 @@ p {
 							var contents = resp.html;
 
 							$("#meetimg").attr("src",contents);
-							$("#meetingPic").attr("value",val);
 							$("#sub5_textarea").focus();
 						},
 						error : function(request, status, error) {

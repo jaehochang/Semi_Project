@@ -24,11 +24,9 @@
 		</c:forEach>
 
 	</ul>
-	
-	
-	
+
 	<div class="btn-group"
-		style="position: absolute; right: 500px; top: 475px;">
+		style="position: absolute; transform: translate(400%, -140%);">
 			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
 		<ul class="dropdown-menu" role="menu">
 		</ul>
@@ -36,23 +34,23 @@
 	
 	<c:forEach var="result" items="${result }">
 		<div class="btn-group" 
-			style="position: absolute; right: 430px; top: 475px;">  
+			style="position: absolute; transform: translate(600%, -140%);">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
-				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
-	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
 				<li><a href="#">그룹 신고</a></li>
 			</ul>
 		</div>
+				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
+	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
 	</c:forEach>
 	
 	
 	
 	<!-- 그룹 관리 -->
 	<div class="btn-group"
-		style="position: absolute; right: 600px; top: 475px;">
+		style="position: absolute; transform: translate(700%, -140%);">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
 		<ul class="dropdown-menu" role="menu">
@@ -116,7 +114,7 @@
 	<c:if test="${isGroupMember eq false }">
 		<!-- Single button -->
 		<div class="btn-group"
-			style="position: absolute; right: 430px; top: 475px;" id="check">
+			style="position: absolute; transform: translate(1370%, -140%);" id="check">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown" aria-expanded="false" id="test">
 				<span class="glyphicon glyphicon-option-horizontal"
@@ -208,9 +206,9 @@
 								style="width: 200px; background-color: #b831d9; color: white;" id="joinMeetupBT">참석</button>
 						
 
-							<div class="btn-group" style="width: 200px;" id="editMeetupBT" >
+							<div class="btn-group" style="width: 200px; " id="editMeetupBT" >
 								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false" id="editMeetupBT">
+									data-toggle="dropdown" aria-expanded="false" style="width: 200px; " id="editMeetupBT">
 									주최자 도구
 								</button>
 								<ul class="dropdown-menu" role="menu">
@@ -230,11 +228,7 @@
 				</c:forEach>
 		</div>
 		
-		<script>
-			$("#editMeetupBT").click(function(){
-				
-			})
-		</script>
+		
 
 		<c:forEach var="item2" items="${result }">
 			<div id="group-contents">
@@ -376,9 +370,9 @@
 								style="width: 200px; background-color: #b831d9;
 								color: white; margin-left: 90px; margin-top: 25px;" id="joinMeetupBT2">참석</button>
 								
-							<div class="btn-group" style="width: 200px;" id="editMeetupBT" >
+							<div class="btn-group"  id="editMeetupBT" style="transform: translate(50%, 0%);">
 								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false" id="editMeetupBT2">
+									data-toggle="dropdown" aria-expanded="false" style="width: 200px; " id="editMeetupBT2">
 									주최자 도구
 								</button>
 								<ul class="dropdown-menu" role="menu">

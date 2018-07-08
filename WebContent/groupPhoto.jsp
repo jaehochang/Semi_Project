@@ -4,31 +4,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" type="text/css"
-	href="css/groupInfo-style.css?ver=2">
+	href="css/groupInfo-style.css?ver=3">
 	
-<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=2">
 
-<div id="navi-div">
-
-	<ul class="nav nav-tabs">
+	<div id="navi-div">
+		<ul class="nav nav-tabs">
 		<c:forEach var="item" items="${result}">
-			<li role="presentation"><a
-				href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
-			<li role="presentation"><a
-				href="groupMain.group?group_seq=${item.group_seq}&page=meetupNext">Meetup</a></li>
-			<li role="presentation"><a
-				href="groupMain.group?group_seq=${item.group_seq}&page=member">회원</a></li>
+			<li role="presentation"><a href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
+			<li role="presentation" ><a href="groupMain.group?group_seq=${item.group_seq}&page=meetup">Meetup</a></li>
+			<li role="presentation" ><a href="groupMain.group?group_seq=${item.group_seq}&page=member">회원</a></li>
 			<li role="presentation" class="active">
-				<a href="groupMain.group?group_seq=${item.group_seq}&page=photo">사진</a>
+			<a href="groupMain.group?group_seq=${item.group_seq}&page=photo">사진</a>
 			</li>
-		</c:forEach>
-
-	</ul>
-
-
-	
-	<div class="btn-group"
-		style="position: absolute; right: 500px; top: 475px;">
+		</c:forEach>	
+		</ul>
+		
+		
+		<div class="btn-group"
+		style="position: absolute; transform: translate(400%, -140%);">
 			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
 		<ul class="dropdown-menu" role="menu">
 		</ul>
@@ -36,23 +30,23 @@
 	
 	<c:forEach var="result" items="${result }">
 		<div class="btn-group" 
-			style="position: absolute; right: 430px; top: 475px;">  
+			style="position: absolute; transform: translate(600%, -140%);">  
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 				aria-expanded="false" id="memberBT">회원입니다.</button>
-				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
-	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
 				<li><a href="#">그룹 신고</a></li>
 			</ul>
 		</div>
+				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
+	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
 	</c:forEach>
 	
 	
 	
 	<!-- 그룹 관리 -->
 	<div class="btn-group"
-		style="position: absolute; right: 600px; top: 475px;">
+		style="position: absolute; transform: translate(700%, -140%);">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
 		<ul class="dropdown-menu" role="menu">
@@ -116,7 +110,7 @@
 	<c:if test="${isGroupMember eq false }">
 		<!-- Single button -->
 		<div class="btn-group"
-			style="position: absolute; right: 430px; top: 475px;" id="check">
+			style="position: absolute; transform: translate(1370%, -140%);" id="check">
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown" aria-expanded="false" id="test">
 				<span class="glyphicon glyphicon-option-horizontal"
@@ -128,62 +122,58 @@
 		</div>
 
 	</c:if>
-</div>
+	</div>
 
 
 
 
 
 <div id="contents">
-	<div id="wrapper" style="height:auto; ">
-		
-		<div class="wrapper">
-			<div class="row" style="margin:0 auto;">
-			<c:forEach var="groupPagePic" items="${groupPagePic }" varStatus="status">
-			<div class="col-md-4" 
-                  style="padding-left:0px;
-                  margin:0 10px 50px 0; width:300px; height:200px">
-			
-			<div class="item">
-				<div class="polaroid">
-				
-				 <a class="example-image-link" href="files/${groupPagePic.system_name }" data-lightbox="example-set" >
-                  <img class="example-image" src="files/${groupPagePic.system_name }"id="pola-img"/></a>
-				
-				</div>
-			</div>
-			</div>
+	<div id="wrapper" style="height: auto;">
+		<div style="margin: 0 auto;">
+			<c:forEach var="result" items="${result}">
+				<form id="photoForm"
+					action="upload1.file?group_seq=${result.group_seq }&page=group"
+					method="post" enctype="multipart/form-data">
+					<input type="file" id="file2" name="file"
+						onchange="photoForm.submit()" style="display: none;" />
+					<img src="img/plus.jpg" style="width: 50px"  id="up" />사진 추가
+				</form>
 			</c:forEach>
-				<div class="col-md-4" 
-                  style="padding-left:0px;
-                  margin:0 10px 50px 0; width:300px; height:200px">
-			
-			<div class="item">
-				<div class="polaroid">
-					<c:forEach var="result" items="${result}">
-							<form
-								action="upload.file?group_seq=${result.group_seq }&page=photo"
-								method="post" id="writeForm" enctype="multipart/form-data">
-								<input type="file" id="file" name="file"
-									onchange="this.form.submit()" style="display: none;" />
-							<img class="example-image" src="img/plus.jpg"id="pola-img-plus"/>
-                  			사진 추가
+			<div>
+				<div class="wrapper">
+					<div class="row" style="margin: 0 auto;">
+						<c:forEach var="groupPagePic" items="${groupPagePic }"
+							varStatus="status">
+							<div class="col-md-4"
+								style="padding-left: 0px; margin: 0 10px 50px 0; width: 300px; height: 200px">
 
-						</form>
-					</c:forEach>
+								<div class="item">
+									<div class="polaroid">
+
+										<a class="example-image-link"
+											href="files/${groupPagePic.system_name }"
+											data-lightbox="example-set"> <img class="example-image"
+											src="files/${groupPagePic.system_name }" id="pola-img" /></a>
+
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						
+					</div>
 				</div>
-			</div>
-			</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-				$("#pola-img-plus").click(function(e){
+				$("#up").click(function(e){
 					e.preventDefault();
-					$('#file').click();
+					$('#file2').click();
 				});
+				
 			</script>
 
 <script src="photo/js/lightbox-plus-jquery.min.js"></script>

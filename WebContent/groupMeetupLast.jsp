@@ -4,13 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<link rel="stylesheet" type="text/css" href="css/groupMeetup-style.css?ver=1">
-<link rel="stylesheet" type="text/css" href="css/group-meeting-contents.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupMeetup-style.css?ver=2">
+<link rel="stylesheet" type="text/css" href="css/group-meeting-contents.css?ver=2">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
+<link rel="stylesheet" type="text/css"
+	href="css/groupInfo-style.css?ver=3">
 		
 <div id="navi-div">
 		<ul class="nav nav-tabs">
-		<c:forEach var="item" items="${result }">
+		<c:forEach var="item" items="${result}">
 			<li role="presentation"><a href="groupMain.group?group_seq=${item.group_seq}&page=info">정보</a></li>
 			<li role="presentation" class="active"><a href="groupMain.group?group_seq=${item.group_seq}&page=meetup">Meetup</a></li>
 			<li role="presentation"><a href="groupMain.group?group_seq=${item.group_seq}&page=member">회원</a></li>
@@ -21,35 +23,37 @@
 		</ul>
 		
 		
-	<div class="btn-group"
-		style="position: absolute; right: 500px; top: 475px;">
+		<div class="btn-group"
+		style="position: absolute; transform: translate(400%, -140%);">
 			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
 		<ul class="dropdown-menu" role="menu">
 		</ul>
 	</div>
 	
-	<div class="btn-group"
-		style="position: absolute; right: 500px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-			aria-expanded="false" id="memberBT">회원입니다.</button>
-		<ul class="dropdown-menu" role="menu">
-		<c:forEach var="result" items="${result }">
-			<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
-			<li><a href="#">그룹 신고</a></li>
-		</c:forEach>
-		</ul>
-	</div>
+	<c:forEach var="result" items="${result }">
+		<div class="btn-group" 
+			style="position: absolute; transform: translate(600%, -140%);">  
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+				aria-expanded="false" id="memberBT">회원입니다.</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
+				<li><a href="#">그룹 신고</a></li>
+			</ul>
+		</div>
+				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
+	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
+	</c:forEach>
 	
 	
 	
 	<!-- 그룹 관리 -->
 	<div class="btn-group"
-		style="position: absolute; right: 600px; top: 475px;">
+		style="position: absolute; transform: translate(700%, -140%);">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
 			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
 		<ul class="dropdown-menu" role="menu">
 		<c:forEach var="result" items="${result }">
-			<li><a href="#">그룹 내용 수정</a></li>
+			<li><a href="toupdate.group?groupSeq=${result.group_seq}">그룹 내용 수정</a></li>
 			<li><a href="#">그룹 흥미 수정</a></li>
 		</c:forEach>
 		</ul>
@@ -57,12 +61,8 @@
 	
 	
 	
-	
-	
-	
-	<!-- 밋업 관리 -->
-	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
-	
+	 
+
 	
 	
 	<c:if test="${isGroupMember eq true }">
@@ -80,48 +80,6 @@
 	
 
 	
-	
-			
-			
-
-	<c:if test="${isGroupMember eq false }">
-		<!-- Single button -->
-		<div class="btn-group"
-			style="position: absolute; right: 430px; top: 475px;">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="test">
-				<span class="glyphicon glyphicon-option-horizontal"
-					aria-hidden="true"></span> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">그룹 신고</a></li>
-			</ul>
-		</div>
-
-	</c:if>
-	
-	
-	<c:forEach var="result" items="${result }">
-			<input type="hidden" id="group_seq" value="${result.group_seq }">
-			<input type="hidden" id="group_name" value="${result.group_name }">
-			
-			<c:choose>
-				<c:when test="${result.member_email eq  sessionScope.loginId}">
-					<script>
-						$("#joinGroupBT").hide();
-						$("#memberBT").hide();
-						$("#test").remove();
-					</script>
-				</c:when>
-				<c:otherwise>
-					<script>
-						$("#newMeetingBT").hide();
-						$("#groupSettingBT").hide();
-					</script>
-				</c:otherwise>
-			</c:choose>
-			
-	</c:forEach>
 	
 	
 	<script>
@@ -149,8 +107,26 @@
 				});
 				
 			</script>
-		
-</div>
+			
+
+	<c:if test="${isGroupMember eq false }">
+		<!-- Single button -->
+		<div class="btn-group"
+			style="position: absolute; transform: translate(1370%, -140%);" id="check">
+			<button type="button" class="btn btn-default dropdown-toggle"
+				data-toggle="dropdown" aria-expanded="false" id="test">
+				<span class="glyphicon glyphicon-option-horizontal"
+					aria-hidden="true"></span> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="groupreport.group?group_seq=${group_seq }">그룹 신고</a></li>
+			</ul>
+		</div>
+
+	</c:if>
+	</div>
+	
+	
 	<div id="contents">
 	<div id="wrapper">
 		<div id="tab">
@@ -180,7 +156,8 @@
 							<span><fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="dd" /></span>
 						</time>
 						<div class="meeting-info"
-							style="padding-left: 150px; padding-top: 30px;">
+							style="padding-left: 150px; padding-top: 30px;" 
+							onclick="location.href='meeting.meet?seq=${lastMeeting.meeting_seq }';">
 							<div class="" style="color: #8b96a8;">
 								<fmt:formatDate value="${lastMeeting.meeting_start_time}" pattern="M" />
 								월
@@ -200,15 +177,17 @@
 								</p>
 							</h2>
 							<div id="meetup-leader">
+								<c:forEach var="leaderInfo" items="${leaderInfo }">
 								<div style="width: 20%; hegiht: 60px; float: left;">
-									<img src="img/10.jpg"
+									<img src="files/${leaderInfo.member_picture }"
 										style="width: 50px; height: 50px; border-radius: 150px;">
 								</div>
 								<div style="width: 80%; hegiht: 60px; float: left;">
 									<h5 style="padding-top: 20px;">
-										주최자 : <a href="">${lastMeeting.group_leader }</a>
+										주최자 : <a href="">${leaderInfo.member_name }</a>
 									</h5>
 								</div>
+							</c:forEach>
 							</div>
 
 							<h5>
@@ -221,9 +200,9 @@
 							<img src="files/${lastMeeting.meeting_picture }">
 						</div>
 
-						<div id="meetup-location">
+						<div id="meetup-location" style="padding-top: 30px;">
 							<span class="glyphicon glyphicon-map-marker" aria-hidden="true"
-								style="color: gray;"></span> 당산역<br>
+								style="color: gray;"></span>${lastMeeting.meeting_location }<br>
 						</div>
 
 					</div>
@@ -232,6 +211,33 @@
 			</div>
 			</c:forEach>
 		</div>
+		
+		<c:forEach var="result" items="${result }">
+			<input type="hidden" id="group_seq" value="${result.group_seq }">
+			<input type="hidden" id="group_name" value="${result.group_name }">
+			
+			<c:choose>
+				<c:when test="${leader_email eq  sessionScope.loginId}">
+					<script>
+						$("#check").hide();
+						$("#joinMeetupBT").hide();
+						$("#joinMeetupBT2").hide();
+						$("#joinGroupBT").hide();
+						$("#memberBT").hide();
+						$("#test").remove();
+					</script>
+				</c:when>
+				<c:otherwise>
+					<script>
+						$("#editMeetupBT2").hide();
+						$("#editMeetupBT").hide();
+						$("#newMeetingBT").hide();
+						$("#groupSettingBT").hide();
+					</script>
+				</c:otherwise>
+			</c:choose>
+			
+	</c:forEach>
 		
 		<c:if test="${fn:length(lastMeeting)>0}">
 			<script>
