@@ -5,14 +5,14 @@
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-<script src="../firebase/init.js"></script>
-<script src="js/index.js"></script>
+<!-- <script src="../firebase/init.js"></script> -->
+<!-- <script src="js/index.js"></script> -->
 <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 
 
 <script>
   // Initialize Firebase
-  var config = {
+  var fbconfig = {
     apiKey: "AIzaSyC_Y0vMwBBQ399jscmeh0GTEJgIxe65Xhs",
     authDomain: "cobalt-column-208709.firebaseapp.com",
     databaseURL: "https://cobalt-column-208709.firebaseio.com",
@@ -20,7 +20,7 @@
     storageBucket: "cobalt-column-208709.appspot.com",
     messagingSenderId: "201245295217"
   };
-  firebase.initializeApp(config);
+  firebase.initializeApp(fbconfig);
 </script>
 
 
