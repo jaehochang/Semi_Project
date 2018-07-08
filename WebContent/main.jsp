@@ -58,9 +58,6 @@
    crossorigin="anonymous">
 
 
-
-
-
 </head>
 
 
@@ -223,18 +220,19 @@ body {
                         <img style="width: 60px; height: 60px; border-radius: 50%; outline: none; margin : 0 10px 20px 0;" class="pull-left" src="./image/manse.jpeg" alt="Focus Lab">
                      </p>
                      <div class="">주최자 : ${items.group_leader}</div>
-                     <div class="">주최그룹 : ${items.group_name}</p></div>
+                     <div class="">주최그룹 : ${items.group_name}</div>
                      
                   </div>
                </div>
             </div>
-            <c:choose>
-            <c:when test="${status.count%3==0}">
-      			</div>
-         		</div>
-      		</c:when>
+         
+<%--             <c:choose> --%>
+<%--             <c:when test="${status.count%3==0}"> --%>
+<!--       			</div> -->
+<!--          		</div> -->
+<%--       		</c:when> --%>
       		
-      		</c:choose>
+<%--       		</c:choose> --%>
       		</c:forEach>
           
         </div>

@@ -40,7 +40,6 @@
 			style="color: white; text-decoration: none;"> 블로그</a></li>
 	</ul>
 
-	<p style="padding-left: 40px; color: #fef8fc;">©Copy Right 2018 : B4A3</p>
 
 	<ul>
 		<li><a href="#" class="cool-link"

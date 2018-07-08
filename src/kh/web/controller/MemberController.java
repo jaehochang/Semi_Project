@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kh.web.dao.GroupDAO;
 import kh.web.dao.MemberDAO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
+import kh.web.utils.PwFinder;
 
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
@@ -31,6 +33,8 @@ public class MemberController extends HttpServlet {
 			System.out.println("-------------------------------------");
 			System.out.println(command);
 			MemberDAO dao = new MemberDAO();
+			GroupDAO gDAO = new GroupDAO();
+
 			boolean isRedirect = true;
 			String dst = null;
 
@@ -215,7 +219,7 @@ public class MemberController extends HttpServlet {
 				MemberDAO mDAO = new MemberDAO();
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
-				System.out.println(1);
+				System.out.println("getAccountInfo 에서 나옴 : " + 1);
 
 				// if (accntInfo == null) {
 				// isRedirect = true;
@@ -223,7 +227,17 @@ public class MemberController extends HttpServlet {
 				// System.out.println(2);
 				// }
 
+				String[] interests = {};
 				try {
+					interests = accntInfo.getMember_interests().split(",");
+				} catch (Exception e) {
+					interests = null;
+				}
+
+				String payCheck = gDAO.payCheck(loginId);
+
+				try {
+
 					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
 
 					if ((accntInfo.getMember_picture().equals("null")) || (accntInfo.getMember_picture() == null)) {
@@ -234,25 +248,33 @@ public class MemberController extends HttpServlet {
 
 				} catch (Exception e) {
 					if (e.getMessage().contains("null")) {
+						System.out.println(5);
 						isRedirect = false;
 						request.setAttribute("null", true);
 						dst = "Oops.jsp";
-						System.out.println(5);
+
 					}
 				}
 
 				System.out.println(6 + accntInfo.getMember_picture() + "?!");
-
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userName", accntInfo.getMember_name());
 				request.setAttribute("userEmail", accntInfo.getMember_email());
 				request.setAttribute("userLocation", accntInfo.getMember_location());
 				request.setAttribute("userGender", accntInfo.getMember_gender());
 				request.setAttribute("userAge", accntInfo.getMember_age());
+
 				System.out.println(7);
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userInterests", interests);
+				// request.setAttribute("userInterests", accntInfo.getMember_interests());
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+
+				if (payCheck.equals("y")) {
+					request.setAttribute("payCheck", "subscribed");
+				} else if (payCheck.equals("n")) {
+					request.setAttribute("payCheck", "unsubscribed");
+				}
 
 				isRedirect = false;
 				dst = "mypage.jsp";
@@ -470,6 +492,59 @@ public class MemberController extends HttpServlet {
 					System.out.println(6);
 					request.setAttribute("infoUpdateSuccess", false);
 					dst = "mypage.co";
+				}
+			} else if (command.equals("/insertInterest.co")) {
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String interest = request.getParameter("interests");
+				System.out.println("loginId : " + loginId + "  // interest : " + interest);
+				int result = dao.insertInterest(loginId, interest);
+
+				if (result > 0) {
+					request.getSession().setAttribute("loginId", loginId);
+					dst = "index.jsp";
+				} else {
+					System.out.println("안들어가짐 ㄷㄷ");
+					isRedirect = true;
+					dst = "index.jsp";
+				}
+
+			} else if (command.equals("/modifyInterests.co")) {
+				System.out.println(1);
+
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String modifywords = request.getParameter("hiddenTag");
+				System.out.println("제발 들어와라 : " + modifywords);
+				int result = dao.insertInterest(loginId, modifywords);
+
+				if (result > 0) {
+					dst = "mypage.co";
+				} else {
+					System.out.println("안들어가짐 ㄷㄷ");
+					isRedirect = true;
+					dst = "main.meet";
+				}
+
+			} else if (command.equals("/pwFinder.co")) {
+
+				MemberDAO mDAO = new MemberDAO();
+
+				String finderEmail = request.getParameter("finder-email");
+				String memberPwd = mDAO.getPwThroughGmail(finderEmail);
+
+				System.out.println("finderEmail : " + finderEmail);
+				System.out.println("memberPwd : " + memberPwd);
+
+				PwFinder pf = new PwFinder();
+
+				boolean result = pf.PwFinder(finderEmail, memberPwd);
+
+				isRedirect = false;
+				if (result) {
+					request.setAttribute("emailRspSuccess", true);
+					dst = "login.jsp";
+				} else {
+					request.setAttribute("emailRspSuccess", false);
+					dst = "login.jsp";
 				}
 			}
 
