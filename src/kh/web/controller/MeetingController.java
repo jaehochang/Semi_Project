@@ -33,70 +33,70 @@ import kh.web.dto.ShowMeetingDTO;
  */
 @WebServlet("*.meet")
 public class MeetingController extends HttpServlet {
-   protected void doGet(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
-      try {
-         String requestURI = request.getRequestURI();
-         String contextPath = request.getContextPath();
-         String command = requestURI.substring(contextPath.length());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			String requestURI = request.getRequestURI();
+			String contextPath = request.getContextPath();
+			String command = requestURI.substring(contextPath.length());
 
-         System.out.println(command);
+			System.out.println(command);
 
-         request.setCharacterEncoding("UTF-8");
-         GroupDAO gdao = new GroupDAO();
-         MeetingDAO dao = new MeetingDAO();
-         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-         MeetingDAO mdao = new MeetingDAO();
-         AttendDAO adao = new AttendDAO();
-         boolean isRedirect = true;
-         String dst = null;
-         boolean isajax = false;
-         
-         
-         if (command.equals("/main.meet")) {
-            List<MeetingDTO> result = mdao.getMeetingData();
-            request.setAttribute("result", result);
-            isRedirect = false;
+			request.setCharacterEncoding("UTF-8");
+			GroupDAO gdao = new GroupDAO();
+			MeetingDAO dao = new MeetingDAO();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+			MeetingDAO mdao = new MeetingDAO();
+			AttendDAO adao = new AttendDAO();
+			boolean isRedirect = true;
+			String dst = null;
+			boolean isajax = false;
 
-            if (request.getSession().getAttribute("loginId") != null) {
-               dst = "list.group";
-            } else {
-               dst = "main.jsp";
-            }
 
-         } else if (command.equals("/meeting.meet")) {
-            int meeting_seq = Integer.parseInt(request.getParameter("seq"));
-            String member_email = (String) request.getSession().getAttribute("loginId");
+			if (command.equals("/main.meet")) {
+				List<MeetingDTO> result = mdao.getMeetingData();
+				request.setAttribute("result", result);
+				isRedirect = false;
 
-            MeetingDTO result = mdao.getEachMeetingData(meeting_seq);
-            List<AttendDTO> result_attend = adao.getAttendMembers(meeting_seq);
+				if (request.getSession().getAttribute("loginId") != null) {
+					dst = "list.group";
+				} else {
+					dst = "main.jsp";
+				}
 
-            int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
-            int result_countWithPeople = mdao.countWithPeople(meeting_seq);
-            String getMeetingStartTime = mdao.getMeetingStartTime(meeting_seq);
-            String getMeetingEndTime = mdao.getMeetingEndTime(meeting_seq);
+			} else if (command.equals("/meeting.meet")) {
+				int meeting_seq = Integer.parseInt(request.getParameter("seq"));
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				System.out.println(meeting_seq);
+				MeetingDTO result = mdao.getEachMeetingData(meeting_seq);
+				List<AttendDTO> result_attend = adao.getAttendMembers(meeting_seq);
 
-            boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
-            boolean checkMeetingDate = adao.checkMeetingDate(meeting_seq);
+				int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+				int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+				String getMeetingStartTime = mdao.getMeetingStartTime(meeting_seq);
+				String getMeetingEndTime = mdao.getMeetingEndTime(meeting_seq);
 
-            request.setAttribute("result", result);
-            request.setAttribute("result_attend", result_attend);
-            request.setAttribute("result_countAttendMembers", result_countAttendMembers + result_countWithPeople);
-            request.setAttribute("result_areYouAttend", result_areYouAttend);
-            request.setAttribute("getMeetingStartTime", getMeetingStartTime);
-            request.setAttribute("getMeetingEndTime", getMeetingEndTime);
-            isRedirect = false;
-            dst = "meeting.jsp";
+				boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
+				boolean checkMeetingDate = adao.checkMeetingDate(meeting_seq);
+
+				request.setAttribute("result", result);
+				request.setAttribute("result_attend", result_attend);
+				request.setAttribute("result_countAttendMembers", result_countAttendMembers + result_countWithPeople);
+				request.setAttribute("result_areYouAttend", result_areYouAttend);
+				request.setAttribute("getMeetingStartTime", getMeetingStartTime);
+				request.setAttribute("getMeetingEndTime", getMeetingEndTime);
+				isRedirect = false;
+				dst = "meeting.jsp";
 
 			}else if(command.equals("/newmeetingform.meet")) {
 				int group_seq = Integer.parseInt(request.getParameter("group_seq"));
 				System.out.println(group_seq);
 				request.setAttribute("group_seq", group_seq);
-				
+
 				isajax= false;
 				isRedirect=false;
 				dst = "newmeetingform.jsp";
-				
+
 			}
 			else if (command.equals("/newmeeting.meet")) {
 				System.out.println("in newmeeting.meet");
@@ -125,99 +125,111 @@ public class MeetingController extends HttpServlet {
 				System.out.println(meeting_start_time);
 				System.out.println(meeting_end_time);
 
-            
-            String meeting_lat = meeting_latlng.split(",")[0];
-            String meeting_lng = meeting_latlng.split(",")[1];
-            meeting_lat = meeting_lat.substring(1);
-            meeting_lng=meeting_lng.substring(1, 11);
-            System.out.println(meeting_lat);
-            System.out.println(meeting_lng);
 
-            
-            String[] startArr =meeting_start_time.split("/");
-            String[] endArr =meeting_end_time.split("/");
-            String start = startArr[0] + startArr[1] + startArr[2] + startArr[3] + startArr[4];
-            String end = endArr[0]+endArr[1]+endArr[2]+endArr[3]+endArr[4];
-            System.out.println("start:"+start);
-            System.out.println("end:"+end);
-            
-            SimpleDateFormat simpleFullDateFormat = new SimpleDateFormat("yyyyMMddHHmm");
+				String meeting_lat = meeting_latlng.split(",")[0];
+				String meeting_lng = meeting_latlng.split(",")[1];
+				meeting_lat = meeting_lat.substring(1);
+				meeting_lng=meeting_lng.substring(1, 11);
+				System.out.println(meeting_lat);
+				System.out.println(meeting_lng);
 
-            Date startDate =  simpleFullDateFormat.parse(start);
-            Date endDate =  simpleFullDateFormat.parse(end);
-            System.out.println(startDate);
-            System.out.println(endDate);
-            
-            
-            gdto=gdao.getGroupData(group_seq);
-            mdto.setGroup_seq(group_seq);
-            mdto.setGroup_name(gdto.getGroup_name());
-            mdto.setGroup_leader(gdto.getGroup_name());
-            mdto.setMeeting_title(meeting_title);
-            mdto.setMeeting_contents(meeting_contents);
-            mdto.setMeeting_lat(meeting_lat);
-            mdto.setMeeting_lng(meeting_lng);
-            mdto.setMeeting_location(meeting_location);
-            mdto.setMeeting_picture(meeting_picture);
-            mdto.setMeeting_start_time(startDate);
-            mdto.setMeeting_end_time(endDate);
-            mdto.setMember_email(member_email);
 
-            int result = dao.insertNewMeeting(mdto);
+				String[] startArr =meeting_start_time.split("/");
+				String[] endArr =meeting_end_time.split("/");
+				String start = startArr[0] + startArr[1] + startArr[2] + startArr[3] + startArr[4];
+				String end = endArr[0]+endArr[1]+endArr[2]+endArr[3]+endArr[4];
+				System.out.println("start:"+start);
+				System.out.println("end:"+end);
 
-            isRedirect = false;
-            dst = "groupMain.group?group_seq="+group_seq+"&page=info";
-            
-         } else if (command.equals("/attend.meet")) {
-            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-            String member_email = (String) request.getSession().getAttribute("loginId");
-            int people = Integer.parseInt(request.getParameter("people"));
+				SimpleDateFormat simpleFullDateFormat = new SimpleDateFormat("yyyyMMddHHmm");
 
-            boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
+				Date startDate =  simpleFullDateFormat.parse(start);
+				Date endDate =  simpleFullDateFormat.parse(end);
+				System.out.println(startDate);
+				System.out.println(endDate);
 
-            if (result_areYouAttend == false) {
-               int result = adao.addAttendMember(meeting_seq, member_email, people);
-            } else {
-               System.out.println("이미 가입되어있습니다. ");
-            }
 
-			}else if (command.equals("/attendMember.meet")) {
-	            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-	            String result_group_name = mdao.groupName(meeting_seq);
-	            List<AttendDTO> result = mdao.getAttendData(meeting_seq);
-	            
-	            int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
-	             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
-	            
-	             // 그룹 이름
-	            request.setAttribute("result_group_name", result_group_name);
-	            // 참석하는 명단 받아오는 list
-	            request.setAttribute("result", result);
-	            // 총 참석자 (참석인 + 데리고오는 사람)
-	            request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
-	            // meeting_seq
-	            request.setAttribute("meeting_seq", meeting_seq);
-	            
-	            isRedirect = false;
-	            dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
-	         
-	         } else if (command.equals("/search_member.meet")) {
-	            // meeting.jsp에서 group member를 찾는 query
-	            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-	            int group_seq = mdao.groupSeq(meeting_seq);
-	            List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
-	            
-	            String search = request.getParameter("search");
-	            
-	            
-	            
-	            response.setCharacterEncoding("utf8");
-	            response.setContentType("application/json");
-	            
-	            new Gson().toJson(result,response.getWriter());
-	            
-	            isajax=true;
-	         } else if (command.equals("/attendCancel.meet")) {
+				gdto=gdao.getGroupData(group_seq);
+				mdto.setGroup_seq(group_seq);
+				mdto.setGroup_name(gdto.getGroup_name());
+				mdto.setGroup_leader(gdto.getGroup_name());
+				mdto.setMeeting_title(meeting_title);
+				mdto.setMeeting_contents(meeting_contents);
+				mdto.setMeeting_lat(meeting_lat);
+				mdto.setMeeting_lng(meeting_lng);
+				mdto.setMeeting_location(meeting_location);
+				mdto.setMeeting_picture(meeting_picture);
+				mdto.setMeeting_start_time(startDate);
+				mdto.setMeeting_end_time(endDate);
+				mdto.setMember_email(member_email);
+
+				int result = dao.insertNewMeeting(mdto);
+
+				isRedirect = false;
+				dst = "groupMain.group?group_seq="+group_seq+"&page=info";
+
+			} else if (command.equals("/attend.meet")) {
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				int people = Integer.parseInt(request.getParameter("people"));
+
+				boolean result_areYouAttend = adao.areYouAttend(meeting_seq, member_email);
+
+				if (result_areYouAttend == false) {
+					int result = adao.addAttendMember(meeting_seq, member_email, people);
+				} else {
+					System.out.println("이미 가입되어있습니다. ");
+				}
+
+				isRedirect = false;
+				dst = "meeting.meet?seq=" + meeting_seq;
+
+			}else if (command.equals("/attendCancel.meet")) {
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				String member_email = (String) request.getSession().getAttribute("loginId");
+				int result = adao.deleteAttendMember(meeting_seq, member_email);
+				if (result != 0) {
+					System.out.println("참석 취소 성공");
+				}
+				isRedirect = false;
+				dst = "meeting.meet?seq=" + meeting_seq;
+			} else if (command.equals("/attendMember.meet")) {
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				String result_group_name = mdao.groupName(meeting_seq);
+				List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+
+				int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+				int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+
+				// 그룹 이름
+				request.setAttribute("result_group_name", result_group_name);
+				// 참석하는 명단 받아오는 list
+				request.setAttribute("result", result);
+				// 총 참석자 (참석인 + 데리고오는 사람)
+				request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+				// meeting_seq
+				request.setAttribute("meeting_seq", meeting_seq);
+
+				isRedirect = false;
+				dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
+
+			} else if (command.equals("/search_member.meet")) {
+				// meeting.jsp에서 group member를 찾는 query
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				int group_seq = mdao.groupSeq(meeting_seq);
+				List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+
+				String search = request.getParameter("search");
+
+
+
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+
+				new Gson().toJson(result,response.getWriter());
+
+				isajax=true;
+			} else if (command.equals("/attendCancel.meet")) {
 				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
 				String member_email = (String) request.getSession().getAttribute("loginId");
 				int result = adao.deleteAttendMember(meeting_seq, member_email);
@@ -227,82 +239,63 @@ public class MeetingController extends HttpServlet {
 				isRedirect = false;
 				dst = "meeting.meet?seq=" + meeting_seq;
 			}else if (command.equals("/calendarchoice.meet")) {
-				 try {
-		               JSONArray jarray =new JSONArray();
-		               response.setCharacterEncoding("utf8");
-		               response.setContentType("application/json");
-		               String value = request.getParameter("val"); 
-		               System.out.println(value);
-		               String[] datecase = value.split("/");
-		               String alldata = null;
-		               String year = datecase[0];
-		               String month = datecase[1];
-		               String day = datecase[2];
-		               for(int i=0;i<datecase.length;i++) {
-		                  if(i==0) {
-		                     alldata = datecase[i];
-		                  }else {
-		                     alldata += datecase[i];
-		                  }
-		               }
-		               Date tempDate = simpleDateFormat.parse(alldata);
-		               System.out.println(tempDate);
-		               List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
-		               isajax = true;
-		               for(int i=0;i<showlist.size();i++) {
-		                  JSONObject json = new JSONObject();
-		                  json.put("date", showlist.get(i).getDat_month());
-		                  json.put("hour", showlist.get(i).getHour_minut());
-		                  json.put("groupName", showlist.get(i).getGroup_name());
-		                  json.put("groupTitle", showlist.get(i).getMeeting_title());
-		                  json.put("location", showlist.get(i).getMeeting_location());
-		                  jarray.add(json);
-		               }
+				try {
+					JSONArray jarray =new JSONArray();
+					response.setCharacterEncoding("utf8");
+					response.setContentType("application/json");
+					String value = request.getParameter("val"); 
+					System.out.println(value);
+					String[] datecase = value.split("/");
+					String alldata = null;
+					String year = datecase[0];
+					String month = datecase[1];
+					String day = datecase[2];
+					for(int i=0;i<datecase.length;i++) {
+						if(i==0) {
+							alldata = datecase[i];
+						}else {
+							alldata += datecase[i];
+						}
+					}
+					Date tempDate = simpleDateFormat.parse(alldata);
+					System.out.println(tempDate);
+					List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
+					isajax = true;
+					for(int i=0;i<showlist.size();i++) {
+						JSONObject json = new JSONObject();
+						json.put("groseq", showlist.get(i).getMeetseq());
+						json.put("date", showlist.get(i).getDat_month());
+						json.put("hour", showlist.get(i).getHour_minut());
+						json.put("groupName", showlist.get(i).getGroup_name());
+						json.put("groupTitle", showlist.get(i).getMeeting_title());
+						json.put("location", showlist.get(i).getMeeting_location());
+						jarray.add(json);
+					}
 
-		               //request.setAttribute("showlist", showlist);
-		               //System.out.println(jarray);
-		               System.out.println(jarray);
-		               new Gson().toJson(jarray,response.getWriter());
-		            }catch (Exception e) {
-		               e.printStackTrace();
-		            }
-			} else if (command.equals("/attendMember.meet")) {
-	            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-	            String result_group_name = mdao.groupName(meeting_seq);
-	            List<AttendDTO> result = mdao.getAttendData(meeting_seq);
-	            
-	            int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
-	             int result_countWithPeople = mdao.countWithPeople(meeting_seq);
-	            
-	             // 그룹 이름
-	            request.setAttribute("result_group_name", result_group_name);
-	            // 참석하는 명단 받아오는 list
-	            request.setAttribute("result", result);
-	            // 총 참석자 (참석인 + 데리고오는 사람)
-	            request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
-	            // meeting_seq
-	            request.setAttribute("meeting_seq", meeting_seq);
-	            
-	            isRedirect = false;
-	            dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
-	         
-	         } else if (command.equals("/search_member.meet")) {
-	            // meeting.jsp에서 group member를 찾는 query
-	            int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-	            int group_seq = mdao.groupSeq(meeting_seq);
-	            List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
-	            
-	            String search = request.getParameter("search");
-	            
-	            
-	            
-	            response.setCharacterEncoding("utf8");
-	            response.setContentType("application/json");
-	            
-	            new Gson().toJson(result,response.getWriter());
-	            
-	            isajax=true;
-	         }else if (command.equals("/calendarfirst.meet")) {
+					//request.setAttribute("showlist", showlist);
+					//System.out.println(jarray);
+					System.out.println(jarray);
+					new Gson().toJson(jarray,response.getWriter());
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else if (command.equals("/search_member.meet")) {
+				// meeting.jsp에서 group member를 찾는 query
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				int group_seq = mdao.groupSeq(meeting_seq);
+				List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+
+				String search = request.getParameter("search");
+
+
+
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+
+				new Gson().toJson(result,response.getWriter());
+
+				isajax=true;
+			}else if (command.equals("/calendarfirst.meet")) {
 				JSONArray jarray = new JSONArray();
 				response.setCharacterEncoding("utf8");
 				response.setContentType("application/json");
@@ -325,7 +318,7 @@ public class MeetingController extends HttpServlet {
 				Date tempDate = simpleDateFormat.parse(alldata);
 				System.out.println(tempDate);
 				List<ShowMeetingDTO> showlist = mdao.selectMeet(tempDate);
-				
+
 				isajax = true;
 				for (int i = 0; i < showlist.size(); i++) {
 					JSONObject json = new JSONObject();
@@ -338,17 +331,12 @@ public class MeetingController extends HttpServlet {
 					jarray.add(json);
 				}
 
-            System.out.println(jarray);
-            new Gson().toJson(jarray, response.getWriter());
-         } else if (command.equals("/recommend.meet")) {
-            JSONArray jarray = new JSONArray();
-            response.setCharacterEncoding("utf8");
-            response.setContentType("application/json");
-
-         } else if (command.equals("/mymeet.meet")) {
-            JSONArray jarray = new JSONArray();
-            response.setCharacterEncoding("utf8");
-            response.setContentType("application/json");
+				System.out.println(jarray);
+				new Gson().toJson(jarray, response.getWriter());
+			} else if (command.equals("/recommend.meet")) {
+				JSONArray jarray = new JSONArray();
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
 
 			} else if (command.equals("/mymeet.meet")) {
 				JSONArray jarray = new JSONArray();
@@ -385,7 +373,7 @@ public class MeetingController extends HttpServlet {
 				//System.out.println(jarray);
 				System.out.println(jarray);
 				new Gson().toJson(jarray,response.getWriter());
-				
+
 			}else if(command.equals("/checkup.meet")) {
 				JSONArray jarray =new JSONArray();
 				response.setCharacterEncoding("utf8");
@@ -421,30 +409,73 @@ public class MeetingController extends HttpServlet {
 				//System.out.println(jarray);
 				System.out.println(jarray);
 				new Gson().toJson(jarray,response.getWriter());
+			}else if (command.equals("/checkup.meet")) {
+				JSONArray jarray = new JSONArray();
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+			}else if(command.equals("/updatebasic.meet")) {
+
+			} else if (command.equals("/attendMember.meet")) {
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				String result_group_name = mdao.groupName(meeting_seq);
+				List<AttendDTO> result = mdao.getAttendData(meeting_seq);
+
+				int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
+				int result_countWithPeople = mdao.countWithPeople(meeting_seq);
+
+				// 그룹 이름
+				request.setAttribute("result_group_name", result_group_name);
+				// 참석하는 명단 받아오는 list
+				request.setAttribute("result", result);
+				// 총 참석자 (참석인 + 데리고오는 사람)
+				request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
+				// meeting_seq
+				request.setAttribute("meeting_seq", meeting_seq);
+
+				isRedirect = false;
+				dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
+
+			} else if (command.equals("/search_member.meet")) {
+				// meeting.jsp에서 group member를 찾는 query
+				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+				int group_seq = mdao.groupSeq(meeting_seq);
+				List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
+
+				String search = request.getParameter("search");
+
+
+
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+
+				new Gson().toJson(result,response.getWriter());
+
+				isajax=true;
 			}
 
-         if (isajax) {
 
-         } else {
+			if (isajax) {
 
-            if (isRedirect) {
-               response.sendRedirect(dst);
-            } else {
-               RequestDispatcher rd = request.getRequestDispatcher(dst);
-               rd.forward(request, response);
-            }
-            // response.getWriter().append("Served at: ").append(request.getContextPath());
+			} else {
 
-         }
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
+				if (isRedirect) {
+					response.sendRedirect(dst);
+				} else {
+					RequestDispatcher rd = request.getRequestDispatcher(dst);
+					rd.forward(request, response);
+				}
+				// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-   }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
-      doGet(request, response);
-   }
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }
