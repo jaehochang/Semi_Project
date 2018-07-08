@@ -838,7 +838,7 @@ public class MemberDAO {
 
 		boolean result = false;
 		if (rs.next()) {
-			result = true; // 아이디 중복 검사 결과, 이미 회원가입한 페이스북 id가 있음
+			result = true; // 아이디 중복 검사 결과, 이미 회원가입한 구글 아이디가 있음
 		} else {
 			result = false; // 없음
 		}
@@ -887,6 +887,37 @@ public class MemberDAO {
 		con.close();
 		System.out.println(name);
 		return name;
+	}
+
+	public int updateUserInfo(String loginId, String snsId, MemberDTO mDTO) throws Exception {
+
+		System.out.println("[memberDAO - updateUserInfo]");
+		Connection con = DBUtils.getConnection();
+		String sql = 
+				"update member set member_name=?, member_location=?,member_age=?,member_gender=? where member_email=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+	
+		System.out.println("====================");
+		System.out.println(mDTO.getMember_name());
+		System.out.println(mDTO.getMember_location());
+		System.out.println(mDTO.getMember_age());
+		System.out.println(mDTO.getMember_gender());
+		System.out.println(loginId);
+		System.out.println("=====================");
+		
+		ps.setString(1, mDTO.getMember_name());
+		ps.setString(2, mDTO.getMember_location());
+		ps.setString(3, mDTO.getMember_age());
+		ps.setString(4, mDTO.getMember_gender());
+		ps.setString(5, loginId);
+
+		int result = ps.executeUpdate();
+
+		con.commit();
+		con.close();
+		ps.close();
+
+		return result;
 	}
 
 	// public String getProfilePhoto(MemberDTO dto) throws Exception {

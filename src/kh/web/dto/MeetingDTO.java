@@ -16,17 +16,18 @@ public class MeetingDTO {
 	private String meeting_lat;
 	private String meeting_lng;
 	private String member_email;
+	
+
 
 	public MeetingDTO() {
 		super();
 	}
-	
-	
+
+
 
 	public MeetingDTO(int meeting_seq, int group_seq, String group_name, String group_leader, String meeting_title,
 			String meeting_contents, Date meeting_start_time, Date meeting_end_time, String meeting_location,
 			String meeting_picture, String meeting_lat, String meeting_lng, String member_email) {
-		super();
 		this.meeting_seq = meeting_seq;
 		this.group_seq = group_seq;
 		this.group_name = group_name;
@@ -146,7 +147,8 @@ public class MeetingDTO {
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;
 	}
-
 	
-
 }
+
+
+

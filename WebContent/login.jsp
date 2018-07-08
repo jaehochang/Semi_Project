@@ -7,6 +7,7 @@
 <html>
 <head>
 
+
 <!-- google api -->
 <meta name="google-signin-scope" content="profile email">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -96,7 +97,7 @@
 							<button class="btn btn-success btn-block" data-dismiss="modal"
 								data-dismiss="modal" style="background-color: grey;"
 								style="background-color:grey;"
-								onclick="$(this).modal('toggle');">둘러보기</button>
+								onclick="window.location.href='index.jsp'">둘러보기</button>
 
 						</div>
 					</div>
@@ -293,6 +294,7 @@
 					</div>
 				</form>
 
+<!-- SNS 로그인 시작 -->
 				<br>
 				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
@@ -307,113 +309,173 @@
 						<%@ include file="signUpWithGoogle.jsp"%>
 
 					</div>
-				</form>
+
+
+
+					<!-- 이메일로 회원가입 -->
+
+					<button id="kakao-signUp-btn-main"
+						class="btn btn-warning btn-block">🗨 카카오 로그인</button>
+					<button id=fbLoginBtn class="btn btn-primary btn-block"
+						onclick="javascript:signIn()">f 페이스북 로그인</button>
+					<button id=ggLoginBtn class="btn btn-success btn-block"
+						onclick="javascript:google_login_in()">g 구글 로그인</button>
+
+					<script>
+						$("#kakao-signUp-btn-main")
+								.click(
+										function() {
+
+											Kakao
+													.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
+
+											Kakao.Auth
+													.loginForm({
+
+														success : function(
+																authObj) {
+
+															Kakao.API
+																	.request({
+																		url : '/v1/user/me',
+																		success : function(
+																				res) {
+
+																			var kakaoEmail = prompt(
+																					"카카오톡으로 진행시 이메일 입력이 필요합니다.",
+																					"");
+
+																			var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+																			if (regex
+																					.test(kakaoEmail)) {
+
+																				console
+																						.log(res.properties)
+																				console
+																						.log(res.kaccount_email);
+																				console
+																						.log(res.id);
+																				console
+																						.log(res.properties['nickname']);
+																				console
+																						.log(res.properties['profile_image']);
+
+																				var kakaoId = res.id;
+																				var kakaoNickName = res.properties['nickname'];
+																				var kakaoPhoto = res.properties['profile_image'];
+
+																				console
+																						.log("kakaoEmail : "
+																								+ kakaoEmail);
+
+																				document
+																						.getElementById("hiddenKakaoId").value = kakaoId;
+																				document
+																						.getElementById("hiddenKakaoNickName").value = kakaoNickName;
+																				document
+																						.getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
+
+																				document
+																						.getElementById("hiddenKakaoEmail").value = kakaoEmail;
+
+																				document.forms["sendkakaoIdToController"]
+																						.submit();
+
+																				var valCheck = document
+																						.getElementById("hiddenKakaoId").value;
+
+																			} else {
+																				alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
+																				location
+																						.reload();
+																			}
+																		}
+																	});
+														},
+														fail : function(
+																errorObj) {
+															console
+																	.log(authObj)
+														},
+														persistAccessToken : true,
+														persistRefreshToken : false
+													});
+										});
+					</script>
+				</div>
 			</div>
 		</div>
 	</div>
-	-->
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div id=loginheader style="border-bottom: 1px sold grey;">
-				<h2>로그인</h2>
-				<p>아직 등록하지 않으셨나요?</p>
-				<a href="signUpPage.jsp">가입하기</a>
-			</div>
-			<div id=loginbody>
-				<form action="login.co" method=post id="lsubmit">
-
-					<div class=form-group>
-						<label for=member_email>이메일 주소</label> <input class=form-control
-							type=text id=member_email name=member_email>
-					</div>
-					<div class=form-group>
-						<label for=pwd>비밀번호</label> <span><a href="#">비밀번호를
-								잊으셨나요?</a></span> <input id=pwd type=password max=13 name=pwd
-							class=form-control> <input type=checkbox>로그인 상태
-						유지
-						<button type="button" id="loginbtn" class="btn btn-default">로그인</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<!-- 아이디 비밀번호입력칸 공백일때 뜨는 모달창 -->
-	<div class="modal fade" id="emptyinput">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">로그인</h4>
-				</div>
-				<div class="modal-body" style="text-align: center;">
-					<p>아이디와 비밀번호를 입력해주세요.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="loginblock">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">로그인</h4>
-				</div>
-				<div class="modal-body" style="text-align: center;">
-					<p>아이디와 비밀번호를 입력해주세요.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" id="blockid">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">정지당한 아이디입니다.</h4>
-				</div>
-				<div class="modal-body" style="text-align: center;">
-					<p id="modaltext">신고로 인해 정지당한 아이디입니다.</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- SNS 로그인 API  -->
+	<!-- SNS 로그인 API 밑 버튼 끝  -->
 
 
-	<div>
-		<%@ include file="logInWithKakao.jsp"%>
-		<%@ include file="signUpWithFaceBook.jsp"%>
-		<%@ include file="signUpWithGoogle.jsp"%>
-		if (id == "" || pw == "") { $("#emptyinput").modal(); }
 
-	</div>
+<!-- 	<!-- 아이디 비밀번호입력칸 공백일때 뜨는 모달창 --> 
+<!-- 	<div class="modal fade" id="emptyinput"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 					<h4 class="modal-title">로그인</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body" style="text-align: center;"> -->
+<!-- 					<p>아이디와 비밀번호를 입력해주세요.</p> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
-	</div>
+<!-- 	<div class="modal fade" id="loginblock"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 					<h4 class="modal-title">로그인</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body" style="text-align: center;"> -->
+<!-- 					<p>아이디와 비밀번호를 입력해주세요.</p> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<div class="modal fade" id="blockid"> -->
+<!-- 		<div class="modal-dialog"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 					<h4 class="modal-title">정지당한 아이디입니다.</h4> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body" style="text-align: center;"> -->
+<!-- 					<p id="modaltext">신고로 인해 정지당한 아이디입니다.</p> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 
-	<!-- footer -->
 
 	<script>
+
+	if (id == "" || pw == "") { $("#emptyinput").modal(); }
+
 		$("#loginbtn").click(function() {
 			var id = $("#member_email").val();
 			var pw = $("#pwd").val();
@@ -450,7 +512,8 @@
 
 
 
-	<footer>
+	<!-- footer -->
+
 		<%@ include file="include/bottom.jsp"%>
 
 
