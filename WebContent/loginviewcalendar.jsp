@@ -331,6 +331,7 @@
 				console.log("AJAX Request 성공 ");
 				console.log(response);
 				$("#printlist").text('');
+				  if(response.length > 0){
 					for(var i=0;i<response.length;i++){
 						var seq = response[i].groseq;
 						var day = response[i].date;
@@ -340,7 +341,6 @@
 				  	   var location = response[i].location;
 				  	   
 				  	   if(i>0){
-				  	
 					  	   if(response[i].date == response[i-1].date){
 					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
 									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
@@ -352,11 +352,16 @@
 					  	   }
 				  	   }else{
 				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
-							  	 );
+				  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						 );
 				  	   }
-				  	
-					}
+				  	   
+						}
+				  	  }else{
+				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+						 );
+				  	  }
 			},
 			error:function(request,status,error){
 				console.log(request.status+":"+status.responseText+":"+ error);
@@ -378,6 +383,7 @@
 					console.log("AJAX Request 성공 ");
 					console.log(response);
 					$("#printlist").text('');
+					  if(response.length > 0){
 						for(var i=0;i<response.length;i++){
 							var seq = response[i].groseq;
 							var day = response[i].date;
@@ -404,6 +410,13 @@
 					  	   }
 					  	
 						}
+						
+					  }else{
+					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+							);
+					  	  }
+						
 				},
 				error:function(request,status,error){
 					console.log(request.status+":"+status.responseText+":"+ error);
@@ -423,6 +436,7 @@
 					console.log("AJAX Request 성공 ");
 					console.log(response);
 					$("#printlist").text('');
+					  if(response.length > 0){
 						for(var i=0;i<response.length;i++){
 							var seq = response[i].groseq;
 							var day = response[i].date;
@@ -449,6 +463,13 @@
 					  	   }
 					  	
 						}
+						
+					  }else{
+					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+							);
+					  	  }	
+						
 				},
 				error:function(request,status,error){
 					console.log(request.status+":"+status.responseText+":"+ error);
@@ -476,6 +497,7 @@
 					console.log("AJAX Request 성공 ");
 					console.log(response);
 					$("#printlist").text('');
+					if(response.length > 0){
 						for(var i=0;i<response.length;i++){
 							var seq = response[i].groseq;
 							var day = response[i].date;
@@ -502,6 +524,12 @@
 					  	   }
 					  	
 						}
+						
+					}else{
+				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+						);
+				  	  }	
 				},
 				error:function(request,status,error){
 					console.log(request.status+":"+status.responseText+":"+ error);
@@ -522,6 +550,7 @@
 					console.log("AJAX Request 성공 ");
 					console.log(response);
 					$("#printlist").text('');
+					if(response.length > 0){
 						for(var i=0;i<response.length;i++){
 							var seq = response[i].groseq;
 							var day = response[i].date;
@@ -548,6 +577,12 @@
 					  	   }
 					  	
 						}
+						
+					}else{
+				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+						);
+				  	  }	
 				},
 				error:function(request,status,error){
 					console.log(request.status+":"+status.responseText+":"+ error);
@@ -567,6 +602,7 @@
 					console.log("AJAX Request 성공 ");
 					console.log(response);
 					$("#printlist").text('');
+					if(response.length > 0){
 						for(var i=0;i<response.length;i++){
 							var seq = response[i].groseq;
 							var day = response[i].date;
@@ -593,6 +629,12 @@
 					  	   }
 					  	
 						}
+						
+					}else{
+				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+						);
+				  	  }	
 				},
 				error:function(request,status,error){
 					console.log(request.status+":"+status.responseText+":"+ error);
@@ -617,6 +659,7 @@
 				console.log("AJAX Request 성공 ");
 				console.log(response);
 				$("#printlist").text('');
+				if(response.length > 0){
 					for(var i=0;i<response.length;i++){
 						var seq = response[i].groseq;
 						var day = response[i].date;
@@ -625,8 +668,9 @@
 						var title =  response[i].groupTitle;
 				  	   var location = response[i].location;
 				  	   
+				  	   
+				  	   
 				  	   if(i>0){
-				  	
 					  	   if(response[i].date == response[i-1].date){
 					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
 									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
@@ -641,8 +685,15 @@
 				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
-				  	
+				  	   
 					}
+					
+				}else{
+			  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+			  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+					);
+			  	  }		
+					
 			},
 			error:function(request,status,error){
 				console.log(request.status+":"+status.responseText+":"+ error);
@@ -664,6 +715,7 @@
 				console.log("AJAX Request 성공 ");
 				console.log(response);
 				$("#printlist").text('');
+				if(response.length > 0){
 					for(var i=0;i<response.length;i++){
 						var seq = response[i].groseq;
 						var day = response[i].date;
@@ -690,6 +742,12 @@
 				  	   }
 				  	
 					}
+					
+				}else{
+			  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+			  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+					);
+			  	  }		
 			},
 			error:function(request,status,error){
 				console.log(request.status+":"+status.responseText+":"+ error);
@@ -711,6 +769,7 @@
 				console.log("AJAX Request 성공 ");
 				console.log(response);
 				$("#printlist").text('');
+				if(response.length > 0){
 					for(var i=0;i<response.length;i++){
 						var seq = response[i].groseq;
 						var day = response[i].date;
@@ -737,6 +796,12 @@
 				  	   }
 				  	
 					}
+					
+				}else{
+			  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+			  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
+					);
+			  	  }		
 			},
 			error:function(request,status,error){
 				console.log(request.status+":"+status.responseText+":"+ error);
