@@ -23,7 +23,7 @@
 
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css"
-	href="css/loginview-group-style.css">
+	href="css/loginview-group-style.css?ver=1">
 
 
 <!-- SJ 꺼 -->
@@ -337,14 +337,15 @@
 						<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
 							<div class="img_div" id="imgSearch2">
 								<div class="over-img" id="distSearch2">
-									<img src="img/${item.group_picture}" id=recoImg class="img_size">
+									<img src="files/${item.group_picture}" id=recoImg class="img_size">
 								</div>
 							</div>
 							<h4 class="group_title">${item.group_name}</h4>
+							</a>
 						</div>
 						
-				</div>
 			</c:forEach>
+				</div>
 			</div>
 
 		</c:otherwise>

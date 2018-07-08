@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css"
 	href="css/groupInfo-style.css?ver=2">
 	
-<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupPhoto-style.css?ver=3">
 
 <div id="navi-div">
 
@@ -158,21 +158,21 @@
                   style="padding-left:0px;
                   margin:0 10px 50px 0; width:300px; height:200px">
 			
-			<div class="item">
-				<div class="polaroid">
+			
+				<div class="up" style="border:1px solid balck;">
 					<c:forEach var="result" items="${result}">
 							<form
 								action="upload.file?group_seq=${result.group_seq }&page=photo"
 								method="post" id="writeForm" enctype="multipart/form-data">
 								<input type="file" id="file" name="file"
 									onchange="this.form.submit()" style="display: none;" />
-							<img class="example-image" src="img/plus.jpg"id="pola-img-plus"/>
-                  			사진 추가
+							<img src="img/plus.jpg"id="pola-img-plus" style="border:1px dashed black;"/>
+                  			
 
 						</form>
 					</c:forEach>
 				</div>
-			</div>
+			
 			</div>
 			</div>
 		</div>

@@ -28,7 +28,7 @@ public class MemberController extends HttpServlet {
          request.setCharacterEncoding("utf8");
          response.setCharacterEncoding("utf8");
 
-
+System.out.println("---------------------------------------");
 			System.out.println(command);
 			MemberDAO dao = new MemberDAO();
 			boolean isRedirect = true;
@@ -224,28 +224,7 @@ public class MemberController extends HttpServlet {
 				dst = "mypage.jsp";
 				System.out.println("---------------------------------------------------------");
 				System.out.println(" ");
-			} else if (command.equals("/signUpApply.co")) {
-
-            
-         
-
-            String loginId = (String)request.getSession().getAttribute("loginId");
-            String snsId = (String)request.getSession().getAttribute("snsId");
-            System.out.println("/mypage.co 의 session Login Id : " + loginId);
-            MemberDAO mDAO = new MemberDAO();
-
-            MemberDTO accntInfo = mDAO.getAccountInfo(snsId,loginId);
-
-            request.setAttribute("userName", accntInfo.getMember_name());
-            request.setAttribute("userEmail", accntInfo.getMember_email());
-            request.setAttribute("userLocation", accntInfo.getMember_location());
-            request.setAttribute("userPicture", accntInfo.getMember_picture());
-            request.setAttribute("userInterests", accntInfo.getMember_interests());
-            request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
-            isRedirect = false;
-            dst = "mypage.jsp";
-
-         } else if (command.equals("/signUpApply.co")) {
+			}else if (command.equals("/signUpApply.co")) {
 
             String memberName = (String) request.getParameter("member_name");
             String memberEmail = (String) request.getParameter("member_email");
