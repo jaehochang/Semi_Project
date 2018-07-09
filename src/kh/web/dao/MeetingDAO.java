@@ -413,6 +413,102 @@ public class MeetingDAO {
       
       return result;
    }
-   
+   public List<String> DistanceSearchMeet(String lat, String lng, String distance, String city, String word,String day) throws Exception{
+
+		Connection con = DBUtils.getConnection();
+		String sql = null;
+		double latitude = Double.parseDouble(lat);
+		PreparedStatement pstat = null;
+		double longitude =Double.parseDouble(lng);
+		if(word.equals("")) {
+		sql = 
+		"select group_seq, group_name,meeting_lat,meeting_lng,meeting_location,meeting_start_time, to_char(meeting_start_time,'HH24:mi')as time from meeting where meeting_location like ? and meeting_start_time >= to_date(?,'YYYYMMDD') order by meeting_start_time";
+		pstat = con.prepareStatement(sql);
+		pstat.setString(1, "%" + city + "%");
+		pstat.setString(2, day);
+		}else {
+			sql = 
+		"select group_seq, group_name,meeting_lat,meeting_lng,meeting_location,meeting_start_time, to_char(meeting_start_time,'HH24:mi')as time from meeting where meeting_location like ? and group_interests like ? and meeting_start_time >= to_date(20180709,'YYYYMMDD') order by meeting_start_time";
+		pstat = con.prepareStatement(sql);
+		pstat.setString(1, "%" + city + "%");
+		pstat.setString(2, word);
+		pstat.setString(3, day);
+		}
+		
+		ResultSet rs = pstat.executeQuery();
+		
+		List<String> fiveList = new ArrayList<>();
+		List<String> tenList = new ArrayList<>();
+		List<String> fifteenList = new ArrayList<>();
+		List<String> allList = new ArrayList<>();
+
+		while(rs.next()) {
+			
+			int dbGroupSeq = rs.getInt("group_seq");
+			String dbGroupName = rs.getString("group_name");
+			double dbMeetingLat = Double.parseDouble(rs.getString("meeting_lat"));
+			double dbMeetingLng = Double.parseDouble(rs.getString("meeting_lng"));
+			Date dbMeetingDate = rs.getDate("meeting_start_time");
+			String dbMeetingLocation = rs.getString("meeting_location");
+			
+			double theta = longitude - dbMeetingLng;
+			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbMeetingLat)) + Math.cos(deg2rad(latitude))
+			*Math.cos(deg2rad(dbMeetingLat)) * Math.cos(deg2rad(theta));
+
+			dist = Math.acos(dist);
+			dist = rad2deg(dist);
+			dist = dist * 60 * 1.1515;
+			dist = dist * 1.609344; //km일때
+			//		 	 dist = dist * 1609.344; meter 일때
+			System.out.println("계산된 거리 : " + dist);
+			
+			if(dist <= 5) {
+				fiveList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+				
+			}
+			if(dist <= 10) {
+				tenList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+				
+			}
+			if(dist <= 15) {
+				fifteenList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+			
+			}
+			if(dist != 0) {
+				allList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+			}
+			
+		}
+		
+		if(distance.equals("5") || distance.equals("5km")){
+			System.out.println("거리가 5km 인 그룹 : " + fiveList);
+			con.close();
+			pstat.close();
+			return fiveList;
+		}else if(distance.equals("10") || distance.equals("10km")){
+			System.out.println("거리가 10km 인 그룹 : " + tenList);
+			con.close();
+			pstat.close();
+			return tenList;
+		}else if(distance.equals("15") || distance.equals("15km")){
+			con.close();
+			pstat.close();
+			return fifteenList;
+		}
+		else {
+			System.out.println("모든거리 인 그룹" + allList);
+			con.close();
+			pstat.close();
+			return allList;
+		}
+		
+	}
+	public double deg2rad(double deg){  
+		return (double)(deg * Math.PI / (double)180d);  
+	}  
+	public double rad2deg(double rad) {
+		return (double)(rad*(double)180d / Math.PI);
+	}
   
+   
 }

@@ -22,3 +22,11 @@
 	height:200px;
 }
 
+#newMeetingBT{
+	position: absolute;
+	transform: translate(450%, -140%);
+	width: 150px;
+	background-color: #b831d9;
+	color: white;
+	
+}

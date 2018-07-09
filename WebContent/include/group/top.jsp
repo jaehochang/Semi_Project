@@ -2,11 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,14 +15,14 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=2">
 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 
 <!-- SJ 꺼 -->
-<link rel="stylesheet" type="text/css" href="./css/mypagenav-style.css">
+<link rel="stylesheet" type="text/css" href="./css/mypagenav-style.css?ver=1">
 <link rel="stylesheet" type="text/css" href="./css/bottom-style.css">
 <link rel="stylesheet" type="text/css" href="./css/mypage-section-style.css">
 <!-- SJ 꺼 -->
@@ -30,7 +31,7 @@
 
 <script src="js/modernizr.custom.js"></script>
 
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <!-- 사진  -->
 <link rel="stylesheet" href="photo/css/lightbox.min.css">
@@ -60,7 +61,7 @@
 	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
 	crossorigin="anonymous">
 	
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
 
@@ -74,6 +75,7 @@
 body {
 /*    font-family: 'Jeju Gothic', serif; */
    font-family: 'Nanum Gothic', serif;
+   padding-top: 0px;
 }
 </STYLE>
 </head>
@@ -89,13 +91,14 @@ body {
 			<div id="top-contents-img">
 				<img src="files/${item.group_picture }" id="group-main-img"
 					class="img-responsive img-rounded">
+					<button type="button" class="btn btn-secondary"
+					style="width: 150px; background-color: #f7f7f7; color: black;"
+					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
 			</div>
 
 			<form action="upload.file?group_seq=${item.group_seq }&page=group" method="post" id="writeForm" enctype="multipart/form-data">
-				<input type="file" id="file" name="file" onchange="this.form.submit()" style="display:none;"/>
-				<button type="button" class="btn btn-secondary"
-					style="width: 150px; background-color: #f7f7f7; color: black;"
-					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
+				<input type="file" id="file" name="file" onchange="writeForm.submit()" style="display:none;"/>
+				
 			</form>
 			
 			<script>
@@ -161,14 +164,28 @@ body {
 				</c:forEach>
 				</div>
 				<div id="info-sns">
-					<span id="sns">공유 : <a href=""><img src="img/kakao.png"></a> 
-					<a href=""><img src="img/facebook.png"></a></span>
+					<span id="sns">공유 : <img src="img/kakao.png" id="kakaoShare">
+					<img src="img/facebook.png"></a></span>
 				</div>
 			</div>
+			<input type="hidden" id="groupTitle" value="${item.group_name }">
+			<input type="hidden" id="groupInfo" value="${item.group_info }">
+			<input type="hidden" id="groupSeq" value="${item.group_seq }">
 		</c:forEach>
 	</div>
 
 	<hr>
-
+	
+		<script>
+			$("#info-sns").click(function(){
+				alert("준비중 입니다!");
+			})
+		</script>
+		
+		<c:if test="${leader_email ne  sessionScope.loginId}">
+			<script>
+				$("#btn-upload").hide();
+			</script>
+		</c:if>
 		
 			

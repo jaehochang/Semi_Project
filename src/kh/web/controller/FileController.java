@@ -38,7 +38,64 @@ public class FileController extends HttpServlet {
          String dst = null;
          String ajax = null;
 
-         if(command.equals("/upload.file")) {
+         if(command.equals("/upload1.file")) {
+         	String member_email = request.getSession().getAttribute("loginId").toString();
+         	String groupSeq = request.getParameter("group_seq");
+         	int group_seq = Integer.parseInt(groupSeq);
+         	 
+         	
+             request.setCharacterEncoding("UTF-8");
+
+             String realPath = request.getServletContext().getRealPath("/files/");
+
+             System.out.println(realPath);
+             //System.out.println(request.getServletContext());
+             
+             File f = new File(realPath);
+             if(!f.exists()){
+                f.mkdir();
+             }
+
+             int maxSize = 1024 * 1024 * 100;
+             String enc = "utf8";
+
+             MultipartRequest mr = new MultipartRequest(request, realPath, maxSize, enc,new DefaultFileRenamePolicy());
+             
+             Enumeration<String> names = mr.getFileNames();
+             
+             
+             
+             int photoTabResult = 0;
+             
+             
+             if(names != null){
+                while(names.hasMoreElements()){
+                   String paramName = names.nextElement();
+                   String originalName = mr.getOriginalFileName(paramName);
+                   String systemName = mr.getFilesystemName(paramName);
+
+                  
+                   
+                   if(originalName != null){
+                      try {
+
+                     	
+                     		 photoTabResult = filesDAO.addGroupPic(new GroupPicDTO(0,group_seq,originalName,systemName));
+                     		 
+                     		 dst="groupMain.group?group_seq="+groupSeq+"&page=photo";
+                     	 
+                         
+                      } catch (Exception e) {
+                         e.printStackTrace();
+                      }
+                   }
+                }
+             }
+             
+             isRedirect = false;
+             
+             
+          }if(command.equals("/upload.file")) {
         	String member_email = request.getSession().getAttribute("loginId").toString();
         	String groupSeq = request.getParameter("group_seq");
         	int group_seq = Integer.parseInt(groupSeq);
@@ -68,6 +125,10 @@ public class FileController extends HttpServlet {
             
             int fileResult=0;
             int GroupPicResult = 0;
+            int mypageResult = 0;
+            int newMeetingResult = 0;
+            int photoTabResult = 0;
+            
             
             if(names != null){
                while(names.hasMoreElements()){
@@ -89,19 +150,16 @@ public class FileController extends HttpServlet {
                     		 
                     	 }else if(page.equals("mypage")) {
                     		 System.out.println("마이페이지 값 : "+member_email+" : " + systemName);
-                    		 fileResult = filesDAO.memberPicChange(member_email, systemName);
+                    		 mypageResult = filesDAO.memberPicChange(member_email, systemName);
                     		 request.setAttribute("systemName", systemName);
                     		 
                     		 System.out.println("fileResult"+fileResult);
                     		 dst="mypage.co";
                     	 }else if(page.equals("newMeeting")) {
+                    		 System.out.println("뉴미팅!!");
                     		 request.setAttribute("systemName", systemName);
-                    		 fileResult=1;
+                    		 newMeetingResult=1;
                     		 dst="newmeetingform.meet?group_seq="+groupSeq;
-                    	 }else if(page.equals("photo")) {
-                    		 fileResult = filesDAO.addGroupPic(new GroupPicDTO(0,group_seq,originalName,systemName));
-                    		 
-                    		 dst="groupMain.group?group_seq="+groupSeq+"&page=photo";
                     	 }
                         
                      } catch (Exception e) {
@@ -114,13 +172,17 @@ public class FileController extends HttpServlet {
             
             
             request.setAttribute("fileResult", fileResult);
+            request.setAttribute("GroupPicResult", GroupPicResult);
+            request.setAttribute("mypageResult", mypageResult);
+            request.setAttribute("newMeetingResult", newMeetingResult);
+            request.setAttribute("photoTabResult", photoTabResult);
             
             isRedirect = false;
             
             
          }else if(command.equals("/test.file")) {
         	 String systemName = request.getParameter("value");
-        	System.out.println(systemName);
+        	System.out.println(systemName +"file 컨트롤 ");
         	
         	
 			String realPath = request.getServletContext().getRealPath("files");

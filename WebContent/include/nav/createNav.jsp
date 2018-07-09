@@ -41,7 +41,7 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+<link href="css/mdb.min.css" rel="stylesheet">
 <!-- <script src="jquery-1.11.3.js"></script> -->
 <!-- <script src="js/jquery.validate.min.js"></script> -->
 
@@ -122,12 +122,9 @@ left:178px;
 
 .badgebox:focus + .badge
 {
-    /* Set something to make the badge looks focused */
-    /* This really depends on the application, in my case it was: */
-    
-    /* Adding a light border */
+
     box-shadow: inset 0px 0px 5px;
-    /* Taking the difference out of the padding */
+
 }
 
 .badgebox:checked + .badge
@@ -135,6 +132,7 @@ left:178px;
     /* Move the check mark back when checked */
 	text-indent: 0;
 	font-weigth:15px;
+
 }
 
 #photoName {
@@ -169,9 +167,6 @@ left:178px;
 }
 
 
-.btn btn-success{
-
-}
 /*  */
 /* ==========================================================================
    Author's custom styles
@@ -182,16 +177,6 @@ left:178px;
 	position: relative;
 }
 
-/* .timeline:before {
-        top: 0;
-        bottom: 0;
-        position: absolute;
-        content: " ";
-        width: 6px;
-        background-color: #eeeeee;
-        left: 50%;
-        margin-left: -1.5px;
-    } */
 .timeline>li {
 	margin-bottom: 20px;
 	position: relative;
@@ -250,28 +235,6 @@ left:178px;
 	content: " ";
 }
 
-/* .timeline > li > .timeline-badge {
-            color: #fff;
-            width: 50px;
-            height: 50px;
-            line-height: 50px;
-            font-size: 1.4em;
-            text-align: center;
-            position: absolute;
-            top: 16px;
-            left: 50%;
-            margin-left: -25px;
-            background-color: #999999;
-            z-index: 100;
-            border-top-right-radius: 50%;
-            border-top-left-radius: 50%;
-            border-bottom-right-radius: 50%;
-            border-bottom-left-radius: 50%;
-        } */
-
-/* .timeline > li.timeline-inverted > .timeline-panel {
-            float: right;
-        } */
 .timeline>li.timeline-inverted>.timeline-panel:before {
 	border-left-width: 0;
 	border-right-width: 15px;
@@ -286,25 +249,6 @@ left:178px;
 	right: auto;
 }
 
-/* .timeline-badge.primary {
-    background-color: #2e6da4 !important;
-}
-
-.timeline-badge.success {
-    background-color: #3f903f !important;
-}
-
-.timeline-badge.warning {
-    background-color: #f0ad4e !important;
-}
-
-.timeline-badge.danger {
-    background-color: #d9534f !important;
-}
-
-.timeline-badge.info {
-    background-color: #5bc0de !important;
-} */
 .timeline-title {
 	margin-top: 0;
 	color: inherit;
@@ -336,19 +280,6 @@ left:178px;
 		float: right;
 	}
 
-	/*    ul.timeline > li > .timeline-panel:before {
-            border-left-width: 0;
-            border-right-width: 15px;
-            left: -15px;
-            right: auto;
-        }
-
-        ul.timeline > li > .timeline-panel:after {
-            border-left-width: 0;
-            border-right-width: 14px;
-            left: -14px;
-            right: auto;
-        } */
 }
 
 .chat {
@@ -403,26 +334,6 @@ left:178px;
 color: red;
 }
 
-input[type=checkbox]:checked + .check-box,
-.check-box.checked { border-color: #34b93d; }
-
-input[type=checkbox]:checked + .check-box::after,
-.check-box.checked::after {
-  height: 50px;
-  -moz-animation: dothabottomcheck 0.2s ease 0s forwards;
-  -o-animation: dothabottomcheck 0.2s ease 0s forwards;
-  -webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
-  animation: dothabottomcheck 0.2s ease 0s forwards;
-}
-
-input[type=checkbox]:checked + .check-box::before,
-.check-box.checked::before {
-  height: 120px;
-  -moz-animation: dothatopcheck 0.4s ease 0s forwards;
-  -o-animation: dothatopcheck 0.4s ease 0s forwards;
-  -webkit-animation: dothatopcheck 0.4s ease 0s forwards;
-  animation: dothatopcheck 0.4s ease 0s forwards;
-}
 </style>
 <script>
 
@@ -484,12 +395,7 @@ $('#nextBt').click(function(){
 
 						var tmp = [];
 						var checkStr = [];
-						var checkStr2=[];
-						var checkStrArr=[];
 						var uncheckStr = [];
-						var uncheckStr2=[];
-						var uncheckStrArr=[];
-						var filterArr=[];
 						var count=0;
 						var maxCount=11;
 						
@@ -520,11 +426,11 @@ $('#nextBt').click(function(){
 															if (uncheckStr.length > 0|| checkStr.length > 0) {
 
 																for (var j = 0; j < checkStr.length; j++) {
-																	$('#printTerm1').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm animated wobble\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0;font-weight:bold\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox animated jello\" name=\"checkbox\" value=\""+ checkStr[j] + "\"   checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge animated jello\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm1').append("<span class=\"button-checkbox\" checked><label for=\"" + "tag" + j + "\" id=\"label" + i + "\"class=\"btn btn-outline-info btn-sm waves-effect active animated wobble\" style=\"background-color:#b831d9; margin:0 0 10px 0;font-weight:bold;font-size:11px\" checked autocomplete=\"off\">"+ "<input id=\"tag" + j + "\" type=\"checkbox\" class=\"badgebox animated jello\" name=\"checkbox\" value=\""+ checkStr[j] + "\"   checked=\"checked\">"+ checkStr[j]+ "&nbsp;<span class=\"badge animated jello\">&check;</span></label></span>&nbsp;");
 																}
 
 																for (var i = 0; i < uncheckStr.length; i++) {
-																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-default btn-sm animated wobble\" style=\"border:1px solid gray; background:white; color:black; margin:0 0 10px 0\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox animated jello\" name=\"checkbox\" value=\""+ uncheckStr[i] + "\">"+ uncheckStr[i]+ "&nbsp;<span class=\"badge animated jello\">&check;</span></label></span>&nbsp;");
+																	$('#printTerm2').append("<span class=\"button-checkbox\"><label for=\"" + "tag" + i + "\" id=\"label" + i + "\"class=\"btn btn-outline-info btn-sm waves-effect animated wobble\" style=\"background-color:#b831d9; margin:0 0 10px 0;font-size:11px\">"+ "<input id=\"tag" + i + "\" type=\"checkbox\" class=\"badgebox animated jello\" name=\"checkbox\" value=\""+ uncheckStr[i] + "\">"+ uncheckStr[i]+ "&nbsp;<span class=\"badge animated jello\">&check;</span></label></span>&nbsp;");
 
 																}
 
@@ -691,15 +597,13 @@ $('#nextBt').click(function(){
 							 $.ajax({
 									url : "unchecked.autocomplete",
 									data : {removeallTerm : items},
-									success : function(response) {
+									success : function() {
 										
 									},
 									fail : function() {
 										
 									}
 								})
-							
-							
 							$("#create").submit();
 
 						})
@@ -714,16 +618,20 @@ $('#nextBt').click(function(){
 
 <body>
 
-	<nav>
+	   <nav>
 
-		<ul id=nav-ul >
-			<li><a href="main.jsp"><img
-					src="https://i.imgur.com/axIYcKj.png"
-					style="height: 50px; width: 150px;"></a>
-			<li><a href="#">탐색</a>
-			<li><a href="#">메시지</a>
-			<li><a href="#">알림</a>
-			<li><a href="#"><span class="glyphicon glyphicon-user"
-					aria-hidden="true"></span></a>
-		</ul>
-	</nav>
+      <ul id=nav-ul >
+         <li><a href="main.jsp"><img
+               src="https://i.imgur.com/axIYcKj.png"
+               style="height: 50px; width: 150px;"></a>
+         <li><a href="createRequest.group">새 그룹 만들기</a>
+         <li id=snd-list class="dropdown active"><a href="#"
+               class="dropdown-toggle" data-toggle="dropdown"><i
+                  class="fas fa-user"></i></a>
+               <ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
+                  <li><a href="LogoutController.co">로그아웃 </a></li>
+                  <li><a href="mypage.co">마이페이지 </a></li>
+               </ul>
+               </li>
+      </ul>
+   </nav>

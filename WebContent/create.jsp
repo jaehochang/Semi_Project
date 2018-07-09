@@ -3,7 +3,7 @@
 <%@ include file="include/nav/createNav.jsp"%>
 
 <div class="jumbotron animated bounceInDown"
-	style="background-image: url(./image/열기구.jpg); background-size: 100%;">
+	style="background-image: url(./image/열기구.jpg); background-size: 100%;width:1500px;">
 	<div class="container">
 	<div id="text" class=text-align>
 		<h2 id="writing1" style="color: white;text-align:center;">새로운 MeetNow를 시작하세요</h2>
@@ -68,9 +68,9 @@
 			<input id="hiddenTag" type="hidden" name="tags">
 			
 			<div class="btn-group" data-toggle="buttons" id="printTerm1"
-				style="width: auto; height: 90px"></div>
+				style="width: 800px; height: auto"></div>
 				<div class="btn-group" data-toggle="buttons" id="printTerm2"
-				style="width: auto; height:150px">
+				style="width: 800px; height:auto">
 				</div>
 
 			<!--  -->

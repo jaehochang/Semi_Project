@@ -101,6 +101,40 @@
 			
 		}
 		
+#gro:visited {
+	background: gray;
+	color: white;
+}
+
+#gro {
+	background: black;
+	color: white;
+	font-size: 18px;
+	line-height: 1.5;
+	position: relative;
+	top: 6px;
+	width: 100px;
+}
+
+#cal:visited {
+	background: gray;
+	color: white;
+}
+
+#cal {
+	background: black;
+	color: white;
+	font-size: 18px;
+	line-height: 1.5;
+	position: relative;
+	top: 6px;
+	width: 100px;
+}
+#search li:hover{
+background-color: red;
+	
+}
+		
 		.dayby{
 			font-weight: bold;
 			text-align: left;
@@ -123,13 +157,422 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		
+			navigator.geolocation.getCurrentPosition(function(position) {
+				pos = {
+						lat : position.coords.latitude,
+						lng : position.coords.longitude
+
+					  };
+						alert("나의 위도 : " + pos.lat + " 나의 경도 : "+ pos.lng);
+					});
+
+				$("#search-bt").click(function() {
+							alert($("#search-input").val());
+							
+							
+							var val = pos.lat + ":" + pos.lng;
+					        var dist = $("#distance-default").html();
+					        var loc = $("#location-default").html();
+					        var word =  $("#search-input").val();
+					        
+					        var today = new Date();
+					        var dd = today.getDate();
+					        var mm = today.getMonth()+1; 
+					        var yyyy = today.getFullYear();
+
+					        
+					        $("#distrow").html("");
+							$(".img_size").html("");
+							$(".col-md4").html("");
+							$(".img_div").html("");
+							$("#distSearch2").html("");
+					        $.ajax({
+										url : "distanceKm.meet",
+										type : "get",
+										data : {
+												value : val,
+												distance : dist,
+												location : loc,
+												word : word,
+												year : yyyy,
+												month : mm,
+										        day : dd
+												},
+							success : function(response) {
+								var a = response.distSearchCount.toString().split(",");
+						if(response.distSearchCount.length != 0){	
+								for (var b = 0; b < response.distSearchCount.length; b++) {
+									alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
+									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
+									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
+								    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
+								   														
+								}
+						}else{
+							alert("결과값이 없습니다.");
+						}
+									},
+									error : function() {
+										console.log("에러 발생!");
+									},
+										complete : function() {
+										console.log("성공이건 실패건 어찌되었든 ajax 종료");
+								}
+								});
+				})
+				$("#five_km").click(function() {
+
+						alert("5km 입니다.");
+						alert($("#location-default").html());
+			      $("#distance-default").text("5km");
+			      
+					var val = pos.lat + ":" + pos.lng;
+			        var dist = 5;
+			        var loc = $("#location-default").html();
+			        var word =  $("#search-input").val();
+			        
+			        var day = $("#datepicker").val();
+			        
+			        $("#distrow").html("");
+					$(".img_size").html("");
+					$(".col-md4").html("");
+					$(".img_div").html("");
+					$("#distSearch2").html("");
+			        $.ajax({
+								url : "distanceKm.meet",
+								type : "get",
+								data : {
+										value : val,
+										distance : dist,
+										location : loc,
+										day : day
+										},
+					success : function(response) {
+						var a = response.distSearchCount.toString().split(",");
+					if(response.distSearchCount.length != 0){	
+						for (var b = 0; b < response.distSearchCount.length; b++) {
+							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
+							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
+							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
+							$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
+						   														
+						}
+					}else{
+						
+						alert("결과값이 없습니다.");
+					}
+							},
+							error : function() {
+								console.log("에러 발생!");
+							},
+								complete : function() {
+								console.log("성공이건 실패건 어찌되었든 ajax 종료");
+						}
+						});
+					})
+					$("#ten_km").click(function() {
+						alert("10km 입니다.");
+						$("#distance-default").html("10km");
+						var val = pos.lat + ":" + pos.lng;
+						var dist = 10;
+						var loc = $("#location-default").html();
+						var word =  $("#search-input").val();
+						
+						var day = $("#datepicker").val();
+				        
+						$("#distrow").html("");
+						$(".img_size").html("");
+						$(".col-md4").html("");
+						$(".img_div").html("");
+						$("#distSearch2").html("");
+						
+						$.ajax({
+								url : "distanceKm.meet",
+								type : "get",
+								data : {
+							      		value : val,
+										distance : dist,
+										location : loc,
+										word : word,
+										
+										year : yyyy,
+										month : mm,
+								        day : dd
+
+									   },
+														
+						success : function(response) {
+									var a = response.distSearchCount.toString().split(",");
+							if(response.distSearchCount.length != 0){
+									for (var b = 0; b < response.distSearchCount.length; b++) {
+										alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
+										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+										$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
+									
+									}	
+							}else{
+								alert("결과값이 없습니다");
+							}
+					    },
+						error : function() {
+
+							console.log("에러 발생!");
+						},
+						complete : function() {
+								console.log("성공이건 실패건 어찌되었든 ajax 종료");
+						}
+
+						});
+					})
+					$("#fifteen_km").click(function() {
+							alert("15km 입니다.");
+							$("#distance-default").html("15km");
+							var val = pos.lat + ":" + pos.lng;
+							var dist = 15;
+							var loc = $("#location-default").html();
+							var word =  $("#search-input").val();
+							
+							var day = $("#datepicker").val();
+					        
+							$("#distrow").html("");
+							$(".img_size").html("");
+							$(".col-md4").html("");
+							$(".img_div").html("");
+							$("#distSearch2").html("");
+							$.ajax({
+									url : "distanceKm.group",
+								    type : "get",
+									data : {
+									   value : val,
+									   distance : dist,
+									   location : loc,
+									   word : word,
+									   year : yyyy,
+										month : mm,
+								        day : dd
+									},
+									success : function(response) {
+															
+									var a = response.distSearchCount.toString().split(",");
+					if(response.distSearchCount.length != 0){
+					      for (var b = 0; b < response.distSearchCount.length; b++) {
+							alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+							$("#distrow").append("<h5 style='position:absolute; z-index:100; top:1000px; padding-left:100px; left:600px; line-height:5;'>"+a[b].split(":")[3]+"</h5>").trigger("create");
+						    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
+						   					
+															
+						}
+					}else{
+						alert("결과값이 없습니다.");
+					}
+							
+					},
+					error : function() {
+
+						console.log("에러 발생!");
+					},
+					complete : function() {
+						console.log("성공이건 실패건 어찌되었든 ajax 종료");
+					}
+
+				    });
+					})
+					$("#all_km").click(
+						function() {
+						 alert("모든거리 입니다.");
+						$("#distance-default").html("모든거리");
+						
+						var val = pos.lat + ":" + pos.lng;
+						var dist = $("#distance-default").html();
+						var loc = $("#location-default").html();
+						var word =  $("#search-input").val();
+						
+						var day = $("#datepicker").val();
+						$("#distrow").html("");
+						$(".img_size").html("");
+						$(".col-md4").html("");
+						$(".img_div").html("");
+						$("#distSearch2").html("");
+						$.ajax({
+								url : "distanceKm.group",
+							    type : "get",
+								data : {
+								   value : val,
+								   distance : dist,
+								   location : loc,
+								   word : word,
+								   year : yyyy,
+									month : mm,
+							        day : dd
+								},
+								success : function(response) {
+														
+								var a = response.distSearchCount.toString().split(",");
+					if(response.distSearchCount.length != 0){
+				      for (var b = 0; b < response.distSearchCount.length; b++) {
+						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
+					}
+					}else{
+						alert("결과값이 없습니다.")
+						
+					}	
+				},
+				error : function() {
+
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			    });
+						})
+					
+					$("#navigation-list").hide();
+					$("#search-input").click(function(){
+						
+						$("#navigation-list").slideToggle(300);
+
+					})
+					
+					$("#searchLocation").keyup(function(e){
+						
+						if(e.keyCode == 13){
+							alert($("#searchLocation").val());
+							$("#location-default").html($("#searchLocation").val());
+							alert($("#distance-default").html());
+						
+						
+						var val = pos.lat + ":" + pos.lng;
+						var dist = $("#distance-default").html();
+						var loc = $("#searchLocation").val();
+						var word =  $("#search-input").val();
+						
+						var day = $("#datepicker").val();
+						
+						$("#distrow").html("");
+						$(".img_size").html("");
+						$(".col-md4").html("");
+						$(".img_div").html("");
+						$("#distSearch2").html("");
+						
+						$.ajax({
+								url : "distanceKm.group",
+							    type : "get",
+							    
+								data : {
+								   value : val,
+								   distance : dist,
+								   location : loc,
+								   word : word,
+								   year : yyyy,
+									month : mm,
+							        day : dd
+								},
+								
+								success : function(response) {
+														
+								var a = response.distSearchCount.toString().split(",");
+								
+				if(response.distSearchCount.length != 0){
+					
+				      for (var b = 0; b < response.distSearchCount.length; b++) {
+						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
+					   					
+														
+					}
+				}else{
+					alert("결과값이 없습니다.")
+					$("#distrow").after("<h4 class=group_title1>결과 값이 없습니다.</h4>").trigger("create");				
+				  }	
+				},
+				error : function() {
+
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			    });
+						}	
+						});
+					
+					$("#eatout").click(function(){
+					   
+						alert($("#eatout").html());
+						$("#search-input").val($("#eatout").html());
+						$("#navigation-list").hide();
+						var val = pos.lat + ":" + pos.lng;
+						var dist = $("#distance-default").html();
+						var loc = $("#location-default").html();
+						var word =  $("#search-input").val();
+						
+						var day = $("#datepicker").val();
+						$("#distrow").html("");
+						$(".img_size").html("");
+						$(".col-md4").html("");
+						$(".img_div").html("");
+						$("#distSearch2").html("");
+						$.ajax({
+								url : "distanceKm.group",
+							    type : "get",
+								data : {
+								   value : val,
+								   distance : dist,
+								   location : loc,
+								   word : word
+								},
+								success : function(response) {
+														
+								var a = response.distSearchCount.toString().split(",");
+					if(response.distSearchCount.length != 0){
+				      for (var b = 0; b < response.distSearchCount.length; b++) {
+						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
+					}
+					}else{
+						alert("결과값이 없습니다.")
+						
+					}	
+				},
+				error : function() {
+
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			    });
+						
+						
+					});
+						
+					
+
+					})
+					
+</script>
 </head>
 
 <body>
 
-	<nav>
 		<%@ include file="include/nav/mypageNav.jsp"%>
-	</nav>
 
 	<div class="jumbotron" style="background-color: #d07de8">
 		<div class="container">
@@ -141,53 +584,75 @@
 		</div>
 	</div>
 
-	<div id="search">
+	<div id="search" style="left: 0px; z-index: 10">
 		<div class="col-xs-4">
-			<input type="text" class="form-control" id="search-input"
-				placeholder="전체 MeetUp 이벤트">
+		  <a data-toggle="dropdown" aria-expanded="false"  font-size: medium; padding-left: 3"><input id="search-input" type="text" placeholder="전체 Meetup 이벤트" style="width: 270px; height: 34px;  border-radius: 5px;"></a>
+			<ul class="dropdown-menu" role="menu" style="position: absolute; z-index: 150; width: 900px">
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="eatout">외식</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="family">가족</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">친척</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">asdasd</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+			</ul>
+			
+			
+
+	
+
+
 			<button type="button" class="btn btn-default" aria-label="Left Align"
-				id="search-bt">
+				id="search-bt" style="background-color: white;">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			</button>
 		</div>
 		<h5 id="location-text">내</h5>
 		<div class="btn-group" id="location-km">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="location-default">
-				5km <span class="caret"></span>
-			</button>
+			<a data-toggle="dropdown" aria-expanded="false" id="distance-default" style="color: white; font-size: medium; line-height: 2.2; padding-left: 3; text-decoration: underline;">5km</a>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#">5km</a></li>
-				<li><a href="#">10km</a></li>
-				<li><a href="#">15km</a></li>
-				<li><a href="#">모든거리</a></li>
+				<li><a href="#" id="five_km">5km</a></li>
+				<li><a href="#" id="ten_km">10km</a></li>
+				<li><a href="#" id="fifteen_km">15km</a></li>
+				<li><a href="#" id="all_km">모든거리</a></li>
 			</ul>
 		</div>
 
 
 		<div class="btn-group"
 			style="position: absolute; bottom: 15px; left: 450px;">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="location-default">
-				서울,KR <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu" id="dropdown-location">
-				<li><input type=text></li>
+			<a data-toggle="dropdown" aria-expanded="false" id="location-default" style="color: white; font-size: medium; line-height: 2.2; position: relative; right: 25px; text-decoration: underline;">서울</a>
+			<ul class="dropdown-menu" role="menu" id="dropdown-location" style="padding-right:5 ">
+				<li><input keyup="enterkey();" type=text id="searchLocation"></li>
 			</ul>
 		</div>
 
 		<script>
 			$('#dropdown-location').click(function(e) {
 				e.stopPropagation();
+				
 			});
 		</script>
 
 		<h5 id="location-text2">의</h5>
 
 		<div class="btn-group" role="group" id="search-check"
-			style="position: absolute; bottom: 15px; left: 750px;">
-			<button type="button" class="btn btn-default" id="gro">그룹들</button>
-			<button type="button" class="btn btn-default" id="cal">달력</button>
+			style="position: absolute; bottom: 15px; left: 680px; width: 250px">
+			<button type="button" class="btn btn-default" id="gro">그룹</button>
+			<button type="button" class="btn btn-default" id="cal">캘린더</button>
 		</div>
 	</div>
 
@@ -219,51 +684,7 @@
 </div>
 
 
-	<div class="myMeetNow">
-		<p>내 MeetNow</p>
-
-		<div class="row" id="myMeet_row">
-			<c:forEach var="item" items="${myGroupList }">
-
-				<div class="col-md-3" style="padding: 10px;">
-					<a href="groupMain.group?group_seq=${item.group_seq}&page=info">
-						<div class="over-img">
-							<img src="files/${item.system_name }" class="img_size">
-						</div>
-						<h4 class="group_title">${item.group_name }</h4> <c:forEach
-							var="item2" items="${memberCount }">
-							<c:if test="${item.group_seq eq item2.group_seq }">
-								<h5 class="group_count">${item2.count}명의회원</h5>
-							</c:if>
-						</c:forEach>
-					</a>
-				</div>
-
-			</c:forEach>
-		</div>
-
-	</div>
-
-
-	<div id="recoMeetnow">
-		<p>추천 MeetNow</p>
-		<div class="row">
-
-			<c:forEach var="item" items="${groupList }">
-
-				<div class="col-md-4">
-					<div class="img_div">
-						<div class="over-img">
-							<img src="files/${item.group_picture }" class="img_size">
-						</div>
-					</div>
-					<h4 class="group_title">${item.group_name }</h4>
-				</div>
-
-			</c:forEach>
-		</div>
-
-	</div>
+	
 
 	<div id="moreGroup">
 		<button type="button" class="btn btn-default btn-lg btn-block"
@@ -348,7 +769,11 @@
 		$.ajax({
 			url:"calendarchoice.meet",
 			type:"post",
-			data:{val:date},
+			data:{
+				val:date,
+				
+				
+			},
 			dataType : "json",
 			success:function(response){
 				console.log("AJAX Request 성공 ");

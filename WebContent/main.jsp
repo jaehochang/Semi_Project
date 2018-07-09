@@ -18,7 +18,8 @@
 <link rel="icon" href="./resources/docs/favicon.ico">
 <link rel="stylesheet" type="text/css" href="css/groupstyle.css">
 <link rel="stylesheet" type="text/css" href="css/mypagenav-style.css">
-<link rel="stylesheet" type="text/css" href="css/bottom-style.css">
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=3">
+
 
 <link rel="stylesheet" type="text/css" href="css/main-card-style.css">
 <link rel="stylesheet" type="text/css" href="css/main-calender-style.css">
@@ -29,9 +30,9 @@
 <title>meet now</title>
 
 <link href="./resources/docs/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+   rel="stylesheet">
 <link href="./resources/docs/examples/jumbotron/jumbotron.css"
-	rel="stylesheet">
+   rel="stylesheet">
 
 <!-- Animated  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -56,8 +57,6 @@
    href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
    integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
    crossorigin="anonymous">
-
-
 
 
 
@@ -91,8 +90,8 @@
 /* 제주고딕 */
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 body {
-/* 	font-family: 'Jeju Gothic', serif; */
-	font-family: 'Nanum Gothic', serif;
+/*    font-family: 'Jeju Gothic', serif; */
+   font-family: 'Nanum Gothic', serif;
 }
 </STYLE>
 
@@ -106,13 +105,16 @@ body {
    <div class="jumbotron" style="background-color: #b548d0">
       <div class="container">
 
-			<h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
-			<p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
-			<p>
-				<a class="btn btn-primary btn-lg" href="#" role="button">가입하기&raquo;</a>
-			</p>
-		</div>
-	</div>
+         <h1 id="" style="color: white;">무엇을 좋아하시나요?</h1>
+         <p style="color: white;">MeetNow로 한 걸음 더 나아가기</p>
+         <p>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 150px; color: white; border:0;">가입하기&raquo;</span>
+                  </button>
+<!--             <a class="btn btn-primary btn-lg" href="" role="button">가입하기&raquo;</a> -->
+            <%@ include file="include/modal/signup.jsp"%>
+         </p>
+      </div>
+   </div>
 
 <div class="container">
   <h2 style="color:#5e5568;"><b>주변의 인기 Meet Up</b></h2></br>
@@ -124,17 +126,17 @@ body {
           <c:forEach var="items" begin="1" end="6" items="${result}" varStatus="status" >
           
           
-          	   <c:choose>
-      				<c:when test="${status.count==1}">
-      					<div class="item active">
-            			<div class="row">
-      				</c:when>
-      				<c:when test="${status.count!=1 && status.count%3==1}">
-      					<div class="item">
-            			<div class="row">
-      				</c:when>
-      			</c:choose>
-      			
+                <c:choose>
+                  <c:when test="${status.count==1}">
+                     <div class="item active">
+                     <div class="row">
+                  </c:when>
+                  <c:when test="${status.count!=1 && status.count%3==1}">
+                     <div class="item">
+                     <div class="row">
+                  </c:when>
+               </c:choose>
+               
             <div class="col-md-4">
                <div class="card">
                   <time class="icon">
@@ -163,12 +165,12 @@ body {
             </div>
             <c:choose>
             <c:when test="${status.count%3==0}">
-      			</div>
-         		</div>
-      		</c:when>
-      		
-      		</c:choose>
-      		</c:forEach>
+               </div>
+               </div>
+            </c:when>
+            
+            </c:choose>
+            </c:forEach>
           
         </div>
         <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
@@ -230,7 +232,7 @@ body {
          <div class="col-md-3">
             <div class="interest-card">
                  <a class="interest-img" href=""><img src="./interests/사회운동.PNG"></a> <br />
-               <p class="interest-name">사회운동</p>
+               <p class="interest-name">사회 운동</p>
             </div>
          </div>
       </div>
@@ -268,13 +270,13 @@ body {
          <div class="col-md-3">
             <div class="interest-card">
                  <a class="interest-img" href=""><img src="./interests/취미와공예.PNG"></a> <br />
-               <p class="interest-name">취미와공예</p>
+               <p class="interest-name">취미와 공예</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
                  <a class="interest-img" href=""><img src="./interests/패션과스타일.PNG"></a> <br />
-               <p class="interest-name">패션과스타일</p>
+               <p class="interest-name">패션과 스타일</p>
             </div>
          </div>
          <div class="col-md-3">
@@ -298,7 +300,7 @@ body {
          <div class="col-md-3">
             <div class="interest-card">
                  <a class="interest-img" href=""><img src="./interests/언어와문화.PNG"></a> <br />
-               <p class="interest-name">언어와문화</p>
+               <p class="interest-name">언어와 문화</p>
             </div>
          </div>
          <div class="col-md-3">
@@ -312,33 +314,11 @@ body {
       
    </div> 
 
-      
 
-		<div class="col">
-			<div class="col-xs-12 col-sm-4">
-				<div class="card">
-					<a class="img-card" href="http://www.fostrap.com/"> <img
-						src="./image/Tulips.jpg" />
-					</a> <br />
-					<div class="card-content">
-						<h4 class="card-title">
-							<a href="http://www.fostrap.com/"> Your title card </a>
-						</h4>
-						<div class="">Your description card!!</div>
-					</div>
-					<div class="card-read-more">
-						<a class="btn btn-link btn-block" href="http://www.fostrap.com/">
-							Read More </a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
+<!--    <footer> -->
       <%@ include file="include/bottom.jsp"%>
 
-   
-   
+<!--    </footer> -->
 </body>
 
 </html>

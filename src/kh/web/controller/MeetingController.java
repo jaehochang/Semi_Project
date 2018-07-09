@@ -44,6 +44,7 @@ public class MeetingController extends HttpServlet {
 			System.out.println(command);
 
 			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("utf8");
 			GroupDAO gdao = new GroupDAO();
 			MeetingDAO dao = new MeetingDAO();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -52,8 +53,8 @@ public class MeetingController extends HttpServlet {
 			boolean isRedirect = true;
 			String dst = null;
 			boolean isajax = false;
-
-
+			String ajax_dist_meet = null;
+			List<String> distResult_meet =null;
 			if (command.equals("/main.meet")) {
 				List<MeetingDTO> result = mdao.getMeetingData();
 				request.setAttribute("result", result);
@@ -109,12 +110,18 @@ public class MeetingController extends HttpServlet {
 				System.out.println(group_seq);
 				String meeting_title = request.getParameter("sub2_textarea");
 				String meeting_contents = request.getParameter("sub5_textarea");
+				System.out.println("안녕3");
 				String meeting_location = request.getParameter("loc");
+				System.out.println("안녕1");
 				String meeting_latlng = request.getParameter("latlng");
+				System.out.println("안녕2"+meeting_latlng);
 				String meeting_start_time = request.getParameter("start");
+				System.out.println("안녕4");
 				String meeting_end_time = request.getParameter("end");
+				System.out.println("안녕5");
 				// 지혜야 그림파일 넣어라
 				String meeting_picture = request.getParameter("meetingPic");
+				System.out.println("안녕6");
 				if(meeting_picture.equals("")) {
 					meeting_picture = "default.jpg";
 				}
@@ -128,6 +135,7 @@ public class MeetingController extends HttpServlet {
 
 
 				String meeting_lat = meeting_latlng.split(",")[0];
+				System.out.println(meeting_lat);
 				String meeting_lng = meeting_latlng.split(",")[1];
 				meeting_lat = meeting_lat.substring(1);
 				meeting_lng=meeting_lng.substring(1, 11);
@@ -330,6 +338,8 @@ public class MeetingController extends HttpServlet {
 					json.put("groupTitle", showlist.get(i).getMeeting_title());
 					json.put("location", showlist.get(i).getMeeting_location());
 					jarray.add(json);
+					
+					System.out.println(json.get(i));
 				}
 
 				System.out.println(jarray);
@@ -453,51 +463,35 @@ public class MeetingController extends HttpServlet {
 				//System.out.println(jarray);
 				System.out.println(jarray);
 				new Gson().toJson(jarray,response.getWriter());
-			}else if (command.equals("/checkup.meet")) {
-				JSONArray jarray = new JSONArray();
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-			}else if(command.equals("/updatebasic.meet")) {
-
-			} else if (command.equals("/attendMember.meet")) {
-				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-				String result_group_name = mdao.groupName(meeting_seq);
-				List<AttendDTO> result = mdao.getAttendData(meeting_seq);
-
-				int result_countAttendMembers = mdao.countAttendMembers(meeting_seq);
-				int result_countWithPeople = mdao.countWithPeople(meeting_seq);
-
-				// 그룹 이름
-				request.setAttribute("result_group_name", result_group_name);
-				// 참석하는 명단 받아오는 list
-				request.setAttribute("result", result);
-				// 총 참석자 (참석인 + 데리고오는 사람)
-				request.setAttribute("result_countAttendMembers", result_countAttendMembers+result_countWithPeople);
-				// meeting_seq
-				request.setAttribute("meeting_seq", meeting_seq);
-
-				isRedirect = false;
-				dst = "meeting_member_list.jsp?meeting_seq="+meeting_seq;
-
-			} else if (command.equals("/search_member.meet")) {
-				// meeting.jsp에서 group member를 찾는 query
-				int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
-				int group_seq = mdao.groupSeq(meeting_seq);
-				List<GroupMemberDTO> result = mdao.getGroupMemberData(group_seq);
-
-				String search = request.getParameter("search");
-
-
-
-				response.setCharacterEncoding("utf8");
-				response.setContentType("application/json");
-
-				new Gson().toJson(result,response.getWriter());
-
-				isajax=true;
+			}else if(command.equals("/distanceKm.meet")) {
+				
+				ajax_dist_meet = "ajax_dist_meet";
+				String val = request.getParameter("value");
+				String dist = request.getParameter("distance");
+				String loc = request.getParameter("location");
+				String word = request.getParameter("word");
+				
+				
+				String day = request.getParameter("day");
+				
+				System.out.println("value 값  : " + val + "dist 값  : " + dist + "location 값  : " + loc + "오늘 날짜  :" + day );
+				String lat = val.split(":")[0];
+				String lng = val.split(":")[1];
+				String city = loc;
+				
+				System.out.println("lat 값  : " + lat + "lng 값  : " + lng + "city 값  : " + city + "word 값" + word);
+				
+				
+				distResult_meet = dao.DistanceSearchMeet(lat, lng, dist, city, word, day);
+				for(int j=0; j<distResult_meet.size(); j++) {
+				System.out.println(distResult_meet);
+				}
+//				distSearchCount = dao.distSearchCount(distResult);
+//				for(int i=0; i<distSearchCount.size(); i++) {
+//					
+//					System.out.println(distSearchCount.get(i));
+//				}
 			}
-
-
 			if (isajax) {
 
 			} else {
@@ -511,7 +505,7 @@ public class MeetingController extends HttpServlet {
 				// response.getWriter().append("Served at: ").append(request.getContextPath());
 
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 

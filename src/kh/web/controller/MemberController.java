@@ -1,7 +1,8 @@
 package kh.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,13 +10,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import kh.web.dao.GroupDAO;
+import org.json.simple.JSONObject;
+
+import kh.web.dao.AdminDAO;
+import kh.web.dao.GroupDAO;
 import kh.web.dao.MemberDAO;
+import kh.web.dao.TagDAO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
+import kh.web.dto.TagDTO;
+import kh.web.utils.PwFinder;
 
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
+	Gson igson = new Gson();
+	JsonObject ijson = new JsonObject();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -24,13 +40,19 @@ public class MemberController extends HttpServlet {
 			String requestURI = request.getRequestURI();
 			String contextPath = request.getContextPath();
 			String command = requestURI.substring(contextPath.length());
-
+			HttpSession session = request.getSession();
 			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
+			GroupDAO gdao = new GroupDAO();
 
-			System.out.println("-------------------------------------");
+		
 			System.out.println(command);
+			AdminDAO adao = new AdminDAO();
 			MemberDAO dao = new MemberDAO();
+			TagDAO tdao = new TagDAO();
+			boolean isAjax = false;
+			GroupDAO gDAO = new GroupDAO();
+
 			boolean isRedirect = true;
 			String dst = null;
 
@@ -190,6 +212,17 @@ public class MemberController extends HttpServlet {
 				boolean result = mDAO.login(mDTO);
 
 				isRedirect = false;
+				boolean isBoolean = dao.singin(memberEmail, pwd);
+				boolean isIdBlocked = false;
+				
+				
+				isRedirect = false;
+				
+				if (isBoolean) {
+					isIdBlocked=true;
+					request.setAttribute("isIdBlocked", isIdBlocked);
+					dst = "login.jsp";
+				} else {
 
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
@@ -205,7 +238,7 @@ public class MemberController extends HttpServlet {
 					dst = "login.jsp";
 					
 				}
-
+				}
 			} else if (command.equals("/mypage.co")) {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
@@ -217,15 +250,28 @@ public class MemberController extends HttpServlet {
 				MemberDAO mDAO = new MemberDAO();
 
 				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
-				System.out.println(1);
+				System.out.println("getAccountInfo 에서 나옴 : " + 1);
 
+				String[] interests = {};
+				String payCheck = gdao.payCheck(loginId);
+                if(interests==null) {
+                	return;
+                }
 				// if (accntInfo == null) {
 				// isRedirect = true;
 				// dst = "login.jsp";
 				// System.out.println(2);
 				// }
 
+				
 				try {
+					interests = accntInfo.getMember_interests().split(",");
+				} catch (Exception e) {
+					interests = null;
+				}
+
+				try {
+
 					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
 
 					if ((accntInfo.getMember_picture().equals("null")) || (accntInfo.getMember_picture() == null)) {
@@ -236,80 +282,89 @@ public class MemberController extends HttpServlet {
 
 				} catch (Exception e) {
 					if (e.getMessage().contains("null")) {
+						System.out.println(5);
 						isRedirect = false;
 						request.setAttribute("null", true);
 						dst = "Oops.jsp";
-						System.out.println(5);
+
 					}
 				}
 
 				System.out.println(6 + accntInfo.getMember_picture() + "?!");
-
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
 				request.setAttribute("userName", accntInfo.getMember_name());
 				request.setAttribute("userEmail", accntInfo.getMember_email());
 				request.setAttribute("userLocation", accntInfo.getMember_location());
 				request.setAttribute("userGender", accntInfo.getMember_gender());
 				request.setAttribute("userAge", accntInfo.getMember_age());
+
 				System.out.println(7);
 				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userInterests", accntInfo.getMember_interests());
+				request.setAttribute("userInterests", interests);
+				// request.setAttribute("userInterests", accntInfo.getMember_interests());
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
+
+				if (payCheck.equals("y")) {
+					request.setAttribute("payCheck", "subscribed");
+				} else if (payCheck.equals("n")) {
+					request.setAttribute("payCheck", "unsubscribed");
+				}
 
 				isRedirect = false;
 				dst = "mypage.jsp";
 
 			} else if (command.equals("/signUpApply.co")) {
 
-				String memberName = (String) request.getParameter("member_name");
-				String memberEmail = (String) request.getParameter("member_email");
-				String pwd = (String) request.getParameter("pwd");
+	            String memberName = (String) request.getParameter("member_name");
+	            String memberEmail = (String) request.getParameter("member_email");
+	            String pwd = (String) request.getParameter("pwd");
 
-				System.out.println(memberName + memberEmail + pwd);
+	            System.out.println(memberName + memberEmail + pwd);
 
-				MemberDAO mDAO = new MemberDAO();
-				MemberDTO dto = new MemberDTO();
+	            MemberDAO mDAO = new MemberDAO();
+	            MemberDTO dto = new MemberDTO();
 
-				dto.setMember_name(memberName);
-				dto.setMember_email(memberEmail);
-				dto.setMember_pwd(pwd);
+	            dto.setMember_name(memberName);
+	            dto.setMember_email(memberEmail);
+	            dto.setMember_pwd(pwd);
 
-				isRedirect = false;
-				boolean emailDplRslt = mDAO.isThisEmailExist(dto.getMember_email());// 이메일 중복 검사 실시
+	            isRedirect = false;
+	            boolean emailDplRslt = mDAO.isThisEmailExist(dto.getMember_email());// 이메일 중복 검사 실시
 
-				if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
+	            if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
+	               
+	               request.setAttribute("emailExist", true);
+	               dst = "login.jsp";
 
-					request.setAttribute("emailExist", true);
-					dst = "login.jsp";
+	            } else { // 없는 경우 signUp 시키기
 
-				} else { // 없는 경우 signUp 시키기
+	               boolean result = mDAO.signUpApply(dto);
+	               if (result) {
+	                  
+	                  request.getSession().setAttribute("loginId", memberEmail);
+	                  request.setAttribute("signUpSuccess", true);
+	                  dst = "login.jsp";
+	               } else {
+	                  dst = "signUpFailure.jsp";
 
-					boolean result = mDAO.signUpApply(dto);
+	               }
 
-					if (result) {
+	            }
 
-						request.setAttribute("loginId", memberEmail);
-						request.setAttribute("signUpSuccess", true);
-						dst = "login.jsp";
-
-					} else {
-						dst = "signUpFailure.jsp";
-
-					}
-
-				}
-
-			} else if (command.equals("/LogoutController.co")) {
+	         }else if (command.equals("/LogoutController.co")) {
 
 				request.getSession().removeAttribute("loginId");
 				request.getSession().removeAttribute("snsId");
 				isRedirect = true;
 
-				dst = "index.jsp";
-				System.out.println(dst);
-				System.out.println("------------------------------------------------------");
+						isRedirect = true;
+						dst = "index.jsp";
 
-			} else if (command.equals("/isThisKakaoIdExist.co")) {
+					
+
+				
+
+			}  else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");
 
 				MemberDAO mDAO = new MemberDAO();
@@ -472,6 +527,59 @@ public class MemberController extends HttpServlet {
 					System.out.println(6);
 					request.setAttribute("infoUpdateSuccess", false);
 					dst = "mypage.co";
+				}
+			} else if (command.equals("/insertInterest.co")) {
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String interest = request.getParameter("interests");
+				System.out.println("loginId : " + loginId + "  // interest : " + interest);
+				int result = dao.insertInterest(loginId, interest);
+
+				if (result > 0) {
+					request.getSession().setAttribute("loginId", loginId);
+					dst = "index.jsp";
+				} else {
+					System.out.println("안들어가짐 ㄷㄷ");
+					isRedirect = true;
+					dst = "index.jsp";
+				}
+
+			} else if (command.equals("/modifyInterests.co")) {
+				System.out.println(1);
+
+				String loginId = (String) request.getSession().getAttribute("loginId");
+				String modifywords = request.getParameter("hiddenTag");
+				System.out.println("제발 들어와라 : " + modifywords);
+				int result = dao.insertInterest(loginId, modifywords);
+
+				if (result > 0) {
+					dst = "mypage.co";
+				} else {
+					System.out.println("안들어가짐 ㄷㄷ");
+					isRedirect = true;
+					dst = "main.meet";
+				}
+
+			} else if (command.equals("/pwFinder.co")) {
+
+				MemberDAO mDAO = new MemberDAO();
+
+				String finderEmail = request.getParameter("finder-email");
+				String memberPwd = mDAO.getPwThroughGmail(finderEmail);
+
+				System.out.println("finderEmail : " + finderEmail);
+				System.out.println("memberPwd : " + memberPwd);
+
+				PwFinder pf = new PwFinder();
+
+				boolean result = pf.PwFinder(finderEmail, memberPwd);
+
+				isRedirect = false;
+				if (result) {
+					request.setAttribute("emailRspSuccess", true);
+					dst = "login.jsp";
+				} else {
+					request.setAttribute("emailRspSuccess", false);
+					dst = "login.jsp";
 				}
 			}
 
