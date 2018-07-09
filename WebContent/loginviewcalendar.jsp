@@ -155,11 +155,8 @@ background-color: red;
 					        var dist = $("#distance-default").html();
 					        var loc = $("#location-default").html();
 					        var word =  $("#search-input").val();
-					        
-					        var today = new Date();
-					        var dd = today.getDate();
-					        var mm = today.getMonth()+1; 
-					        var yyyy = today.getFullYear();
+					        var day = $("#datepicker").val();
+					       
 
 					        
 					        $("#distrow").html("");
@@ -184,9 +181,9 @@ background-color: red;
 						if(response.distSearchCount.length != 0){	
 								for (var b = 0; b < response.distSearchCount.length; b++) {
 									alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
-									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
-								    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
+									 $("#printlist").append($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+a[b].split(":")[1]+"</div>"  
+										  	   +"<div>"+"<a href=meeting.meet?seq="+a[b].split(":")[1]+">"+a[b].split(":")[1]+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+a[b].split(":")[1]+">"+a[b].split(":")[1]+"</a>"+"</div>"+"<div>"+a[b].split(":")[1]+"</div>"+"</div>"+"</div>"
+										  	 );
 								   														
 								}
 						}else{
@@ -229,14 +226,15 @@ background-color: red;
 										day : day
 										},
 					success : function(response) {
-						var a = response.distSearchCount.toString().split(",");
-					if(response.distSearchCount.length != 0){	
-						for (var b = 0; b < response.distSearchCount.length; b++) {
+						var a = response.distResult_meet.toString().split(",");
+					if(response.distResult_meet.length != 0){	
+						for (var b = 0; b < response.distResult_meet.length; b++) {
 							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
-							$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
-						   														
+							
+						
+							 $("#printlist").append($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+a[b].split(":")[1]+"</div>"  
+								  	   +"<div>"+"<a href=meeting.meet?seq="+a[b].split(":")[1]+">"+a[b].split(":")[1]+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+a[b].split(":")[1]+">"+a[b].split(":")[1]+"</a>"+"</div>"+"<div>"+a[b].split(":")[1]+"</div>"+"</div>"+"</div>"
+								  	 );
 						}
 					}else{
 						

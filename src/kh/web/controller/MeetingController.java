@@ -469,28 +469,33 @@ public class MeetingController extends HttpServlet {
 				String val = request.getParameter("value");
 				String dist = request.getParameter("distance");
 				String loc = request.getParameter("location");
-				String word = request.getParameter("word");
+				String word = "";
 				
-				
+				System.out.println(word);
 				String day = request.getParameter("day");
 				
 				System.out.println("value 값  : " + val + "dist 값  : " + dist + "location 값  : " + loc + "오늘 날짜  :" + day );
 				String lat = val.split(":")[0];
 				String lng = val.split(":")[1];
 				String city = loc;
-				
+				if(word.equals(request.getParameter("word"))){
+					word = "1";
+				}
 				System.out.println("lat 값  : " + lat + "lng 값  : " + lng + "city 값  : " + city + "word 값" + word);
 				
 				
 				distResult_meet = dao.DistanceSearchMeet(lat, lng, dist, city, word, day);
 				for(int j=0; j<distResult_meet.size(); j++) {
 				System.out.println(distResult_meet);
-				}
-//				distSearchCount = dao.distSearchCount(distResult);
-//				for(int i=0; i<distSearchCount.size(); i++) {
-//					
-//					System.out.println(distSearchCount.get(i));
-//				}
+				}	
+
+				JSONObject json = new JSONObject();
+				json.put("distResult_meet", distResult_meet);
+				
+				response.setCharacterEncoding("utf8");
+				response.setContentType("application/json");
+				System.out.println(json);
+				new Gson().toJson(json, response.getWriter());
 			}
 			if (isajax) {
 
