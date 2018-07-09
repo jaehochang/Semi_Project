@@ -618,25 +618,20 @@ $('#nextBt').click(function(){
 
 <body>
 
-	<nav>
+	   <nav>
 
-		<ul id=nav-ul >
-			<li><a href="main.jsp"><img
-					src="https://i.imgur.com/axIYcKj.png"
-					style="height: 50px; width: 150px;"></a>
-<ul id=nav-ul style="width: 200px; text-align:right">
-			<li><a class="active" href="createRequest.group">새 그룹 시작하기</a>
-				<li id=snd-list class="dropdown active"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"><i
-						class="fas fa-user"></i></a>
-						<ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
-						<li><a href="LogoutController.co">로그아웃 </a></li>
-						<li><a href="mypage.co">마이페이지 </a></li>
-					</ul>
-						</li>
-
-</ul>
-
-
-		</ul>
-	</nav>
+      <ul id=nav-ul >
+         <li><a href="main.jsp"><img
+               src="https://i.imgur.com/axIYcKj.png"
+               style="height: 50px; width: 150px;"></a>
+         <li><a href="createRequest.group">새 그룹 만들기</a>
+         <li id=snd-list class="dropdown active"><a href="#"
+               class="dropdown-toggle" data-toggle="dropdown"><i
+                  class="fas fa-user"></i></a>
+               <ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
+                  <li><a href="LogoutController.co">로그아웃 </a></li>
+                  <li><a href="mypage.co">마이페이지 </a></li>
+               </ul>
+               </li>
+      </ul>
+   </nav>

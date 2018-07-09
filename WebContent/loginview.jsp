@@ -105,12 +105,11 @@ background-color: red;
 						lat : position.coords.latitude,
 						lng : position.coords.longitude
 
-									};
-									alert("나의 위도 : " + pos.lat + " 나의 경도 : "
-											+ pos.lng);
-								});
+					  };
+					alert("나의 위도 : " + pos.lat + " 나의 경도 : "+ pos.lng);
+			});
 
-				$("#search-bt").click(function() {
+	$("#search-bt").click(function() {
 							alert($("#search-input").val());
 							
 							
@@ -139,7 +138,7 @@ background-color: red;
 								for (var b = 0; b < response.distSearchCount.length; b++) {
 									alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
-									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
+									$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 								    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 								   														
 								}
@@ -185,7 +184,7 @@ background-color: red;
 						for (var b = 0; b < response.distSearchCount.length; b++) {
 							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");	
+							$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 							$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 						   														
 						}
@@ -267,7 +266,7 @@ background-color: red;
 									   location : loc,
 									   word : word
 									},
-									success : function(response) {
+					success : function(response) {
 															
 									var a = response.distSearchCount.toString().split(",");
 					if(response.distSearchCount.length != 0){
@@ -286,8 +285,14 @@ background-color: red;
 					},
 					error : function() {
 
-													});
-										})
+						console.log("에러 발생!");
+					},
+					complete : function() {
+						console.log("성공이건 실패건 어찌되었든 ajax 종료");
+					}
+					});
+					
+				});
 						$("#ten_km")
 								.click(
 										function() {
@@ -304,8 +309,7 @@ background-color: red;
 											$(".img_div").html("");
 											$("#distSearch2").html("");
 
-											$
-													.ajax({
+											$.ajax({
 														url : "distanceKm.group",
 														type : "get",
 														data : {
@@ -349,15 +353,12 @@ background-color: red;
 																	.log("에러 발생!");
 														},
 														complete : function() {
-															console
-																	.log("성공이건 실패건 어찌되었든 ajax 종료");
+															console.log("성공이건 실패건 어찌되었든 ajax 종료");
 														}
 
 													});
 										})
-						$("#fifteen_km")
-								.click(
-										function() {
+						$("#fifteen_km").click(function() {
 											alert("15km 입니다.");
 											$("#distance-default")
 													.html(
@@ -370,8 +371,7 @@ background-color: red;
 											$(".col-md4").html("");
 											$(".img_div").html("");
 											$("#distSearch2").html("");
-											$
-													.ajax({
+											$.ajax({
 														url : "distanceKm.group",
 														type : "get",
 														data : {
@@ -427,7 +427,7 @@ background-color: red;
 									$("#distance-default").html(
 											"모든거리 <span class=caret></span>");
 								})
-					})
+					
 					$("#all_km").click(
 						function() {
 						 alert("모든거리 입니다.");
@@ -598,7 +598,8 @@ background-color: red;
 						
 					
 
-					})
+					});
+				
 </script>
 
 
@@ -622,26 +623,26 @@ background-color: red;
 		<div class="col-xs-4">
 		  <a data-toggle="dropdown" aria-expanded="false"  font-size: medium; padding-left: 3"><input id="search-input" type="text" placeholder="전체 Meetup 이벤트" style="width: 270px; height: 34px;  border-radius: 5px;"></a>
 			<ul class="dropdown-menu" role="menu" style="position: absolute; z-index: 150; width: 900px">
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="eatout">외식</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="family">가족</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">친척</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">asdasd</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="eatout">기술</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="family">음악</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">모임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">건강과 웰빙</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">가족</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">글쓰기</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">반려동물</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">북클럽</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">영화</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">예술</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">음식</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">취미와 공예</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">학습</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">패션과 스타일</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">스포츠</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">사진촬영</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">모임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">비즈니스</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">북클럽</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">공상과학/게임</a></li>
 			</ul>
 			
 			

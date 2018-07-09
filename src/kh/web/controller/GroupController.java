@@ -243,6 +243,7 @@ public class GroupController extends HttpServlet {
 
              ajax_dist = "null";
              ajax_pay = "null";
+             
              ajax_nameCheck = "null";
              ajax_group = "group";
          }else if(command.equals("/join.group")) {
@@ -287,23 +288,7 @@ public class GroupController extends HttpServlet {
              
              dst="groupMain.group?group_seq="+groupSeq+"&page=info";
              isRedirect = false;
-         }else if (command.equals("/createRequest.group")) {
-             
-			    /*String isMyGroup = request.getAttribute("isMyGroup").toString();*/
-        	 
-//            String leader_email = result.get(0).getMember_email();
-//            List<MemberDTO> leaderInfo = dao.LeaderInfo(leader_email);
-				String member_email = (String) request.getSession().getAttribute("loginId");
-				String group_name = request.getParameter("group_name");
-				String report_reason = request.getParameter("report_reason");
-				String etc_reason = request.getParameter("etc_reason");
-
-				int result = rdao.insertGroupReport(member_email, group_name, report_reason, etc_reason);
-
-				if (result > 0) {
-					isRedirect = false;
-					dst = "list.group";
-				}
+         
 			} else if (command.equals("/membereportcomplete.group")) {
 				String caller = (String) request.getSession().getAttribute("loginId");
 				String calleeMember = request.getParameter("member_email");
@@ -575,6 +560,9 @@ public class GroupController extends HttpServlet {
 					System.out.println("result들어옴");
 					out.println("success");
 				}
+			}else {
+				
+				response.sendRedirect(dst);
 			}
 
 		} catch (Exception e) {

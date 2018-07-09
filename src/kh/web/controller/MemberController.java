@@ -315,74 +315,56 @@ public class MemberController extends HttpServlet {
 
 			} else if (command.equals("/signUpApply.co")) {
 
-				String loginId = (String) request.getSession().getAttribute("loginId");
-				String snsId = (String) request.getSession().getAttribute("snsId");
-				System.out.println("/mypage.co 의 session Login Id : " + loginId);
-				MemberDAO mDAO = new MemberDAO();
-				String memberName = (String) request.getParameter("member_name");
-				String memberEmail = (String) request.getParameter("member_email");
-				String pwd = (String) request.getParameter("pwd");
+	            String memberName = (String) request.getParameter("member_name");
+	            String memberEmail = (String) request.getParameter("member_email");
+	            String pwd = (String) request.getParameter("pwd");
 
-				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
-				System.out.println(memberName + memberEmail + pwd);
+	            System.out.println(memberName + memberEmail + pwd);
 
-				request.setAttribute("userName", accntInfo.getMember_name());
-				request.setAttribute("userEmail", accntInfo.getMember_email());
-				request.setAttribute("userLocation", accntInfo.getMember_location());
-				request.setAttribute("userPicture", accntInfo.getMember_picture());
-				request.setAttribute("userInterests", accntInfo.getMember_interests());
-				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
-				isRedirect = false;
-				dst = "mypage.jsp";
-				
-				MemberDTO dto = new MemberDTO();
+	            MemberDAO mDAO = new MemberDAO();
+	            MemberDTO dto = new MemberDTO();
 
-				dto.setMember_name(memberName);
-				dto.setMember_email(memberEmail);
-				dto.setMember_pwd(pwd);
+	            dto.setMember_name(memberName);
+	            dto.setMember_email(memberEmail);
+	            dto.setMember_pwd(pwd);
 
-				isRedirect = false;
-				boolean emailDplRslt = mDAO.isThisEmailExist(dto.getMember_email());// 이메일 중복 검사 실시
+	            isRedirect = false;
+	            boolean emailDplRslt = mDAO.isThisEmailExist(dto.getMember_email());// 이메일 중복 검사 실시
 
-				if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
+	            if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
+	               
+	               request.setAttribute("emailExist", true);
+	               dst = "login.jsp";
 
-					request.setAttribute("emailExist", true);
-					dst = "login.jsp";
+	            } else { // 없는 경우 signUp 시키기
 
-				} else { // 없는 경우 signUp 시키기
+	               boolean result = mDAO.signUpApply(dto);
+	               if (result) {
+	                  
+	                  request.getSession().setAttribute("loginId", memberEmail);
+	                  request.setAttribute("signUpSuccess", true);
+	                  dst = "login.jsp";
+	               } else {
+	                  dst = "signUpFailure.jsp";
 
-					boolean result = mDAO.signUpApply(dto);
+	               }
 
-					if (result) {
+	            }
 
-						request.setAttribute("loginId", memberEmail);
-						request.setAttribute("signUpSuccess", true);
-						dst = "login.jsp";
-
-					} else {
-						dst = "signUpFailure.jsp";
-
-					}
-
-				}
-
-			} else if (command.equals("/LogoutController.co")) {
+	         }else if (command.equals("/LogoutController.co")) {
 
 				request.getSession().removeAttribute("loginId");
 				request.getSession().removeAttribute("snsId");
 				isRedirect = true;
 
 						isRedirect = true;
-						dst = "signUpFailure.jsp";
+						dst = "index.jsp";
 
 					
 
 				
 
-			} else if (command.equals("/isThisKakaoIdExist.co")) {
-				String loginKakaoId = request.getParameter("kakaoId");
-
-			} else if (command.equals("/isThisKakaoIdExist.co")) {
+			}  else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");
 
 				MemberDAO mDAO = new MemberDAO();
