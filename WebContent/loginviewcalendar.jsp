@@ -87,7 +87,7 @@
 			margin-top: 18px;
 			margin-left: 125px;
 			margin-right: 1px;
-			width: 500px;
+			width: 560px;
 			background-color: #D8D8D8;
 				
 		}
