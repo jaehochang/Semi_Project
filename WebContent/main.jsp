@@ -59,9 +59,6 @@
    crossorigin="anonymous">
 
 
-
-
-
 </head>
 
 
@@ -165,13 +162,14 @@ body {
                   </div>
                </div>
             </div>
-            <c:choose>
-            <c:when test="${status.count%3==0}">
-      			</div>
-         		</div>
-      		</c:when>
+         
+<%--             <c:choose> --%>
+<%--             <c:when test="${status.count%3==0}"> --%>
+<!--       			</div> -->
+<!--          		</div> -->
+<%--       		</c:when> --%>
       		
-      		</c:choose>
+<%--       		</c:choose> --%>
       		</c:forEach>
           
         </div>

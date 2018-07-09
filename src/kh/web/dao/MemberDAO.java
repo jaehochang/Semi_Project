@@ -984,6 +984,68 @@ public class MemberDAO {
 		con.close();
 
 		return bool;
+		
+	}   public int insertInterest(String loginId, String interest) throws Exception {
+	      Connection con = DBUtils.getConnection();
+	      String sql = "update member set member_interests=? where member_email=?";
+
+	      PreparedStatement pstat = con.prepareStatement(sql);
+	      pstat.setString(1, interest);
+	      pstat.setString(2, loginId);
+	      int result = pstat.executeUpdate();
+
+	      con.commit();
+	      con.close();
+	      pstat.close();
+
+	      return result;
+
+	   }
+
+
+	   public String printInterests(String member_email) throws Exception {
+	      Connection con = DBUtils.getConnection();
+	      String sql = "select member_interests from member where member_email=?";
+	      PreparedStatement psat = con.prepareStatement(sql);
+	      psat.setString(1, member_email);
+
+	      ResultSet rs = psat.executeQuery();
+	      rs.next();
+	      String member_interests = rs.getString("member_interests");
+
+	      if(member_interests == null) {
+	    	  member_interests = "";
+	      }
+	      
+	      rs.close();
+	      psat.close();
+	      con.close();
+
+	      return member_interests;
+
+	   }
+
+	public String getPwThroughGmail(String finderEmail) throws Exception {
+		
+		Connection con = DBUtils.getConnection();
+		String sql = "select member_pwd from member where member_email = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, finderEmail);
+		ResultSet rs = ps.executeQuery();
+		String memberPwd="";
+		if(rs.next()) {
+			memberPwd = rs.getString("member_pwd");
+			System.out.println(memberPwd);
+		}else {
+			System.out.println("pwd가 안받아지네요!");
+		}
+		
+		con.close();
+		ps.close();
+		rs.close();
+		
+		return memberPwd;
+		
 	}
 	
 

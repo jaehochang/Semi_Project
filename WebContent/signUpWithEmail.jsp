@@ -55,29 +55,29 @@
 
 		<c:when test="${requestScope.id == null}">
 
-			<div class="panel panel-default" style="width:50%; margin:0 auto; position:relative; top:25%;">
+			<div class="panel panel-default" style="width:50%; margin:50px auto; position:relative; top:25%;">
 				<div class="well panel-body">
 					<form action="signUpApply.co" method="post">
 						<div class="form-group">
-							<label for="name"> 이름</label> <input id=name pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+" title="한글만 입력 가능, 영어도 가능하게 해야하나?"  title="한글만 입력 가능, 영어도 가능하게 해야하나?" placeholder="한글만 입력 가능" name=member_name
-								type=text class=form-control max=20 required>
+							<label for="name"> 이름</label> <input id=name title="한글만 입력 가능" placeholder="홍길동"name=member_name
+								type=text class=form-control max=10  pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+" required>
 						</div>
 <!--  pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+" title="한글만 입력 가능, 영어도 가능하게 해야하나?" -->
 
 						<div class="form-group">
-							<label for="email"> 이메일</label> <input id=email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name=member_email placeholder="example@gmail.com"
+							<label for="email"> 이메일</label> <input id=email title="이메일 형식만 입력 가능합니다." pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name=member_email placeholder="example@gmail.com"
 								type=email class=form-control required max=50>
 						</div>
 
 
 						<div class="form-group">
 							<label for="pwd"> 비밀번호</label> <input id=pwd name=pwd
-								type=password class=form-control pattern="{2,}" max=20 placeholder="최소 2-20자" required>
+								type=password class=form-control pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="최소 소문자 1, 대문자1, 8자 이상만 가능합니다." max=20 placeholder="최소 소문자 1, 대문자1, 8자 이상만 가능합니다." required>
 <!-- 								(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,} 최소 소문자 1, 대문자 1, 8자 이상 -->
 						</div>
 
 
-						<button class="btn btn-default" style="background-color: #b831d9;">계속</button>
+						<button class="btn btn-default" >계속</button>
 
 					</form>
 				</div>

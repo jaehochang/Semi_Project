@@ -130,7 +130,6 @@ public class GroupDAO {
 		return dto;
 
 	}
-	public List<String> DistanceSearch(String lat, String lng, String distance, String city, String word) throws Exception{
 
 	public List<String> DistanceSearch(String lat, String lng, String distance) throws Exception {
 

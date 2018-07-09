@@ -84,16 +84,96 @@
 
 
 
-		<c:when test="${requestScope.kakaoIdAlreadyExist==true}">
 
+		<c:when test="${requestScope.emailRspSuccess}">
 
-
-      <c:when test="${requestScope.kakaoIdAlreadyExist==true}">
+			<div id="emailFindingSuccess" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div class="icon-box">
+								<i class="material-icons">&#xE876;</i>
+							</div>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body text-center">
+							<h1>전송!</h1>
+							<p>입력하신 이메일로 비밀번호가 전송되었습니다.</p>
 
 							<button class="btn btn-success btn-block" data-dismiss="modal"
 								data-dismiss="modal" style="background-color: grey;"
 								style="background-color:grey;"
-								onclick="window.location.href='index.jsp'">둘러보기</button>
+								onclick="window.location.href='login.jsp'">로그인하기</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script type="text/javascript">
+				$("#emailFindingSuccess").modal('show');
+			</script>
+
+
+
+
+		</c:when>
+		<c:when test="${requestScope.emailRspSuccess==false}">
+
+			<div id="emailFindingFailure" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div class="icon-box">
+								<i class="material-icons">&#xE5CD;</i>
+							</div>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body text-center">
+							<h1>비밀번호 찾기 실패!</h1>
+							<p>입력하신 정보가 정확하지 않습니다!</p>
+
+							<button class="btn btn-success btn-block" data-dismiss="modal"
+								data-dismiss="modal" style="background-color: grey;"
+								style="background-color:grey;" onclick="$(this).modal('toggle')">닫기</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script type="text/javascript">
+				$("#emailFindingFailure").modal('show');
+			</script>
+
+		</c:when>
+
+
+		<c:when test="${requestScope.kakaoIdAlreadyExist==true}">
+
+
+
+			<!-- Modal  -->
+			<div id="kakaoIdExist" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div class="icon-box">
+								<i class="material-icons">&#xE876;</i>
+							</div>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body text-center">
+							<h1>Awesome!</h1>
+							<p>로그인 성공!</p>
+
+							<button class="btn btn-success btn-block" data-dismiss="modal"
+								data-dismiss="modal" style="background-color: grey;"
+								style="background-color:grey;"
+								onclick="window.location.href='interestPage.jsp'">둘러보기</button>
 
 
          <!-- Modal  -->
@@ -309,6 +389,9 @@
                   style="font-size: 15px;">로그인</button>
             </form>
 
+					<button id=pwFind class="btn btn-default btn-block"
+						data-toggle="modal" data-target="#idInputModal"
+						style="font-size: 15px;">비밀번호 찾기</button>
 
             <div id=btns style="margin-top: 10px;">
 
@@ -420,10 +503,8 @@
 
 		</div>
 
-                     </div>
-                  </div>
-               </div>
-            </div>
+											Kakao
+													.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
 
 
 
