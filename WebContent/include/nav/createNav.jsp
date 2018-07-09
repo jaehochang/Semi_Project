@@ -8,7 +8,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
 <link rel="navtylesheet.css" type="text/stylesheet">
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -90,14 +90,6 @@ li:nth-child(2) {
 #row1,#row2,#row3,#row4{
 position:relative;
 left:178px;
-}
-
-
-#bg-video {
-	top: 0px;
-	left: 0px;
-	position: absolute;
-	width: 100%;
 }
 
 #locationChangeBt:hover {

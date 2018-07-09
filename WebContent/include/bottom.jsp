@@ -6,7 +6,7 @@
 
 <!-- Footer -->
 
-<footer>
+<footer id="footer">
 
    <div>
       <p style="padding-left: 40px;">

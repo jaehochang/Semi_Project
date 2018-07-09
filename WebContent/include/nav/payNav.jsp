@@ -8,7 +8,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
 <link rel="navtylesheet.css" type="text/stylesheet">
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -188,6 +188,10 @@ position:relative;
 left:160px;
 top:40px;
 }
+#footer{
+position:relative;
+left:-20px;
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -299,16 +303,20 @@ top:40px;
 
 <body>
 
-	<nav>
+		   <nav>
 
-		<ul id=nav-ul>
-			<li><a href="main.jsp"><img
-					src="https://i.imgur.com/axIYcKj.png"
-					style="height: 50px; width: 150px;"></a>
-
-			<li><a href="#">메시지</a>
-
-			<li><a href="#"><span class="glyphicon glyphicon-user"
-					aria-hidden="true"></span></a>
-		</ul>
-	</nav>
+      <ul id=nav-ul >
+         <li><a href="main.jsp"><img
+               src="https://i.imgur.com/axIYcKj.png"
+               style="height: 50px; width: 150px;"></a>
+         <li><a href="createRequest.group">새 그룹 만들기</a>
+         <li id=snd-list class="dropdown active"><a href="#"
+               class="dropdown-toggle" data-toggle="dropdown"><i
+                  class="fas fa-user"></i></a>
+               <ul class="dropdown-menu dropdown-menu-right" style="width: 100px;">
+                  <li><a href="LogoutController.co">로그아웃 </a></li>
+                  <li><a href="mypage.co">마이페이지 </a></li>
+               </ul>
+               </li>
+      </ul>
+   </nav>

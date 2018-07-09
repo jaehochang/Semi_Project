@@ -43,7 +43,7 @@
 
 							<div class="radio radio-primary">
 							<br>
-								<input type=radio name="radio" id="radio1" value="option1">
+								<input type=radio name="radio" id="radio1" value="option1" checked>
 								<label for="radio1"> 6 months for $8 </label>
 							</div>
 <br>
@@ -74,6 +74,9 @@
 				</div>
 			</div>
 		</div>
+		<br>
+		<br>
+		<br>
 	</div>
 </div>
 

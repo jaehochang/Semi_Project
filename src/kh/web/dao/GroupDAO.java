@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-import com.sun.javafx.css.PseudoClassState;
+/*import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+import com.sun.javafx.css.PseudoClassState; 에러나서 주석처리했습니다*/
 
 import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupDTO;
