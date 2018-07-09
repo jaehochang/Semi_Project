@@ -31,41 +31,64 @@
 
 	</ul>
 
-	<div class="btn-group"
-		style="position: absolute; transform: translate(400%, -140%);">
-			<button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
-		<ul class="dropdown-menu" role="menu">
-		</ul>
-	</div>
-	
-	<c:forEach var="result" items="${result }">
-		<div class="btn-group" 
-			style="position: absolute; transform: translate(600%, -140%);">  
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-				aria-expanded="false" id="memberBT">회원입니다.</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
-				<li><a href="#">그룹 신고</a></li>
-			</ul>
-		</div>
-				<button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
-	class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
-	</c:forEach>
-	
-	
-	
-	<!-- 그룹 관리 -->
-	<div class="btn-group"
-		style="position: absolute; transform: translate(700%, -140%);">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
-			aria-expanded="false" id="groupSettingBT">그룹 관리</button>
-		<ul class="dropdown-menu" role="menu">
-		<c:forEach var="result" items="${result }">
-			<li><a href="toupdate.group?groupSeq=${result.group_seq}">그룹 내용 수정</a></li>
-			<li><a href="#">그룹 흥미 수정</a></li>
-		</c:forEach>
-		</ul>
-	</div>
+	   <!-- 로그인 모달용 -->
+   <div class="btn-group"
+      style="position: absolute; transform: translate(400%, -140%);">
+         <button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT-modal" data-toggle="modal" data-target="#myModal">이 그룹에 가입하기</button>
+      <ul class="dropdown-menu" role="menu">
+      </ul>
+   </div>
+   
+   <div class="btn-group"
+      style="position: absolute; transform: translate(400%, -140%);">
+         <button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT">이 그룹에 가입하기</button>
+      <ul class="dropdown-menu" role="menu">
+      </ul>
+   </div>
+   
+   <c:choose>
+      <c:when test="${sessionScope.loginId eq null }">
+         <script>
+            $("#joinGroupBT").hide();
+         </script>
+      </c:when>
+      <c:otherwise>
+         <script>
+            $("#joinGroupBT-modal").hide();
+         </script>
+      </c:otherwise>
+   </c:choose>
+   
+   
+   <c:forEach var="result" items="${result }">
+      <div class="btn-group" 
+         style="position: absolute; transform: translate(600%, -140%);">  
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+            aria-expanded="false" id="memberBT" >회원입니다.</button>
+         <ul class="dropdown-menu" role="menu">
+            <li><a href="out.group?group_seq=${result.group_seq }">이 그룹 탈퇴</a></li>
+            <li><a href="#">그룹 신고</a></li>
+         </ul>
+      </div>
+            <button type="button" onclick="location.href='newmeetingform.meet?group_seq=${result.group_seq}'" 
+   class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button>
+   </c:forEach>
+   
+   
+   
+   <!-- 그룹 관리 -->
+   <div class="btn-group"
+      style="position: absolute; transform: translate(700%, -140%);">
+         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+         aria-expanded="false" id="groupSettingBT">그룹 관리</button>
+      <ul class="dropdown-menu" role="menu">
+      <c:forEach var="result" items="${result }">
+         <li><a href="toupdate.group?groupSeq=${result.group_seq}">그룹 내용 수정</a></li>
+         <li><a href="#">그룹 흥미 수정</a></li>
+      </c:forEach>
+      </ul>
+   </div>
+   
 	
 	
 	
@@ -535,6 +558,7 @@
 						$("#check").hide();
 						$("#joinMeetupBT").hide();
 						$("#joinMeetupBT2").hide();
+						$("#joinGroupBT-modal").hide();
 						$("#joinGroupBT").hide();
 						$("#memberBT").hide();
 						$("#test").remove();

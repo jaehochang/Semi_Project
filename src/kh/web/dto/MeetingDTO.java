@@ -19,6 +19,12 @@ public class MeetingDTO {
 	
 
 
+	public String getMember_email() {
+		return member_email;
+	}
+
+
+
 	public MeetingDTO() {
 		super();
 	}
@@ -124,9 +130,6 @@ public class MeetingDTO {
 		this.meeting_picture = meeting_picture;
 	}
 
-public void setMeeting_picture(String meeting_picture) {
-	this.meeting_picture = meeting_picture;
-}
 
 public String getMeeting_lat() {
 	return meeting_lat;

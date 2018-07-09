@@ -15,7 +15,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="./resources/docs/favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=3">
+<link rel="stylesheet" type="text/css" href="css/groupmain-style.css?ver=2">
 
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />

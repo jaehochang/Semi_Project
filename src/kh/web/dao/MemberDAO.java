@@ -1047,43 +1047,5 @@ public class MemberDAO {
 		return memberPwd;
 		
 	}
-	
-
-
-	public int insertInterest(String loginId, String interest) throws Exception {
-		Connection con = DBUtils.getConnection();
-		String sql = "update member set member_interests=? where member_email=?";
-
-		PreparedStatement pstat = con.prepareStatement(sql);
-		pstat.setString(1, interest);
-		pstat.setString(2, loginId);
-		int result = pstat.executeUpdate();
-
-		con.commit();
-		con.close();
-		pstat.close();
-
-		return result;
-
-	}
-
-
-	public String printInterests(String member_email) throws Exception {
-		Connection con = DBUtils.getConnection();
-		String sql = "select member_interests from member where member_email=?";
-		PreparedStatement psat = con.prepareStatement(sql);
-		psat.setString(1, member_email);
-
-		ResultSet rs = psat.executeQuery();
-		rs.next();
-		String member_interests = rs.getString("member_interests");
-
-		rs.close();
-		psat.close();
-		con.close();
-
-		return member_interests;
-
-	}
 
 }

@@ -44,14 +44,8 @@ public class MemberController extends HttpServlet {
 			request.setCharacterEncoding("utf8");
 			response.setCharacterEncoding("utf8");
 			GroupDAO gdao = new GroupDAO();
-		try {
-			String requestURI = request.getRequestURI();
-			String contextPath = request.getContextPath();
-			String command = requestURI.substring(contextPath.length());
 
-			request.setCharacterEncoding("utf8");
-			response.setCharacterEncoding("utf8");
-
+		
 			System.out.println(command);
 			AdminDAO adao = new AdminDAO();
 			MemberDAO dao = new MemberDAO();
@@ -221,7 +215,7 @@ public class MemberController extends HttpServlet {
 				boolean isBoolean = dao.singin(memberEmail, pwd);
 				boolean isIdBlocked = false;
 				
-				boolean result = mDAO.login(mDTO);
+				
 				isRedirect = false;
 				
 				if (isBoolean) {
@@ -244,7 +238,7 @@ public class MemberController extends HttpServlet {
 					dst = "login.jsp";
 					
 				}
-
+				}
 			} else if (command.equals("/mypage.co")) {
 
 				String loginId = (String) request.getSession().getAttribute("loginId");
@@ -258,7 +252,7 @@ public class MemberController extends HttpServlet {
 				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
 				System.out.println("getAccountInfo 에서 나옴 : " + 1);
 
-				String[] interests = accntInfo.getMember_interests().split(",");
+				String[] interests = {};
 				String payCheck = gdao.payCheck(loginId);
                 if(interests==null) {
                 	return;
@@ -269,14 +263,12 @@ public class MemberController extends HttpServlet {
 				// System.out.println(2);
 				// }
 
-				String[] interests = {};
+				
 				try {
 					interests = accntInfo.getMember_interests().split(",");
 				} catch (Exception e) {
 					interests = null;
 				}
-
-				String payCheck = gDAO.payCheck(loginId);
 
 				try {
 
@@ -342,7 +334,7 @@ public class MemberController extends HttpServlet {
 				request.setAttribute("userJoinDate", accntInfo.getMember_joindate());
 				isRedirect = false;
 				dst = "mypage.jsp";
-				MemberDAO mDAO = new MemberDAO();
+				
 				MemberDTO dto = new MemberDTO();
 
 				dto.setMember_name(memberName);
@@ -383,15 +375,10 @@ public class MemberController extends HttpServlet {
 						isRedirect = true;
 						dst = "signUpFailure.jsp";
 
-					}
+					
 
-				}
+				
 
-			} else if (command.equals("/LogoutController.co")) {
-				request.getSession().removeAttribute("loginId");
-
-				isRedirect = true;
-				dst = "index.jsp";
 			} else if (command.equals("/isThisKakaoIdExist.co")) {
 				String loginKakaoId = request.getParameter("kakaoId");
 

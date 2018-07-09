@@ -67,6 +67,7 @@
 <script language="javascript"
    src="http://connect.facebook.net/ko_KR/all.js"></script>
 
+
 </head>
 <body>
 
@@ -74,105 +75,76 @@
 
    <c:choose>
 
-		<c:when test="${requestScope.isIdBlocked eq true }">
-			<script>
-				alert("넌 블럭 ㅋ ㅃㅃ");
-				location.href = "Oops.jsp";
-			</script>
-		</c:when>
 
+      <c:when test="${requestScope.emailRspSuccess}">
 
+         <div id="emailFindingSuccess" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <div class="icon-box">
+                        <i class="material-icons">&#xE876;</i>
+                     </div>
+                     <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                  </div>
+                  <div class="modal-body text-center">
+                     <h1>전송!</h1>
+                     <p>입력하신 이메일로 비밀번호가 전송되었습니다.</p>
 
-
-		<c:when test="${requestScope.emailRspSuccess}">
-
-			<div id="emailFindingSuccess" class="modal fade">
-				<div class="modal-dialog modal-confirm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<div class="icon-box">
-								<i class="material-icons">&#xE876;</i>
-							</div>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body text-center">
-							<h1>전송!</h1>
-							<p>입력하신 이메일로 비밀번호가 전송되었습니다.</p>
-
-							<button class="btn btn-success btn-block" data-dismiss="modal"
-								data-dismiss="modal" style="background-color: grey;"
-								style="background-color:grey;"
-								onclick="window.location.href='login.jsp'">로그인하기</button>
+                     <button class="btn btn-success btn-block" data-dismiss="modal"
+                        data-dismiss="modal" style="background-color: grey;"
+                        style="background-color:grey;"
+                        onclick="window.location.href='login.jsp'">로그인하기</button>
 
                   </div>
                </div>
             </div>
          </div>
 
-			<script type="text/javascript">
-				$("#emailFindingSuccess").modal('show');
-			</script>
+         <script type="text/javascript">
+            $("#emailFindingSuccess").modal('show');
+         </script>
 
 
 
 
-		</c:when>
-		<c:when test="${requestScope.emailRspSuccess==false}">
+      </c:when>
+      
+      <c:when test="${requestScope.emailRspSuccess==false}">
 
-			<div id="emailFindingFailure" class="modal fade">
-				<div class="modal-dialog modal-confirm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<div class="icon-box">
-								<i class="material-icons">&#xE5CD;</i>
-							</div>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body text-center">
-							<h1>비밀번호 찾기 실패!</h1>
-							<p>입력하신 정보가 정확하지 않습니다!</p>
+         <div id="emailFindingFailure" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                     </div>
+                     <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                  </div>
+                  <div class="modal-body text-center">
+                     <h1>비밀번호 찾기 실패!</h1>
+                     <p>입력하신 정보가 정확하지 않습니다!</p>
 
-							<button class="btn btn-success btn-block" data-dismiss="modal"
-								data-dismiss="modal" style="background-color: grey;"
-								style="background-color:grey;" onclick="$(this).modal('toggle')">닫기</button>
+                     <button class="btn btn-success btn-block" data-dismiss="modal"
+                        data-dismiss="modal" style="background-color: grey;"
+                        style="background-color:grey;" onclick="$(this).modal('toggle')">닫기</button>
 
-						</div>
-					</div>
-				</div>
-			</div>
+                  </div>
+               </div>
+            </div>
+         </div>
 
-			<script type="text/javascript">
-				$("#emailFindingFailure").modal('show');
-			</script>
-
-		</c:when>
-
-
-		<c:when test="${requestScope.kakaoIdAlreadyExist==true}">
+         <script type="text/javascript">
+            $("#emailFindingFailure").modal('show');
+         </script>
+      </c:when>
 
 
 
-			<!-- Modal  -->
-			<div id="kakaoIdExist" class="modal fade">
-				<div class="modal-dialog modal-confirm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<div class="icon-box">
-								<i class="material-icons">&#xE876;</i>
-							</div>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body text-center">
-							<h1>Awesome!</h1>
-							<p>로그인 성공!</p>
+      <c:when test="${requestScope.kakaoIdAlreadyExist==true}">
 
-							<button class="btn btn-success btn-block" data-dismiss="modal"
-								data-dismiss="modal" style="background-color: grey;"
-								style="background-color:grey;"
-								onclick="window.location.href='interestPage.jsp'">둘러보기</button>
 
 
          <!-- Modal  -->
@@ -187,7 +159,7 @@
                         aria-hidden="true">&times;</button>
                   </div>
                   <div class="modal-body text-center">
-                     <h1>Awesome!</h1>
+                     <h1>성공!</h1>
                      <p>로그인 성공!</p>
 
                      <button class="btn btn-success btn-block" data-dismiss="modal"
@@ -217,7 +189,6 @@
                   <div class="modal-header">
                      <div class="icon-box">
                         <i class="material-icons">&#xE876;</i>
-
                      </div>
                      <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
@@ -243,7 +214,6 @@
 
       <c:when test="${requestScope.signUpSuccess==true}">
 
-
          <div id="loginSuccessModal" class="modal fade">
             <div class="modal-dialog modal-confirm">
                <div class="modal-content">
@@ -268,7 +238,6 @@
          <script type="text/javascript">
             $("#loginSuccessModal").modal('show');
          </script>
-
 
       </c:when>
 
@@ -314,11 +283,6 @@
 
 
       <c:when test="${requestScope.loginResult==false}">
-
-
-
-
-
          <!-- Login Failure Modal -->
          <div id="loginFailModal" class="modal fade">
             <div class="modal-dialog modal-confirm">
@@ -335,7 +299,6 @@
                      <p>회원정보가 올바르지 않습니다!</p>
                      <button class="btn btn-success btn-block" data-dismiss="modal"
                         onclick="$(this).modal('toggle');">다시 로그인</button>
-
                   </div>
                </div>
             </div>
@@ -344,18 +307,15 @@
          <script type="text/javascript">
             $("#loginFailModal").modal('show');
          </script>
-
-
-
       </c:when>
-      
-      
+
+
       <c:when test="${requestScope.emailRspSuccess}">
-      <script>
-      alert("이메일 전송이 완료되었습니다.");
-      </script>
+         <script>
+            alert("이메일 전송이 완료되었습니다.");
+         </script>
       </c:when>
-      
+
    </c:choose>
 
 
@@ -364,38 +324,39 @@
       <%@ include file="include/nav/mypageNav.jsp"%>
    </nav>
 
-					<div id=btns style="margin-top: 10px;">
-						<button id=loginCheck data-toggle="modal"
-							class="btn btn-default btn-block" style="font-size: 15px;">로그인</button>
-						<button id=emailFind class="btn btn-default btn-block"
-							style="font-size: 15px;">이메일 찾기</button>
-						<button id=pwFind class="btn btn-default btn-block"
-							style="font-size: 15px;">비밀번호 찾기</button>
 
    <div class="panel panel-default" style="width: 100%; margin: 0;">
       <div class="panel-body" style="width: 50%; margin: 0 auto;">
          <div id=loginheader style="margin-bottom: 15px;">
             <h2>로그인</h2>
          </div>
+      
          <div id=loginbody class="panel-body"
             style="border-bottom: 1px solid #ddd;">
             <form action="login.co" method=post>
 
-            <br>
-            <p style="text-align: center">또는 SNS로 로그인하세요.</p>
+               <div class="form-group animated fadeIn">
+                  <label for=member_email>이메일 주소</label> <input class=form-control
+                     type=email id=member_email min=4
+                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                     title="이메일 형태로 입력하셔야 합니다." placeholder="example@gmail.com"
+                     required name=member_email max=50 width=auto>
+               </div>
+               <div class="form-group animated fadeIn">
+                  <label for=pwd>비밀번호</label> <input id=pwd min=3 type=password
+                     max=13 name=pwd class=form-control required width=auto>
+                  <div style="display: block; margin-top: 10px;"></div>
+               </div>
 
                <button id=loginCheck class="btn btn-default btn-block"
                   style="font-size: 15px;">로그인</button>
             </form>
 
-					<button id=pwFind class="btn btn-default btn-block"
-						data-toggle="modal" data-target="#idInputModal"
-						style="font-size: 15px;">비밀번호 찾기</button>
+<!-- SNS 로그인 시작 -->
 
-            <div id=btns style="margin-top: 10px;">
+               <!--                <button id=emailFind class="btn btn-default btn-block" -->
+               <!--                   style="font-size: 15px;">이메일 찾기</button> -->
 
-               <button id=emailFind class="btn btn-default btn-block"
-                  style="font-size: 15px;">이메일 찾기</button>
                <button id=pwFind class="btn btn-default btn-block"
                   data-toggle="modal" data-target="#idInputModal"
                   style="font-size: 15px;">비밀번호 찾기</button>
@@ -411,29 +372,6 @@
 
                <!-- Modal -->
 
-
-		<!-- 블락된 아이디 모달 -->
-		<div class="modal fade" id="blockid">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">로그인 정지</h4>
-					</div>
-					<div class="modal-body" style="text-align: center;">
-						<p>신고로 인해 정지된 아이디입니다.</p>
-						<p id="modaltext"></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
                <div class="modal fade" id="idInputModal" tabindex="-1"
                   role="dialog" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
@@ -446,250 +384,136 @@
                               <span aria-hidden="true">&times;</span>
                            </button>
                         </div>
-		<script>
-// 			$("#loginCheck").click(
-// 					function(e) {
-// 						var id = $("#member_email").val();
-// 						var pw = $("#pwd").val();
-// 						console.log(id);
-// 						console.log(pw)
-
-                        <form method=post action="pwFinder.co">
-                           <div class="modal-body">
-// 						$.ajax({
-// 							url : "logincheck.co",
-// 							type : "post",
-// 							data : {
-// 								id : id,
-// 								pw : pw
-// 							},
-// 							success : function(resp) {
-// 								//boolean이 true일때 로그인 안되는 모달창
-// 								//boolean이 false일때 로그인 성공
-// 								console.log("성공")
-// 								console.log(resp.result);
-// 								console.log(resp.expiredate);
-// 								if (resp.result) {
-// 									alert("신고당한 아이디임" + resp.expiredate
-// 											+ "부터 쓸수있음");
-
-                              <label for=email-input>입력한 메일로 비밀번호가 전송 됩니다.</label> <input
-                                 id="email-input" class=form-control name=finder-email placeholder="example@email.com">
-                           </div>
-// 									$("#blockid").modal();
-// 									$("#modaltext").text(
-// 											"이 계정은" + resp.expiredate
-// 													+ " 이후부터 사용이 가능합니다.");
-// 									return false;
-// 								} else {
-// 									document.getElementById("login_submit")
-// 											.submit();
-// 								}
-// 							},
-// 							error : function(status) {
-// 								console.log("에러발생");
-// 								console.log(status);
-// 							}
-// 						})
-// 					})
-		</script>
-
-		<!-- SNS 로그인 API  -->
-		<div>
-			<%@ include file="logInWithKakao.jsp"%>
-			<%@ include file="signUpWithFaceBook.jsp"%>
-			<%@ include file="signUpWithGoogle.jsp"%>
-
-		</div>
-
-											Kakao
-													.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
-
-               <script>
-                  $("#kakao-signUp-btn-main")
-                        .click(
-                              function() {
 
 
+                        <div class="modal-body">
+                           <label for=email-input style="margin-bottom:15px">입력한 메일로 비밀번호가 전송 됩니다.</label>
+                           <form id=pwFinderForm method=post action="pwFinder.co">
+                              <input id="email-input" class=form-control name=finder-email
+                                 placeholder="example@email.com">
+                              <button id="pwFinderBtn" class="btn btn-secondary"
+                                 style="margin-top: 15px;" data-dismiss="modal">확인</button>
+                           </form>
+                        </div>
 
-            <!-- SNS 로그인 시작 -->
-            <br>
-            <p style="text-align: center">또는 SNS로 로그인하세요.</p>
-
-            <div id=snsLoginBtns style="margin: 0 auto; width: 100%;">
-
-
-
-                                                         if (regex
-                                                               .test(kakaoEmail)) {
-
-               <div>
-                  <%@ include file="signUpWithKakao.jsp"%>
-                  <%@ include file="signUpWithFaceBook.jsp"%>
-                  <%@ include file="signUpWithGoogle.jsp"%>
-
+                     </div>
+                  </div>
                </div>
-
-
-
-               <!-- 이메일로 회원가입 -->
-
-               <button id="kakao-signUp-btn-main"
-                  class="btn btn-warning btn-block">🗨 카카오 로그인</button>
-               <button id=fbLoginBtn class="btn btn-primary btn-block"
-                  onclick="javascript:signIn()">f 페이스북 로그인</button>
-               <button id=ggLoginBtn class="btn btn-success btn-block"
-                  onclick="javascript:google_login_in()">g 구글 로그인</button>
-
-               <script>
-                  $("#kakao-signUp-btn-main")
-                        .click(
-                              function() {
-
-                                 Kakao
-                                       .init('9ac6c0be14b569c5fddc7ad7348d2ef7');
-
-                                 Kakao.Auth
-                                       .loginForm({
-
-                                          success : function(
-                                                authObj) {
-
-                                             Kakao.API
-                                                   .request({
-                                                      url : '/v1/user/me',
-                                                      success : function(
-                                                            res) {
-
-                                                         var kakaoEmail = prompt(
-                                                               "카카오톡으로 진행시 이메일 입력이 필요합니다.",
-                                                               "");
-
-                                                         var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-                                                         if (regex
-                                                               .test(kakaoEmail)) {
-
-                                                            console
-                                                                  .log(res.properties)
-                                                            console
-                                                                  .log(res.kaccount_email);
-                                                            console
-                                                                  .log(res.id);
-                                                            console
-                                                                  .log(res.properties['nickname']);
-                                                            console
-                                                                  .log(res.properties['profile_image']);
-
-                                                            var kakaoId = res.id;
-                                                            var kakaoNickName = res.properties['nickname'];
-                                                            var kakaoPhoto = res.properties['profile_image'];
-
-                                                            console
-                                                                  .log("kakaoEmail : "
-                                                                        + kakaoEmail);
-
-                                                            document
-                                                                  .getElementById("hiddenKakaoId").value = kakaoId;
-                                                            document
-                                                                  .getElementById("hiddenKakaoNickName").value = kakaoNickName;
-                                                            document
-                                                                  .getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
-
-                                                            document
-                                                                  .getElementById("hiddenKakaoEmail").value = kakaoEmail;
-
-                                                            document.forms["sendkakaoIdToController"]
-                                                                  .submit();
-
-                                                            var valCheck = document
-                                                                  .getElementById("hiddenKakaoId").value;
-
-                                                         } else {
-                                                            alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
-                                                            location
-                                                                  .reload();
-                                                         }
-                                                      }
-                                                   });
-                                          },
-                                          fail : function(
-                                                errorObj) {
-                                             console
-                                                   .log(authObj)
-                                          },
-                                          persistAccessToken : true,
-                                          persistRefreshToken : false
-                                       });
-                              });
-               </script>
             </div>
          </div>
+
+         <script>
+            document.getElementById("pwFinderBtn").onclick = function() {
+               document.getElementById("pwFinderForm").submit();
+            }
+         </script>
+
+
+
+
+
+         <!-- SNS 로그인 시작 -->
+         <br>
+         <p style="text-align: center">또는 SNS로 로그인하세요.</p>
+
+         <div id=snsLoginBtns style="margin: 0 auto; width: 45%;">
+
+            <div>
+               <%@ include file="signUpWithKakao.jsp"%>
+               <%@ include file="signUpWithFaceBook.jsp"%>
+               <%@ include file="signUpWithGoogle.jsp"%>
+            </div>
+
+            <!-- 이메일로 회원가입 -->
+
+            <button id="kakao-signUp-btn-main" class="btn btn-warning btn-block">카카오
+               로그인</button>
+            <button id=fbLoginBtn class="btn btn-primary btn-block"
+               onclick="javascript:signIn()">페이스북 로그인</button>
+            <button id=ggLoginBtn class="btn btn-success btn-block"
+               onclick="javascript:google_login_in()">구글 로그인</button>
+
+            <script>
+               $("#kakao-signUp-btn-main")
+                     .click(
+                           function() {
+
+                              Kakao
+                                    .init('9ac6c0be14b569c5fddc7ad7348d2ef7');
+
+                              Kakao.Auth
+                                    .loginForm({
+
+                                       success : function(authObj) {
+
+                                          Kakao.API
+                                                .request({
+                                                   url : '/v1/user/me',
+                                                   success : function(
+                                                         res) {
+
+                                                      var kakaoEmail = prompt(
+                                                            "카카오톡으로 진행시 이메일 입력이 필요합니다.",
+                                                            "");
+
+                                                      var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                                                      if (regex
+                                                            .test(kakaoEmail)) {
+
+                                                         console
+                                                               .log(res.properties)
+                                                         console
+                                                               .log(res.kaccount_email);
+                                                         console
+                                                               .log(res.id);
+                                                         console
+                                                               .log(res.properties['nickname']);
+                                                         console
+                                                               .log(res.properties['profile_image']);
+
+                                                         var kakaoId = res.id;
+                                                         var kakaoNickName = res.properties['nickname'];
+                                                         var kakaoPhoto = res.properties['profile_image'];
+
+                                                         console
+                                                               .log("kakaoEmail : "
+                                                                     + kakaoEmail);
+
+                                                         document
+                                                               .getElementById("hiddenKakaoId").value = kakaoId;
+                                                         document
+                                                               .getElementById("hiddenKakaoNickName").value = kakaoNickName;
+                                                         document
+                                                               .getElementById("hiddenKakaoPhoto").value = kakaoPhoto;
+
+                                                         document
+                                                               .getElementById("hiddenKakaoEmail").value = kakaoEmail;
+
+                                                         document.forms["sendkakaoIdToController"]
+                                                               .submit();
+
+                                                         var valCheck = document
+                                                               .getElementById("hiddenKakaoId").value;
+
+                                                      } else {
+                                                         alert("카카오톡을 통한 진행은 반드시 올바른 이메일 입력이 필요합니다.");
+                                                         location
+                                                               .reload();
+                                                      }
+                                                   }
+                                                });
+                                       },
+                                       fail : function(errorObj) {
+                                          console.log(authObj)
+                                       },
+                                       persistAccessToken : true,
+                                       persistRefreshToken : false
+                                    });
+                           });
+            </script>
+         </div>
       </div>
-   </div>
-   <!-- SNS 로그인 API 밑 버튼 끝  -->
-
-
-
-   <!--    <!-- 아이디 비밀번호입력칸 공백일때 뜨는 모달창 -->
-   <!--    <div class="modal fade" id="emptyinput"> -->
-   <!--       <div class="modal-dialog"> -->
-   <!--          <div class="modal-content"> -->
-   <!--             <div class="modal-header"> -->
-   <!--                <button type="button" class="close" data-dismiss="modal" -->
-   <!--                   aria-label="Close"> -->
-   <!--                   <span aria-hidden="true">&times;</span> -->
-   <!--                </button> -->
-   <!--                <h4 class="modal-title">로그인</h4> -->
-   <!--             </div> -->
-   <!--             <div class="modal-body" style="text-align: center;"> -->
-   <!--                <p>아이디와 비밀번호를 입력해주세요.</p> -->
-   <!--             </div> -->
-   <!--             <div class="modal-footer"> -->
-   <!--                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-   <!--             </div> -->
-   <!--          </div> -->
-   <!--       </div> -->
-   <!--    </div> -->
-
-   <!--    <div class="modal fade" id="loginblock"> -->
-   <!--       <div class="modal-dialog"> -->
-   <!--          <div class="modal-content"> -->
-   <!--             <div class="modal-header"> -->
-   <!--                <button type="button" class="close" data-dismiss="modal" -->
-   <!--                   aria-label="Close"> -->
-   <!--                   <span aria-hidden="true">&times;</span> -->
-   <!--                </button> -->
-   <!--                <h4 class="modal-title">로그인</h4> -->
-   <!--             </div> -->
-   <!--             <div class="modal-body" style="text-align: center;"> -->
-   <!--                <p>아이디와 비밀번호를 입력해주세요.</p> -->
-   <!--             </div> -->
-   <!--             <div class="modal-footer"> -->
-   <!--                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-   <!--             </div> -->
-   <!--          </div> -->
-   <!--       </div> -->
-   <!--    </div> -->
-   <!--    <div class="modal fade" id="blockid"> -->
-   <!--       <div class="modal-dialog"> -->
-   <!--          <div class="modal-content"> -->
-   <!--             <div class="modal-header"> -->
-   <!--                <button type="button" class="close" data-dismiss="modal" -->
-   <!--                   aria-label="Close"> -->
-   <!--                   <span aria-hidden="true">&times;</span> -->
-   <!--                </button> -->
-   <!--                <h4 class="modal-title">정지당한 아이디입니다.</h4> -->
-   <!--             </div> -->
-   <!--             <div class="modal-body" style="text-align: center;"> -->
-   <!--                <p id="modaltext">신고로 인해 정지당한 아이디입니다.</p> -->
-   <!--             </div> -->
-   <!--             <div class="modal-footer"> -->
-   <!--                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-   <!--             </div> -->
-   <!--          </div> -->
-   <!--       </div> -->
-   <!--    </div> -->
 
 
    <script>
@@ -738,7 +562,5 @@
    <%@ include file="include/bottom.jsp"%>
 
 
-	<footer>
-		<%@ include file="include/bottom.jsp"%>
 </body>
 </html>
