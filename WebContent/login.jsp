@@ -69,15 +69,35 @@
 
 </head>
 <body>
-
+<!-- 블락된 아이디 모달 -->
+		<div class="modal fade" id="blockid">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">로그인 정지</h4>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+						<p>신고로 인해 정지된 아이디입니다.</p>
+						<p id="modaltext"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 	<c:choose>
 
 		<c:when test="${requestScope.isIdBlocked eq true }">
 			<script>
-				alert("넌 블럭 ㅋ ㅃㅃ");
-				location.href = "Oops.jsp";
+				$('#blockid').modal('show');
+				location.href=history.back();
 			</script>
 		</c:when>
 
@@ -321,27 +341,7 @@
 
 
 
-		<!-- 블락된 아이디 모달 -->
-		<div class="modal fade" id="blockid">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title">로그인 정지</h4>
-					</div>
-					<div class="modal-body" style="text-align: center;">
-						<p>신고로 인해 정지된 아이디입니다.</p>
-						<p id="modaltext"></p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 
 		<script>
 // 			$("#loginCheck").click(

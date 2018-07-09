@@ -30,6 +30,7 @@ import org.json.simple.JSONObject;
 import com.google.gson.Gson;
 
 import kh.web.dao.AdminDAO;
+import kh.web.dao.MeetingDAO;
 import kh.web.dao.ReportDAO;
 import kh.web.dto.AgeGraphDTO;
 import kh.web.dto.GroupDTO;
@@ -206,12 +207,12 @@ public class AdminController extends HttpServlet {
 					list = adao.getGroupMember(group_seq);
 					int size = list.size();
 					System.out.println("groupmember_size: " + list.size());
-
-					ReportDTO rdto = rdao.reportGroupJoin(group_seq);
+						
+					List<ReportDTO> rlist = rdao.reportGroupJoin(group_seq);
 
 					request.setAttribute("size", size);
 					request.setAttribute("gdto", gdto);
-					request.setAttribute("rdto", rdto);
+					request.setAttribute("rlist", rlist);
 					isAjax = false;
 					isRedirect = false;
 					dst = "group/grouppage.jsp?group_seq='" + group_seq + "'";
@@ -572,6 +573,18 @@ public class AdminController extends HttpServlet {
 					response.getWriter().close();
 
 					isAjax = true;
+				}else if(command.equals("/admin/meetingpage.ao")) {
+					System.out.println("meetingpage");
+					int meeting_seq = Integer.parseInt(request.getParameter("meeting_seq"));
+					System.out.println("meeting_seq:"+meeting_seq);
+					MeetingDAO mdao = new MeetingDAO();
+					MeetingDTO mdto = mdao.getEachMeetingData(meeting_seq);
+					
+					request.setAttribute("mdto", mdto);
+					isAjax=false;
+					isRedirect = false;
+					dst = "meeting/meetingpage.jsp";
+					
 				}
 
 			}

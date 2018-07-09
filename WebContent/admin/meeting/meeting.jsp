@@ -97,7 +97,7 @@ $('#search').keydown(function() {
 										+ resp.mlist[i].meeting_location);
 								
 								output += "<tr>";
-								output += "<td>'" + resp.mlist[i].meeting_title + "'</td>";
+								output += "<td><a href='meetingpage.ao?meeting_seq="+resp.mlist[i].meeting_seq+"'>'" + resp.mlist[i].meeting_title + "'</a></td>";
 								output += "<td><a href='grouppage.ao?group_seq="+resp.mlist[i].group_seq+"'>'" + resp.mlist[i].group_name + "'</a></td>";
 								output += "<td><a href='memberpage.ao?member_email="+resp.mlist[i].group_leader+"'>'" + resp.mlist[i].group_leader + "'</a></td>";
 								output += "<td>'" + resp.mlist[i].meeting_location + "'</td>";

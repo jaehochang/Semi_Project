@@ -4,8 +4,8 @@
 
 
 <!-- Basic sample for Pie 2D chart -->
-<div id="chart-container" style="border: 1px black solid; margin-top:100px; float: left;" >연령별 파이 그래프</div>
-<div id="chart-container2"style="border: 1px black solid; margin-top:100px; margin-left:50px; float: left;">연령별 파이 그래프</div>
+<div id="chart-container" style=" margin-top:100px; margin-left:150px; float: left;" >연령별 파이 그래프</div>
+<div id="chart-container2"style=" margin-top:100px; margin-left:50px; float: left;">연령별 파이 그래프</div>
 
 <script>
 FusionCharts.ready(function () {
@@ -17,8 +17,8 @@ FusionCharts.ready(function () {
         dataFormat: 'json',
         dataSource: {
             "chart": {
-                "caption": "Split of Visitors by Age Group",
-                "subCaption": "Last year",
+                "caption": "연령별 회원",
+                "subCaption": "",
                 "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000",
                 "bgColor": "#ffffff",
                 "showBorder": "0",
@@ -81,10 +81,10 @@ FusionCharts.ready(function () {
         dataFormat: 'json',
         dataSource: {
             "chart": {
-                "caption": "Sales Trends",
-                "subcaption": "2016 - 2017",
-                "xaxisname": "젠장",
-                "yaxisname": "에라이",
+                "caption": "관심사",
+                "subcaption": "",
+                "xaxisname": "카테고리",
+                "yaxisname": "인원",
                 "showvalues": "1",
                 "placeValuesInside" : "1",
                 "rotateValues": "1",
@@ -124,30 +124,30 @@ FusionCharts.ready(function () {
             "categories": [
                 {
                     "category": [
-                        { "label": "Jan 2016" },
-                        { "label": "Feb 2016" },
-                        { "label": "Mar 2016" },
-                        { "label": "Apr 2016" },
-                        { "label": "May 2016" },
-                        { "label": "Jun 2016" },
-                        { "label": "Jul 2016" },
-                        { "label": "Aug 2016" },
-                        { "label": "Sep 2016" },
-                        { "label": "Oct 2016" },
-                        { "label": "Nov 2016" },
-                        { "label": "Dec 2016" },
-                        { "label": "Jan 2017" }, 
-                        { "label": "Feb 2017" }, 
-                        { "label": "Mar 2017" }, 
-                        { "label": "Apr 2017" }, 
-                        { "label": "May 2017" }, 
-                        { "label": "Jun 2017" }, 
-                        { "label": "Jul 2017" }, 
-                        { "label": "Aug 2017" }, 
-                        { "label": "Sep 2017" }, 
-                        { "label": "Oct 2017" }, 
-                        { "label": "Nov 2017" }, 
-                        { "label": "Dec 2017" }
+                        { "label": "여행" },
+                        { "label": "영화" },
+                        { "label": "소프트웨어" },
+                        { "label": "게임" },
+                        { "label": "강아지" },
+                        { "label": "사진" },
+                        { "label": "음악" },
+                        { "label": "동물" },
+                        { "label": "캠핑" },
+                        { "label": "경영" },
+                        { "label": "메이크업" },
+                        { "label": "자기탐색" },
+                        { "label": "봉사활동" }, 
+                        { "label": "교육" }, 
+                        { "label": "문화" }, 
+                        { "label": "스포츠" }, 
+                        { "label": "운동" }, 
+                        { "label": "가족" }, 
+                        { "label": "부동산" }, 
+                        { "label": "독서" }, 
+                        { "label": "기술" }, 
+                        { "label": "건강" }, 
+                        { "label": "피트니스" }, 
+                        { "label": "학습" }
                     ]
                 }
             ],

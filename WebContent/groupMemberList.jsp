@@ -194,21 +194,21 @@
 				cnt = cnt + 1;
 			%>
 			<div id="searchmem" class="attend-member">
-<!-- 				<div id="membermem" class="member-mem"> -->
-<%-- 					<img src="files/${memberList.member_picture}"> --%>
-<!-- 					<div id="memberinfomem" class="member-info-mem"> -->
-<!-- 						<div id="membername" class="member-name"> -->
-<%-- 							<a href="#profile<%=cnt%>" data-toggle="modal" --%>
-<%-- 								onclick="profile<%=cnt%>()"><b>${memberList.member_name}</b> --%>
-<!-- 							</a> -->
-<!-- 						</div> -->
-<!-- 						<div>가입 날짜:</div> -->
-<%-- 					<div class="attend-date">${memberList.join_date}</div> --%>
-<!-- 				</div> -->
+				<div id="membermem" class="member-mem">
+					<img src="files/${memberList.member_picture}">
+					<div id="memberinfomem" class="member-info-mem">
+						<div id="membername" class="member-name">
+							<a href="#profile<%=cnt%>" data-toggle="modal"
+								onclick="profile<%=cnt%>()"><b>${memberList.member_name}</b>
+							</a>
+						</div>
+						<div>가입 날짜:</div>
+					<div class="attend-date">${memberList.join_date}</div>
+				</div>
 			</div>
 
 				<script>
-		var email<%=cnt%>;
+		var email;
 		$('#search').keydown(function() {
 			var text = $('#search').val();
 			var group_seq = ${sessionScope.groupSeq};
@@ -424,9 +424,9 @@
 						$("#profile<%=cnt%>").modal('hide');
 					});
 					
-					function profile<%=cnt%>(email<%=cnt%>){
+					function profile<%=cnt%>(){
 						console.log("profile:" );
-						var member_email = email<%=cnt%>;
+						var member_email = "${memberList.member_email}";
 						console.log("member_email:"+ member_email);
 						var group_seq = $('#group_seq').val();
 							$.ajax({

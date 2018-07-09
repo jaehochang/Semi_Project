@@ -68,50 +68,50 @@
 		console.log(subject);
 	});
 
-	// 	var distinction = "member";
-	// 	$('#search').keydown(function() {
-	// 				var text = $('#search').val();
+		var distinction = "member";
+		$('#search').keydown(function() {
+					var text = $('#search').val();
 
-	// 				$.ajax({
-	// 					url : "search.ao",
-	// 					type : "get",
-	// 					data : {
-	// 						distinction,
-	// 						text,
-	// 						subject
-	// 					},
-	// 					success : function(resp) {
-	// 						console.log("resp:"+resp);
-	// 						console.log(resp.mlist);
-	// 						console.log(resp.page);
-	// 						var output;
-	// 						var page;
+					$.ajax({
+						url : "search.ao",
+						type : "get",
+						data : {
+							distinction,
+							text,
+							subject
+						},
+						success : function(resp) {
+							console.log("resp:"+resp);
+							console.log(resp.mlist);
+							console.log(resp.page);
+							var output;
+							var page;
 
-	// 						if (resp.mlist.length == 0) {
-	// 							output += "<tr>";
-	// 							output += "</tr>";
-	// 							$("tbody").html("찾는 결과가 없습니다.");
-	// 						} else {
-	// 							for (var i = 0; i < resp.mlist.length; i++) {
-	// 								console.log("길이:" + resp.mlist.length);
-	// 								console.log("susccess : "
-	// 										+ resp.mlist[i].member_email);
-	// 								output += "<tr>";
-	// 								output += "<td><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></td>";
-	// 								output += "<td>'" + resp.mlist[i].member_name + "'</td>";
-	// 								output += "<td>'" + resp.mlist[i].member_gender + "'</td>";
-	// 								output += "<td>'" + resp.mlist[i].member_location + "'</td>";
-	// 								output += "</tr>"; 
-	// // 								output += "<div><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></div>"
-	// // 								output += "<div>'" + resp.mlist[i].member_name + "'</div>";
-	// 							}
-	// // 							$('#searchbot').html(output);
-	// 							$('tbody').html(output);
-	// 							$('#pageul').html(resp.page);
-	// 						}
-	// 					}
-	// 				})
-	// 			})
+							if (resp.mlist.length == 0) {
+								output += "<tr>";
+								output += "</tr>";
+								$("tbody").html("찾는 결과가 없습니다.");
+							} else {
+								for (var i = 0; i < resp.mlist.length; i++) {
+									console.log("길이:" + resp.mlist.length);
+									console.log("susccess : "
+											+ resp.mlist[i].member_email);
+									output += "<tr>";
+									output += "<td><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></td>";
+									output += "<td>'" + resp.mlist[i].member_name + "'</td>";
+									output += "<td>'" + resp.mlist[i].member_gender + "'</td>";
+									output += "<td>'" + resp.mlist[i].member_location + "'</td>";
+									output += "</tr>"; 
+									output += "<div><a href='memberpage.ao?member_email="+resp.mlist[i].member_email+"'>'" + resp.mlist[i].member_email + "'</a></div>"
+									output += "<div>'" + resp.mlist[i].member_name + "'</div>";
+								}
+								$('#searchbot').html(output);
+								$('tbody').html(output);
+								$('#pageul').html(resp.page);
+							}
+						}
+					})
+				})
 </script>
 <%@include file="../include/footer.jsp"%>
 

@@ -110,15 +110,16 @@ public class ReportDAO {
 		return gdto;
 	}
 
-	public ReportDTO reportGroupJoin(int group_seq) throws Exception {
+	public List<ReportDTO> reportGroupJoin(int group_seq) throws Exception {
 		Connection con = DBUtils.getConnection();
 		String sql = "select g.*,r.* from create_group g, report r where g.group_name = r.report_calleegroup and g.group_seq=?";
 		PreparedStatement pstat = con.prepareStatement(sql);
 		pstat.setInt(1, group_seq);
 		ResultSet rs = pstat.executeQuery();
-		ReportDTO rdto = new ReportDTO();
-
+		List<ReportDTO> list = new ArrayList<>();
+		
 		while (rs.next()) {
+			ReportDTO rdto = new ReportDTO();
 			rdto.setReport_calleemember(rs.getString("report_calleemember"));
 			rdto.setReport_calleegroup(rs.getString("report_calleegroup"));
 			rdto.setReport_caller(rs.getString("report_caller"));
@@ -132,12 +133,13 @@ public class ReportDAO {
 			rdto.setCallee(rs.getString("group_seq"));
 			rdto.setWarningdate(rs.getString("group_warningdate"));
 			rdto.setExpiredate(rs.getString("group_expiredate"));
+			list.add(rdto);
 		}
 		rs.close();
 		pstat.close();
 		con.close();
 
-		return rdto;
+		return list;
 	}
 
 	public int getReportCount(String distinc) throws Exception {

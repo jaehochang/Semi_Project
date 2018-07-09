@@ -88,19 +88,21 @@
 					<td>신고자</td>
 					<td>신고내용</td>
 				</tr>
+				<c:forEach var = "rlist" items="${rlist }" >
 				<tr>
-					<td>${rdto.report_date }</td>
-					<td>${rdto.report_caller}</td>
-					<td>${rdto.report_reason }</td>
-					<c:if test="${rdto.report_reason eq null }">
-						<td>${rdto.report_etcreason }</td>
+					<td>${rlist.report_date }</td>
+					<td>${rlist.report_caller}</td>
+					<td>${rlist.report_reason }</td>
+					<c:if test="${rlist.report_reason eq null }">
+						<td>${rlist.report_etcreason }</td>
 					</c:if>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td>${rdto.report_etcreason }</td>
+					<td>${rlist.report_etcreason }</td>
 				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

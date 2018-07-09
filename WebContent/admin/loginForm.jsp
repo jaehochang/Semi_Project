@@ -39,8 +39,6 @@
 					</div>
 					<button type="button" id="signin" class="btn btn-primary btn-block">Sign
 						In</button>
-					<button type="button" id="signup" class="btn btn-primary btn-block">Sign
-						Up</button>
 				</form>
 
 			</div>
@@ -48,10 +46,6 @@
 	</div>
 	<script>
 		window.onload = function() {
-			document.getElementById("signup").onclick = function() {
-				location.href = "joinForm.html";
-			}
-
 			document.getElementById("signin").onclick = function() {
 				var id = document.getElementById("id").value;
 				var pw = document.getElementById("pw").value;

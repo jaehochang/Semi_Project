@@ -10,7 +10,7 @@
 	
 	<c:if test="${requestScope.isBlockedGroup eq true }">
 		<script>
-			alert("그룹이 정지당했습니다. 당분간 사용하실수 없습니다.");
+			alert("정지당한 그룹입니다.");
 			location.href=history.back();
 		</script>
 	</c:if>
@@ -78,6 +78,8 @@
 	
 	<!-- 밋업 관리 -->
 	<a href="#"><button type="button" class="btn btn-secondary" id="newMeetingBT">MeetUp 계획</button></a>
+	<button type="button" onclick="location.href='modifyMeetingForm.meet?meeting_seq=1'">밋업수정</button>
+		
 	
 	
 	
@@ -185,6 +187,7 @@
 			
 			
 				<c:forEach var="nextMeeting" items="${nextMeeting}">
+				<button type="button" onclick="location.href='modifyMeetingForm.meet?meeting_seq=${nextMeeting.meeting_seq}'">밋업수정</button>
 				<div id="meetup-plan-contents" onclick="location.href='meeting.meet?seq=${nextMeeting.meeting_seq }';">
 				
 					<div style="width: 70%; hegith: 100%; float: left">
@@ -349,7 +352,7 @@
 				</div>
 			</div>
 			
-
+			
 			<div id="last-meetup">
 				<div id="pre-meetup-top">
 					<c:forEach var="result" items="${result }">
