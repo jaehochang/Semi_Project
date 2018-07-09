@@ -187,25 +187,25 @@ body {
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/기술.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=기술"><img src="./interests/기술.PNG"></a> <br />
                <p class="interest-name">기술</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/가족.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=가족"><img src="./interests/가족.PNG"></a> <br />
                <p class="interest-name">가족</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/건강과웰빙.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=건강과웰빙"><img src="./interests/건강과웰빙.PNG"></a> <br />
                <p class="interest-name">건강과 웰빙</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/스포츠피트니스.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=스포츠피트니스"><img src="./interests/스포츠피트니스.PNG"></a> <br />
                <p class="interest-name">스포츠 / 피트니스</p>
             </div>
          </div>
@@ -213,25 +213,25 @@ body {
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/사진촬영.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=사진촬영"><img src="./interests/사진촬영.PNG"></a> <br />
                <p class="interest-name">사진촬영</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/음식.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=음식"><img src="./interests/음식.PNG"></a> <br />
                <p class="interest-name">음식</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/학습.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=학습"><img src="./interests/학습.PNG"></a> <br />
                <p class="interest-name">학습</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/사회운동.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=사회운동"><img src="./interests/사회운동.PNG"></a> <br />
                <p class="interest-name">사회 운동</p>
             </div>
          </div>
@@ -239,73 +239,73 @@ body {
       <div class="col">
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/영화.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=영화"><img src="./interests/영화.PNG"></a> <br />
                <p class="interest-name">영화</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/공상과학게임.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=공상과학게임"><img src="./interests/공상과학게임.PNG"></a> <br />
                <p class="interest-name">공상과학 / 게임</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/예술.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=예술"><img src="./interests/예술.PNG"></a> <br />
                <p class="interest-name">예술</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/북클럽.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=북클럽"><img src="./interests/북클럽.PNG"></a> <br />
                <p class="interest-name">북클럽</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/춤.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=춤"><img src="./interests/춤.PNG"></a> <br />
                <p class="interest-name">춤</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/취미와공예.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=취미와공예"><img src="./interests/취미와공예.PNG"></a> <br />
                <p class="interest-name">취미와 공예</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/패션과스타일.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=패션과스타일"><img src="./interests/패션과스타일.PNG"></a> <br />
                <p class="interest-name">패션과 스타일</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/비즈니스.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=비즈니스"><img src="./interests/비즈니스.PNG"></a> <br />
                <p class="interest-name">비즈니스</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/글쓰기.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=글쓰기"><img src="./interests/글쓰기.PNG"></a> <br />
                <p class="interest-name">글쓰기</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/반려동물.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=반려동물"><img src="./interests/반려동물.PNG"></a> <br />
                <p class="interest-name">반려동물</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/언어와문화.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=언어와문화"><img src="./interests/언어와문화.PNG"></a> <br />
                <p class="interest-name">언어와 문화</p>
             </div>
          </div>
          <div class="col-md-3">
             <div class="interest-card">
-                 <a class="interest-img" href=""><img src="./interests/음악.PNG"></a> <br />
+                 <a class="interest-img" href="tech.find?keyword=음악"><img src="./interests/음악.PNG"></a> <br />
                <p class="interest-name">음악</p>
             </div>
          </div>

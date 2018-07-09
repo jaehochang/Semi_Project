@@ -6,7 +6,7 @@
 
 <!-- Footer -->
 
-<footer>
+<footer id="jieunfooter">
 
    <div>
       <p style="padding-left: 40px;">

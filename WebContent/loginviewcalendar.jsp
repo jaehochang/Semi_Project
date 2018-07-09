@@ -63,39 +63,96 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-		.dayby{
-			margin-top: 5px;
-			margin-bottom: 12px;
-			margin-left: 45px;
-			text-shadow: 2em;
-			font-size: 15px;
-			font-style: italic;
-			font-family: sans-serif;
-		}
-		#myList{
-			margin-top: 10px;
-		}
-		#datepicker{
-			margin-top: 37px;
-		}
-		#today{
-			margin-top: 10px;
-			margin-right: 100px;
-		}
+      .dayby{
+         margin-top: 5px;
+         margin-bottom: 12px;
+         margin-left: 45px;
+         text-shadow: 2em;
+         font-size: 15px;
+         font-style: italic;
+         font-family: sans-serif;
+      }
+      #myList{
+         margin-top: 18px;
+      }
+      #datepicker{
+         margin-top: 37px;
+      }
+      #today{
+         margin-top: 10px;
+         margin-right: 100px;
+      }
 
-		#printlist{
-			margin-top: 10px;
-			margin-left: 125px;
-			width: 300px;
-			background-color: gray;
-		}
-		#myList{
-			margin-right: 70px;
-		}
-		.list-group{
-			margin-left: 13px;
-			width: 255px;
-		}
+      #printlist{
+         margin-top: 18px;
+         margin-left: 125px;
+         margin-right: 1px;
+         width: 560px;
+         background-color: #D8D8D8;
+            
+      }
+      #myList{
+         margin-right: 29px;
+         margin-left: 1px;
+      }
+      .list-group{
+         margin-left: 20px;
+         width: 255px;
+         
+      }
+      
+#gro:visited {
+   background: gray;
+   color: white;
+}
+
+#gro {
+   background: black;
+   color: white;
+   font-size: 18px;
+   line-height: 1.5;
+   position: relative;
+   top: 6px;
+   width: 100px;
+}
+
+#cal:visited {
+   background: gray;
+   color: white;
+}
+
+#cal {
+   background: black;
+   color: white;
+   font-size: 18px;
+   line-height: 1.5;
+   position: relative;
+   top: 6px;
+   width: 100px;
+}
+#search li:hover{
+background-color: red;
+   
+}
+      
+      .dayby{
+         font-weight: bold;
+         text-align: left;
+      }
+   
+      .block{
+         border: 3px solid black;
+      }
+      .timehour{
+         font-weight: bold;
+         text-align: left;
+         float: left;
+      }
+      .groupname{
+         font-size: 20px;   
+         vertical-align: middle;
+      }
+      
 		
 #gro:visited {
 	background: gray;
@@ -232,9 +289,6 @@ background-color: red;
 							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
 							
 						
-							 $("#printlist").append($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+a[b].split(":")[1]+"</div>"  
-								  	   +"<div>"+"<a href=meeting.meet?seq="+a[b].split(":")[1]+">"+a[b].split(":")[1]+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+a[b].split(":")[1]+">"+a[b].split(":")[1]+"</a>"+"</div>"+"<div>"+a[b].split(":")[1]+"</div>"+"</div>"+"</div>"
-								  	 );
 						}
 					}else{
 						
@@ -563,26 +617,26 @@ background-color: red;
 		<div class="col-xs-4">
 		  <a data-toggle="dropdown" aria-expanded="false"  font-size: medium; padding-left: 3"><input id="search-input" type="text" placeholder="전체 Meetup 이벤트" style="width: 270px; height: 34px;  border-radius: 5px;"></a>
 			<ul class="dropdown-menu" role="menu" style="position: absolute; z-index: 150; width: 900px">
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="eatout">외식</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="family">가족</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">친척</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">asdasd</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">안녕</a></li>
+<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a1">기술</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a2">음악</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a3">모임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a4">건강과 웰빙</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a5">가족</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a6">글쓰기</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a7">반려동물</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a8">북클럽</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a9">영화</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a10">예술</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a11">음식</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a12">취미와 공예</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a13">학습</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a14">패션과 스타일</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a15">스포츠</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a16">사진촬영</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a17">모임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a18">비즈니스</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a19">북클럽</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a20">공상과학/게임</a></li>
 			</ul>
 			
 			

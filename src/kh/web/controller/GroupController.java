@@ -560,7 +560,56 @@ public class GroupController extends HttpServlet {
 					System.out.println("result들어옴");
 					out.println("success");
 				}
-			}else {
+			} // ----------------밑으로 인형----------------
+	         else if (command.equals("/groupreport.group")) {
+	             int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+	             request.setAttribute("group_seq", group_seq);
+	             isRedirect = false;
+	             dst = "groupreport.jsp";
+
+	          } else if (command.equals("/groupreportproc.group")) {
+	             String report_reason = request.getParameter("report_select");
+	             int group_seq = Integer.parseInt(request.getParameter("group_seq"));
+	             AdminDAO adao = new AdminDAO();
+	             GroupDTO gdto = adao.getGroupData(group_seq);
+
+	             request.setAttribute("gdto", gdto);
+	             request.setAttribute("report_reason", report_reason);
+	             request.setAttribute("group_seq", group_seq);
+	             isRedirect = false;
+	             dst = "groupreportproc.jsp";
+
+	          } else if (command.equals("/greportcomplete.group")) {
+	             String member_email = (String) request.getSession().getAttribute("loginId");
+	             String group_name = request.getParameter("group_name");
+	             String report_reason = request.getParameter("report_reason");
+	             String etc_reason = request.getParameter("etc_reason");
+
+	             int result = rdao.insertGroupReport(member_email, group_name, report_reason, etc_reason);
+
+	             if (result > 0) {
+	                isRedirect = false;
+	                dst = "list.group";
+	             }
+	          } else if (command.equals("/membereportcomplete.group")) {
+	             String caller = (String) request.getSession().getAttribute("loginId");
+	             String calleeMember = request.getParameter("member_email");
+	             String reason = request.getParameter("reason");
+	             String etcReason = request.getParameter("etcreason");
+	             System.out.println("memberreport");
+	             System.out.println(caller);
+	             System.out.println(calleeMember);
+	             System.out.println(reason);
+	             System.out.println(etcReason);
+
+	             int result = rdao.insertMemberReport(caller, calleeMember, reason, etcReason);
+
+	             isRedirect = false;
+	             dst = "list.group";
+	          }
+	          // 여기까지 인형
+			
+			else {
 				
 				response.sendRedirect(dst);
 			}

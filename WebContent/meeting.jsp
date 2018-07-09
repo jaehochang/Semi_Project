@@ -235,7 +235,7 @@ body {
          <br>
          <div class="row">
                <div class="col-md-3">
-                  <img src="files/${result.meeting_picture}">
+                  <img src="files/default_member.png">
                   <div class="member-info">
                      <p>
                         <b>${result.group_leader}</b>

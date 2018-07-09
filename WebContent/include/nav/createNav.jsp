@@ -8,7 +8,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-
+<link rel="stylesheet" type="text/css" href="css/bottom-style.css?ver=1">
 <link rel="navtylesheet.css" type="text/stylesheet">
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -333,7 +333,10 @@ left:178px;
 .error{
 color: red;
 }
-
+#jieunfooter{
+position:relative;
+left:10px;
+}
 </style>
 <script>
 

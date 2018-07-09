@@ -416,7 +416,7 @@
          <br>
          <p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
-         <div id=snsLoginBtns style="margin: 0 auto; width: 45%;">
+         <div id=snsLoginBtns style="margin: 0 auto; width: 45%; margin-bottom: 50px;width: 45%;">
 
             <div>
                <%@ include file="signUpWithKakao.jsp"%>

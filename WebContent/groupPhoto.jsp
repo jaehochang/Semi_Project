@@ -20,8 +20,7 @@
 		</c:forEach>	
 		</ul>
 		
-		
-		   <!-- 로그인 모달용 -->
+	   <!-- 로그인 모달용 -->
    <div class="btn-group"
       style="position: absolute; transform: translate(400%, -140%);">
          <button type="button" class="btn btn-default dropdown-toggle" id="joinGroupBT-modal" data-toggle="modal" data-target="#myModal">이 그룹에 가입하기</button>
@@ -79,75 +78,75 @@
       </ul>
    </div>
    
-	
-	
-	
-	 
+   
+   
+   
+    
 
-	
-	
-	<c:if test="${isGroupMember eq true }">
-		<script>
-			$("#joinGroupBT").hide();
-		</script>
-	</c:if>
-	
-	<c:if test="${isGroupMember eq false }">
-		<script>
-			$("#memberBT").hide();
-		</script>
-	</c:if>
-	
-	
+   
+   
+   <c:if test="${isGroupMember eq true }">
+      <script>
+         $("#joinGroupBT").hide();
+      </script>
+   </c:if>
+   
+   <c:if test="${isGroupMember eq false }">
+      <script>
+         $("#memberBT").hide();
+      </script>
+   </c:if>
+   
+   
 
-	
-	
-	
-	<script>
-				$("#joinGroupBT").click(function(){
-					
-					var group_seq = $("#group_seq").val();
-					var group_name = $("#group_name").val();
-					
-					$.ajax({
-						url:"join.group",
-						type:"get",
-						data:{group_seq:group_seq,group_name:group_name},
-						success:function(resp){
-							
-							
-							
-							$("#memberBT").show();
-							$("#joinGroupBT").hide();
-							$("#test").remove();
-						},
-						error:function() {
-							console.log("에러발생 !" + request.status + " : " + status + " : " + error);
-						}
-					});
-				});
-				
-			</script>
-			
+   
+   
+   
+   <script>
+            $("#joinGroupBT").click(function(){
+               
+               var group_seq = $("#group_seq").val();
+               var group_name = $("#group_name").val();
+               
+               $.ajax({
+                  url:"join.group",
+                  type:"get",
+                  data:{group_seq:group_seq,group_name:group_name},
+                  success:function(resp){
+                     
+                     
+                     
+                     $("#memberBT").show();
+                     $("#joinGroupBT").hide();
+                     $("#test").remove();
+                  },
+                  error:function() {
+                     console.log("에러발생 !" + request.status + " : " + status + " : " + error);
+                  }
+               });
+            });
+            
+         </script>
+         
 
-	<c:if test="${isGroupMember eq false }">
-		<!-- Single button -->
-		<div class="btn-group"
-			style="position: absolute; transform: translate(1370%, -140%);" id="check">
-			<button type="button" class="btn btn-default dropdown-toggle"
-				data-toggle="dropdown" aria-expanded="false" id="test">
-				<span class="glyphicon glyphicon-option-horizontal"
-					aria-hidden="true"></span> <span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li><a href="groupreport.group?group_seq=${group_seq }">그룹 신고</a></li>
-			</ul>
-		</div>
+   <c:if test="${isGroupMember eq false }">
+      <!-- Single button -->
+      <div class="btn-group"
+         style="position: absolute; transform: translate(1370%, -140%);" id="check">
+         <button type="button" class="btn btn-default dropdown-toggle"
+            data-toggle="dropdown" aria-expanded="false" id="test">
+            <span class="glyphicon glyphicon-option-horizontal"
+               aria-hidden="true"></span> <span class="caret"></span>
+         </button>
+         <ul class="dropdown-menu" role="menu">
+            <c:forEach var="result" items="${result}">
+               <li><a href="groupreport.group?group_seq=${result.group_seq }">그룹 신고</a></li>
+            </c:forEach>
+         </ul>
+      </div>
 
-	</c:if>
-	</div>
-
-
+   </c:if>
+</div>
 
 
 

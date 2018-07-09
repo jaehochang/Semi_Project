@@ -9,7 +9,7 @@
 	
 		<!--            -->
 		<div class="container" id="photoName">
-			<img src="./image/노이어프로필사진.png" class="img-fluid" alt="반응형 이미지"
+			<img src="./image/creator.png" class="img-fluid" alt="반응형 이미지"
 				style="width: 200px; height: 200px"><span style=""></span>
 
 			<h3 id="h3">Manuel Neuer</h3>

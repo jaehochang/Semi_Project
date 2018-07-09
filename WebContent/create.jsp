@@ -3,7 +3,7 @@
 <%@ include file="include/nav/createNav.jsp"%>
 
 <div class="jumbotron animated bounceInDown"
-	style="background-image: url(./image/열기구.jpg); background-size: 100%;width:1500px;">
+   style="background-image: url(./image/열기구.jpg); background-size: 100%;width:1733.8px;">
 	<div class="container">
 	<div id="text" class=text-align>
 		<h2 id="writing1" style="color: white;text-align:center;">새로운 MeetNow를 시작하세요</h2>
@@ -149,6 +149,7 @@
 		<!--col-->
 	</div>
 	<!--row-->
+	<br><br>
 </div>
 <!--container-->
 </form>

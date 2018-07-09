@@ -106,11 +106,10 @@ background-color: red;
 						lng : position.coords.longitude
 
 					  };
-					alert("나의 위도 : " + pos.lat + " 나의 경도 : "+ pos.lng);
+					
 			});
 
 	$("#search-bt").click(function() {
-							alert($("#search-input").val());
 							
 							
 							var val = pos.lat + ":" + pos.lng;
@@ -136,8 +135,8 @@ background-color: red;
 								var a = response.distSearchCount.toString().split(",");
 						if(response.distSearchCount.length != 0){	
 								for (var b = 0; b < response.distSearchCount.length; b++) {
-									alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-									$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
+									
+									$("#distrow").append("<h4 class=group_title1 style='position:absolute>"+a[b].split(":")[1]+"</h4>").trigger("create");
 									$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 								    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 								   														
@@ -156,8 +155,8 @@ background-color: red;
 				})
 				$("#five_km").click(function() {
 
-						alert("5km 입니다.");
-						alert($("#location-default").html());
+						
+					
 			      $("#distance-default").text("5km");
 			      
 					var val = pos.lat + ":" + pos.lng;
@@ -182,8 +181,8 @@ background-color: red;
 						var a = response.distSearchCount.toString().split(",");
 					if(response.distSearchCount.length != 0){	
 						for (var b = 0; b < response.distSearchCount.length; b++) {
-							alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");
+						
+							$("#distrow").append("<h4 class=group_title1 style='position:absolute>"+a[b].split(":")[1]+"</h4>").trigger("create");
 							$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 							$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 						   														
@@ -202,7 +201,7 @@ background-color: red;
 						});
 					})
 					$("#ten_km").click(function() {
-						alert("10km 입니다.");
+					
 						$("#distance-default").html("10km");
 						var val = pos.lat + ":" + pos.lng;
 						var dist = 10;
@@ -229,9 +228,9 @@ background-color: red;
 									var a = response.distSearchCount.toString().split(",");
 							if(response.distSearchCount.length != 0){
 									for (var b = 0; b < response.distSearchCount.length; b++) {
-										alert(a[b].split(":")[0] + "의 거리 " + a[b].split(":")[2]);
+										
 										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-										$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+										$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 										$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 									
 									}	
@@ -246,7 +245,7 @@ background-color: red;
 						});
 					})
 					$("#fifteen_km").click(function() {
-							alert("15km 입니다.");
+							
 							$("#distance-default").html("15km");
 							var val = pos.lat + ":" + pos.lng;
 							var dist = 15;
@@ -271,11 +270,11 @@ background-color: red;
 									var a = response.distSearchCount.toString().split(",");
 					if(response.distSearchCount.length != 0){
 					      for (var b = 0; b < response.distSearchCount.length; b++) {
-							alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
-							$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-							$("#distrow").append("<h5 style='position:absolute; z-index:100; top:1000px; padding-left:100px; left:600px; line-height:5;'>"+a[b].split(":")[3]+"</h5>").trigger("create");
+							
+							
 						    $("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
-						   					
+						    $("#distrow").after("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+							$("#distrow").after("<h5 style='position:absolute; z-index:100; top:1000px; padding-left:100px; left:600px; line-height:5;'>"+a[b].split(":")[3]+"</h5>").trigger("create");				
 															
 						}
 					}else{
@@ -293,144 +292,12 @@ background-color: red;
 					});
 					
 				});
-						$("#ten_km")
-								.click(
-										function() {
-											alert("10km 입니다.");
-											$("#distance-default")
-													.html(
-															"10km <span class=caret></span>");
-											var val = pos.lat + ":" + pos.lng;
-											var dist = 10;
-
-											$("#distrow").html("");
-											$(".img_size").html("");
-											$(".col-md4").html("");
-											$(".img_div").html("");
-											$("#distSearch2").html("");
-
-											$.ajax({
-														url : "distanceKm.group",
-														type : "get",
-														data : {
-															value : val,
-															distance : dist
-														},
-
-														success : function(
-																response) {
-															var a = response.distResult
-																	.toString()
-																	.split(",");
-
-															for (var b = 0; b < response.distResult.length; b++) {
-																alert(a[b]
-																		.split(":")[0]
-																		+ "의 거리 "
-																		+ a[b]
-																				.split(":")[2]);
-																$("#distrow")
-																		.append(
-																				"<h4 class=group_title1>"
-																						+ a[b]
-																								.split(":")[0]
-																						+ "</h4>")
-																		.trigger(
-																				"create");
-																$("#distrow")
-																		.append(
-																				"<img src=files/"
-																						+ a[b]
-																								.split(":")[2]
-																						+ " id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
-
-															}
-
-														},
-														error : function() {
-
-															console
-																	.log("에러 발생!");
-														},
-														complete : function() {
-															console.log("성공이건 실패건 어찌되었든 ajax 종료");
-														}
-
-													});
-										})
-						$("#fifteen_km").click(function() {
-											alert("15km 입니다.");
-											$("#distance-default")
-													.html(
-															"15km <span class=caret></span>");
-											var val = pos.lat + ":" + pos.lng;
-											var dist = 15;
-
-											$("#distrow").html("");
-											$(".img_size").html("");
-											$(".col-md4").html("");
-											$(".img_div").html("");
-											$("#distSearch2").html("");
-											$.ajax({
-														url : "distanceKm.group",
-														type : "get",
-														data : {
-															value : val,
-															distance : dist
-														},
-														success : function(
-																response) {
-
-															var a = response.distResult
-																	.toString()
-																	.split(",");
-
-															for (var b = 0; b < response.distResult.length; b++) {
-																alert(a[b]
-																		.split(":")[0]
-																		+ "의 거리 "
-																		+ a[b]
-																				.split(":")[2]);
-																$("#distrow")
-																		.append(
-																				"<h4 class=group_title1>"
-																						+ a[b]
-																								.split(":")[0]
-																						+ "</h4>")
-																		.trigger(
-																				"create");
-																$("#distrow")
-																		.append(
-																				"<img src=files/"
-																						+ a[b]
-																								.split(":")[2]
-																						+ " id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;>");
-
-															}
-
-														},
-														error : function() {
-
-															console
-																	.log("에러 발생!");
-														},
-														complete : function() {
-															console
-																	.log("성공이건 실패건 어찌되었든 ajax 종료");
-														}
-
-													});
-										})
-						$("#all_km").click(
-								function() {
-									alert("모든거리 입니다.");
-									$("#distance-default").html(
-											"모든거리 <span class=caret></span>");
-								})
+						
+				
 					
 					$("#all_km").click(
 						function() {
-						 alert("모든거리 입니다.");
+					
 						$("#distance-default").html("모든거리");
 						
 						var val = pos.lat + ":" + pos.lng;
@@ -456,9 +323,9 @@ background-color: red;
 								var a = response.distSearchCount.toString().split(",");
 					if(response.distSearchCount.length != 0){
 				      for (var b = 0; b < response.distSearchCount.length; b++) {
-						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+						
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
 					}
 					}else{
@@ -487,9 +354,9 @@ background-color: red;
 					$("#searchLocation").keyup(function(e){
 						
 						if(e.keyCode == 13){
-							alert($("#searchLocation").val());
+							
 							$("#location-default").html($("#searchLocation").val());
-							alert($("#distance-default").html());
+							
 						
 						
 						var val = pos.lat + ":" + pos.lng;
@@ -521,9 +388,9 @@ background-color: red;
 				if(response.distSearchCount.length != 0){
 					
 				      for (var b = 0; b < response.distSearchCount.length; b++) {
-						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+						
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");
 					   					
 														
@@ -545,9 +412,9 @@ background-color: red;
 						}	
 						});
 					
-					$("#eatout").click(function(){
+					$("#a1").click(function(){
 					   
-						alert($("#eatout").html());
+						
 						$("#search-input").val($("#eatout").html());
 						$("#navigation-list").hide();
 						var val = pos.lat + ":" + pos.lng;
@@ -573,9 +440,9 @@ background-color: red;
 								var a = response.distSearchCount.toString().split(",");
 					if(response.distSearchCount.length != 0){
 				      for (var b = 0; b < response.distSearchCount.length; b++) {
-						alert(a[b].split(":")[1] + "의 거리 " + a[b].split(":")[2]);
+						
 						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
-						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[3]+"</h4>").trigger("create");
+						$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
 						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
 					}
 					}else{
@@ -595,6 +462,59 @@ background-color: red;
 						
 						
 					});
+$("#a2").click(function(){
+					   
+						
+						$("#search-input").val($("#eatout").html());
+						$("#navigation-list").hide();
+						var val = pos.lat + ":" + pos.lng;
+						var dist = $("#distance-default").html();
+						var loc = $("#location-default").html();
+						var word =  $("#search-input").val();
+						$("#distrow").html("");
+						$(".img_size").html("");
+						$(".col-md4").html("");
+						$(".img_div").html("");
+						$("#distSearch2").html("");
+						$.ajax({
+								url : "distanceKm.group",
+							    type : "get",
+								data : {
+								   value : val,
+								   distance : dist,
+								   location : loc,
+								   word : word
+								},
+								success : function(response) {
+														
+								var a = response.distSearchCount.toString().split(",");
+					if(response.distSearchCount.length != 0){
+				      for (var b = 0; b < response.distSearchCount.length; b++) {
+					
+						$("#distrow").append("<h4 class=group_title1>"+a[b].split(":")[1]+"</h4>").trigger("create");	
+						$("#distrow").append("<h4 class=group_title1 style='position:absolute'>"+a[b].split(":")[3]+"</h4>").trigger("create");	
+						$("#distrow").append("<a href='groupMain.group?group_seq="+a[b].split(":")[0]+"&page=info'><img src=files/"+a[b].split(":")[2]+" id=imgTag class=img_size style=width:230px; vspace=30; hspace=40;></a>");									
+					}
+					}else{
+						alert("결과값이 없습니다.")
+						
+					}	
+				},
+				error : function() {
+
+					console.log("에러 발생!");
+				},
+				complete : function() {
+					console.log("성공이건 실패건 어찌되었든 ajax 종료");
+				}
+
+			    });
+						
+						
+					});
+						
+					
+
 						
 					
 
@@ -623,26 +543,26 @@ background-color: red;
 		<div class="col-xs-4">
 		  <a data-toggle="dropdown" aria-expanded="false"  font-size: medium; padding-left: 3"><input id="search-input" type="text" placeholder="전체 Meetup 이벤트" style="width: 270px; height: 34px;  border-radius: 5px;"></a>
 			<ul class="dropdown-menu" role="menu" style="position: absolute; z-index: 150; width: 900px">
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="eatout">기술</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="family">음악</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">모임</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">건강과 웰빙</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">가족</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">글쓰기</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">반려동물</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">북클럽</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">영화</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">예술</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">음식</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">취미와 공예</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">학습</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">패션과 스타일</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">스포츠</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">사진촬영</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">모임</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">비즈니스</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">북클럽</a></li>
-				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="">공상과학/게임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a1">기술</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a2">음악</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a3">모임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a4">건강과 웰빙</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a5">가족</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a6">글쓰기</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a7">반려동물</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a8">북클럽</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a9">영화</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a10">예술</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a11">음식</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a12">취미와 공예</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a13">학습</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a14">패션과 스타일</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a15">스포츠</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a16">사진촬영</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a17">모임</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a18">비즈니스</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a19">북클럽</a></li>
+				<li style="float: left; overflow: hidden; width:220px"><a href="#" id="a20">공상과학/게임</a></li>
 			</ul>
 			
 			
@@ -694,7 +614,7 @@ background-color: red;
 	<c:choose>
 		<c:when test="${isMyGroup == true}">
 			<div class="myMeetNow">
-				<p>내 MeetNow</p>
+				<p></p>
 
 				<div class="row" id="myMeet_row">
 					<c:forEach var="item" items="${myGroupList}" varStatus="status">
@@ -720,7 +640,7 @@ background-color: red;
 
 
 			<div id="recoMeetnow"">
-				<p id="pTag">추천 MeetNow</p>
+				<p id="pTag"></p>
 				<div class="row" id="distrow">
 					<c:forEach var="item" items="${groupList}">
 						<div class="col-md-4" id="distTitle">
@@ -745,7 +665,7 @@ background-color: red;
 		<c:otherwise>
 
 			<div id="recoMeetnow">
-				<p id="pTag">추천 MeetNow</p>
+				<p id="pTag"></p>
 				<div class="row" id="distrow">
 
 

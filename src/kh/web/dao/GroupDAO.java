@@ -973,5 +973,33 @@ public class GroupDAO {
 		return list;
 
 	}
+	public List<GroupDTO> findGroupList(String keyword) throws Exception{
+	       Connection con = DBUtils.getConnection();
+	       String sql ="select * from create_group where group_interests like ?";
+	       PreparedStatement pstat =con.prepareStatement(sql);
+	       pstat.setString(1, "%"+keyword+"%");
+	       
+	       ResultSet rs = pstat.executeQuery();
+	       List<GroupDTO> result = new ArrayList<>();
+	       
+	       while (rs.next()) {
+	         GroupDTO dto = new GroupDTO();
+	         dto.setGroup_seq(rs.getInt("group_seq"));
+	         dto.setGroup_leader(rs.getString("group_leader"));
+	         dto.setGroup_name(rs.getString("group_name"));
+	         dto.setGroup_location(rs.getString("group_location"));
+	         dto.setGroup_interests(rs.getString("group_interests"));
+	         dto.setGroup_info(rs.getString("group_info"));
+	         dto.setGroup_picture(rs.getString("group_picture"));
+
+	         result.add(dto);
+	      }
+
+	      con.close();
+	      rs.close();
+	      pstat.close();
+
+	      return result;
+	    }
 
 }
