@@ -420,7 +420,7 @@ public class MeetingDAO {
 		double latitude = Double.parseDouble(lat);
 		PreparedStatement pstat = null;
 		double longitude =Double.parseDouble(lng);
-		if(word.equals("")) {
+		if(word.equals("1")) {
 		sql = 
 		"select group_seq, group_name,meeting_lat,meeting_lng,meeting_location,meeting_start_time, to_char(meeting_start_time,'HH24:mi')as time from meeting where meeting_location like ? and meeting_start_time >= to_date(?,'YYYYMMDD') order by meeting_start_time";
 		pstat = con.prepareStatement(sql);
@@ -428,11 +428,12 @@ public class MeetingDAO {
 		pstat.setString(2, day);
 		}else {
 			sql = 
-		"select group_seq, group_name,meeting_lat,meeting_lng,meeting_location,meeting_start_time, to_char(meeting_start_time,'HH24:mi')as time from meeting where meeting_location like ? and group_interests like ? and meeting_start_time >= to_date(20180709,'YYYYMMDD') order by meeting_start_time";
+		"select meeting.group_seq, meeting.group_name,meeting.meeting_lat,meeting.meeting_lng,meeting.meeting_location,meeting.meeting_start_time, to_char(meeting.meeting_start_time,'HH24:mi')as time, create_group.GROUP_INTERESTS from meeting, create_group where meeting_location like ? and meeting_start_time >= to_date(?,'YYYYMMDD') and create_group.GROUP_SEQ = meeting.GROUP_SEQ and create_group.GROUP_INTERESTS = ? order by meeting_start_time";
 		pstat = con.prepareStatement(sql);
 		pstat.setString(1, "%" + city + "%");
-		pstat.setString(2, word);
-		pstat.setString(3, day);
+		pstat.setString(2, day);
+		pstat.setString(3, word);
+		
 		}
 		
 		ResultSet rs = pstat.executeQuery();
@@ -450,7 +451,7 @@ public class MeetingDAO {
 			double dbMeetingLng = Double.parseDouble(rs.getString("meeting_lng"));
 			Date dbMeetingDate = rs.getDate("meeting_start_time");
 			String dbMeetingLocation = rs.getString("meeting_location");
-			
+			Date dbTime = rs.getDate("time");
 			double theta = longitude - dbMeetingLng;
 			double dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(dbMeetingLat)) + Math.cos(deg2rad(latitude))
 			*Math.cos(deg2rad(dbMeetingLat)) * Math.cos(deg2rad(theta));
@@ -463,19 +464,19 @@ public class MeetingDAO {
 			System.out.println("계산된 거리 : " + dist);
 			
 			if(dist <= 5) {
-				fiveList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+				fiveList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate + ":" + dbTime);
 				
 			}
 			if(dist <= 10) {
-				tenList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+				tenList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate + ":" + dbTime);
 				
 			}
 			if(dist <= 15) {
-				fifteenList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+				fifteenList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate + ":" + dbTime);
 			
 			}
 			if(dist != 0) {
-				allList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate);
+				allList.add(dbGroupSeq+":"+dbGroupName +":"+ dbMeetingLocation + ":" + dbMeetingDate + ":" + dbTime);
 			}
 			
 		}
