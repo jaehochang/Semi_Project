@@ -73,7 +73,7 @@
 			font-family: sans-serif;
 		}
 		#myList{
-			margin-top: 10px;
+			margin-top: 18px;
 		}
 		#datepicker{
 			margin-top: 37px;
@@ -84,16 +84,18 @@
 		}
 
 		#printlist{
-			margin-top: 10px;
+			margin-top: 18px;
 			margin-left: 125px;
-			width: 300px;
-			background-color: gray;
+			margin-right: 1px;
+			width: 500px;
+			background-color: #D8D8D8;
 		}
 		#myList{
-			margin-right: 70px;
+			margin-right: 29px;
+			margin-left: 1px;
 		}
 		.list-group{
-			margin-left: 13px;
+			margin-left: 20px;
 			width: 255px;
 		}
 </style>
@@ -168,8 +170,9 @@
 		</div>
 	</div>
 
-<div class="container">
-	<div class="row">
+<div class="container" >
+	<div class="row" style="text-align:center; margin: 0 auto;">
+	
 	    <div class="col-8 col-md-8 col-sm-8" id="printlist" ></div>
 		<div class="col-4 col-md-4 col-sm-4 pull-right" id="myList" role="tablist">
 		<div class="list-group" id="choice" >
@@ -247,11 +250,9 @@
 	</div>
 
 
-	<footer>
-
+	
 		<%@ include file="include/bottom.jsp"%>
 
-	</footer>
 
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -359,9 +360,9 @@
 				  	   
 						}
 				  	  }else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-						 );
+				  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+								 );
 				  	  }
 			},
 			error:function(request,status,error){
@@ -410,9 +411,9 @@
 					  	   
 							}
 					  	  }else{
-					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-							 );
+					  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+									 );
 					  	  }
 				},
 				error:function(request,status,error){
@@ -462,9 +463,9 @@
 						}
 						
 					  }else{
-					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-							);
+						  $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+									 );
 					  	  }
 						
 				},
@@ -515,9 +516,9 @@
 						}
 						
 					  }else{
-					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-							);
+						  $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+									 );
 					  	  }	
 						
 				},
@@ -576,9 +577,9 @@
 						}
 						
 					}else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-						);
+						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+								 );
 				  	  }	
 				},
 				error:function(request,status,error){
@@ -626,9 +627,9 @@
 					  	   
 							}
 					  	  }else{
-					  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-							 );
+					  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+									 );
 					  	  }
 				},
 				error:function(request,status,error){
@@ -678,9 +679,9 @@
 						}
 						
 					}else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-						);
+						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+								 );
 				  	  }	
 				},
 				error:function(request,status,error){
@@ -730,9 +731,9 @@
 						}
 						
 					}else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-						);
+						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+								 );
 				  	  }	
 				},
 				error:function(request,status,error){
@@ -788,9 +789,9 @@
 					}
 					
 				}else{
-			  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-			  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-					);
+					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+							 );
 			  	  }		
 					
 			},
@@ -843,9 +844,9 @@
 					}
 					
 				}else{
-			  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-			  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-					);
+					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+							 );
 			  	  }		
 			},
 			error:function(request,status,error){
@@ -897,9 +898,9 @@
 					}
 					
 				}else{
-			  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-			  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-					);
+					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+							 );
 			  	  }		
 			},
 			error:function(request,status,error){
@@ -949,9 +950,9 @@
 				  	   
 						}
 				  	  }else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>"+"<div>"+"</div>" +"</div>"+"</div>"
-						 );
+				  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
+								 );
 				  	  }
 			},
 			error:function(request,status,error){
