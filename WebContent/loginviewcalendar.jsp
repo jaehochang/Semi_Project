@@ -89,6 +89,7 @@
 			margin-right: 1px;
 			width: 500px;
 			background-color: #D8D8D8;
+				
 		}
 		#myList{
 			margin-right: 29px;
@@ -97,7 +98,27 @@
 		.list-group{
 			margin-left: 20px;
 			width: 255px;
+			
 		}
+		
+		.dayby{
+			font-weight: bold;
+			text-align: left;
+		}
+	
+		.block{
+			border: 3px solid black;
+		}
+		.timehour{
+			font-weight: bold;
+			text-align: left;
+			float: left;
+		}
+		.groupname{
+			font-size: 20px;	
+			vertical-align: middle;
+		}
+		
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
@@ -287,17 +308,17 @@
 						if(i>0){
 						  	
 						  	   if(response[i].date == response[i-1].date){
-						  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+									  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block >"
+						  				 +"<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 						  	   }
 						 
@@ -344,23 +365,23 @@
 				  	   
 				  	   if(i>0){
 					  	   if(response[i].date == response[i-1].date){
-					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+									  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+					  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
-				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+				  		 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 						 );
 				  	   }
 				  	   
 						}
 				  	  }else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 								 );
 				  	  }
@@ -395,23 +416,23 @@
 					  	   
 					  	   if(i>0){
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  		 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							 );
 					  	   }
 					  	   
 							}
 					  	  }else{
-					  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 									 );
 					  	  }
@@ -446,24 +467,24 @@
 					  	   if(i>0){
 					  	
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 					  	
 						}
 						
 					  }else{
-						  $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 									 );
 					  	  }
@@ -499,24 +520,24 @@
 					  	   if(i>0){
 					  	
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 					  	
 						}
 						
 					  }else{
-						  $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						  $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 									 );
 					  	  }	
@@ -560,24 +581,24 @@
 					  	   if(i>0){
 					  	
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 					  	
 						}
 						
 					}else{
-						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 								 );
 				  	  }	
@@ -611,23 +632,23 @@
 					  	   
 					  	   if(i>0){
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  		 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							 );
 					  	   }
 					  	   
 							}
 					  	  }else{
-					  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 							  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 									 );
 					  	  }
@@ -662,24 +683,24 @@
 					  	   if(i>0){
 					  	
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 					  	
 						}
 						
 					}else{
-						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 								 );
 				  	  }	
@@ -714,24 +735,24 @@
 					  	   if(i>0){
 					  	
 						  	   if(response[i].date == response[i-1].date){
-						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-										  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+						  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+										  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 										  	 );
 						  	   }else{
-						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-						  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+						  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+						  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 									  	 );
 						  	   }
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-					  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+					  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 					  	
 						}
 						
 					}else{
-						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+						 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 								 );
 				  	  }	
@@ -772,24 +793,24 @@
 				  	   
 				  	   if(i>0){
 					  	   if(response[i].date == response[i-1].date){
-					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+									  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+					  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
-				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+				  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
 				  	   
 					}
 					
 				}else{
-					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 					  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 							 );
 			  	  }		
@@ -827,24 +848,24 @@
 				  	   if(i>0){
 				  	
 					  	   if(response[i].date == response[i-1].date){
-					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+									  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"
+					  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
-				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+				  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
 				  	
 					}
 					
 				}else{
-					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 					  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 							 );
 			  	  }		
@@ -881,24 +902,24 @@
 				  	   if(i>0){
 				  	
 					  	   if(response[i].date == response[i-1].date){
-					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading block>"+"<div class=timehour>"+hour+"</div>"  
+									  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default >"+"<div class=panel-heading block>"
+					  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
-				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  				 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
+				  				 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 							  	 );
 				  	   }
 				  	
 					}
 					
 				}else{
-					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+					 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading block>"+
 					  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 							 );
 			  	  }		
@@ -934,23 +955,23 @@
 				  	   
 				  	   if(i>0){
 					  	   if(response[i].date == response[i-1].date){
-					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default>"+"<div class=panel-heading>"+"<div>"+hour+"</div>"  
-									  	   +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
+					  			 $("#printlist").html($("#printlist").html()+"<div class=panel panel-default block>"+"<div class=panel-heading>"+"<div class=timehour>"+hour+"</div>"  
+									  	   +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>"+"</div>"+"</div>"
 									  	 );
 					  	   }else{
-					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"
-					  				 +"<div>"+hour+"</div>" +"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+					  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default block>"+"<div class=panel-heading>"
+					  				 +"<div class=timehour>"+hour+"</div>" +"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 								  	 );
 					  	   }
 				  	   }else{
-				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
-				  		 "<div>"+hour+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
+				  		 $("#printlist").html($("#printlist").html()+ "<div class=dayby>"+day+"</div>"+"<div class=panel panel-default block>"+"<div class=panel-heading>"+
+				  		 "<div class=timehour>"+hour+"</div>"+"<div class=groupname>"+"<a href=meeting.meet?seq="+seq+">"+group+"</a>"+"</div>"+"<div>"+"<a href=meeting.meet?seq="+seq+">"+title+"</a>"+"</div>"+"<div>"+location+"</div>" +"</div>"+"</div>"
 						 );
 				  	   }
 				  	   
 						}
 				  	  }else{
-				  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default>"+"<div class=panel-heading>"+
+				  		 $("#printlist").html($("#printlist").html()+"<div class=dayby>"+"</div>"+"<div class=panel panel-default block>"+"<div class=panel-heading>"+
 						  		 "<div>"+"</div>"+"<div>"+"</div>"+"<div>"+"<h3>"+"해당하는 일치하는 값이 없습니다"+"</h3>"+"</div>" +"</div>"+"</div>"
 								 );
 				  	  }
