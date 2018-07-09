@@ -362,6 +362,8 @@ public class GroupController extends HttpServlet {
 					
 				
 				request.setCharacterEncoding("UTF-8");
+                groupContents=groupContents.replace("\r\n", "<br>");
+                int seq = dao.seq();
 	            String loginId = (String)request.getSession().getAttribute("loginId");
 	            String memberName = request.getParameter("member_name");
 	            String location = (String) request.getParameter("location");

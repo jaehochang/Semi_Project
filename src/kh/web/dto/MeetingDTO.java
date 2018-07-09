@@ -124,25 +124,25 @@ public class MeetingDTO {
 		this.meeting_picture = meeting_picture;
 	}
 
-	public String getMeeting_lat() {
-		return meeting_lat;
-	}
+public void setMeeting_picture(String meeting_picture) {
+	this.meeting_picture = meeting_picture;
+}
 
-	public void setMeeting_lat(String meeting_lat) {
-		this.meeting_lat = meeting_lat;
-	}
+public String getMeeting_lat() {
+	return meeting_lat;
+}
 
-	public String getMeeting_lng() {
-		return meeting_lng;
-	}
+public void setMeeting_lat(String meeting_lat) {
+	this.meeting_lat = meeting_lat;
+}
 
-	public void setMeeting_lng(String meeting_lng) {
-		this.meeting_lng = meeting_lng;
-	}
+public String getMeeting_lng() {
+	return meeting_lng;
+}
 
-	public String getMember_email() {
-		return member_email;
-	}
+public void setMeeting_lng(String meeting_lng) {
+	this.meeting_lng = meeting_lng;
+}
 
 	public void setMember_email(String member_email) {
 		this.member_email = member_email;

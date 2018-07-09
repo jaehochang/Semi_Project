@@ -1,7 +1,8 @@
 package kh.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,22 +10,40 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import kh.web.dao.GroupDAO;
 import org.json.simple.JSONObject;
 
 import kh.web.dao.AdminDAO;
 import kh.web.dao.GroupDAO;
 import kh.web.dao.MemberDAO;
+import kh.web.dao.TagDAO;
 import kh.web.dto.MemberDTO;
 import kh.web.dto.SnsDTO;
+import kh.web.dto.TagDTO;
 import kh.web.utils.PwFinder;
 
 @WebServlet("*.co")
 public class MemberController extends HttpServlet {
+	Gson igson = new Gson();
+	JsonObject ijson = new JsonObject();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		try {
+			String requestURI = request.getRequestURI();
+			String contextPath = request.getContextPath();
+			String command = requestURI.substring(contextPath.length());
+			HttpSession session = request.getSession();
+			request.setCharacterEncoding("utf8");
+			response.setCharacterEncoding("utf8");
+			GroupDAO gdao = new GroupDAO();
 		try {
 			String requestURI = request.getRequestURI();
 			String contextPath = request.getContextPath();
@@ -36,6 +55,7 @@ public class MemberController extends HttpServlet {
 			System.out.println(command);
 			AdminDAO adao = new AdminDAO();
 			MemberDAO dao = new MemberDAO();
+			TagDAO tdao = new TagDAO();
 			boolean isAjax = false;
 			GroupDAO gDAO = new GroupDAO();
 
@@ -238,6 +258,11 @@ public class MemberController extends HttpServlet {
 				MemberDTO accntInfo = mDAO.getAccountInfo(snsId, loginId);
 				System.out.println("getAccountInfo 에서 나옴 : " + 1);
 
+				String[] interests = accntInfo.getMember_interests().split(",");
+				String payCheck = gdao.payCheck(loginId);
+                if(interests==null) {
+                	return;
+                }
 				// if (accntInfo == null) {
 				// isRedirect = true;
 				// dst = "login.jsp";

@@ -67,7 +67,6 @@
 <script language="javascript"
    src="http://connect.facebook.net/ko_KR/all.js"></script>
 
-
 </head>
 <body>
 
@@ -106,10 +105,10 @@
 								style="background-color:grey;"
 								onclick="window.location.href='login.jsp'">로그인하기</button>
 
-						</div>
-					</div>
-				</div>
-			</div>
+                  </div>
+               </div>
+            </div>
+         </div>
 
 			<script type="text/javascript">
 				$("#emailFindingSuccess").modal('show');
@@ -382,8 +381,8 @@
             style="border-bottom: 1px solid #ddd;">
             <form action="login.co" method=post>
 
-				<br>
-				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
+            <br>
+            <p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
                <button id=loginCheck class="btn btn-default btn-block"
                   style="font-size: 15px;">로그인</button>
@@ -506,6 +505,10 @@
 											Kakao
 													.init('9ac6c0be14b569c5fddc7ad7348d2ef7');
 
+               <script>
+                  $("#kakao-signUp-btn-main")
+                        .click(
+                              function() {
 
 
 
@@ -517,6 +520,8 @@
 
 
 
+                                                         if (regex
+                                                               .test(kakaoEmail)) {
 
                <div>
                   <%@ include file="signUpWithKakao.jsp"%>
