@@ -110,6 +110,7 @@
 
 
 		</c:when>
+		
 		<c:when test="${requestScope.emailRspSuccess==false}">
 
 			<div id="emailFindingFailure" class="modal fade">
@@ -138,8 +139,8 @@
 			<script type="text/javascript">
 				$("#emailFindingFailure").modal('show');
 			</script>
-
 		</c:when>
+
 
 
 		<c:when test="${requestScope.kakaoIdAlreadyExist==true}">
@@ -164,7 +165,7 @@
 							<button class="btn btn-success btn-block" data-dismiss="modal"
 								data-dismiss="modal" style="background-color: grey;"
 								style="background-color:grey;"
-								onclick="window.location.href='interestPage.jsp'">둘러보기</button>
+								onclick="window.location.href='index.jsp'">계속</button>
 
 						</div>
 					</div>
@@ -188,7 +189,6 @@
 						<div class="modal-header">
 							<div class="icon-box">
 								<i class="material-icons">&#xE876;</i>
-
 							</div>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
@@ -198,7 +198,7 @@
 							<p>로그인에 성공하였습니다.</p>
 							<button class="btn btn-success btn-block" data-dismiss="modal"
 								style="background-color: grey;"
-								onclick="window.location.href='interestPage.jsp'">둘러보기</button>
+								onclick="window.location.href='index.jsp'">둘러보기</button>
 						</div>
 					</div>
 				</div>
@@ -213,7 +213,6 @@
 
 
 		<c:when test="${requestScope.signUpSuccess==true}">
-
 
 			<div id="loginSuccessModal" class="modal fade">
 				<div class="modal-dialog modal-confirm">
@@ -239,7 +238,6 @@
 			<script type="text/javascript">
 				$("#loginSuccessModal").modal('show');
 			</script>
-
 
 		</c:when>
 
@@ -285,11 +283,6 @@
 
 
 		<c:when test="${requestScope.loginResult==false}">
-
-
-
-
-
 			<!-- Login Failure Modal -->
 			<div id="loginFailModal" class="modal fade">
 				<div class="modal-dialog modal-confirm">
@@ -306,7 +299,6 @@
 							<p>회원정보가 올바르지 않습니다!</p>
 							<button class="btn btn-success btn-block" data-dismiss="modal"
 								onclick="$(this).modal('toggle');">다시 로그인</button>
-
 						</div>
 					</div>
 				</div>
@@ -315,9 +307,6 @@
 			<script type="text/javascript">
 				$("#loginFailModal").modal('show');
 			</script>
-
-
-
 		</c:when>
 
 
@@ -341,6 +330,7 @@
 			<div id=loginheader style="margin-bottom: 15px;">
 				<h2>로그인</h2>
 			</div>
+		
 			<div id=loginbody class="panel-body"
 				style="border-bottom: 1px solid #ddd;">
 				<form action="login.co" method=post>
@@ -359,12 +349,10 @@
 					</div>
 
 					<button id=loginCheck class="btn btn-default btn-block"
-						style="font-size: 15px;">로그인</button>
+						style="font-size: 15px;margin-bottom: 5px;">로그인</button>
 				</form>
 
 <!-- SNS 로그인 시작 -->
-				<br>
-				<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
 					<!-- 					<button id=emailFind class="btn btn-default btn-block" -->
 					<!-- 						style="font-size: 15px;">이메일 찾기</button> -->
@@ -399,7 +387,6 @@
 
 
 								<div class="modal-body">
-
 									<label for=email-input style="margin-bottom:15px">입력한 메일로 비밀번호가 전송 됩니다.</label>
 									<form id=pwFinderForm method=post action="pwFinder.co">
 										<input id="email-input" class=form-control name=finder-email
@@ -429,19 +416,13 @@
 			<br>
 			<p style="text-align: center">또는 SNS로 로그인하세요.</p>
 
-			<div id=snsLoginBtns style="margin: 0 auto; width: 100%;">
-
-
-
+			<div id=snsLoginBtns style="margin: 0 auto; width: 45%;margin-bottom:25px;">
 
 				<div>
 					<%@ include file="signUpWithKakao.jsp"%>
 					<%@ include file="signUpWithFaceBook.jsp"%>
 					<%@ include file="signUpWithGoogle.jsp"%>
-
 				</div>
-
-
 
 				<!-- 이메일로 회원가입 -->
 
@@ -533,71 +514,6 @@
 				</script>
 			</div>
 		</div>
-	</div>
-	</div>
-	<!-- SNS 로그인 API 밑 버튼 끝  -->
-
-
-
-	<!-- 	<!-- 아이디 비밀번호입력칸 공백일때 뜨는 모달창 -->
-	<!-- 	<div class="modal fade" id="emptyinput"> -->
-	<!-- 		<div class="modal-dialog"> -->
-	<!-- 			<div class="modal-content"> -->
-	<!-- 				<div class="modal-header"> -->
-	<!-- 					<button type="button" class="close" data-dismiss="modal" -->
-	<!-- 						aria-label="Close"> -->
-	<!-- 						<span aria-hidden="true">&times;</span> -->
-	<!-- 					</button> -->
-	<!-- 					<h4 class="modal-title">로그인</h4> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="modal-body" style="text-align: center;"> -->
-	<!-- 					<p>아이디와 비밀번호를 입력해주세요.</p> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="modal-footer"> -->
-	<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
-
-	<!-- 	<div class="modal fade" id="loginblock"> -->
-	<!-- 		<div class="modal-dialog"> -->
-	<!-- 			<div class="modal-content"> -->
-	<!-- 				<div class="modal-header"> -->
-	<!-- 					<button type="button" class="close" data-dismiss="modal" -->
-	<!-- 						aria-label="Close"> -->
-	<!-- 						<span aria-hidden="true">&times;</span> -->
-	<!-- 					</button> -->
-	<!-- 					<h4 class="modal-title">로그인</h4> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="modal-body" style="text-align: center;"> -->
-	<!-- 					<p>아이디와 비밀번호를 입력해주세요.</p> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="modal-footer"> -->
-	<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
-	<!-- 	<div class="modal fade" id="blockid"> -->
-	<!-- 		<div class="modal-dialog"> -->
-	<!-- 			<div class="modal-content"> -->
-	<!-- 				<div class="modal-header"> -->
-	<!-- 					<button type="button" class="close" data-dismiss="modal" -->
-	<!-- 						aria-label="Close"> -->
-	<!-- 						<span aria-hidden="true">&times;</span> -->
-	<!-- 					</button> -->
-	<!-- 					<h4 class="modal-title">정지당한 아이디입니다.</h4> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="modal-body" style="text-align: center;"> -->
-	<!-- 					<p id="modaltext">신고로 인해 정지당한 아이디입니다.</p> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="modal-footer"> -->
-	<!-- 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
 
 
 	<script>

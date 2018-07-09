@@ -226,13 +226,6 @@ body {
                </div>
             </div>
          
-<%--             <c:choose> --%>
-<%--             <c:when test="${status.count%3==0}"> --%>
-<!--       			</div> -->
-<!--          		</div> -->
-<%--       		</c:when> --%>
-      		
-<%--       		</c:choose> --%>
       		</c:forEach>
           
         </div>

@@ -1,7 +1,6 @@
 package kh.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,11 +52,10 @@ public class MemberController extends HttpServlet {
 					request.setAttribute("pw", pw);
 
 					isRedirect = false;
-
 					dst = "loginview.jsp";
 
 				} else {
-
+					
 				}
 
 			} else if (command.equals("/isThisFbIdRegistered.co")) {
@@ -155,13 +153,13 @@ public class MemberController extends HttpServlet {
 
 						System.out.println(result);
 
-						if (result) { // 최초 가입 성공시 - index로 세션 담아 보내주기
+						if (result) { // 최초 가입 성공시 - login.jsp로 세션 담아 보내주기
 
 							isRedirect = false;
 							request.getSession().setAttribute("loginId", kakaoEmail);
 							request.getSession().setAttribute("snsId", kakaoId);
 
-							request.setAttribute("loginSuccess", true);
+							request.setAttribute("signUpSuccess", true);
 							dst = "login.jsp";
 
 							System.out.println(5);
@@ -197,14 +195,15 @@ public class MemberController extends HttpServlet {
 
 				if (result) {
 					request.getSession().setAttribute("loginId", memberEmail);
+					request.setAttribute("loginSuccess",true);
 					boolean isMyGroup = mDAO.isMyGroup(memberEmail);
 
 					request.setAttribute("isMyGroup", isMyGroup);
 					System.out.println("membercontroller 값 : " + isMyGroup);
-
-					dst = "list.group";
+					dst = "login.jsp";
+					
 				} else {
-					request.setAttribute("loginResult", result);
+					request.setAttribute("loginResult", false);
 					dst = "login.jsp";
 				}
 
@@ -235,9 +234,7 @@ public class MemberController extends HttpServlet {
 				}
 
 				String payCheck = gDAO.payCheck(loginId);
-
 				try {
-
 					System.out.println("/accntInfo.getMember_picture() : " + accntInfo.getMember_picture());
 
 					if ((accntInfo.getMember_picture().equals("null")) || (accntInfo.getMember_picture() == null)) {
@@ -298,20 +295,18 @@ public class MemberController extends HttpServlet {
 				boolean emailDplRslt = mDAO.isThisEmailExist(dto.getMember_email());// 이메일 중복 검사 실시
 
 				if (emailDplRslt) { // 있으면 return true 존재한다고 보내기?
-
+					
 					request.setAttribute("emailExist", true);
 					dst = "login.jsp";
 
 				} else { // 없는 경우 signUp 시키기
 
 					boolean result = mDAO.signUpApply(dto);
-
 					if (result) {
-
-						request.setAttribute("loginId", memberEmail);
+						
+						request.getSession().setAttribute("loginId", memberEmail);
 						request.setAttribute("signUpSuccess", true);
 						dst = "login.jsp";
-
 					} else {
 						dst = "signUpFailure.jsp";
 

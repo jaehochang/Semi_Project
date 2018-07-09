@@ -74,7 +74,11 @@ public class interestsController extends HttpServlet {
 					/* Set<String> dbCheckedList = (HashSet) session.getAttribute("checkedList"); */
 
 					for (String tmp : storedInterests) {
-						checkedList.add(tmp);
+						
+						if(tmp.equals("null") || tmp.equals("")) {
+							checkedList.add(tmp);
+							System.out.println("tmp : " + tmp);
+						}
 					}
 					Set<String> sessionCheckedList = (HashSet) session.getAttribute("checkedList");
 

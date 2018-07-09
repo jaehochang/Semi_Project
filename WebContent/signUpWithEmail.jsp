@@ -48,9 +48,6 @@
 					location.href = "main.jsp";
 				}, 3000)
 			</script>
-
-
-
 		</c:when>
 
 		<c:when test="${requestScope.id == null}">

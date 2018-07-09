@@ -12,7 +12,7 @@
 	<c:when test="${sessionScope.loginId != null}">
 
 		<nav>
-			<a href="index.jsp"><img src="https://i.imgur.com/axIYcKj.png"
+			<a href="index.jsp" class="animated wobble"><img src="https://i.imgur.com/axIYcKj.png" 
 				style="height: 50px; width: 150px;"></a>
 
 			<ul id=nav-ul style="width: 200px;">
@@ -40,8 +40,8 @@
 
 		<nav>
 
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
-				class="animated wobble" style="height: 50px; width: 150px;"></a>
+			<a href="main.jsp" class="animated wobble"><img src="https://i.imgur.com/axIYcKj.png"
+				 style="height: 50px; width: 150px;"></a>
 
 			<ul id=nav-ul style="width: 200px;">
 
@@ -63,8 +63,8 @@
 	<c:when test="${sessionScope.loginId == null }">
 
 		<nav>
-			<a href="main.jsp"><img src="https://i.imgur.com/axIYcKj.png"
-				class="animated fadeInLeft" style="height: 50px; width: 150px;"></a>
+			<a href="main.jsp" class="animated fadeInLeft"><img src="https://i.imgur.com/axIYcKj.png"
+				style="height: 50px; width: 150px;"></a>
 
 			<ul id=nav-ul class="fadeInRight animated" style="width: 290px;">
 				<li><a href="createRequest.group">새 그룹 시작하기</a>

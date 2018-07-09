@@ -274,13 +274,11 @@ if(${requestScope.infoUpdateSuccess==true}){
    $('#centralModalSuccess').modal('show');
    
 }else{
-
-   
-   
 }
          
-         
 </script>
+
+
 		</c:when>
 		<c:when test="${requestScope.infoUpdateSuccess==false}">
 			<!-- 담당자에게 문의하세요 -->
@@ -296,7 +294,7 @@ location.href="Oops.jsp";
 
 	<div id="profilebox" style="box-shadow: none;">
 
-		<div id=profilebody
+		<div id=profilebody class="animated fadeInLeft"
 			style="box-shadow: none; text-align: center; width: 450px;">
 
 
@@ -306,234 +304,233 @@ location.href="Oops.jsp";
 			<hr>
 
 			<!-- 프로필 사진 -->
-			<div id=imgbox
-				style="margin-bottom: 50px;">
-				<img src="${userPicture}" id="memPic"
+			<div id=imgbox style="margin-bottom: 50px;">
+				<img src="${requestScope.userPicture}" id="memPic"
 					style="height: 180px; width: 180px; display: block; margin: 0 auto; border-radius: 150px">
 
 			</div>
-			
+
 			<!-- 			프로필 사진 에딧 버튼 -->
-<!-- 			<div> -->
-<!-- &lt;!-- 				&lt;form action="upload.file?group_seq=0&amp;page=mypage" method="post" -'-> -->
-				<!-- 					id="writeForm" enctype="multipart/form-data"> -->
-				<!-- 					<input type="file" id="file" name="file" -->
-				<!-- 						onchange="this.form.submit()" style="display: none;" /> -->
-				<!-- 					<button type="button" class="btn btn-secondary" -->
-				<!-- 						style="width: auto; height: auto; background-color: #f7f7f7; color: black;" -->
-				<!-- 						id="btn-upload"> -->
-				<!-- 												<img src="img/photo.png" style="width: 20px; padding-right: 3px;"> -->
-				<!-- 						Edit -->
-				<!-- 					</button> -->
-				<!-- 				</form> -->
-				<!-- 			</div> -->
+			<!-- 			<div> -->
+			<!-- &lt;!-- 				&lt;form action="upload.file?group_seq=0&amp;page=mypage" method="post" -'-> -->
+			<!-- 					id="writeForm" enctype="multipart/form-data"> -->
+			<!-- 					<input type="file" id="file" name="file" -->
+			<!-- 						onchange="this.form.submit()" style="display: none;" /> -->
+			<!-- 					<button type="button" class="btn btn-secondary" -->
+			<!-- 						style="width: auto; height: auto; background-color: #f7f7f7; color: black;" -->
+			<!-- 						id="btn-upload"> -->
+			<!-- 												<img src="img/photo.png" style="width: 20px; padding-right: 3px;"> -->
+			<!-- 						Edit -->
+			<!-- 					</button> -->
+			<!-- 				</form> -->
+			<!-- 			</div> -->
 
-				<!--  -->
+			<!--  -->
 
-				<!-- 프로필 내용  -->
-				<div id="profile-list">
+			<!-- 프로필 내용  -->
+			<div id="profile-list">
 
-					<table style="padding-left: 35px;">
-						<tr>
-							<td style="font-size: 25px; color: darkgray;">LOCATION
-							<td
-								style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userLocation}
-						<tr>
-							<td style="font-size: 25px; color: darkgray;">GENDER
-							<td
-								style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userGender}
-						<tr>
-							<td style="font-size: 25px; color: darkgray;">AGE
-							<td
-								style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userAge}
-						<tr>
-							<td style="font-size: 25px; color: darkgray;">EMAIL
-							<td
-								style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userEmail}
-						<tr>
-							<td style="font-size: 25px; color: darkgray;">SUBSCRIBED
-							<td
-								style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.payCheck}
-					</table>
-
-
-				</div>
-
+				<table style="padding-left: 35px;">
+					<tr>
+						<td style="font-size: 25px; color: darkgray;">LOCATION
+						<td
+							style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userLocation}
+					<tr>
+						<td style="font-size: 25px; color: darkgray;">GENDER
+						<td
+							style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userGender}
+					<tr>
+						<td style="font-size: 25px; color: darkgray;">AGE
+						<td
+							style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userAge}
+					<tr>
+						<td style="font-size: 25px; color: darkgray;">EMAIL
+						<td
+							style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.userEmail}
+					<tr>
+						<td style="font-size: 25px; color: darkgray;">SUBSCRIBED
+						<td
+							style="font-size: 20px; padding-left: 25px; border-bottom: 0.5px solid #ddd">${requestScope.payCheck}
+				</table>
 
 
 			</div>
 
-			<div class="modal fade" id="modalContactForm" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+
+
+		</div>
+
+		<div class="modal fade" id="modalContactForm" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100 font-weight-bold">회원정보 수정</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<form action="updateUserInfo.co" method=post>
+						<div class="modal-body mx-3">
+							<div class="md-form mb-5">
+								<br> <i class="fa fa-user prefix grey-text"></i> <input
+									type="text" id="form34" class="form-control validate"
+									name="member_name" pattern="[가-힣]{2,10}"> <label
+									data-error="한글만 입력해주세요." data-success="O.K" for="form34">이름</label>
+							</div>
+
+							<div class="md-form mb-5">
+								<br> <i class="fa fa-location-arrow prefix grey-text"
+									aria-hidden="true"></i> <input type="text" id="form29"
+									class="form-control validate" pattern="[가-힣]{2,10}"
+									name=member_location> <label data-error="올바른 입력이 아닙니다."
+									data-success="O.K" for="form29">지역</label>
+							</div>
+
+							<div class="md-form mb-5">
+								<br> <i class="fa fa-transgender prefix grey-text"
+									aria-hidden="true"></i> <input type="text" id="form24"
+									class="form-control validate" pattern="[가-힣]{1,2}"
+									name=member_gender> <label data-error="올바른 입력이 아닙니다."
+									data-success="O.K" for="form24">성별</label>
+							</div>
+							<div class="md-form mb-5">
+								<br> <i class="fa fa-birthday-cake prefix grey-text"
+									aria-hidden="true"></i> <input type="number" id="form32"
+									pattern="[0-9]{1,3}" class="form-control validate"
+									name=member_age> <label
+									data-error="올바른 입력이 아닙니다. 숫자만 입력해주세요." data-success="O.K"
+									for="form32">나이</label>
+							</div>
+
+
+
+						</div>
+						<div class="modal-footer d-flex justify-content-center">
+							<button id=info-change-btn
+								class="btn btn-secondary btn-rounded mb-4 rgba-purple-strong waves-effect waves-light">
+								바꾸기<i class="fa fa-paper-plane-o ml-1"></i>
+							</button>
+
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 관심사 수정 -->
+		<form method="post" id="modifyInterests" action="modifyInterests.co">
+			<div class="modal fade" id="interestsModal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalCenterTitle"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<div class="modal-header text-center">
-							<h4 class="modal-title w-100 font-weight-bold">회원정보 수정</h4>
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle"
+								style="font-weight: bold;">관심사 수정</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
+						<div class="modal-body" style="height: auto">
+							<input id="tagText" type="text" style="width: 150px;"
+								class="form-control" placeholder="예:스포츠 " required>
+							<!-- <a class="disabled" href="javascript:void(0)" style="text-decoration: none;">*초기 관심사 값은 삭제 할 수 없습니다</a>    -->
+							<input type="hidden" id="hiddenTag" name="hiddenTag"> <br>
+							<div class="btn-group" data-toggle="buttons" id="printTerm1"
+								style="width: auto; height: auto"></div>
+							<div class="btn-group" data-toggle="buttons" id="printTerm2"
+								style="width: auto; height: auto"></div>
 
-						<form action="updateUserInfo.co" method=post>
-							<div class="modal-body mx-3">
-								<div class="md-form mb-5">
-									<br> <i class="fa fa-user prefix grey-text"></i> <input
-										type="text" id="form34" class="form-control validate"
-										name="member_name" pattern="[가-힣]{2,10}"> <label
-										data-error="한글만 입력해주세요." data-success="O.K" for="form34">이름</label>
-								</div>
-
-								<div class="md-form mb-5">
-									<br> <i class="fa fa-location-arrow prefix grey-text"
-										aria-hidden="true"></i> <input type="text" id="form29"
-										class="form-control validate" pattern="[가-힣]{2,10}"
-										name=member_location> <label
-										data-error="올바른 입력이 아닙니다." data-success="O.K" for="form29">지역</label>
-								</div>
-
-								<div class="md-form mb-5">
-									<br> <i class="fa fa-transgender prefix grey-text"
-										aria-hidden="true"></i> <input type="text" id="form24"
-										class="form-control validate" pattern="[가-힣]{1,2}"
-										name=member_gender> <label data-error="올바른 입력이 아닙니다."
-										data-success="O.K" for="form24">성별</label>
-								</div>
-								<div class="md-form mb-5">
-									<br> <i class="fa fa-birthday-cake prefix grey-text"
-										aria-hidden="true"></i> <input type="number" id="form32"
-										pattern="[0-9]{1,3}" class="form-control validate"
-										name=member_age> <label
-										data-error="올바른 입력이 아닙니다. 숫자만 입력해주세요." data-success="O.K"
-										for="form32">나이</label>
-								</div>
-
-
-
-							</div>
-							<div class="modal-footer d-flex justify-content-center">
-								<button id=info-change-btn
-									class="btn btn-secondary btn-rounded mb-4 rgba-purple-strong waves-effect waves-light">
-									바꾸기<i class="fa fa-paper-plane-o ml-1"></i>
-								</button>
-
-							</div>
-						</form>
-
-					</div>
-				</div>
-			</div>
-
-
-			<!-- 관심사 수정 -->
-			<form method="post" id="modifyInterests" action="modifyInterests.co">
-				<div class="modal fade" id="interestsModal" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalCenterTitle"
-					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle"
-									style="font-weight: bold;">관심사 수정</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body" style="height: auto">
-								<input id="tagText" type="text" style="width: 150px;"
-									class="form-control" placeholder="예:스포츠 " required>
-								<!-- <a class="disabled" href="javascript:void(0)" style="text-decoration: none;">*초기 관심사 값은 삭제 할 수 없습니다</a>    -->
-								<input type="hidden" id="hiddenTag" name="hiddenTag"> <br>
-								<div class="btn-group" data-toggle="buttons" id="printTerm1"
-									style="width: auto; height: auto"></div>
-								<div class="btn-group" data-toggle="buttons" id="printTerm2"
-									style="width: auto; height: auto"></div>
-
-
-							</div>
-
-							<div class="modal-footer">
-								<button type="button" id="closeModalBt" class="btn btn-default"
-									data-dismiss="modal"
-									style="background: white; font-weight: bold;">닫기</button>
-								<button type="button" id="interestsmodifyBt"
-									class="btn btn-default"
-									style="background: white; font-weight: bold;">수정</button>
-
-							</div>
 
 						</div>
+
+						<div class="modal-footer">
+							<button type="button" id="closeModalBt" class="btn btn-default"
+								data-dismiss="modal"
+								style="background: white; font-weight: bold;">닫기</button>
+							<button type="button" id="interestsmodifyBt"
+								class="btn btn-default"
+								style="background: white; font-weight: bold;">수정</button>
+
+						</div>
+
 					</div>
 				</div>
-
-			</form>
-			<!-- aside 시작 -->
-			<div class="panel panel-default" id=profileaside
-				style="box-shadow: none; width: 400px; border: none;">
-
-
-				<div id=interestbox style="border-color: none;">
-					<h2 style="padding-right: 10;">INTERESTS</h2>
-					<a data-toggle="modal" data-target="#interestsModal">edit</a>
-					<hr>
-					<div id=interests style="width: auto; height: auto;">
-						<c:forEach var="userInterests" items="${userInterests}">
-							<button class="btn btn-secondary"
-								style="margin: 0 0 10px 0; background-color: #f7f7f7;">${userInterests}</button>&nbsp;
-         </c:forEach>
-					</div>
-				</div>
-
-
-
-
-
 			</div>
+
+		</form>
+		<!-- aside 시작 -->
+		<div class="panel panel-default" id=profileaside class="animated fadeInRight"
+			style="box-shadow: none; width: 400px; border: none;">
+
+
+			<div id=interestbox style="border-color: none;">
+				<h2 style="padding-right: 10;">INTERESTS</h2>
+				<a data-toggle="modal" data-target="#interestsModal">edit</a>
+				<hr>
+				<div id=interests style="width: auto; height: auto;">
+					<c:forEach var="userInterests" items="${userInterests}">
+						<button class="btn btn-secondary"
+							style="margin: 0 0 10px 0; background-color: #f7f7f7;">${userInterests}</button>&nbsp;
+         </c:forEach>
+				</div>
+			</div>
+
+
+
+
+
 		</div>
+	</div>
 
 
-		<script>
-      $("#btn-upload").click(function(e) {
-         e.preventDefault();
-         $('#file').click();
-      });
-   </script>
+<!-- 	<script> -->
+<!-- //       $("#btn-upload").click(function(e) { -->
+<!-- //          e.preventDefault(); -->
+<!-- //          $('#file').click(); -->
+<!-- //       }); -->
+<!--    </script> -->
 
-		<c:if test="${fileResult >=1 }">
-			<script>
-         var val = "${systemName}";
+<%-- 	<c:if test="${fileResult >=1 }"> --%>
+<!-- 		<script> -->
+<%-- //          var val = "${systemName}"; --%>
          
-         $.ajax({
-            url : "test.file",
-            type : "get",
-            data : {value : val},
-            success : function(resp) {
+<!-- //          $.ajax({ -->
+<!-- //             url : "test.file", -->
+<!-- //             type : "get", -->
+<!-- //             data : {value : val}, -->
+<!-- //             success : function(resp) { -->
 
-               var contents = resp.html;
-               
-               console.log(contents);
-            },
-            error : function(request, status, error) {
-               console
-                     .log(request.status + " : " + status + " : "
-                           + error);
-            },
-            complate : function() {
-               console.log("ajax 종료");
-            }
-         });
-      </script>
-		</c:if>
+<!-- //             	 var contents = resp.html; -->
 
-		<!--    footer -->
-		<%@ include file="include/bottom.jsp"%>
+<!-- //                  $("#memPic").attr("src",contents); -->
+<!-- //             }, -->
+<!-- //             error : function(request, status, error) { -->
+<!-- //                console -->
+<!-- //                      .log(request.status + " : " + status + " : " -->
+<!-- //                            + error); -->
+<!-- //             }, -->
+<!-- //             complate : function() { -->
+<!-- //                console.log("ajax 종료"); -->
+<!-- //             } -->
+<!-- //          }); -->
+<!--       </script> -->
+<%-- 	</c:if> --%>
+
+	<!--    footer -->
+	<%@ include file="include/bottom.jsp"%>
 
 
-		<!-- MDB  -->
-		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-		<script src="./resources/docs/dist/js/bootstrap.min.js"></script>
-		<script
-			src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+	<!-- MDB  -->
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script src="./resources/docs/dist/js/bootstrap.min.js"></script>
+	<script
+		src="./resources/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
