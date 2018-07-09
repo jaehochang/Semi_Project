@@ -6,8 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-import com.sun.javafx.css.PseudoClassState;
+
 
 import kh.web.dto.AttendDTO;
 import kh.web.dto.GroupDTO;
