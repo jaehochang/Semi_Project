@@ -92,7 +92,7 @@ body {
 				<img src="files/${item.group_picture }" id="group-main-img"
 					class="img-responsive img-rounded">
 					<button type="button" class="btn btn-secondary"
-					style="position: absolute; width: 150px; background-color: #f7f7f7; color: black;"
+					style="width: 150px; background-color: #f7f7f7; color: black;"
 					id="btn-upload"><img src="img/photo.png" style="width:23px; padding-right: 3px;">사진 변경</button>
 			</div>
 

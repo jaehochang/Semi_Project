@@ -104,10 +104,7 @@ div{
 
 
 #btn-upload {
-    transform: translate(110%, 20%);
-	position: absolute;
-	top:160px;
-	left:300px;
+    transform: translate(10%, -800%);
 }
 
 
