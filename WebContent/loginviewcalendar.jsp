@@ -84,7 +84,7 @@
       }
 
       #printlist{
-         margin-top: 18px;
+         margin-top: 20px;
          margin-left: 125px;
          margin-right: 1px;
          width: 560px;
